@@ -538,11 +538,20 @@ export default function Home() {
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-14">
-            <div className="max-w-2xl">
-              <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Our Lineup</p>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">
+            <div>
+              <motion.div
+                className="flex items-center gap-3 mb-3"
+                initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+              >
+                <div className="h-px w-10 bg-primary rounded-full" />
+                <p className="text-primary font-bold text-sm uppercase tracking-widest">Our Lineup</p>
+              </motion.div>
+              <motion.h2
+                className="font-display text-4xl md:text-5xl font-bold text-foreground"
+                initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              >
                 Built for Every Field.
-              </h2>
+              </motion.h2>
             </div>
             <Link href="/product">
               <Button variant="outline" className="mt-4 md:mt-0 border-foreground/20 text-foreground hover:border-primary hover:text-primary">
@@ -551,47 +560,94 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8" style={{ perspective: "1200px" }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: "1200px" }}>
             {[
               {
                 img: tractor1,
-                name: "Autonxt X45H2",
+                name: "AutoNxt X45H2",
                 type: "45HP Electric Tractor",
                 tag: "Best Seller",
                 tagColor: "bg-primary",
-                desc: "Powerful 45HP motor for heavy fieldwork. Extended range battery for full-day operations.",
+                tagText: "text-white",
+                desc: "Experience the future of farming with AutoNxt's revolutionary 45HP Electric Tractor — designed for versatility and power across all farming and haulage activities.",
+                specs: [
+                  { icon: Zap, label: "Motor", value: "32 kW" },
+                  { icon: BatteryCharging, label: "Battery", value: "38.4 kWh" },
+                  { icon: Activity, label: "Runtime", value: "8 hrs" },
+                ],
+                accentBg: "bg-primary/5",
+                accentBorder: "border-primary/20",
+              },
+              {
+                img: tractor1,
+                name: "AutoNxt X60H2",
+                type: "60HP Electric Tractor",
+                tag: "Most Powerful",
+                tagColor: "bg-accent",
+                tagText: "text-white",
+                desc: "The X60H2 brings even more power with its 60HP engine, ensuring high performance while maintaining zero emissions — a perfect balance of power and sustainability.",
+                specs: [
+                  { icon: Zap, label: "Motor", value: "45 kW" },
+                  { icon: BatteryCharging, label: "Battery", value: "52 kWh" },
+                  { icon: Activity, label: "Runtime", value: "10 hrs" },
+                ],
+                accentBg: "bg-accent/5",
+                accentBorder: "border-accent/20",
               },
               {
                 img: tractor2,
-                name: "Autonxt X25H4",
+                name: "AutoNxt X25H2",
                 type: "25HP Electric Tractor",
                 tag: "Compact",
-                tagColor: "bg-accent",
-                desc: "Agile and efficient for small-to-medium farms. Perfect for precision agriculture.",
+                tagColor: "bg-emerald-600",
+                tagText: "text-white",
+                desc: "The compact yet powerful X25H2 is perfect for small farms and precision farming. With a 25HP electric motor, it delivers efficiency while reducing operational costs.",
+                specs: [
+                  { icon: Zap, label: "Motor", value: "18 kW" },
+                  { icon: BatteryCharging, label: "Battery", value: "24 kWh" },
+                  { icon: Activity, label: "Runtime", value: "8 hrs" },
+                ],
+                accentBg: "bg-emerald-50",
+                accentBorder: "border-emerald-200",
               },
             ].map((p, i) => (
               <motion.div
                 key={i}
-                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-2xl transition-all duration-300"
+                className="group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col"
                 initial={{ opacity: 0, y: 40, rotateX: 14 }}
                 whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                whileHover={{ rotateY: i === 0 ? 5 : -5, rotateX: -3, scale: 1.02, y: -10, transition: { type: "spring", stiffness: 280, damping: 22 } }}
+                whileHover={{ rotateY: i === 1 ? 0 : i === 0 ? 5 : -5, rotateX: -3, scale: 1.02, y: -10, transition: { type: "spring", stiffness: 280, damping: 22 } }}
                 style={{ transformPerspective: 1000, transformStyle: "preserve-3d" }}
                 data-testid={`card-product-${i}`}
               >
-                <div className="relative bg-muted/40 p-8 flex items-center justify-center h-56">
-                  <span className={`absolute top-4 left-4 text-xs font-bold text-white px-3 py-1 rounded-full ${p.tagColor}`}>{p.tag}</span>
-                  <img src={p.img} alt={p.name} className="h-40 object-contain group-hover:scale-105 transition-transform duration-500" />
+                {/* Image area */}
+                <div className={`relative ${p.accentBg} p-8 flex items-center justify-center h-52 border-b ${p.accentBorder}`}>
+                  <span className={`absolute top-4 left-4 text-[10px] font-bold ${p.tagText} px-3 py-1 rounded-full ${p.tagColor} shadow-sm`}>{p.tag}</span>
+                  <img src={p.img} alt={p.name} className="h-36 object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-md" />
                 </div>
-                <div className="p-6">
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-1">{p.type}</p>
-                  <h3 className="font-display text-xl font-bold text-foreground mb-2">{p.name}</h3>
-                  <p className="text-muted-foreground text-sm mb-4">{p.desc}</p>
+
+                {/* Content */}
+                <div className="p-6 flex flex-col flex-1">
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{p.type}</p>
+                  <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{p.name}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-5">{p.desc}</p>
+
+                  {/* Spec chips */}
+                  <div className="flex flex-wrap gap-2 mb-5 mt-auto">
+                    {p.specs.map((s, si) => (
+                      <div key={si} className="inline-flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5 border border-border">
+                        <s.icon className="w-3 h-3 text-primary shrink-0" />
+                        <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">{s.label}</span>
+                        <span className="text-[11px] font-bold text-foreground">{s.value}</span>
+                      </div>
+                    ))}
+                  </div>
+
                   <Link href="/product">
-                    <Button size="sm" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
-                      Learn More <ArrowRight className="ml-1 w-3.5 h-3.5" />
+                    <Button size="sm" className="w-full bg-background border border-primary text-primary hover:bg-primary hover:text-white transition-all">
+                      Learn More <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
                     </Button>
                   </Link>
                 </div>
