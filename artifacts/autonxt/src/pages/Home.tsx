@@ -387,14 +387,10 @@ export default function Home() {
       </section>
 
       {/* ── PROVEN TRACK RECORD ── */}
-      <section className="py-24 bg-surface-dark relative overflow-hidden">
-        {/* Background ambient glows */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,hsl(0,72%,40%,0.12),transparent_55%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,hsl(214,65%,32%,0.10),transparent_55%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,hsl(160,60%,35%,0.06),transparent_50%)] pointer-events-none" />
-        {/* Subtle grid texture */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+      <section className="py-24 bg-muted/40 border-y border-border relative overflow-hidden">
+        {/* Subtle light glows */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,hsl(0,72%,40%,0.04),transparent_55%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,hsl(214,65%,32%,0.03),transparent_55%)] pointer-events-none" />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           {/* Header */}
@@ -407,13 +403,13 @@ export default function Home() {
               <span className="text-primary text-xs font-bold uppercase tracking-widest">Impact by Numbers</span>
             </motion.div>
             <motion.h2
-              className="font-display text-4xl md:text-5xl font-bold text-white mb-4"
+              className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             >
               Proven Track Record.
             </motion.h2>
             <motion.p
-              className="text-white/55 text-lg max-w-xl mx-auto"
+              className="text-muted-foreground text-lg max-w-xl mx-auto"
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
             >
               Real impact across India's most demanding industries — numbers that speak for themselves.
@@ -442,12 +438,12 @@ export default function Home() {
                 title: "Industries Served",
                 desc: "Sectors actively deploying AutoNxt EV tractors",
                 short: "INDUSTRIES",
-                bar: "bg-sky-400",
-                badgeBg: "bg-sky-400/15",
-                badgeText: "text-sky-400",
-                numColor: "text-sky-400",
-                glow: "bg-sky-400/5",
-                glowBorder: "group-hover:border-sky-400/30",
+                bar: "bg-sky-500",
+                badgeBg: "bg-sky-100",
+                badgeText: "text-sky-700",
+                numColor: "text-sky-600",
+                glow: "bg-sky-50",
+                glowBorder: "group-hover:border-sky-300",
               },
               {
                 icon: Leaf,
@@ -455,12 +451,12 @@ export default function Home() {
                 title: "Trees Saved",
                 desc: "Lifetime CO₂ reduction equivalent across the entire fleet",
                 short: "TREES SAVED",
-                bar: "bg-emerald-400",
-                badgeBg: "bg-emerald-400/15",
-                badgeText: "text-emerald-400",
-                numColor: "text-emerald-400",
-                glow: "bg-emerald-400/5",
-                glowBorder: "group-hover:border-emerald-400/30",
+                bar: "bg-emerald-500",
+                badgeBg: "bg-emerald-100",
+                badgeText: "text-emerald-700",
+                numColor: "text-emerald-600",
+                glow: "bg-emerald-50",
+                glowBorder: "group-hover:border-emerald-300",
               },
               {
                 icon: TrendingUp,
@@ -468,17 +464,17 @@ export default function Home() {
                 title: "Cost Saved",
                 desc: "Operational savings delivered to customers over diesel",
                 short: "COST SAVED",
-                bar: "bg-amber-400",
-                badgeBg: "bg-amber-400/15",
-                badgeText: "text-amber-400",
-                numColor: "text-amber-400",
-                glow: "bg-amber-400/5",
-                glowBorder: "group-hover:border-amber-400/30",
+                bar: "bg-amber-500",
+                badgeBg: "bg-amber-100",
+                badgeText: "text-amber-700",
+                numColor: "text-amber-600",
+                glow: "bg-amber-50",
+                glowBorder: "group-hover:border-amber-300",
               },
             ].map((stat, i) => (
               <motion.div
                 key={i}
-                className={`group relative bg-white/[0.04] border border-white/8 ${stat.glowBorder} rounded-2xl overflow-hidden cursor-default transition-all duration-300`}
+                className={`group relative bg-card border border-border ${stat.glowBorder} rounded-2xl overflow-hidden cursor-default transition-all duration-300 hover:shadow-lg`}
                 initial={{ opacity: 0, y: 40, rotateX: 14 }}
                 whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
@@ -490,8 +486,8 @@ export default function Home() {
                 <div className={`absolute top-0 left-0 right-0 h-[3px] ${stat.bar} opacity-80`} />
 
                 {/* Ghost watermark icon */}
-                <div className="absolute -bottom-3 -right-3 opacity-[0.05] group-hover:opacity-[0.08] transition-opacity pointer-events-none">
-                  <stat.icon className="w-36 h-36 text-white" />
+                <div className="absolute -bottom-3 -right-3 opacity-[0.07] group-hover:opacity-[0.12] transition-opacity pointer-events-none">
+                  <stat.icon className="w-36 h-36 text-foreground" />
                 </div>
 
                 {/* Hover inner glow */}
@@ -513,12 +509,12 @@ export default function Home() {
 
                   {/* Text */}
                   <div className="mt-auto">
-                    <p className="text-white font-bold text-base mb-1.5">{stat.title}</p>
-                    <p className="text-white/45 text-sm leading-snug">{stat.desc}</p>
+                    <p className="text-foreground font-bold text-base mb-1.5">{stat.title}</p>
+                    <p className="text-muted-foreground text-sm leading-snug">{stat.desc}</p>
                   </div>
 
                   {/* Bottom progress bar */}
-                  <div className="h-px bg-white/8 rounded-full overflow-hidden">
+                  <div className="h-px bg-border rounded-full overflow-hidden">
                     <motion.div
                       className={`h-full ${stat.bar} rounded-full`}
                       initial={{ width: "0%" }}
