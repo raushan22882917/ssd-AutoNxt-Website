@@ -1,0 +1,259 @@
+
+About AutoNxt
+At
+our
+company,
+we
+believe
+that
+technology
+can
+revolutionize
+the
+way
+we
+farm.
+We
+started
+out
+as
+a
+small
+team
+of
+engineers
+who
+were
+passionate
+about
+creating
+a
+better
+future
+by
+working
+on
+ideas
+that
+had
+a
+large
+impact
+on
+society
+in
+the
+long
+run.
+Decorative
+Our Mission
+To revolutionize farming by providing sustainable, efficient, and powerful electric tractors that empower farmers while protecting our environment.
+
+Customer First
+We prioritize our customers' needs and satisfaction above all else.
+
+Innovation
+Constantly pushing boundaries in electric vehicle technology.
+
+Excellence
+Committed to delivering the highest quality products and services.
+
+Sustainability
+Dedicated to creating a greener future for agriculture.
+
+Mission Image
+Our Workplace
+We value open communication and encourage all team members to share their ideas and opinions.
+
+Our collaborative environment fosters innovation and allows us to tackle complex challenges together.
+
+We believe in work-life balance and provide flexible arrangements to ensure our team can perform at their best.
+
+Workplace Image
+Our Engineering Process
+We follow a rigorous process to ensure our electric tractors meet the highest standards of quality and performance
+
+Define
+The first step is to define the requirements for the electric self-driving tractors or any product that we plan to develop.
+
+Design
+Design includes creating 3D models and schematics of the tractor, selecting components such as the motor, battery, and sensors, and designing the autonomous driving system.
+
+Develop
+This involves building the physical components of the tractor, including the chassis, motor, battery, sensors, and autonomous driving system.
+
+Test
+This involves testing its performance in a variety of conditions, including different terrains, weather conditions, and driving scenarios.
+
+Refine
+Based on the test results, the design may need to be refined. This could involve adjusting the components, fine-tuning the software algorithms, or making changes to the user interface.
+
+Manufacture
+This includes setting up a manufacturing process, sourcing components, and developing a distribution network.
+
+Meet Our Team
+Our diverse team of experts is dedicated to revolutionizing the agricultural industry through innovative electric vehicle solutions.
+
+Kaustubh Dhonde
+Kaustubh Dhonde
+Chief Executive Officer
+
+Visionary leader driving AutoNxt's mission to revolutionize agriculture with innovative electric vehicle solutions.
+
+Connect
+Pankaj Goyal
+Pankaj Goyal
+Co-Founder & COO
+
+Operational strategist ensuring seamless execution and growth, overseeing day-to-day operations and partnerships.
+
+Connect
+Hari Kishan
+Hari Kishan
+Plant Head
+
+Oversees plant operations, ensuring quality and efficiency in every tractor produced.
+
+Connect
+Sudipto Deb
+Sudipto Deb
+Lead Power Train Engineer
+
+Expert in power electronics, responsible for designing and optimizing the electrical systems powering our tractors.
+
+Connect
+Vamsi Atluri
+Vamsi Atluri
+Lead Mechanical Design Engineer
+
+Mechanical design innovator, crafting robust and efficient tractor structures for diverse agricultural needs.
+
+Connect
+Dr. Dharmateja Adapa
+Dr. Dharmateja Adapa
+Lead Robotics Engineer
+
+Automation expert focused on integrating smart technologies for seamless and reliable tractor performance.
+
+Connect
+Tejesh Madireddy
+Tejesh Madireddy
+Lead Embedded Engineer
+
+Leads embedded systems development, ensuring reliable and efficient hardware-software integration.
+
+Connect
+Siddhant Singhal
+Siddhant Singhal
+Lead Software Developer
+
+Heads software development, building robust and scalable solutions for autonomous tractors.
+
+Connect
+Aswanth Mulupuri
+Aswanth Mulupuri
+Robotics & Automation Engineer
+
+Specialist in automation, developing advanced control systems for autonomous tractor operation.
+
+Connect
+Ajinkya Delvi
+Ajinkya Delvi
+Power Train Engineer
+
+Works on power train systems, optimizing performance and efficiency.
+
+Connect
+Khushpreet Singh
+Khushpreet Singh
+Testing and Validation Engineer
+
+Responsible for rigorous testing and validation, guaranteeing the reliability and safety of our products.
+
+Connect
+Avinash Singh
+Avinash Singh
+Business Development Manager
+
+Focused on identifying new opportunities and fostering relationships to accelerate company expansion.
+
+Connect
+Maneesh Dubey
+Maneesh Dubey
+Business Development Manager
+
+Drives business growth by building strategic partnerships and expanding AutoNxt's market presence.
+
+Connect
+Swapnesh Jahagirdar
+Swapnesh Jahagirdar
+Business Development Manager
+
+Focused on identifying new opportunities and fostering relationships to accelerate company expansion.
+
+Connect
+Harender Chauhan
+Harender Chauhan
+Service Manager
+
+Ensures top-notch service and support for all customers and partners.
+
+Connect
+Rajinder Parkash Sharma
+Rajinder Parkash Sharma
+Plant Manager
+
+Oversees manufacturing operations, ensuring quality and efficiency in every tractor produced.
+
+Connect
+Our Journey
+The evolution of AutoNxt from concept to market leader
+
+2016
+Foundation
+AutoNxt Automation Pvt. Ltd. was founded by Kaustubh Dhonde in Mumbai with a vision to revolutionize agriculture and industrial operations through electric and autonomous tractors. The goal was to make farming more sustainable, efficient, and technology-driven.
+
+2018 – 2019
+Research & Early Prototypes
+The team began extensive R&D on high-torque electric powertrains and intelligent control systems. AutoNxt successfully built and tested early prototypes of electric tractors, proving the feasibility of replacing diesel engines with clean electric technology.
+
+2020 – 2021
+Innovation & Development
+Building on early success, AutoNxt enhanced its prototypes with smarter vehicle control units and IoT-based monitoring. During this phase, the company also expanded its engineering team and strengthened its partnerships for component development and testing.
+
+2022 – 2023
+Validation & Certification
+AutoNxt's electric tractors underwent rigorous performance and safety testing. They received necessary certifications from iCAT (International Centre for Automotive Technology), marking a crucial step toward large-scale production. The company finalized multiple tractor models, including 20 HP, 35 HP, and 45 HP variants.
+
+2024
+Commercial Launch
+AutoNxt officially launched its first electric tractor model – X45H2 – in Thane, Maharashtra. The first unit was delivered to Jaywant Sugars Ltd., symbolizing India's move toward sustainable farming machinery. This launch established AutoNxt as a pioneer in the country's electric tractor ecosystem.
+
+2025 & Beyond
+Growth & Expansion
+AutoNxt continues to expand its production capabilities and customer base across agricultural and industrial sectors. The company is advancing its work on autonomous driving features, smart connectivity, and next-generation battery systems, strengthening its vision of transforming the future of mobility in farming and beyond.
+
+Our Advisors
+Industry veterans guiding our vision and strategy to create impactful solutions.
+
+IV-Rao
+IV-Rao
+Senior Advisor
+
+Together, we challenge ourselves for a better tomorrow by meaningful designs that help showcase our best work and maintain lasting relevance.
+
+Connect
+Ashish Mehta
+Ashish Mehta
+Financial Advisor
+
+Contemporary design and well-made products are things that we think everybody should be able to showcase. It's the reason we do what we do.
+
+Connect
+Swadeep Pillarisetti
+Swadeep Pillarisetti
+Strategy Consultant
+
+Our collection is ever-evolving. Yet, it remains consistently relatable and accessible. Our purpose is to inspire and help showcase the look you want.
+
+Connect
