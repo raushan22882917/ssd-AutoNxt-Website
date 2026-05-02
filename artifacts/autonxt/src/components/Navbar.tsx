@@ -1,7 +1,6 @@
 import { Link, useLocation } from "wouter";
-import { Menu, Moon, Sun, X, ChevronDown, Newspaper, BookOpen, Zap, Globe } from "lucide-react";
+import { Menu, X, ChevronDown, Newspaper, BookOpen, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "@/components/ThemeProvider";
 import { useLang } from "@/contexts/LanguageContext";
 import type { Lang } from "@/i18n/translations";
 import {
@@ -22,7 +21,6 @@ const LANGUAGES: { code: Lang; label: string; native: string; flag: string }[] =
 
 export default function Navbar() {
   const [location] = useLocation();
-  const { theme, setTheme } = useTheme();
   const { lang, setLang, t } = useLang();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -49,8 +47,8 @@ export default function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
         isScrolled
-          ? "bg-background/95 backdrop-blur-md border-border shadow-sm py-2"
-          : "bg-background py-3"
+          ? "bg-white/95 backdrop-blur-md border-border shadow-sm py-2"
+          : "bg-white py-3"
       )}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
@@ -157,30 +155,10 @@ export default function Navbar() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-
-          {/* Dark mode toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="text-foreground/60 hover:text-primary rounded-full w-8 h-8"
-            data-testid="btn-theme-toggle"
-            title={theme === "dark" ? "Switch to Light" : "Switch to Dark"}
-          >
-            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </Button>
         </div>
 
         {/* Mobile menu button */}
         <div className="md:hidden flex items-center gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="w-8 h-8 text-foreground/60"
-          >
-            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </Button>
           <Button
             variant="ghost"
             size="icon"
@@ -194,7 +172,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-background border-b border-border p-4 flex flex-col space-y-1 shadow-lg">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-border p-4 flex flex-col space-y-1 shadow-lg">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -221,7 +199,7 @@ export default function Navbar() {
             <Button className="w-full mt-2 bg-primary text-white hover:bg-primary/90">{t.nav.bookNow}</Button>
           </Link>
 
-          {/* Mobile Language + Theme */}
+          {/* Mobile Language switcher */}
           <div className="flex items-center justify-between pt-3 border-t border-border mt-2">
             <div className="flex gap-1">
               {LANGUAGES.map(l => (

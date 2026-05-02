@@ -160,7 +160,7 @@ export default function About() {
       </section>
 
       {/* ── JOURNEY TIMELINE ── */}
-      <section className="py-20 bg-foreground">
+      <section className="py-20 bg-surface-dark">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Our Journey</p>
@@ -176,7 +176,7 @@ export default function About() {
                   initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
                 >
                   <div className="flex-shrink-0 md:w-1/2 md:flex md:justify-center items-start pt-1">
-                    <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center ring-4 ring-foreground z-10 flex-shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center ring-4 ring-surface-dark z-10 flex-shrink-0">
                       <div className="w-2.5 h-2.5 rounded-full bg-white" />
                     </div>
                   </div>

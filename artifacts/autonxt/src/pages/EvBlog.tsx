@@ -75,7 +75,7 @@ export default function EvBlog() {
     <div className="w-full min-h-screen pt-20 pb-0 bg-background">
 
       {/* Header */}
-      <section className="py-16 bg-foreground">
+      <section className="py-16 bg-surface-dark">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <motion.div className="flex items-center gap-2 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Zap className="w-4 h-4 text-primary" />

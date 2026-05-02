@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
-import { ArrowRight, ChevronRight, ChevronDown, Zap, Cpu, BatteryCharging, ShieldCheck, Globe, Activity, Trash2, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf } from "lucide-react";
+import { ArrowRight, ChevronRight, ChevronDown, Zap, Cpu, BatteryCharging, ShieldCheck, Globe, Activity, Trash2, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf, Smartphone, CheckCircle } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
 import tractor1 from "@assets/1_1777731255751.png";
@@ -12,6 +12,12 @@ import fieldImg from "@assets/8.RightSideGateWall_1777731255752.jpg";
 import trailerImg from "@assets/7.LeftSideGateWall_1777731255752.jpg";
 import batteryImg from "@assets/battery_1777731255752.png";
 import motorImg from "@assets/motor_1777731255752.png";
+
+import baifLogo from "@assets/baif-logo_1777740195489.jpg";
+import dksmLogo from "@assets/dksm_1777740195489.png";
+import noidaAirportLogo from "@assets/noid-airport_1777740195490.jpeg";
+import jslLogo from "@assets/OIP_1777740195490.webp";
+import relianceLogo from "@assets/reliance_1777740195490.png";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -264,7 +270,7 @@ export default function Home() {
       </section>
 
       {/* ── STATS BAR ── */}
-      <section className="py-14 bg-foreground text-white">
+      <section className="py-14 bg-surface-dark text-white">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-white/10">
             {[
@@ -300,31 +306,31 @@ export default function Home() {
           >
             Trusted by India's Leading Organisations
           </motion.p>
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
             {[
-              { name: "Reliance Industries", abbr: "RIL" },
-              { name: "BAIF Development Research", abbr: "BAIF" },
-              { name: "Noida International Airport", abbr: "NIA" },
-              { name: "National Highways Authority", abbr: "NHAI" },
-              { name: "Indian Army", abbr: "IA" },
-              { name: "IFFCO Kisan", abbr: "IFFCO" },
-              { name: "Bharatmala Project", abbr: "BMP" },
+              { img: baifLogo, name: "BAIF Development Research", bg: "bg-white" },
+              { img: dksmLogo, name: "DKSM", bg: "bg-white" },
+              { img: noidaAirportLogo, name: "Noida International Airport", bg: "bg-[#0a1628]" },
+              { img: jslLogo, name: "Jaywant Sugars Ltd.", bg: "bg-white" },
+              { img: relianceLogo, name: "Reliance New Energy", bg: "bg-black" },
             ].map((org, i) => (
               <motion.div
                 key={i}
-                className="group flex flex-col items-center gap-1 cursor-default"
+                className="group flex flex-col items-center gap-2 cursor-default"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
+                transition={{ delay: i * 0.08 }}
                 data-testid={`logo-partner-${i}`}
               >
-                <div className="h-14 px-6 rounded-xl border border-border bg-muted/30 flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-200">
-                  <span className="font-display font-bold text-lg text-foreground/50 group-hover:text-primary transition-colors tracking-wide">
-                    {org.abbr}
-                  </span>
+                <div className={`h-16 w-36 rounded-xl border border-border ${org.bg} flex items-center justify-center group-hover:border-primary/40 group-hover:shadow-md transition-all duration-200 overflow-hidden px-3`}>
+                  <img
+                    src={org.img}
+                    alt={org.name}
+                    className="h-10 w-full object-contain"
+                  />
                 </div>
-                <span className="text-[10px] text-muted-foreground text-center max-w-[90px] leading-tight">{org.name}</span>
+                <span className="text-[10px] text-muted-foreground text-center max-w-[110px] leading-tight">{org.name}</span>
               </motion.div>
             ))}
           </div>

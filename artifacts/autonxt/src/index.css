@@ -9,6 +9,7 @@
 @theme inline {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
+  --color-surface-dark: hsl(var(--surface-dark));
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -76,6 +77,9 @@
   --opaque-button-border-intensity: -8;
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
+
+  /* Always-dark surface (for dark hero/CTA/stats sections — never inverts) */
+  --surface-dark: 220 20% 10%;
 
   /* White/very light background */
   --background: 0 0% 98%;
@@ -163,6 +167,8 @@
   --opaque-button-border-intensity: 9;
   --elevate-1: rgba(255,255,255, .04);
   --elevate-2: rgba(255,255,255, .09);
+
+  --surface-dark: 220 20% 10%;
 
   --background: 220 20% 8%;
   --foreground: 0 0% 96%;

@@ -372,7 +372,7 @@ export default function Gallery() {
                       </div>
                     ) : (
                       <div
-                        className="relative w-full aspect-video bg-foreground cursor-pointer group overflow-hidden"
+                        className="relative w-full aspect-video bg-surface-dark cursor-pointer group overflow-hidden"
                         onClick={() => setActiveVideo(video.id)}
                       >
                         <img
@@ -413,7 +413,7 @@ export default function Gallery() {
 
               {/* YouTube channel link */}
               <motion.div
-                className="mt-12 bg-foreground rounded-2xl p-8 text-center relative overflow-hidden"
+                className="mt-12 bg-surface-dark rounded-2xl p-8 text-center relative overflow-hidden"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
