@@ -40,7 +40,7 @@ function Router() {
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="autonxt-theme">
+    <ThemeProvider defaultTheme="light" storageKey="autonxt-theme">
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
