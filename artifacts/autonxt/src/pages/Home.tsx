@@ -609,66 +609,74 @@ export default function Home() {
                 short: "MSW",
                 desc: "Designed for constant workload in waste collection, transportation, and landfill operations — zero emissions, reduced operational costs.",
                 color: "text-green-600",
-                bg: "bg-green-50",
+                bg: "bg-green-600",
                 border: "hover:border-green-300",
+                img: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&h=320&fit=crop&q=80&auto=format",
               },
               {
                 icon: Factory,
                 title: "Metal Manufacturing",
                 short: "METAL",
                 desc: "From material handling to logistics, our tractors streamline metal manufacturing operations while minimising environmental impact.",
-                color: "text-slate-600",
-                bg: "bg-slate-50",
+                color: "text-slate-300",
+                bg: "bg-slate-700",
                 border: "hover:border-slate-300",
+                img: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&h=320&fit=crop&q=80&auto=format",
               },
               {
                 icon: Building2,
                 title: "Cement Manufacturing",
                 short: "CEMENT",
                 desc: "Optimise material handling, transportation, and site maintenance in cement plants — reducing downtime and enhancing productivity.",
-                color: "text-orange-600",
-                bg: "bg-orange-50",
+                color: "text-orange-300",
+                bg: "bg-orange-700",
                 border: "hover:border-orange-300",
+                img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=320&fit=crop&q=80&auto=format",
               },
               {
                 icon: Hammer,
                 title: "Construction Industry",
                 short: "CONST.",
                 desc: "Unmatched versatility and power for site preparation, material handling, and equipment transportation — greener construction ahead.",
-                color: "text-yellow-600",
-                bg: "bg-yellow-50",
+                color: "text-yellow-300",
+                bg: "bg-yellow-700",
                 border: "hover:border-yellow-300",
+                img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=320&fit=crop&q=80&auto=format",
               },
               {
                 icon: Shield,
                 title: "Defence",
                 short: "DEF.",
                 desc: "Superior performance and rugged durability for military logistics, base maintenance, and all-terrain operations with remote operation options.",
-                color: "text-primary",
-                bg: "bg-primary/5",
+                color: "text-red-300",
+                bg: "bg-primary",
                 border: "hover:border-primary/40",
+                img: "https://images.unsplash.com/photo-1521295121783-8a321d551ad2?w=600&h=320&fit=crop&q=80&auto=format",
               },
               {
                 icon: PlaneTakeoff,
                 title: "Airports",
                 short: "AIRPORT",
                 desc: "From baggage handling to runway maintenance — zero-emission, autonomous-ready tractors for smoother, greener airport operations.",
-                color: "text-accent",
-                bg: "bg-accent/5",
+                color: "text-sky-300",
+                bg: "bg-accent",
                 border: "hover:border-accent/40",
+                img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&h=320&fit=crop&q=80&auto=format",
               },
               {
                 icon: Leaf,
                 title: "Biomass",
                 short: "BIO",
                 desc: "Revolutionise biomass collection, processing, and transportation with zero emissions and low operating costs for a greener future.",
-                color: "text-lime-600",
-                bg: "bg-lime-50",
+                color: "text-lime-300",
+                bg: "bg-lime-700",
                 border: "hover:border-lime-300",
+                img: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?w=600&h=320&fit=crop&q=80&auto=format",
               },
             ].map((sol, i) => (
               <motion.div
                 key={i}
+                className="group"
                 initial={{ opacity: 0, y: 36, rotateX: 12 }}
                 whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
@@ -677,13 +685,25 @@ export default function Home() {
                 style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
                 data-testid={`card-industry-${i}`}
               >
-                <Card className={`bg-card border border-border ${sol.border} hover:shadow-xl transition-all duration-300 h-full`}>
-                  <CardContent className="p-7">
-                    <div className={`w-12 h-12 rounded-xl ${sol.bg} flex items-center justify-center mb-5`}>
-                      <sol.icon className={`w-6 h-6 ${sol.color}`} />
+                <Card className={`bg-card border border-border ${sol.border} hover:shadow-xl transition-all duration-300 h-full overflow-hidden`}>
+                  {/* Photo header */}
+                  <div className="relative h-44 overflow-hidden">
+                    <img
+                      src={sol.img}
+                      alt={sol.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    {/* Icon + label overlay */}
+                    <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                      <div className={`w-7 h-7 rounded-lg ${sol.bg} flex items-center justify-center shrink-0`}>
+                        <sol.icon className={`w-3.5 h-3.5 ${sol.color}`} />
+                      </div>
+                      <span className="text-white text-[11px] font-bold uppercase tracking-widest drop-shadow-sm">{sol.short}</span>
                     </div>
-                    <span className={`text-xs font-bold uppercase tracking-widest ${sol.color} mb-2 block`}>{sol.short}</span>
-                    <h3 className="text-base font-bold text-foreground mb-3">{sol.title}</h3>
+                  </div>
+                  <CardContent className="p-6">
+                    <h3 className="text-base font-bold text-foreground mb-2">{sol.title}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed">{sol.desc}</p>
                   </CardContent>
                 </Card>
