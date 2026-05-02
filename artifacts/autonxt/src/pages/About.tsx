@@ -193,7 +193,7 @@ export default function About() {
       {/* ── TEAM ── */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <div className="text-center max-w-2xl mx-auto mb-16">
             <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Meet Our Team</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
               The People Powering the Future.
@@ -201,46 +201,63 @@ export default function About() {
             <p className="text-muted-foreground mt-4">Our diverse team of experts is dedicated to revolutionizing the agricultural industry through innovative electric vehicle solutions.</p>
           </div>
 
-          {/* Featured (CEO + COO) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
+          {/* Featured leaders — horizontal card with big circular portrait */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
             {TEAM.filter(m => m.featured).map((member, i) => (
               <motion.div
                 key={i}
-                className="bg-white border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all group"
+                className="flex gap-5 items-start bg-white border border-border rounded-2xl p-6 hover:border-primary/40 hover:shadow-lg transition-all"
                 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 data-testid={`team-featured-${i}`}
               >
-                <div className="h-64 bg-muted/30 overflow-hidden">
-                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                <div className="flex-shrink-0">
+                  <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-primary/20 ring-2 ring-offset-2 ring-primary/10">
+                    <img src={member.img} alt={member.name} className="w-full h-full object-cover object-top" />
+                  </div>
                 </div>
-                <div className="p-6">
-                  <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">{member.role}</p>
-                  <h3 className="font-display font-bold text-foreground text-lg mb-2">{member.name}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">{member.bio}</p>
-                  <a href="https://www.linkedin.com/company/autonxt" target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline">
-                    <Linkedin className="w-3.5 h-3.5" /> Connect
+                <div className="min-w-0">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest">{member.role}</span>
+                  <h3 className="font-display font-bold text-foreground text-base mt-0.5 mb-1">{member.name}</h3>
+                  <p className="text-muted-foreground text-xs leading-relaxed mb-3">{member.bio}</p>
+                  <a
+                    href="https://www.linkedin.com/company/autonxt-automation"
+                    target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-[#0A66C2] hover:bg-[#004182] px-3 py-1.5 rounded-full transition-colors"
+                  >
+                    <Linkedin className="w-3 h-3" /> LinkedIn
                   </a>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Rest of the team */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {/* Rest of the team — uniform cards with circular portrait */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
             {TEAM.filter(m => !m.featured).map((member, i) => (
               <motion.div
                 key={i}
-                className="bg-white border border-border rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-md transition-all group text-center"
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 5) * 0.06 }}
+                className="bg-white border border-border rounded-2xl p-5 flex flex-col items-center text-center hover:border-primary/40 hover:shadow-md transition-all group"
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 4) * 0.07 }}
                 data-testid={`team-member-${i}`}
               >
-                <div className="h-44 bg-muted/20 overflow-hidden">
-                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                {/* Circular portrait — always shows the face regardless of photo shape */}
+                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-border group-hover:border-primary/40 transition-colors mb-4 flex-shrink-0">
+                  <img
+                    src={member.img}
+                    alt={member.name}
+                    className="w-full h-full object-cover object-center"
+                  />
                 </div>
-                <div className="p-3">
-                  <h3 className="font-bold text-foreground text-sm leading-tight mb-0.5">{member.name}</h3>
-                  <p className="text-muted-foreground text-[11px] leading-tight">{member.role}</p>
+                <div className="flex-1 flex flex-col">
+                  <h3 className="font-bold text-foreground text-sm leading-tight mb-1">{member.name}</h3>
+                  <p className="text-muted-foreground text-[11px] leading-snug mb-3 flex-1">{member.role}</p>
+                  <a
+                    href="https://www.linkedin.com/company/autonxt-automation"
+                    target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1 text-[10px] font-semibold text-[#0A66C2] border border-[#0A66C2]/30 hover:bg-[#0A66C2] hover:text-white px-3 py-1 rounded-full transition-colors"
+                  >
+                    <Linkedin className="w-2.5 h-2.5" /> Connect
+                  </a>
                 </div>
               </motion.div>
             ))}
@@ -261,22 +278,23 @@ export default function About() {
             {ADVISORS.map((a, i) => (
               <motion.div
                 key={i}
-                className="bg-white border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-md transition-all group text-center"
+                className="bg-white border border-border rounded-2xl p-7 flex flex-col items-center text-center hover:border-primary/40 hover:shadow-md transition-all group"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 data-testid={`advisor-${i}`}
               >
-                <div className="h-52 bg-muted/20 overflow-hidden">
-                  <img src={a.img} alt={a.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-border group-hover:border-primary/40 transition-colors mb-5">
+                  <img src={a.img} alt={a.name} className="w-full h-full object-cover object-center" />
                 </div>
-                <div className="p-5">
-                  <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">{a.role}</p>
-                  <h3 className="font-display font-bold text-foreground mb-2">{a.name}</h3>
-                  <p className="text-muted-foreground text-xs leading-relaxed mb-3">{a.bio}</p>
-                  <a href="https://www.linkedin.com/company/autonxt" target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline">
-                    <Linkedin className="w-3 h-3" /> Connect
-                  </a>
-                </div>
+                <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">{a.role}</p>
+                <h3 className="font-display font-bold text-foreground text-base mb-3">{a.name}</h3>
+                <p className="text-muted-foreground text-xs leading-relaxed mb-5 flex-1">{a.bio}</p>
+                <a
+                  href="https://www.linkedin.com/company/autonxt-automation"
+                  target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-[#0A66C2] hover:bg-[#004182] px-4 py-1.5 rounded-full transition-colors"
+                >
+                  <Linkedin className="w-3 h-3" /> Connect on LinkedIn
+                </a>
               </motion.div>
             ))}
           </div>
