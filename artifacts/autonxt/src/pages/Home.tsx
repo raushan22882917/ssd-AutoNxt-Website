@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
-import { ArrowRight, ChevronRight, Zap, Cpu, BatteryCharging, ShieldCheck, Globe, Activity } from "lucide-react";
+import { ArrowRight, ChevronRight, Zap, Cpu, BatteryCharging, ShieldCheck, Globe, Activity, Trash2, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf } from "lucide-react";
 
 import tractor1 from "@assets/1_1777731255751.png";
 import tractor2 from "@assets/2_1777731255751.png";
@@ -134,6 +134,48 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── TRUSTED BY ── */}
+      <section className="py-14 bg-white border-b border-border">
+        <div className="container mx-auto px-4 md:px-8">
+          <motion.p
+            className="text-center text-xs font-bold uppercase tracking-widest text-muted-foreground mb-10"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Trusted by India's Leading Organisations
+          </motion.p>
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+            {[
+              { name: "Reliance Industries", abbr: "RIL" },
+              { name: "BAIF Development Research", abbr: "BAIF" },
+              { name: "Noida International Airport", abbr: "NIA" },
+              { name: "National Highways Authority", abbr: "NHAI" },
+              { name: "Indian Army", abbr: "IA" },
+              { name: "IFFCO Kisan", abbr: "IFFCO" },
+              { name: "Bharatmala Project", abbr: "BMP" },
+            ].map((org, i) => (
+              <motion.div
+                key={i}
+                className="group flex flex-col items-center gap-1 cursor-default"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                data-testid={`logo-partner-${i}`}
+              >
+                <div className="h-14 px-6 rounded-xl border border-border bg-muted/30 flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-200">
+                  <span className="font-display font-bold text-lg text-foreground/50 group-hover:text-primary transition-colors tracking-wide">
+                    {org.abbr}
+                  </span>
+                </div>
+                <span className="text-[10px] text-muted-foreground text-center max-w-[90px] leading-tight">{org.name}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── PRODUCT TEASER ── */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
@@ -236,6 +278,120 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── INDUSTRIAL SOLUTIONS ── */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Industrial Solutions</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">EV Tractor of Choice for Industry.</h2>
+            <p className="text-muted-foreground mt-4 text-lg">
+              Autonxt electric tractors are built for constant workload across India's most demanding industrial environments.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Trash2,
+                title: "Municipal Solid Waste",
+                short: "MSW",
+                desc: "Designed for constant workload in waste collection, transportation, and landfill operations — zero emissions, reduced operational costs.",
+                color: "text-green-600",
+                bg: "bg-green-50",
+                border: "hover:border-green-300",
+              },
+              {
+                icon: Factory,
+                title: "Metal Manufacturing",
+                short: "METAL",
+                desc: "From material handling to logistics, our tractors streamline metal manufacturing operations while minimising environmental impact.",
+                color: "text-slate-600",
+                bg: "bg-slate-50",
+                border: "hover:border-slate-300",
+              },
+              {
+                icon: Building2,
+                title: "Cement Manufacturing",
+                short: "CEMENT",
+                desc: "Optimise material handling, transportation, and site maintenance in cement plants — reducing downtime and enhancing productivity.",
+                color: "text-orange-600",
+                bg: "bg-orange-50",
+                border: "hover:border-orange-300",
+              },
+              {
+                icon: Hammer,
+                title: "Construction Industry",
+                short: "CONST.",
+                desc: "Unmatched versatility and power for site preparation, material handling, and equipment transportation — greener construction ahead.",
+                color: "text-yellow-600",
+                bg: "bg-yellow-50",
+                border: "hover:border-yellow-300",
+              },
+              {
+                icon: Shield,
+                title: "Defence",
+                short: "DEF.",
+                desc: "Superior performance and rugged durability for military logistics, base maintenance, and all-terrain operations with remote operation options.",
+                color: "text-primary",
+                bg: "bg-primary/5",
+                border: "hover:border-primary/40",
+              },
+              {
+                icon: PlaneTakeoff,
+                title: "Airports",
+                short: "AIRPORT",
+                desc: "From baggage handling to runway maintenance — zero-emission, autonomous-ready tractors for smoother, greener airport operations.",
+                color: "text-accent",
+                bg: "bg-accent/5",
+                border: "hover:border-accent/40",
+              },
+              {
+                icon: Leaf,
+                title: "Biomass",
+                short: "BIO",
+                desc: "Revolutionise biomass collection, processing, and transportation with zero emissions and low operating costs for a greener future.",
+                color: "text-lime-600",
+                bg: "bg-lime-50",
+                border: "hover:border-lime-300",
+              },
+            ].map((sol, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07, duration: 0.5 }}
+                data-testid={`card-industry-${i}`}
+              >
+                <Card className={`bg-white border border-border ${sol.border} hover:shadow-md transition-all duration-300 h-full`}>
+                  <CardContent className="p-7">
+                    <div className={`w-12 h-12 rounded-xl ${sol.bg} flex items-center justify-center mb-5`}>
+                      <sol.icon className={`w-6 h-6 ${sol.color}`} />
+                    </div>
+                    <span className={`text-xs font-bold uppercase tracking-widest ${sol.color} mb-2 block`}>{sol.short}</span>
+                    <h3 className="text-base font-bold text-foreground mb-3">{sol.title}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{sol.desc}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            className="mt-12 text-center"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <Link href="/industry">
+              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white font-semibold" data-testid="btn-all-industries">
+                Explore All Industries <ArrowRight className="ml-2 w-4 h-4" />
+              </Button>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
