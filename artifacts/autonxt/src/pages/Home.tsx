@@ -602,25 +602,109 @@ export default function Home() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section className="py-24 bg-muted/40">
+      <section className="py-24 bg-background relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
         <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Technology</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">Precision Engineering.</h2>
-            <p className="text-muted-foreground mt-4">Every component engineered for maximum efficiency, safety, and performance in Indian field conditions.</p>
+          {/* Asymmetric header */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
+            <div>
+              <motion.div
+                className="flex items-center gap-3 mb-4"
+                initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+              >
+                <div className="h-px w-10 bg-primary rounded-full" />
+                <p className="text-primary font-bold text-sm uppercase tracking-widest">Technology</p>
+              </motion.div>
+              <motion.h2
+                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.08]"
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }}
+              >
+                Precision<br />Engineering.
+              </motion.h2>
+            </div>
+            <motion.p
+              className="text-muted-foreground text-lg max-w-sm lg:text-right"
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.15 }}
+            >
+              Every component engineered for maximum efficiency, safety, and performance in Indian field conditions.
+            </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: "1200px" }}>
+          {/* Feature cards grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" style={{ perspective: "1200px" }}>
             {[
-              { icon: Zap, title: "High-Torque Motor", desc: "Instant torque from zero RPM. Outperforms diesel in pulling power and response." },
-              { icon: BatteryCharging, title: "Extended Range Battery", desc: "Full-day farm operations on a single charge. Solar-compatible charging." },
-              { icon: Cpu, title: "Smart Control System", desc: "NXT-OS platform for real-time diagnostics, fleet tracking, and OTA updates." },
-              { icon: ShieldCheck, title: "Rugged Build", desc: "IP67 rated electronics. Tested across India's harshest terrain and weather." },
-              { icon: Activity, title: "Telemetry & Analytics", desc: "Real-time performance data and predictive maintenance alerts for fleets." },
-              { icon: Globe, title: "Zero Emissions", desc: "100% electric. No diesel, no exhaust, no noise — clean air for villages." },
+              {
+                icon: Zap,
+                title: "High-Torque Motor",
+                desc: "Instant torque from zero RPM — outperforms diesel in raw pulling power, hill climbs, and wet-field traction.",
+                spec: "Zero RPM",
+                specColor: "text-amber-600",
+                specBg: "bg-amber-50",
+                specBorder: "border-amber-200",
+                grad: "from-amber-400 to-orange-500",
+                num: "01",
+              },
+              {
+                icon: BatteryCharging,
+                title: "Extended Range Battery",
+                desc: "Full-day farm operations on one charge. LFP chemistry, solar-compatible, 10-year rated lifespan.",
+                spec: "8–10 hrs",
+                specColor: "text-blue-600",
+                specBg: "bg-blue-50",
+                specBorder: "border-blue-200",
+                grad: "from-blue-500 to-indigo-600",
+                num: "02",
+              },
+              {
+                icon: Cpu,
+                title: "Smart Control System",
+                desc: "NXT-OS platform with real-time diagnostics, GPS fleet tracking, predictive maintenance, and OTA updates.",
+                spec: "OTA Ready",
+                specColor: "text-violet-600",
+                specBg: "bg-violet-50",
+                specBorder: "border-violet-200",
+                grad: "from-violet-500 to-purple-700",
+                num: "03",
+              },
+              {
+                icon: ShieldCheck,
+                title: "Rugged Build",
+                desc: "IP67-sealed electronics. Every joint, seal, and housing tested across India's harshest terrain and monsoon weather.",
+                spec: "IP67 Rated",
+                specColor: "text-slate-600",
+                specBg: "bg-slate-100",
+                specBorder: "border-slate-200",
+                grad: "from-slate-500 to-slate-700",
+                num: "04",
+              },
+              {
+                icon: Activity,
+                title: "Telemetry & Analytics",
+                desc: "Live performance dashboards, fleet-wide analytics, and intelligent alerts for uptime-critical industrial operations.",
+                spec: "Live Data",
+                specColor: "text-cyan-600",
+                specBg: "bg-cyan-50",
+                specBorder: "border-cyan-200",
+                grad: "from-cyan-400 to-sky-600",
+                num: "05",
+              },
+              {
+                icon: Globe,
+                title: "Zero Emissions",
+                desc: "100% electric drivetrain — no diesel, no exhaust, no noise. Cleaner air for farmers, workers, and villages.",
+                spec: "100% Clean",
+                specColor: "text-emerald-600",
+                specBg: "bg-emerald-50",
+                specBorder: "border-emerald-200",
+                grad: "from-emerald-400 to-teal-600",
+                num: "06",
+              },
             ].map((f, i) => (
               <motion.div
                 key={i}
+                className="group"
                 initial={{ opacity: 0, y: 36, rotateX: 12 }}
                 whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
@@ -628,15 +712,30 @@ export default function Home() {
                 whileHover={{ rotateY: 6, rotateX: -4, scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 22 } }}
                 style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
               >
-                <Card className="bg-card border-border hover:border-primary/40 hover:shadow-xl transition-all h-full">
-                  <CardContent className="p-7">
-                    <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
-                      <f.icon className="w-5 h-5 text-primary" />
+                <div className="bg-card border border-border rounded-2xl overflow-hidden h-full hover:border-primary/25 hover:shadow-2xl transition-all duration-300">
+                  {/* Gradient banner */}
+                  <div className={`relative h-36 bg-gradient-to-br ${f.grad} flex items-center justify-center overflow-hidden`}>
+                    {/* Number watermark */}
+                    <span className="absolute top-1 left-3 font-display text-[88px] font-black text-white/[0.07] leading-none select-none pointer-events-none">
+                      {f.num}
+                    </span>
+                    {/* Soft inner glow */}
+                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {/* Centered icon box */}
+                    <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                      <f.icon className="w-7 h-7 text-white drop-shadow" />
                     </div>
-                    <h3 className="text-base font-bold text-foreground mb-2">{f.title}</h3>
-                    <p className="text-muted-foreground text-sm">{f.desc}</p>
-                  </CardContent>
-                </Card>
+                    {/* Spec pill */}
+                    <div className={`absolute bottom-3 right-3 ${f.specBg} ${f.specColor} border ${f.specBorder} text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full shadow-sm`}>
+                      {f.spec}
+                    </div>
+                  </div>
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="text-base font-bold text-foreground mb-2.5 group-hover:text-primary transition-colors">{f.title}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
