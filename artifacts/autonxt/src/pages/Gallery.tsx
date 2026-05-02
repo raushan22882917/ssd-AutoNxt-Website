@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { X, ZoomIn, Images, PlayCircle, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ZoomIn, Images, PlayCircle, ExternalLink, ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
 
 import tractor1 from "@assets/1_1777731255751.png";
 import tractor2 from "@assets/2_1777731255751.png";
@@ -12,9 +12,25 @@ import batteryImg from "@assets/battery_1777731255752.png";
 import motorImg from "@assets/motor_1777731255752.png";
 import logoImg from "@assets/adaptive-icon_1777731255752.png";
 
-type Tab = "photos" | "videos";
+import event1 from "@assets/IMG-20250630-WA0001_1777739120122.jpg";
+import event2 from "@assets/IMG-20250630-WA0002_1777739120122.jpg";
+import event3 from "@assets/IMG-20250630-WA0003_1777739120122.jpg";
+import event4 from "@assets/IMG-20250630-WA0004_1777739120122.jpg";
+import event5 from "@assets/IMG-20250630-WA0005_1777739120122.jpg";
+import event6 from "@assets/IMG-20250630-WA0006_1777739120122.jpg";
+import event7 from "@assets/IMG-20250630-WA0007_1777739120122.jpg";
 
-const PHOTOS = [
+type Tab = "photos" | "videos" | "events";
+
+type GalleryPhoto = {
+  src: string;
+  alt: string;
+  label: string;
+  tag: string;
+  wide?: boolean;
+};
+
+const PHOTOS: GalleryPhoto[] = [
   {
     src: fieldImg,
     alt: "Autonxt X45C2 at Golden Hour",
@@ -66,6 +82,58 @@ const PHOTOS = [
   },
 ];
 
+const EVENTS: GalleryPhoto[] = [
+  {
+    src: event1,
+    alt: "AutoNxt X45C2 launch ceremony with officials and media",
+    label: "Official Launch Address — Jun 29, 2025",
+    tag: "Event",
+    wide: true,
+  },
+  {
+    src: event2,
+    alt: "MOU signing ceremony — AutoNxt tractor handover",
+    label: "Handover Ceremony & MOU Signing",
+    tag: "Event",
+    wide: false,
+  },
+  {
+    src: event3,
+    alt: "Officials blessing the AutoNxt X45C2 electric tractor",
+    label: "X45C2 Inauguration Ceremony",
+    tag: "Event",
+    wide: false,
+  },
+  {
+    src: event4,
+    alt: "Dignitaries and team gathered around the AutoNxt X45C2",
+    label: "X45C2 — Official Blessing",
+    tag: "Event",
+    wide: false,
+  },
+  {
+    src: event5,
+    alt: "AutoNxt X45C2 tractor surrounded by guests during ceremony",
+    label: "X45C2 — Flag-Off Ceremony",
+    tag: "Event",
+    wide: false,
+  },
+  {
+    src: event6,
+    alt: "Tricolour balloon arch and X45C2 display at event",
+    label: "Tricolour Launch Stage — Jun 29, 2025",
+    tag: "Event",
+    wide: true,
+  },
+  {
+    src: event7,
+    alt: "Close-up of AutoNxt X45C2 electric tractor at launch event",
+    label: "AutoNxt X45C2 — Up Close",
+    tag: "Product",
+    wide: false,
+  },
+];
+
 const VIDEOS = [
   {
     id: "3PVEHTybb_o",
@@ -101,19 +169,57 @@ const VIDEOS = [
 
 export default function Gallery() {
   const [activeTab, setActiveTab] = useState<Tab>("photos");
-  const [lightbox, setLightbox] = useState<{ index: number } | null>(null);
+  const [lightbox, setLightbox] = useState<{ index: number; source: "photos" | "events" } | null>(null);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
-  const openLightbox = (index: number) => setLightbox({ index });
+  const currentPhotos = lightbox?.source === "events" ? EVENTS : PHOTOS;
+
+  const openLightbox = (index: number, source: "photos" | "events") =>
+    setLightbox({ index, source });
   const closeLightbox = () => setLightbox(null);
   const prevPhoto = () => {
     if (!lightbox) return;
-    setLightbox({ index: (lightbox.index - 1 + PHOTOS.length) % PHOTOS.length });
+    setLightbox({ ...lightbox, index: (lightbox.index - 1 + currentPhotos.length) % currentPhotos.length });
   };
   const nextPhoto = () => {
     if (!lightbox) return;
-    setLightbox({ index: (lightbox.index + 1) % PHOTOS.length });
+    setLightbox({ ...lightbox, index: (lightbox.index + 1) % currentPhotos.length });
   };
+
+  const PhotoGrid = ({ photos, source }: { photos: GalleryPhoto[]; source: "photos" | "events" }) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 auto-rows-[240px] gap-4 md:gap-5">
+      {photos.map((photo, i) => (
+        <motion.div
+          key={i}
+          className={`relative rounded-2xl overflow-hidden border border-border group cursor-zoom-in bg-muted/20 ${
+            photo.wide ? "sm:col-span-2" : ""
+          }`}
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.06, duration: 0.4 }}
+          onClick={() => openLightbox(i, source)}
+          data-testid={`gallery-${source}-${i}`}
+        >
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 rounded-2xl" />
+          <div className="absolute top-3 left-3 bg-primary/90 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            {photo.tag}
+          </div>
+          <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <ZoomIn className="w-4 h-4" />
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            <p className="text-white text-sm font-semibold leading-tight">{photo.label}</p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  );
 
   return (
     <div className="w-full min-h-screen pt-20 pb-20 bg-background">
@@ -142,7 +248,7 @@ export default function Gallery() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            Explore our full photo gallery and watch real-world videos of AutoNxt electric tractors across farms, industries, and events.
+            Explore our full photo gallery, event coverage, and real-world videos of AutoNxt electric tractors across farms, industries, and events.
           </motion.p>
         </div>
 
@@ -150,6 +256,7 @@ export default function Gallery() {
         <div className="flex gap-1 p-1 bg-muted/50 rounded-xl w-fit mb-12 border border-border">
           {([
             { id: "photos" as Tab, label: "Photos", icon: Images },
+            { id: "events" as Tab, label: "Events", icon: CalendarDays },
             { id: "videos" as Tab, label: "Videos", icon: PlayCircle },
           ]).map(({ id, label, icon: Icon }) => (
             <button
@@ -179,43 +286,41 @@ export default function Gallery() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.35 }}
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 auto-rows-[240px] gap-4 md:gap-5">
-                {PHOTOS.map((photo, i) => (
-                  <motion.div
-                    key={i}
-                    className={`relative rounded-2xl overflow-hidden border border-border group cursor-zoom-in bg-muted/20 ${
-                      photo.wide ? "sm:col-span-2" : ""
-                    }`}
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.06, duration: 0.4 }}
-                    onClick={() => openLightbox(i)}
-                    data-testid={`gallery-photo-${i}`}
-                  >
-                    <img
-                      src={photo.src}
-                      alt={photo.alt}
-                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 p-3"
-                    />
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 rounded-2xl" />
-                    {/* Tag */}
-                    <div className="absolute top-3 left-3 bg-primary/90 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      {photo.tag}
-                    </div>
-                    {/* Zoom icon */}
-                    <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <ZoomIn className="w-4 h-4" />
-                    </div>
-                    {/* Caption */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <p className="text-white text-sm font-semibold leading-tight">{photo.label}</p>
-                    </div>
-                  </motion.div>
-                ))}
+              <PhotoGrid photos={PHOTOS} source="photos" />
+              <motion.p
+                className="text-center text-muted-foreground text-sm mt-8"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                Click any photo to view full size
+              </motion.p>
+            </motion.div>
+          )}
+
+          {/* ── EVENTS TAB ── */}
+          {activeTab === "events" && (
+            <motion.div
+              key="events"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.35 }}
+            >
+              {/* Event banner */}
+              <div className="bg-muted/40 border border-border rounded-2xl px-6 py-4 mb-8 flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <CalendarDays className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-bold text-foreground text-sm">Official Government Handover Ceremony</p>
+                  <p className="text-muted-foreground text-sm mt-0.5">
+                    June 29, 2025 — AutoNxt delivered the X45C2 electric tractor at an official ceremony attended by government officials, police representatives, and media. A landmark moment in AutoNxt's journey to serve India's public institutions.
+                  </p>
+                </div>
               </div>
 
+              <PhotoGrid photos={EVENTS} source="events" />
               <motion.p
                 className="text-center text-muted-foreground text-sm mt-8"
                 initial={{ opacity: 0 }}
@@ -321,7 +426,7 @@ export default function Gallery() {
                     Subscribe to the AutoNxt YouTube channel for product videos, farm demos, industry applications, and company updates.
                   </p>
                   <a
-                    href="https://www.youtube.com/@AutoNxtAutomation"
+                    href="https://www.youtube.com/@autonxtautomation8368"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -363,7 +468,6 @@ export default function Gallery() {
             exit={{ opacity: 0 }}
             onClick={closeLightbox}
           >
-            {/* Close */}
             <button
               className="absolute top-4 right-4 text-white bg-white/10 hover:bg-white/25 rounded-full p-2.5 transition-colors z-10"
               onClick={closeLightbox}
@@ -372,7 +476,6 @@ export default function Gallery() {
               <X className="w-5 h-5" />
             </button>
 
-            {/* Prev */}
             <button
               className="absolute left-4 top-1/2 -translate-y-1/2 text-white bg-white/10 hover:bg-white/25 rounded-full p-2.5 transition-colors z-10"
               onClick={(e) => { e.stopPropagation(); prevPhoto(); }}
@@ -380,9 +483,8 @@ export default function Gallery() {
               <ChevronLeft className="w-5 h-5" />
             </button>
 
-            {/* Image */}
             <motion.div
-              key={lightbox.index}
+              key={`${lightbox.source}-${lightbox.index}`}
               className="flex flex-col items-center gap-4 max-w-4xl w-full"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -390,18 +492,17 @@ export default function Gallery() {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={PHOTOS[lightbox.index].src}
-                alt={PHOTOS[lightbox.index].alt}
+                src={currentPhotos[lightbox.index].src}
+                alt={currentPhotos[lightbox.index].alt}
                 className="max-w-full max-h-[78vh] object-contain rounded-xl"
               />
               <div className="text-center">
-                <span className="text-primary text-xs font-bold uppercase tracking-widest">{PHOTOS[lightbox.index].tag}</span>
-                <p className="text-white font-semibold mt-1">{PHOTOS[lightbox.index].label}</p>
-                <p className="text-white/50 text-xs mt-0.5">{lightbox.index + 1} / {PHOTOS.length}</p>
+                <span className="text-primary text-xs font-bold uppercase tracking-widest">{currentPhotos[lightbox.index].tag}</span>
+                <p className="text-white font-semibold mt-1">{currentPhotos[lightbox.index].label}</p>
+                <p className="text-white/50 text-xs mt-0.5">{lightbox.index + 1} / {currentPhotos.length}</p>
               </div>
             </motion.div>
 
-            {/* Next */}
             <button
               className="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-white/10 hover:bg-white/25 rounded-full p-2.5 transition-colors z-10"
               onClick={(e) => { e.stopPropagation(); nextPhoto(); }}
