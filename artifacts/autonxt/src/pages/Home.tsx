@@ -19,6 +19,11 @@ import noidaAirportLogo from "@assets/noid-airport_1777740195490.jpeg";
 import jslLogo from "@assets/OIP_1777740195490.webp";
 import relianceLogo from "@assets/reliance_1777740195490.png";
 
+import dashboardMain from "@assets/Screenshot_2026-05-02_at_22.34.39_1777741515996.png";
+import dashboardService from "@assets/Screenshot_2026-05-02_at_22.34.45_1777741515996.png";
+import appScreen1 from "@assets/image_1777741441774.png";
+import appScreen2 from "@assets/image_1777741450357.png";
+
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
@@ -814,37 +819,28 @@ export default function Home() {
               className="bg-card border border-border rounded-3xl overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 group"
               initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
             >
-              {/* Mock Dashboard Preview */}
-              <div className="bg-[hsl(214,60%,14%)] p-5 h-52 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_70%_50%,hsl(214,65%,50%),transparent_60%)]" />
-                <div className="relative z-10 h-full flex flex-col gap-3">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-2 h-2 rounded-full bg-primary" />
-                    <span className="text-white/50 text-[10px] font-mono tracking-wider">NXT-FLEET DASHBOARD</span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    {[{ label: "Active", val: "12" }, { label: "Battery Avg", val: "87%" }, { label: "Distance", val: "340km" }].map((m, i) => (
-                      <div key={i} className="bg-white/5 rounded-lg p-2 border border-white/8">
-                        <p className="text-white/40 text-[9px] uppercase tracking-wider">{m.label}</p>
-                        <p className="text-white font-bold text-sm font-mono">{m.val}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="flex-1 bg-white/4 rounded-xl border border-white/8 p-3 flex items-end gap-1.5">
-                    {[60, 80, 55, 90, 70, 95, 65, 85, 75, 88, 60, 92].map((h, i) => (
-                      <div key={i} className="flex-1 rounded-sm bg-primary/60 group-hover:bg-primary/80 transition-colors" style={{ height: `${h}%` }} />
-                    ))}
-                  </div>
-                  <div className="flex gap-2">
-                    <div className="flex-1 bg-white/4 rounded-lg border border-white/8 p-2 flex items-center gap-1.5">
-                      <MapPin className="w-3 h-3 text-primary shrink-0" />
-                      <div className="h-1.5 w-full bg-primary/30 rounded-full overflow-hidden"><div className="h-full w-3/4 bg-primary rounded-full" /></div>
-                    </div>
-                    <div className="flex-1 bg-white/4 rounded-lg border border-white/8 p-2 flex items-center gap-1.5">
-                      <BarChart3 className="w-3 h-3 text-accent shrink-0" />
-                      <div className="h-1.5 w-full bg-accent/30 rounded-full overflow-hidden"><div className="h-full w-1/2 bg-accent rounded-full" /></div>
-                    </div>
-                  </div>
+              {/* Real Dashboard Screenshots */}
+              <div className="bg-[#0d1117] h-56 relative overflow-hidden">
+                <div className="absolute inset-0 flex items-start justify-start">
+                  <img
+                    src={dashboardMain}
+                    alt="AutoNxt Fleet Dashboard"
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117]/60 via-transparent to-transparent" />
+                </div>
+                {/* Floating inset screenshot */}
+                <div className="absolute bottom-3 right-3 w-36 rounded-lg overflow-hidden border border-white/20 shadow-xl group-hover:scale-105 transition-transform duration-500">
+                  <img
+                    src={dashboardService}
+                    alt="AutoNxt Service Center"
+                    className="w-full object-cover object-top"
+                  />
+                </div>
+                {/* Live badge */}
+                <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm border border-white/10 rounded-full px-2.5 py-1">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-white/80 text-[10px] font-semibold tracking-wide">LIVE DASHBOARD</span>
                 </div>
               </div>
               <div className="p-7">
@@ -877,25 +873,28 @@ export default function Home() {
               className="bg-card border border-border rounded-3xl overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 group"
               initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
             >
-              {/* Mock Phone Preview */}
-              <div className="bg-primary/6 p-5 h-52 relative overflow-hidden flex items-center justify-center">
-                <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_60%,hsl(0,72%,50%),transparent_60%)]" />
-                <div className="relative z-10 w-28 bg-surface-dark rounded-2xl border border-white/10 shadow-2xl overflow-hidden" style={{ height: "180px" }}>
-                  <div className="bg-primary h-8 flex items-center justify-between px-3">
-                    <span className="text-white text-[8px] font-bold tracking-wide">AUTONXT</span>
-                    <Smartphone className="w-3 h-3 text-white/70" />
-                  </div>
-                  <div className="p-2 space-y-1.5">
-                    {[{ icon: CalendarDays, label: "Book Service", color: "text-primary" }, { icon: MapPin, label: "Track Technician", color: "text-accent" }, { icon: Wrench, label: "Service History", color: "text-amber-500" }, { icon: Package, label: "Spare Parts", color: "text-emerald-500" }].map((item, i) => (
-                      <div key={i} className="bg-white/5 rounded-lg p-1.5 flex items-center gap-2 border border-white/5">
-                        <item.icon className={`w-3 h-3 ${item.color} shrink-0`} />
-                        <span className="text-white/70 text-[8px] font-medium">{item.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="absolute bottom-2 left-0 right-0 flex justify-center">
-                    <div className="w-8 h-0.5 bg-white/20 rounded-full" />
-                  </div>
+              {/* Real App Screenshots */}
+              <div className="bg-[#0d1117] h-56 relative overflow-hidden">
+                <div className="absolute inset-0">
+                  <img
+                    src={appScreen1}
+                    alt="AutoNxt Tractor Management"
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117]/60 via-transparent to-transparent" />
+                </div>
+                {/* Floating inset screenshot */}
+                <div className="absolute bottom-3 right-3 w-36 rounded-lg overflow-hidden border border-white/20 shadow-xl group-hover:scale-105 transition-transform duration-500">
+                  <img
+                    src={appScreen2}
+                    alt="AutoNxt Driver Management"
+                    className="w-full object-cover object-top"
+                  />
+                </div>
+                {/* Badge */}
+                <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm border border-white/10 rounded-full px-2.5 py-1">
+                  <Smartphone className="w-3 h-3 text-primary" />
+                  <span className="text-white/80 text-[10px] font-semibold tracking-wide">iOS & ANDROID</span>
                 </div>
               </div>
               <div className="p-7">
