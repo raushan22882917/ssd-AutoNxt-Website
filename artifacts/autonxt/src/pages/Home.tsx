@@ -431,6 +431,7 @@ export default function Home() {
                 numColor: "text-primary",
                 glow: "bg-primary/5",
                 glowBorder: "group-hover:border-primary/30",
+                img: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=500&h=400&fit=crop&q=80&auto=format",
               },
               {
                 icon: Building2,
@@ -444,6 +445,7 @@ export default function Home() {
                 numColor: "text-sky-600",
                 glow: "bg-sky-50",
                 glowBorder: "group-hover:border-sky-300",
+                img: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500&h=400&fit=crop&q=80&auto=format",
               },
               {
                 icon: Leaf,
@@ -457,6 +459,7 @@ export default function Home() {
                 numColor: "text-emerald-600",
                 glow: "bg-emerald-50",
                 glowBorder: "group-hover:border-emerald-300",
+                img: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500&h=400&fit=crop&q=80&auto=format",
               },
               {
                 icon: TrendingUp,
@@ -470,6 +473,7 @@ export default function Home() {
                 numColor: "text-amber-600",
                 glow: "bg-amber-50",
                 glowBorder: "group-hover:border-amber-300",
+                img: "https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=500&h=400&fit=crop&q=80&auto=format",
               },
             ].map((stat, i) => (
               <motion.div
@@ -482,16 +486,16 @@ export default function Home() {
                 whileHover={{ rotateY: 6, rotateX: -4, scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 20 } }}
                 style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
               >
+                {/* Background image */}
+                <img src={stat.img} alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-cover opacity-[0.10] group-hover:opacity-[0.15] transition-opacity duration-500" />
+                {/* White wash overlay */}
+                <div className="absolute inset-0 bg-white/80 pointer-events-none" />
+
                 {/* Top coloured accent bar */}
                 <div className={`absolute top-0 left-0 right-0 h-[3px] ${stat.bar} opacity-80`} />
 
-                {/* Ghost watermark icon */}
-                <div className="absolute -bottom-3 -right-3 opacity-[0.07] group-hover:opacity-[0.12] transition-opacity pointer-events-none">
-                  <stat.icon className="w-36 h-36 text-foreground" />
-                </div>
-
                 {/* Hover inner glow */}
-                <div className={`absolute inset-0 ${stat.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl`} />
+                <div className={`absolute inset-0 ${stat.glow} opacity-0 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none rounded-2xl`} />
 
                 <div className="relative z-10 p-7 flex flex-col gap-5 h-full">
                   {/* Badge */}
@@ -695,8 +699,9 @@ export default function Home() {
                 specColor: "text-amber-600",
                 specBg: "bg-amber-50",
                 specBorder: "border-amber-200",
-                grad: "from-amber-400 to-orange-500",
+                grad: "from-amber-500/90 to-orange-600/90",
                 num: "01",
+                img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=300&fit=crop&q=80&auto=format",
               },
               {
                 icon: BatteryCharging,
@@ -706,8 +711,9 @@ export default function Home() {
                 specColor: "text-blue-600",
                 specBg: "bg-blue-50",
                 specBorder: "border-blue-200",
-                grad: "from-blue-500 to-indigo-600",
+                grad: "from-blue-600/90 to-indigo-700/90",
                 num: "02",
+                img: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&h=300&fit=crop&q=80&auto=format",
               },
               {
                 icon: Cpu,
@@ -717,8 +723,9 @@ export default function Home() {
                 specColor: "text-violet-600",
                 specBg: "bg-violet-50",
                 specBorder: "border-violet-200",
-                grad: "from-violet-500 to-purple-700",
+                grad: "from-violet-600/90 to-purple-800/90",
                 num: "03",
+                img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=300&fit=crop&q=80&auto=format",
               },
               {
                 icon: ShieldCheck,
@@ -728,8 +735,9 @@ export default function Home() {
                 specColor: "text-slate-600",
                 specBg: "bg-slate-100",
                 specBorder: "border-slate-200",
-                grad: "from-slate-500 to-slate-700",
+                grad: "from-slate-600/90 to-slate-800/90",
                 num: "04",
+                img: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&h=300&fit=crop&q=80&auto=format",
               },
               {
                 icon: Activity,
@@ -739,8 +747,9 @@ export default function Home() {
                 specColor: "text-cyan-600",
                 specBg: "bg-cyan-50",
                 specBorder: "border-cyan-200",
-                grad: "from-cyan-400 to-sky-600",
+                grad: "from-cyan-500/90 to-sky-700/90",
                 num: "05",
+                img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=300&fit=crop&q=80&auto=format",
               },
               {
                 icon: Globe,
@@ -750,8 +759,9 @@ export default function Home() {
                 specColor: "text-emerald-600",
                 specBg: "bg-emerald-50",
                 specBorder: "border-emerald-200",
-                grad: "from-emerald-400 to-teal-600",
+                grad: "from-emerald-500/90 to-teal-700/90",
                 num: "06",
+                img: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=300&fit=crop&q=80&auto=format",
               },
             ].map((f, i) => (
               <motion.div
@@ -765,16 +775,24 @@ export default function Home() {
                 style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
               >
                 <div className="bg-card border border-border rounded-2xl overflow-hidden h-full hover:border-primary/25 hover:shadow-2xl transition-all duration-300">
-                  {/* Gradient banner */}
-                  <div className={`relative h-36 bg-gradient-to-br ${f.grad} flex items-center justify-center overflow-hidden`}>
+                  {/* Photo + gradient banner */}
+                  <div className="relative h-36 flex items-center justify-center overflow-hidden">
+                    {/* Real photo */}
+                    <img
+                      src={f.img}
+                      alt={f.title}
+                      className="absolute inset-0 w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700"
+                    />
+                    {/* Gradient tint overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${f.grad}`} />
                     {/* Number watermark */}
-                    <span className="absolute top-1 left-3 font-display text-[88px] font-black text-white/[0.07] leading-none select-none pointer-events-none">
+                    <span className="absolute top-1 left-3 font-display text-[88px] font-black text-white/[0.10] leading-none select-none pointer-events-none">
                       {f.num}
                     </span>
-                    {/* Soft inner glow */}
+                    {/* Soft inner glow on hover */}
                     <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     {/* Centered icon box */}
-                    <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <div className="relative w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <f.icon className="w-7 h-7 text-white drop-shadow" />
                     </div>
                     {/* Spec pill */}
