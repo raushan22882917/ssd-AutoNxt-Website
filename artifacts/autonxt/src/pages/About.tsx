@@ -150,13 +150,13 @@ export default function About() {
             >
               <div className="grid grid-cols-3 gap-2 h-[420px]">
                 <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
-                  <img src={facilityGarage} alt="AutoNxt Facility" className="w-full h-full object-cover" />
+                  <img src={facilityGarage} alt="AutoNxt Facility" className="w-full h-full object-cover" loading="eager" decoding="async" />
                 </div>
                 <div className="rounded-tr-2xl overflow-hidden">
-                  <img src={fieldImg1} alt="AutoNxt in the field" className="w-full h-full object-cover" />
+                  <img src={fieldImg1} alt="AutoNxt in the field" className="w-full h-full object-cover" loading="eager" decoding="async" />
                 </div>
                 <div className="overflow-hidden">
-                  <img src={fieldImg2} alt="AutoNxt tractor" className="w-full h-full object-cover" />
+                  <img src={fieldImg2} alt="AutoNxt tractor" className="w-full h-full object-cover" loading="eager" decoding="async" />
                 </div>
               </div>
               {/* Fade bottom */}
@@ -175,7 +175,7 @@ export default function About() {
               className="relative rounded-3xl overflow-hidden"
               initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
             >
-              <img src={facilityLeft} alt="AutoNxt facility" className="w-full h-80 object-cover" />
+              <img src={facilityLeft} alt="AutoNxt facility" className="w-full h-80 object-cover" loading="lazy" decoding="async" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               {/* Overlay stat */}
               <div className="absolute bottom-5 left-5 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-3 shadow-xl">
@@ -184,7 +184,7 @@ export default function About() {
               </div>
               {/* Second image floating */}
               <div className="absolute -bottom-5 -right-4 w-40 h-28 rounded-xl overflow-hidden border-4 border-background shadow-xl">
-                <img src={facilityRight} alt="AutoNxt gate" className="w-full h-full object-cover" />
+                <img src={facilityRight} alt="AutoNxt gate" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
             </motion.div>
 
@@ -238,7 +238,7 @@ export default function About() {
               className="relative flex-1 rounded-2xl overflow-hidden h-52 min-w-0 group"
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}
             >
-              <img src={img} alt={`AutoNxt operations ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <img src={img} alt={`AutoNxt operations ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
             </motion.div>
           ))}
@@ -352,7 +352,7 @@ export default function About() {
               >
                 {/* Portrait photo — tall */}
                 <div className="relative h-72 overflow-hidden bg-muted">
-                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                   {/* Role badge */}
                   <div className="absolute bottom-4 left-4 right-4">
@@ -388,7 +388,7 @@ export default function About() {
               >
                 {/* Square portrait */}
                 <div className="relative h-44 bg-muted overflow-hidden">
-                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
                 <div className="p-4">
@@ -433,7 +433,7 @@ export default function About() {
               >
                 {/* Portrait */}
                 <div className="relative h-60 bg-muted overflow-hidden">
-                  <img src={a.img} alt={a.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                  <img src={a.img} alt={a.name} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-4 left-4">
                     <span className="inline-block bg-accent/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-1.5">
