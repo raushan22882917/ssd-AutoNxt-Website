@@ -387,76 +387,98 @@ export default function Home() {
       </section>
 
       {/* ── PROVEN TRACK RECORD ── */}
-      <section className="py-20 bg-background border-y border-border relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_120%,hsl(0,72%,40%,0.06),transparent_70%)] pointer-events-none" />
+      <section className="py-24 bg-surface-dark relative overflow-hidden">
+        {/* Background ambient glows */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,hsl(0,72%,40%,0.12),transparent_55%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,hsl(214,65%,32%,0.10),transparent_55%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,hsl(160,60%,35%,0.06),transparent_50%)] pointer-events-none" />
+        {/* Subtle grid texture */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="text-center mb-14">
-            <motion.p
-              className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
-              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          {/* Header */}
+          <div className="text-center mb-16">
+            <motion.div
+              className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-5"
+              initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
             >
-              Impact
-            </motion.p>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-primary text-xs font-bold uppercase tracking-widest">Impact by Numbers</span>
+            </motion.div>
             <motion.h2
-              className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4"
+              className="font-display text-4xl md:text-5xl font-bold text-white mb-4"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             >
               Proven Track Record.
             </motion.h2>
             <motion.p
-              className="text-muted-foreground text-lg max-w-xl mx-auto"
+              className="text-white/55 text-lg max-w-xl mx-auto"
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
             >
-              Join the growing number of industries choosing AutoNxt for sustainable operations.
+              Real impact across India's most demanding industries — numbers that speak for themselves.
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6" style={{ perspective: "1200px" }}>
+          {/* Stat cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" style={{ perspective: "1200px" }}>
             {[
               {
                 icon: Package,
                 value: "250+",
                 title: "Orders Placed",
-                desc: "Tractors delivered across industries",
-                color: "text-primary",
-                bg: "bg-primary/8",
-                border: "border-primary/15",
-                glow: "group-hover:shadow-primary/10",
+                desc: "Electric tractors deployed across industries nationwide",
+                short: "ORDERS",
+                bar: "bg-primary",
+                badgeBg: "bg-primary/15",
+                badgeText: "text-primary",
+                numColor: "text-primary",
+                glow: "bg-primary/5",
+                glowBorder: "group-hover:border-primary/30",
               },
               {
                 icon: Building2,
                 value: "8",
-                title: "Happy Industries",
-                desc: "Industries trusting our solutions",
-                color: "text-accent",
-                bg: "bg-accent/8",
-                border: "border-accent/15",
-                glow: "group-hover:shadow-accent/10",
+                title: "Industries Served",
+                desc: "Sectors actively deploying AutoNxt EV tractors",
+                short: "INDUSTRIES",
+                bar: "bg-sky-400",
+                badgeBg: "bg-sky-400/15",
+                badgeText: "text-sky-400",
+                numColor: "text-sky-400",
+                glow: "bg-sky-400/5",
+                glowBorder: "group-hover:border-sky-400/30",
               },
               {
                 icon: Leaf,
                 value: "47,135",
                 title: "Trees Saved",
-                desc: "Global period CO₂ reduction across all tractors",
-                color: "text-emerald-600",
-                bg: "bg-emerald-50",
-                border: "border-emerald-100",
-                glow: "group-hover:shadow-emerald-500/10",
+                desc: "Lifetime CO₂ reduction equivalent across the entire fleet",
+                short: "TREES SAVED",
+                bar: "bg-emerald-400",
+                badgeBg: "bg-emerald-400/15",
+                badgeText: "text-emerald-400",
+                numColor: "text-emerald-400",
+                glow: "bg-emerald-400/5",
+                glowBorder: "group-hover:border-emerald-400/30",
               },
               {
-                icon: IndianRupee,
+                icon: TrendingUp,
                 value: "₹3.16Cr",
                 title: "Cost Saved",
-                desc: "Operational cost reduction",
-                color: "text-amber-600",
-                bg: "bg-amber-50",
-                border: "border-amber-100",
-                glow: "group-hover:shadow-amber-500/10",
+                desc: "Operational savings delivered to customers over diesel",
+                short: "COST SAVED",
+                bar: "bg-amber-400",
+                badgeBg: "bg-amber-400/15",
+                badgeText: "text-amber-400",
+                numColor: "text-amber-400",
+                glow: "bg-amber-400/5",
+                glowBorder: "group-hover:border-amber-400/30",
               },
             ].map((stat, i) => (
               <motion.div
                 key={i}
-                className={`group bg-card border ${stat.border} rounded-2xl p-7 flex flex-col gap-4 hover:shadow-xl transition-all duration-300`}
+                className={`group relative bg-white/[0.04] border border-white/8 ${stat.glowBorder} rounded-2xl overflow-hidden cursor-default transition-all duration-300`}
                 initial={{ opacity: 0, y: 40, rotateX: 14 }}
                 whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
@@ -464,17 +486,48 @@ export default function Home() {
                 whileHover={{ rotateY: 6, rotateX: -4, scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 20 } }}
                 style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
               >
-                <div className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center shrink-0`}>
-                  <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                {/* Top coloured accent bar */}
+                <div className={`absolute top-0 left-0 right-0 h-[3px] ${stat.bar} opacity-80`} />
+
+                {/* Ghost watermark icon */}
+                <div className="absolute -bottom-3 -right-3 opacity-[0.05] group-hover:opacity-[0.08] transition-opacity pointer-events-none">
+                  <stat.icon className="w-36 h-36 text-white" />
                 </div>
-                <div>
-                  <p className={`font-display text-4xl font-bold ${stat.color} leading-none mb-2`}>
-                    {stat.value}
-                  </p>
-                  <p className="font-semibold text-foreground text-base mb-1">{stat.title}</p>
-                  <p className="text-muted-foreground text-sm leading-snug">{stat.desc}</p>
+
+                {/* Hover inner glow */}
+                <div className={`absolute inset-0 ${stat.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl`} />
+
+                <div className="relative z-10 p-7 flex flex-col gap-5 h-full">
+                  {/* Badge */}
+                  <div className={`inline-flex items-center gap-1.5 ${stat.badgeBg} ${stat.badgeText} rounded-full px-2.5 py-1 self-start`}>
+                    <stat.icon className="w-3 h-3" />
+                    <span className="text-[9px] font-bold uppercase tracking-widest">{stat.short}</span>
+                  </div>
+
+                  {/* Hero number */}
+                  <div>
+                    <p className={`font-display text-5xl md:text-6xl font-black ${stat.numColor} leading-none tracking-tight`}>
+                      {stat.value}
+                    </p>
+                  </div>
+
+                  {/* Text */}
+                  <div className="mt-auto">
+                    <p className="text-white font-bold text-base mb-1.5">{stat.title}</p>
+                    <p className="text-white/45 text-sm leading-snug">{stat.desc}</p>
+                  </div>
+
+                  {/* Bottom progress bar */}
+                  <div className="h-px bg-white/8 rounded-full overflow-hidden">
+                    <motion.div
+                      className={`h-full ${stat.bar} rounded-full`}
+                      initial={{ width: "0%" }}
+                      whileInView={{ width: "100%" }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.09 + 0.4, duration: 1.2, ease: "easeOut" }}
+                    />
+                  </div>
                 </div>
-                <div className={`mt-auto h-0.5 w-8 rounded-full ${stat.bg} group-hover:w-full transition-all duration-500`} />
               </motion.div>
             ))}
           </div>
