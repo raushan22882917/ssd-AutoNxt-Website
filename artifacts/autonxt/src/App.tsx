@@ -16,6 +16,9 @@ import Book from "@/pages/Book";
 import News from "@/pages/News";
 import Blog from "@/pages/Blog";
 import EvBlog from "@/pages/EvBlog";
+import Careers from "@/pages/Careers";
+import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -36,6 +39,9 @@ function Router() {
           <Route path="/news" component={News} />
           <Route path="/blog" component={Blog} />
           <Route path="/ev-blog" component={EvBlog} />
+          <Route path="/careers" component={Careers} />
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/terms" component={Terms} />
           <Route component={NotFound} />
         </Switch>
       </main>

@@ -62,6 +62,7 @@ export default function Footer() {
               <li><Link href="/contribution" className="hover:text-primary transition-colors">{t.nav.contribution}</Link></li>
               <li><Link href="/gallery" className="hover:text-primary transition-colors">{t.nav.gallery}</Link></li>
               <li><Link href="/news" className="hover:text-primary transition-colors">{t.nav.news}</Link></li>
+              <li><Link href="/careers" className="hover:text-primary transition-colors">Careers</Link></li>
             </ul>
           </div>
 
@@ -71,15 +72,15 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-white/60">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <span>Hinjewadi Phase 2, Pune — 411057, Maharashtra</span>
+                <span>704 &amp; 705, Amfotech IT Park, Rd 8, Wagle Estate Rd, Padwal Nagar, Thane West, Thane, Maharashtra 400604</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-primary shrink-0" />
-                <span>+91 20 4567 8900</span>
+                <a href="tel:+919067404606" className="hover:text-primary transition-colors">+91 9067404606</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary shrink-0" />
-                <span>hello@autonxt.in</span>
+                <a href="mailto:sales@autonxt.in" className="hover:text-primary transition-colors">sales@autonxt.in</a>
               </li>
             </ul>
           </div>
@@ -88,9 +89,9 @@ export default function Footer() {
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
           <p>{t.common.copyright}</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Use</a>
-            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms &amp; Conditions</Link>
+            <Link href="/careers" className="hover:text-white transition-colors">Careers</Link>
           </div>
           <p>{t.common.madeIn}</p>
         </div>
