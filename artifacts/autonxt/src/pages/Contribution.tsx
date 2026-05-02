@@ -43,35 +43,80 @@ const timeline = [
 
 export default function Contribution() {
   return (
-    <div className="w-full min-h-screen pt-24 pb-20">
-      <div className="container mx-auto px-4 md:px-6">
+    <div className="w-full min-h-screen bg-background">
 
-        {/* Header */}
-        <div className="mb-20 text-center max-w-3xl mx-auto">
-          <motion.p
-            className="text-primary font-semibold tracking-widest uppercase text-sm mb-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            Our Impact
-          </motion.p>
-          <motion.h1
-            className="font-display text-4xl md:text-6xl font-bold text-foreground mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            Built for <span className="text-primary">Bharat.</span> Built for the Planet.
-          </motion.h1>
-          <motion.p
-            className="text-lg md:text-xl text-muted-foreground"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            Autonxt is more than an automaker. We are India's commitment to cleaner air, greener cities, and a sovereign electric future.
-          </motion.p>
+      {/* ── HERO ── */}
+      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(134,72%,30%,0.10),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
+          style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+            <div className="pb-16">
+              <motion.div
+                className="inline-flex items-center gap-2 bg-emerald-500/15 border border-emerald-500/25 rounded-full px-4 py-1.5 mb-6"
+                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-emerald-400 text-xs font-bold uppercase tracking-widest">Our Contribution</span>
+              </motion.div>
+              <motion.h1
+                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
+                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
+              >
+                Built for <span className="text-primary">Bharat.</span> Built for the Planet.
+              </motion.h1>
+              <motion.p
+                className="text-white/55 text-lg max-w-lg leading-relaxed mb-10"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
+              >
+                Autonxt is more than an automaker. We are India's commitment to cleaner air, greener cities, and a sovereign electric future.
+              </motion.p>
+              <motion.div
+                className="flex flex-wrap gap-6"
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
+              >
+                {[
+                  { icon: Leaf, label: "CO₂ Offset", value: "500K+ T" },
+                  { icon: TreePine, label: "Trees Equiv.", value: "2M+" },
+                  { icon: Award, label: "Initiatives", value: "3 Active" },
+                ].map((f, i) => (
+                  <div key={i} className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
+                      <f.icon className="w-4 h-4 text-white/60" />
+                    </div>
+                    <div>
+                      <p className="text-white/40 text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
+                      <p className="text-white font-bold text-sm">{f.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+            <motion.div
+              className="relative pb-0 hidden lg:block"
+              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
+            >
+              <div className="grid grid-cols-3 gap-2 h-[420px]">
+                <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700&h=500&fit=crop&q=80&auto=format" alt="Green fields" className="w-full h-full object-cover" />
+                </div>
+                <div className="rounded-tr-2xl overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&h=250&fit=crop&q=80&auto=format" alt="Forest" className="w-full h-full object-cover" />
+                </div>
+                <div className="overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=400&h=250&fit=crop&q=80&auto=format" alt="Nature" className="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
+            </motion.div>
+          </div>
         </div>
+      </section>
+
+      <div className="pb-20">
+        <div className="container mx-auto px-4 md:px-6 pt-16">
 
         {/* Impact Numbers */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
@@ -179,6 +224,7 @@ export default function Contribution() {
           </Link>
         </motion.div>
 
+        </div>
       </div>
     </div>
   );

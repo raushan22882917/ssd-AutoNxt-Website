@@ -122,33 +122,72 @@ export default function Industry() {
     <div className="w-full min-h-screen">
 
       {/* ── HERO ── */}
-      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-20">
+      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_60%,hsl(0,72%,40%,0.12),transparent_55%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_40%,hsl(214,65%,32%,0.10),transparent_55%)] pointer-events-none" />
-        <div
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }}
-        />
+        <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
+          style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <motion.div
-            className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
-            initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            <span className="text-primary text-xs font-bold uppercase tracking-widest">Industrial Solutions</span>
-          </motion.div>
-          <motion.h1
-            className="font-display text-4xl md:text-6xl font-bold text-white mb-5 leading-[1.08] max-w-3xl"
-            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
-          >
-            Powering India's Most Demanding Industries.
-          </motion.h1>
-          <motion.p
-            className="text-white/55 text-lg md:text-xl max-w-2xl"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
-          >
-            Explore our range of electric tractor solutions designed for various industrial applications — built rugged, built zero-emission, built for India.
-          </motion.p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+            <div className="pb-16">
+              <motion.div
+                className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
+                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <span className="text-primary text-xs font-bold uppercase tracking-widest">Industrial Solutions</span>
+              </motion.div>
+              <motion.h1
+                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
+                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
+              >
+                Powering India's Most <span className="text-primary">Demanding</span> Industries.
+              </motion.h1>
+              <motion.p
+                className="text-white/55 text-lg max-w-lg leading-relaxed mb-10"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
+              >
+                Electric tractor solutions built rugged, built zero-emission, built for India's most demanding environments.
+              </motion.p>
+              <motion.div
+                className="flex flex-wrap gap-6"
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
+              >
+                {[
+                  { icon: Building2, label: "Industries", value: "6+" },
+                  { icon: Factory, label: "Applications", value: "50+" },
+                  { icon: Shield, label: "Certified", value: "iCAT" },
+                ].map((f, i) => (
+                  <div key={i} className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
+                      <f.icon className="w-4 h-4 text-white/60" />
+                    </div>
+                    <div>
+                      <p className="text-white/40 text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
+                      <p className="text-white font-bold text-sm">{f.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+            <motion.div
+              className="relative pb-0 hidden lg:block"
+              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
+            >
+              <div className="grid grid-cols-3 gap-2 h-[420px]">
+                <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?w=700&h=500&fit=crop&q=80&auto=format" alt="Biomass operations" className="w-full h-full object-cover" />
+                </div>
+                <div className="rounded-tr-2xl overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=250&fit=crop&q=80&auto=format" alt="Cement plant" className="w-full h-full object-cover" />
+                </div>
+                <div className="overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=250&fit=crop&q=80&auto=format" alt="Construction site" className="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
+            </motion.div>
+          </div>
         </div>
       </section>
 

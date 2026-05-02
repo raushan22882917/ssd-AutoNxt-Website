@@ -50,35 +50,80 @@ const products = [
 
 export default function Product() {
   return (
-    <div className="w-full min-h-screen pt-20 pb-20 bg-background">
-      <div className="container mx-auto px-4 md:px-8">
+    <div className="w-full min-h-screen bg-background">
 
-        {/* Header */}
-        <div className="mb-20 text-center max-w-3xl mx-auto">
-          <motion.p
-            className="text-primary font-semibold text-sm uppercase tracking-widest mb-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            Our Electric Lineup
-          </motion.p>
-          <motion.h1
-            className="font-display text-4xl md:text-6xl font-bold mb-6 text-foreground"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            The <span className="text-primary">Lineup.</span>
-          </motion.h1>
-          <motion.p
-            className="text-lg md:text-xl text-muted-foreground"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            India's most advanced electric tractors — engineered for every farm size, every terrain, every season.
-          </motion.p>
+      {/* ── HERO ── */}
+      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
+          style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+            <div className="pb-16">
+              <motion.div
+                className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
+                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <span className="text-primary text-xs font-bold uppercase tracking-widest">Electric Lineup</span>
+              </motion.div>
+              <motion.h1
+                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
+                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
+              >
+                The <span className="text-primary">Lineup.</span>
+              </motion.h1>
+              <motion.p
+                className="text-white/55 text-lg max-w-lg leading-relaxed mb-10"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
+              >
+                India's most advanced electric tractors — engineered for every farm size, every terrain, every season.
+              </motion.p>
+              <motion.div
+                className="flex flex-wrap gap-6"
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
+              >
+                {[
+                  { icon: Zap, label: "HP Range", value: "25–60 HP" },
+                  { icon: Battery, label: "Charge Time", value: "3–4 hrs" },
+                  { icon: Gauge, label: "Variants", value: "3 Models" },
+                ].map((f, i) => (
+                  <div key={i} className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
+                      <f.icon className="w-4 h-4 text-white/60" />
+                    </div>
+                    <div>
+                      <p className="text-white/40 text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
+                      <p className="text-white font-bold text-sm">{f.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+            <motion.div
+              className="relative pb-0 hidden lg:block"
+              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
+            >
+              <div className="grid grid-cols-3 gap-2 h-[420px]">
+                <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden bg-white/[0.04] flex items-center justify-center">
+                  <img src={tractor1} alt="AutoNxt X45H2" className="w-full h-full object-contain p-8" />
+                </div>
+                <div className="rounded-tr-2xl overflow-hidden">
+                  <img src={fieldImg} alt="AutoNxt in the field" className="w-full h-full object-cover" />
+                </div>
+                <div className="overflow-hidden bg-white/[0.04] flex items-center justify-center">
+                  <img src={tractor2} alt="AutoNxt X25H4" className="w-full h-full object-contain p-3" />
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
+            </motion.div>
+          </div>
         </div>
+      </section>
+
+      <div className="py-20">
+        <div className="container mx-auto px-4 md:px-8">
 
         {/* Product List */}
         <div className="space-y-24 mb-24">
@@ -200,6 +245,7 @@ export default function Product() {
           </div>
         </motion.div>
 
+        </div>
       </div>
     </div>
   );

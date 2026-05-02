@@ -224,35 +224,80 @@ export default function Gallery() {
   );
 
   return (
-    <div className="w-full min-h-screen pt-20 pb-20 bg-background">
-      <div className="container mx-auto px-4 md:px-8">
+    <div className="w-full min-h-screen bg-background">
 
-        {/* Header */}
-        <div className="mb-12">
-          <motion.p
-            className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            {t.gallery.photos}
-          </motion.p>
-          <motion.h1
-            className="font-display text-4xl md:text-6xl font-bold mb-4 text-foreground"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            {t.gallery.title} <span className="text-primary">{t.gallery.titleHighlight}</span>
-          </motion.h1>
-          <motion.p
-            className="text-lg text-muted-foreground max-w-2xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            {t.gallery.desc}
-          </motion.p>
+      {/* ── HERO ── */}
+      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
+          style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+            <div className="pb-16">
+              <motion.div
+                className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
+                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <span className="text-primary text-xs font-bold uppercase tracking-widest">AutoNxt Gallery</span>
+              </motion.div>
+              <motion.h1
+                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
+                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
+              >
+                {t.gallery.title} <span className="text-primary">{t.gallery.titleHighlight}</span>
+              </motion.h1>
+              <motion.p
+                className="text-white/55 text-lg max-w-lg leading-relaxed mb-10"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
+              >
+                {t.gallery.desc}
+              </motion.p>
+              <motion.div
+                className="flex flex-wrap gap-6"
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
+              >
+                {[
+                  { icon: Images, label: "Photos", value: "40+" },
+                  { icon: PlayCircle, label: "Videos", value: "6" },
+                  { icon: CalendarDays, label: "Events", value: "5+" },
+                ].map((f, i) => (
+                  <div key={i} className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
+                      <f.icon className="w-4 h-4 text-white/60" />
+                    </div>
+                    <div>
+                      <p className="text-white/40 text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
+                      <p className="text-white font-bold text-sm">{f.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+            <motion.div
+              className="relative pb-0 hidden lg:block"
+              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
+            >
+              <div className="grid grid-cols-3 gap-2 h-[420px]">
+                <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
+                  <img src={event6} alt="AutoNxt launch event" className="w-full h-full object-cover" />
+                </div>
+                <div className="rounded-tr-2xl overflow-hidden">
+                  <img src={event1} alt="AutoNxt field" className="w-full h-full object-cover" />
+                </div>
+                <div className="overflow-hidden">
+                  <img src={event3} alt="AutoNxt ceremony" className="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
+            </motion.div>
+          </div>
         </div>
+      </section>
+
+      <div className="pb-20">
+        <div className="container mx-auto px-4 md:px-8 pt-12">
 
         {/* Tabs */}
         <div className="flex gap-1 p-1 bg-muted/50 rounded-xl w-fit mb-12 border border-border">
@@ -514,6 +559,7 @@ export default function Gallery() {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </div>
   );
 }
