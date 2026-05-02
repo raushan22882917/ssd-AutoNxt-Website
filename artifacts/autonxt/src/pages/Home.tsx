@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
-import { ArrowRight, ChevronRight, ChevronDown, Zap, Cpu, BatteryCharging, ShieldCheck, Globe, Activity, Trash2, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf, Smartphone, CheckCircle, Monitor, BarChart3, Download, MapPin, Bell, Wrench, Package, Ticket, CalendarDays, QrCode, User } from "lucide-react";
+import { ArrowRight, ChevronRight, ChevronDown, Zap, Cpu, BatteryCharging, ShieldCheck, Globe, Activity, Trash2, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf, Smartphone, CheckCircle, Monitor, BarChart3, Download, MapPin, Bell, Wrench, Package, Ticket, CalendarDays, QrCode, User, IndianRupee, TrendingUp } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
 import tractor1 from "@assets/1_1777731255751.png";
@@ -331,6 +331,99 @@ export default function Home() {
                   />
                 </div>
                 <span className="text-[10px] text-white/40 text-center max-w-[120px] leading-tight">{org.name}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROVEN TRACK RECORD ── */}
+      <section className="py-20 bg-background border-y border-border relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_120%,hsl(0,72%,40%,0.06),transparent_70%)] pointer-events-none" />
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="text-center mb-14">
+            <motion.p
+              className="text-primary font-semibold text-sm uppercase tracking-widest mb-3"
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            >
+              Impact
+            </motion.p>
+            <motion.h2
+              className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4"
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            >
+              Proven Track Record.
+            </motion.h2>
+            <motion.p
+              className="text-muted-foreground text-lg max-w-xl mx-auto"
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+            >
+              Join the growing number of industries choosing AutoNxt for sustainable operations.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+            {[
+              {
+                icon: Package,
+                value: "250+",
+                title: "Orders Placed",
+                desc: "Tractors delivered across industries",
+                color: "text-primary",
+                bg: "bg-primary/8",
+                border: "border-primary/15",
+                glow: "group-hover:shadow-primary/10",
+              },
+              {
+                icon: Building2,
+                value: "8",
+                title: "Happy Industries",
+                desc: "Industries trusting our solutions",
+                color: "text-accent",
+                bg: "bg-accent/8",
+                border: "border-accent/15",
+                glow: "group-hover:shadow-accent/10",
+              },
+              {
+                icon: Leaf,
+                value: "47,135",
+                title: "Trees Saved",
+                desc: "Global period CO₂ reduction across all tractors",
+                color: "text-emerald-600",
+                bg: "bg-emerald-50",
+                border: "border-emerald-100",
+                glow: "group-hover:shadow-emerald-500/10",
+              },
+              {
+                icon: IndianRupee,
+                value: "₹3.16Cr",
+                title: "Cost Saved",
+                desc: "Operational cost reduction",
+                color: "text-amber-600",
+                bg: "bg-amber-50",
+                border: "border-amber-100",
+                glow: "group-hover:shadow-amber-500/10",
+              },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                className={`group bg-card border ${stat.border} rounded-2xl p-7 flex flex-col gap-4 hover:shadow-xl ${stat.glow} hover:-translate-y-1 transition-all duration-300`}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.09, duration: 0.5 }}
+              >
+                <div className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center shrink-0`}>
+                  <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                </div>
+                <div>
+                  <p className={`font-display text-4xl font-bold ${stat.color} leading-none mb-2`}>
+                    {stat.value}
+                  </p>
+                  <p className="font-semibold text-foreground text-base mb-1">{stat.title}</p>
+                  <p className="text-muted-foreground text-sm leading-snug">{stat.desc}</p>
+                </div>
+                <div className={`mt-auto h-0.5 w-8 rounded-full ${stat.bg} group-hover:w-full transition-all duration-500`} />
               </motion.div>
             ))}
           </div>
