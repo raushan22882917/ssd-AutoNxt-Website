@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Menu, Moon, Sun, X, ChevronDown } from "lucide-react";
+import { Menu, Moon, Sun, X, ChevronDown, Newspaper, BookOpen, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/ThemeProvider";
 import {
@@ -95,10 +95,34 @@ export default function Navbar() {
                 Resources <ChevronDown className="w-3.5 h-3.5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48 bg-white border-border shadow-md">
-              <DropdownMenuItem className="cursor-pointer hover:text-primary">Documentation</DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer hover:text-primary">Investor Relations</DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer hover:text-primary">Press Kit</DropdownMenuItem>
+            <DropdownMenuContent align="end" className="w-52 bg-white border-border shadow-md p-1">
+              <Link href="/news">
+                <DropdownMenuItem className="cursor-pointer hover:text-primary rounded-lg px-3 py-2.5 flex items-center gap-2.5">
+                  <Newspaper className="w-4 h-4 text-primary flex-shrink-0" />
+                  <div>
+                    <div className="font-semibold text-sm">News</div>
+                    <div className="text-[11px] text-muted-foreground">Press & announcements</div>
+                  </div>
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/blog">
+                <DropdownMenuItem className="cursor-pointer hover:text-primary rounded-lg px-3 py-2.5 flex items-center gap-2.5">
+                  <BookOpen className="w-4 h-4 text-accent flex-shrink-0" />
+                  <div>
+                    <div className="font-semibold text-sm">Blog</div>
+                    <div className="text-[11px] text-muted-foreground">Stories from the field</div>
+                  </div>
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/ev-blog">
+                <DropdownMenuItem className="cursor-pointer hover:text-primary rounded-lg px-3 py-2.5 flex items-center gap-2.5">
+                  <Zap className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                  <div>
+                    <div className="font-semibold text-sm">EV Blog</div>
+                    <div className="text-[11px] text-muted-foreground">Electric vehicle insights</div>
+                  </div>
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuContent>
           </DropdownMenu>
 

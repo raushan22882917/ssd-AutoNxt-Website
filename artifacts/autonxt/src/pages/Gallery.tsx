@@ -68,28 +68,34 @@ const PHOTOS = [
 
 const VIDEOS = [
   {
-    id: "kUFtEwkBUAg",
-    title: "AutoNxt Electric Tractor — Product Launch",
-    desc: "Official product launch showcase of AutoNxt's flagship electric tractor range.",
-    duration: "3:42",
+    id: "3PVEHTybb_o",
+    title: "AutoNxt X45H2 Electric Tractor — Product Description (English)",
+    desc: "Full product walkthrough of AutoNxt's flagship 45HP electric tractor — the X45H2 — covering specs, features, and capabilities.",
   },
   {
-    id: "8KXJN9JVkvI",
-    title: "AutoNxt X45 — Field Demonstration",
-    desc: "Watch the X45 series electric tractor tackle real Indian farm conditions.",
-    duration: "2:18",
+    id: "9Px1KnfeBdY",
+    title: "X45H2 — Rotavator Puddling in Heavy Rains & Flooded Farms",
+    desc: "Watch the X45H2 tackle rotavator puddling operations in heavy rainy season and completely flooded farm conditions.",
   },
   {
-    id: "oDpK7nFj5eE",
-    title: "AutoNxt — Industrial Applications",
-    desc: "How AutoNxt electric tractors are powering biomass, airports, and defence operations.",
-    duration: "4:05",
+    id: "kia8cxkaUJc",
+    title: "First Electric Tractor of Maharashtra Delivered to Jaywant Sugar Mill",
+    desc: "Historic delivery of the first AutoNxt electric tractor to Jaywant Sugar Mill, Karad, Satara — a landmark for Indian agri-EV.",
   },
   {
-    id: "zRXypMgSBnI",
-    title: "AutoNxt — Behind the Build",
-    desc: "A behind-the-scenes look at how every AutoNxt tractor is engineered and assembled.",
-    duration: "5:30",
+    id: "u2a1EoXayrk",
+    title: "AutoNxt 45HP Electric Tractor — Full Power Demo",
+    desc: "See the X45H2 demonstrating its full torque and performance capabilities across multiple field operations.",
+  },
+  {
+    id: "UHtiUSmO27I",
+    title: "X45H2 — Haulage, Tiller, Reaper & Water Jet Wash",
+    desc: "Comprehensive field demonstration of the X45H2 performing haulage, tilling, reaping operations and a thorough water jet wash.",
+  },
+  {
+    id: "Z6107d2ygF0",
+    title: "AutoNxt X45H2 इलेक्ट्रिक ट्रैक्टर — उत्पाद विवरण (हिंदी में)",
+    desc: "हिंदी में AutoNxt X45H2 इलेक्ट्रिक ट्रैक्टर का पूरा उत्पाद विवरण — भारतीय किसानों के लिए।",
   },
 ];
 
@@ -276,8 +282,8 @@ export default function Gallery() {
                             <div className="w-0 h-0 border-t-[10px] border-b-[10px] border-l-[18px] border-transparent border-l-white ml-1" />
                           </div>
                         </div>
-                        <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs font-mono px-2 py-0.5 rounded">
-                          {video.duration}
+                        <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs font-mono px-2 py-0.5 rounded flex items-center gap-1">
+                          <PlayCircle className="w-3 h-3" /> YouTube
                         </div>
                       </div>
                     )}

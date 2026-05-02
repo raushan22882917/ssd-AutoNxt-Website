@@ -13,6 +13,9 @@ import Gallery from "@/pages/Gallery";
 import Contribution from "@/pages/Contribution";
 import About from "@/pages/About";
 import Book from "@/pages/Book";
+import News from "@/pages/News";
+import Blog from "@/pages/Blog";
+import EvBlog from "@/pages/EvBlog";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -30,6 +33,9 @@ function Router() {
           <Route path="/contribution" component={Contribution} />
           <Route path="/about" component={About} />
           <Route path="/book" component={Book} />
+          <Route path="/news" component={News} />
+          <Route path="/blog" component={Blog} />
+          <Route path="/ev-blog" component={EvBlog} />
           <Route component={NotFound} />
         </Switch>
       </main>
