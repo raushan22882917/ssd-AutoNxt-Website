@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
-import { ArrowRight, ChevronRight, ChevronDown, Zap, Cpu, BatteryCharging, ShieldCheck, Globe, Activity, Trash2, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf, Smartphone, CheckCircle } from "lucide-react";
+import { ArrowRight, ChevronRight, ChevronDown, Zap, Cpu, BatteryCharging, ShieldCheck, Globe, Activity, Trash2, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf, Smartphone, CheckCircle, Monitor, BarChart3, Download, MapPin, Bell, Wrench, Package, Ticket, CalendarDays, QrCode, User } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
 import tractor1 from "@assets/1_1777731255751.png";
@@ -296,17 +296,17 @@ export default function Home() {
       </section>
 
       {/* ── TRUSTED BY ── */}
-      <section className="py-14 bg-background border-b border-border">
+      <section className="py-14 bg-surface-dark">
         <div className="container mx-auto px-4 md:px-8">
           <motion.p
-            className="text-center text-xs font-bold uppercase tracking-widest text-muted-foreground mb-10"
+            className="text-center text-xs font-bold uppercase tracking-widest text-white/40 mb-10 letter-spacing-widest"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
             Trusted by India's Leading Organisations
           </motion.p>
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-5 md:gap-8">
             {[
               { img: baifLogo, name: "BAIF Development Research", bg: "bg-white" },
               { img: dksmLogo, name: "DKSM", bg: "bg-white" },
@@ -323,14 +323,14 @@ export default function Home() {
                 transition={{ delay: i * 0.08 }}
                 data-testid={`logo-partner-${i}`}
               >
-                <div className={`h-16 w-36 rounded-xl border border-border ${org.bg} flex items-center justify-center group-hover:border-primary/40 group-hover:shadow-md transition-all duration-200 overflow-hidden px-3`}>
+                <div className={`h-16 w-40 rounded-xl border border-white/10 ${org.bg} flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10 transition-all duration-200 overflow-hidden px-4`}>
                   <img
                     src={org.img}
                     alt={org.name}
                     className="h-10 w-full object-contain"
                   />
                 </div>
-                <span className="text-[10px] text-muted-foreground text-center max-w-[110px] leading-tight">{org.name}</span>
+                <span className="text-[10px] text-white/40 text-center max-w-[120px] leading-tight">{org.name}</span>
               </motion.div>
             ))}
           </div>
@@ -702,11 +702,268 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── SOFTWARE WE DELIVER ── */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="text-center mb-16">
+            <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>Digital Ecosystem</motion.p>
+            <motion.h2 className="font-display text-4xl md:text-5xl font-bold text-foreground" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              Software We <span className="text-primary">Deliver.</span>
+            </motion.h2>
+            <motion.p className="text-muted-foreground mt-4 max-w-xl mx-auto" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+              Complete digital tools to manage, monitor, and maintain your AutoNxt electric tractor fleet.
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Dashboard Card */}
+            <motion.div
+              className="bg-card border border-border rounded-3xl overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 group"
+              initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+            >
+              {/* Mock Dashboard Preview */}
+              <div className="bg-[hsl(214,60%,14%)] p-5 h-52 relative overflow-hidden">
+                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_70%_50%,hsl(214,65%,50%),transparent_60%)]" />
+                <div className="relative z-10 h-full flex flex-col gap-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-2 h-2 rounded-full bg-primary" />
+                    <span className="text-white/50 text-[10px] font-mono tracking-wider">NXT-FLEET DASHBOARD</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[{ label: "Active", val: "12" }, { label: "Battery Avg", val: "87%" }, { label: "Distance", val: "340km" }].map((m, i) => (
+                      <div key={i} className="bg-white/5 rounded-lg p-2 border border-white/8">
+                        <p className="text-white/40 text-[9px] uppercase tracking-wider">{m.label}</p>
+                        <p className="text-white font-bold text-sm font-mono">{m.val}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex-1 bg-white/4 rounded-xl border border-white/8 p-3 flex items-end gap-1.5">
+                    {[60, 80, 55, 90, 70, 95, 65, 85, 75, 88, 60, 92].map((h, i) => (
+                      <div key={i} className="flex-1 rounded-sm bg-primary/60 group-hover:bg-primary/80 transition-colors" style={{ height: `${h}%` }} />
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="flex-1 bg-white/4 rounded-lg border border-white/8 p-2 flex items-center gap-1.5">
+                      <MapPin className="w-3 h-3 text-primary shrink-0" />
+                      <div className="h-1.5 w-full bg-primary/30 rounded-full overflow-hidden"><div className="h-full w-3/4 bg-primary rounded-full" /></div>
+                    </div>
+                    <div className="flex-1 bg-white/4 rounded-lg border border-white/8 p-2 flex items-center gap-1.5">
+                      <BarChart3 className="w-3 h-3 text-accent shrink-0" />
+                      <div className="h-1.5 w-full bg-accent/30 rounded-full overflow-hidden"><div className="h-full w-1/2 bg-accent rounded-full" /></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="p-7">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-11 h-11 bg-secondary/10 rounded-xl flex items-center justify-center shrink-0">
+                    <Monitor className="w-5 h-5 text-secondary" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-muted-foreground font-semibold uppercase tracking-widest">Web Platform</p>
+                    <h3 className="font-display font-bold text-foreground text-xl">NXT-Fleet Dashboard</h3>
+                  </div>
+                </div>
+                <ul className="space-y-2.5 mb-6">
+                  {["Real-time GPS fleet tracking", "Battery & diagnostics monitoring", "Fleet analytics & performance reports", "Multi-farm management portal"].map((f, i) => (
+                    <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                      <CheckCircle className="w-4 h-4 text-secondary shrink-0" /> {f}
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/book">
+                  <Button variant="outline" className="border-secondary/40 text-secondary hover:bg-secondary hover:text-white font-semibold gap-2">
+                    Request Access <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Mobile App Card */}
+            <motion.div
+              className="bg-card border border-border rounded-3xl overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 group"
+              initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+            >
+              {/* Mock Phone Preview */}
+              <div className="bg-primary/6 p-5 h-52 relative overflow-hidden flex items-center justify-center">
+                <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_60%,hsl(0,72%,50%),transparent_60%)]" />
+                <div className="relative z-10 w-28 bg-surface-dark rounded-2xl border border-white/10 shadow-2xl overflow-hidden" style={{ height: "180px" }}>
+                  <div className="bg-primary h-8 flex items-center justify-between px-3">
+                    <span className="text-white text-[8px] font-bold tracking-wide">AUTONXT</span>
+                    <Smartphone className="w-3 h-3 text-white/70" />
+                  </div>
+                  <div className="p-2 space-y-1.5">
+                    {[{ icon: CalendarDays, label: "Book Service", color: "text-primary" }, { icon: MapPin, label: "Track Technician", color: "text-accent" }, { icon: Wrench, label: "Service History", color: "text-amber-500" }, { icon: Package, label: "Spare Parts", color: "text-emerald-500" }].map((item, i) => (
+                      <div key={i} className="bg-white/5 rounded-lg p-1.5 flex items-center gap-2 border border-white/5">
+                        <item.icon className={`w-3 h-3 ${item.color} shrink-0`} />
+                        <span className="text-white/70 text-[8px] font-medium">{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="absolute bottom-2 left-0 right-0 flex justify-center">
+                    <div className="w-8 h-0.5 bg-white/20 rounded-full" />
+                  </div>
+                </div>
+              </div>
+              <div className="p-7">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                    <Smartphone className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-muted-foreground font-semibold uppercase tracking-widest">iOS & Android</p>
+                    <h3 className="font-display font-bold text-foreground text-xl">AutoNxt Service App</h3>
+                  </div>
+                </div>
+                <ul className="space-y-2.5 mb-6">
+                  {["Book & schedule service appointments", "Live technician location tracking", "Complete service history & records", "Spare parts ordering & delivery"].map((f, i) => (
+                    <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                      <CheckCircle className="w-4 h-4 text-primary shrink-0" /> {f}
+                    </li>
+                  ))}
+                </ul>
+                <Button className="bg-primary text-white hover:bg-primary/90 font-semibold gap-2">
+                  Download App <Download className="w-4 h-4" />
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── VISITING PASS & MOBILE APP ── */}
+      <section className="py-24 bg-muted/20">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="text-center mb-14">
+            <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>Visit & Connect</motion.p>
+            <motion.h2 className="font-display text-4xl md:text-5xl font-bold text-foreground" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              Get a <span className="text-primary">Visiting Pass</span> or App
+            </motion.h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+
+            {/* Visiting Pass */}
+            <motion.div
+              className="bg-card border border-border rounded-3xl p-8 relative overflow-hidden"
+              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+            >
+              <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center">
+                  <Ticket className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <p className="text-[11px] text-muted-foreground font-semibold uppercase tracking-widest">Factory & Showroom</p>
+                  <h3 className="font-display font-bold text-foreground text-xl">Book a Visiting Pass</h3>
+                </div>
+              </div>
+
+              {/* Styled Pass Preview */}
+              <div className="bg-surface-dark rounded-2xl p-5 mb-6 relative overflow-hidden border border-white/5">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary" />
+                <div className="absolute bottom-0 right-0 w-20 h-20 bg-primary/10 rounded-full translate-x-1/2 translate-y-1/2 pointer-events-none" />
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-white/40 text-[9px] uppercase tracking-widest font-bold mb-0.5">AutoNxt Automation</p>
+                    <p className="text-white font-display font-bold text-base">VISITOR PASS</p>
+                    <p className="text-white/50 text-xs mt-1">Hinjewadi Phase 2, Pune</p>
+                  </div>
+                  <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center border border-primary/20">
+                    <Ticket className="w-5 h-5 text-primary" />
+                  </div>
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-2 border-t border-white/10 pt-3">
+                  {[{ l: "Name", v: "— — —" }, { l: "Date", v: "— — —" }, { l: "Purpose", v: "— — —" }].map((f, i) => (
+                    <div key={i}>
+                      <p className="text-white/30 text-[8px] uppercase tracking-wider">{f.l}</p>
+                      <p className="text-white/60 text-[10px] font-mono">{f.v}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex gap-3">
+                  <div className="flex-1 relative">
+                    <User className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      placeholder="Your Full Name"
+                      className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-border bg-muted/30 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    />
+                  </div>
+                  <div className="flex-1 relative">
+                    <CalendarDays className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="date"
+                      className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-border bg-muted/30 text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
+                    />
+                  </div>
+                </div>
+                <Link href="/book">
+                  <Button className="w-full bg-primary text-white hover:bg-primary/90 font-semibold gap-2">
+                    <Ticket className="w-4 h-4" /> Generate Visiting Pass
+                  </Button>
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Download App */}
+            <motion.div
+              className="bg-surface-dark rounded-3xl p-8 relative overflow-hidden text-white"
+              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/8 rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/8 rounded-full translate-y-1/3 -translate-x-1/3 pointer-events-none" />
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 border border-primary/20">
+                  <Smartphone className="w-7 h-7 text-primary" />
+                </div>
+                <p className="text-white/50 text-[11px] uppercase tracking-widest font-bold mb-2">Mobile Application</p>
+                <h3 className="font-display font-bold text-3xl mb-3">AutoNxt<br /><span className="text-primary">on Your Phone</span></h3>
+                <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-xs">
+                  Book service, track your tractor, manage fleet operations, and stay updated with alerts — all from your pocket.
+                </p>
+
+                <div className="space-y-3 mb-8">
+                  {[{ icon: Bell, text: "Real-time alerts & notifications" }, { icon: MapPin, text: "Live tractor GPS tracking" }, { icon: Wrench, text: "Service booking & history" }].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center border border-white/10">
+                        <item.icon className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-white/70 text-sm">{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a href="#" className="flex items-center gap-3 bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl px-4 py-3 transition-colors group">
+                    <svg className="w-6 h-6 text-white shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                    <div>
+                      <p className="text-white/50 text-[9px] uppercase tracking-wider">Download on the</p>
+                      <p className="text-white font-semibold text-sm">App Store</p>
+                    </div>
+                  </a>
+                  <a href="#" className="flex items-center gap-3 bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl px-4 py-3 transition-colors group">
+                    <svg className="w-6 h-6 text-white shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.22.98.15l12.87-7.43-2.76-2.76-11.09 10.04zm-1.9-20.1a1.98 1.98 0 0 0-.28 1.04v18.6c0 .37.1.7.28 1.04l.06.06 10.42-10.42v-.24L1.34 3.6l-.06.06zm21.37 8.24-2.97-1.71-3.1 3.1 3.1 3.1 3-1.73c.85-.49.85-1.29-.03-1.76zm-19.22 9.72 11.58-11.57-2.76-2.76L1.43 19.6l.08.08.08-.06z"/></svg>
+                    <div>
+                      <p className="text-white/50 text-[9px] uppercase tracking-wider">Get it on</p>
+                      <p className="text-white font-semibold text-sm">Google Play</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* ── FAQ ── */}
       <FaqSection />
 
       {/* ── CTA ── */}
-      <section className="py-24 bg-foreground text-white relative overflow-hidden">
+      <section className="py-24 bg-surface-dark text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/10 pointer-events-none" />
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
           <motion.div
