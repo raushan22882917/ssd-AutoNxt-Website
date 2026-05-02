@@ -192,6 +192,27 @@ export default function Home() {
         {/* Red diagonal accent */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-primary/8 via-transparent to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent to-primary/30" />
+        {/* ── 3D floating ambient orbs ── */}
+        <motion.div
+          className="absolute top-16 right-[18%] w-80 h-80 rounded-full bg-primary/6 blur-3xl pointer-events-none"
+          animate={{ y: [0, 32, 0], scale: [1, 1.14, 1] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-20 left-[4%] w-96 h-96 rounded-full bg-accent/5 blur-3xl pointer-events-none"
+          animate={{ y: [0, -24, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-[38%] w-52 h-52 rounded-full bg-primary/4 blur-2xl pointer-events-none"
+          animate={{ scale: [1, 1.35, 1], opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        />
+        {/* Decorative rings */}
+        <div className="absolute top-[18%] right-[5%] w-44 h-44 rounded-full border border-primary/8 pointer-events-none" />
+        <div className="absolute top-[18%] right-[5%] w-64 h-64 rounded-full border border-accent/5 pointer-events-none -translate-x-[15%] -translate-y-[15%]" />
+        <div className="absolute bottom-[18%] left-[6%] w-24 h-24 rounded-full border border-primary/6 pointer-events-none" />
+        <div className="absolute bottom-[14%] left-[9%] w-10 h-10 rounded-full border border-accent/10 pointer-events-none" />
 
         <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center py-16">
           {/* Left: Text */}
@@ -252,23 +273,46 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="relative">
+            <div className="relative" style={{ perspective: "900px" }}>
               <div className="absolute -inset-4 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl blur-2xl" />
-              <img
+              <motion.img
                 src={tractor1}
                 alt="Autonxt X45H2 Electric Tractor"
                 className="relative w-full max-w-xl mx-auto drop-shadow-2xl"
+                animate={{ y: [0, -18, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
               />
             </div>
-            {/* Floating badge */}
+            {/* Floating spec badges */}
             <motion.div
-              className="absolute top-8 right-4 bg-card border border-border rounded-xl px-4 py-2.5 shadow-lg"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              className="absolute top-8 right-4 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-4 py-2.5 shadow-lg shadow-primary/5"
+              initial={{ opacity: 0, scale: 0.8, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.4 }}
+              whileHover={{ scale: 1.07, y: -3, transition: { duration: 0.2 } }}
             >
               <p className="text-xs text-muted-foreground font-medium">Flagship Model</p>
               <p className="text-sm font-bold text-foreground">X45H2 — 45HP</p>
+            </motion.div>
+            <motion.div
+              className="absolute bottom-10 left-2 md:left-6 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 shadow-md"
+              initial={{ opacity: 0, x: -16, scale: 0.85 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ delay: 1.2, duration: 0.4 }}
+              whileHover={{ scale: 1.07, x: 3, transition: { duration: 0.2 } }}
+            >
+              <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-wider">Zero Emissions</p>
+              <p className="text-xs font-semibold text-emerald-700">100% Electric</p>
+            </motion.div>
+            <motion.div
+              className="absolute top-[45%] left-0 md:left-2 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-3 py-2 shadow-md"
+              initial={{ opacity: 0, x: -16, scale: 0.85 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ delay: 1.4, duration: 0.4 }}
+              whileHover={{ scale: 1.07, x: 3, transition: { duration: 0.2 } }}
+            >
+              <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Range</p>
+              <p className="text-xs font-bold text-accent">8–10 hrs / charge</p>
             </motion.div>
           </motion.div>
         </div>
@@ -367,7 +411,7 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6" style={{ perspective: "1200px" }}>
             {[
               {
                 icon: Package,
@@ -412,11 +456,13 @@ export default function Home() {
             ].map((stat, i) => (
               <motion.div
                 key={i}
-                className={`group bg-card border ${stat.border} rounded-2xl p-7 flex flex-col gap-4 hover:shadow-xl ${stat.glow} hover:-translate-y-1 transition-all duration-300`}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                className={`group bg-card border ${stat.border} rounded-2xl p-7 flex flex-col gap-4 hover:shadow-xl transition-all duration-300`}
+                initial={{ opacity: 0, y: 40, rotateX: 14 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.09, duration: 0.5 }}
+                transition={{ delay: i * 0.09, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+                whileHover={{ rotateY: 6, rotateX: -4, scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+                style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
               >
                 <div className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center shrink-0`}>
                   <stat.icon className={`w-6 h-6 ${stat.color}`} />
@@ -452,7 +498,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8" style={{ perspective: "1200px" }}>
             {[
               {
                 img: tractor1,
@@ -473,11 +519,13 @@ export default function Home() {
             ].map((p, i) => (
               <motion.div
                 key={i}
-                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all duration-300"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-2xl transition-all duration-300"
+                initial={{ opacity: 0, y: 40, rotateX: 14 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.1, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+                whileHover={{ rotateY: i === 0 ? 5 : -5, rotateX: -3, scale: 1.02, y: -10, transition: { type: "spring", stiffness: 280, damping: 22 } }}
+                style={{ transformPerspective: 1000, transformStyle: "preserve-3d" }}
                 data-testid={`card-product-${i}`}
               >
                 <div className="relative bg-muted/40 p-8 flex items-center justify-center h-56">
@@ -509,7 +557,7 @@ export default function Home() {
             <p className="text-muted-foreground mt-4">Every component engineered for maximum efficiency, safety, and performance in Indian field conditions.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6" style={{ perspective: "1200px" }}>
             {[
               { icon: Zap, title: "High-Torque Motor", desc: "Instant torque from zero RPM. Outperforms diesel in pulling power and response." },
               { icon: BatteryCharging, title: "Extended Range Battery", desc: "Full-day farm operations on a single charge. Solar-compatible charging." },
@@ -520,12 +568,14 @@ export default function Home() {
             ].map((f, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 36, rotateX: 12 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
+                transition={{ delay: i * 0.07, duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
+                whileHover={{ rotateY: 6, rotateX: -4, scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 22 } }}
+                style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
               >
-                <Card className="bg-card border-border hover:border-primary/40 hover:shadow-md transition-all h-full">
+                <Card className="bg-card border-border hover:border-primary/40 hover:shadow-xl transition-all h-full">
                   <CardContent className="p-7">
                     <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                       <f.icon className="w-5 h-5 text-primary" />
@@ -551,7 +601,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: "1200px" }}>
             {[
               {
                 icon: Trash2,
@@ -619,13 +669,15 @@ export default function Home() {
             ].map((sol, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 36, rotateX: 12 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.5 }}
+                transition={{ delay: i * 0.07, duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
+                whileHover={{ rotateY: 5, rotateX: -4, scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 22 } }}
+                style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
                 data-testid={`card-industry-${i}`}
               >
-                <Card className={`bg-card border border-border ${sol.border} hover:shadow-md transition-all duration-300 h-full`}>
+                <Card className={`bg-card border border-border ${sol.border} hover:shadow-xl transition-all duration-300 h-full`}>
                   <CardContent className="p-7">
                     <div className={`w-12 h-12 rounded-xl ${sol.bg} flex items-center justify-center mb-5`}>
                       <sol.icon className={`w-6 h-6 ${sol.color}`} />
@@ -816,8 +868,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Dashboard Card */}
             <motion.div
-              className="bg-card border border-border rounded-3xl overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 group"
-              initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+              className="bg-card border border-border rounded-3xl overflow-hidden hover:border-primary/30 hover:shadow-2xl transition-all duration-300 group"
+              initial={{ opacity: 0, x: -40, rotateY: -10 }} whileInView={{ opacity: 1, x: 0, rotateY: 0 }} viewport={{ once: true }} transition={{ duration: 0.65, ease: [0.23, 1, 0.32, 1] }}
+              whileHover={{ rotateY: 4, rotateX: -3, scale: 1.01, y: -8, transition: { type: "spring", stiffness: 280, damping: 22 } }}
+              style={{ transformPerspective: 1000, transformStyle: "preserve-3d" }}
             >
               {/* Real Dashboard Screenshots */}
               <div className="bg-[#0d1117] h-56 relative overflow-hidden">
@@ -870,8 +924,10 @@ export default function Home() {
 
             {/* Mobile App Card */}
             <motion.div
-              className="bg-card border border-border rounded-3xl overflow-hidden hover:border-primary/30 hover:shadow-xl transition-all duration-300 group"
-              initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+              className="bg-card border border-border rounded-3xl overflow-hidden hover:border-primary/30 hover:shadow-2xl transition-all duration-300 group"
+              initial={{ opacity: 0, x: 40, rotateY: 10 }} whileInView={{ opacity: 1, x: 0, rotateY: 0 }} viewport={{ once: true }} transition={{ duration: 0.65, ease: [0.23, 1, 0.32, 1] }}
+              whileHover={{ rotateY: -4, rotateX: -3, scale: 1.01, y: -8, transition: { type: "spring", stiffness: 280, damping: 22 } }}
+              style={{ transformPerspective: 1000, transformStyle: "preserve-3d" }}
             >
               {/* Real App Screenshots */}
               <div className="bg-[#0d1117] h-56 relative overflow-hidden">
@@ -938,7 +994,9 @@ export default function Home() {
             {/* Visiting Pass */}
             <motion.div
               className="bg-card border border-border rounded-3xl p-8 relative overflow-hidden"
-              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, y: 40, rotateX: 12 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+              whileHover={{ rotateY: 4, rotateX: -3, scale: 1.01, y: -8, transition: { type: "spring", stiffness: 280, damping: 22 } }}
+              style={{ transformPerspective: 1000, transformStyle: "preserve-3d" }}
             >
               <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
               <div className="flex items-center gap-3 mb-6">
@@ -1004,7 +1062,9 @@ export default function Home() {
             {/* Download App */}
             <motion.div
               className="bg-surface-dark rounded-3xl p-8 relative overflow-hidden text-white"
-              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
+              initial={{ opacity: 0, y: 40, rotateX: 12 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+              whileHover={{ rotateY: -4, rotateX: -3, scale: 1.01, y: -8, transition: { type: "spring", stiffness: 280, damping: 22 } }}
+              style={{ transformPerspective: 1000, transformStyle: "preserve-3d" }}
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/8 rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/8 rounded-full translate-y-1/3 -translate-x-1/3 pointer-events-none" />
