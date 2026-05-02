@@ -1,8 +1,11 @@
 import { Link } from "wouter";
 import { Linkedin, Twitter, Youtube, Instagram, Mail, Phone, MapPin } from "lucide-react";
 import logoImg from "@assets/adaptive-icon_1777731255752.png";
+import { useLang } from "@/contexts/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLang();
+
   return (
     <footer className="bg-foreground text-white">
       <div className="container mx-auto px-4 md:px-8 py-14">
@@ -23,17 +26,24 @@ export default function Footer() {
               India's electric tractor pioneer. Powering the fields of tomorrow, built for Indian farmers today.
             </p>
             <div className="flex gap-3">
-              {[Twitter, Linkedin, Youtube, Instagram].map((Icon, i) => (
-                <a key={i} href="#" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid={`link-social-${i}`}>
-                  <Icon className="w-3.5 h-3.5 text-white" />
-                </a>
-              ))}
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-0">
+                <Twitter className="w-3.5 h-3.5 text-white" />
+              </a>
+              <a href="https://www.linkedin.com/company/autonxt-automation" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-1">
+                <Linkedin className="w-3.5 h-3.5 text-white" />
+              </a>
+              <a href="https://www.youtube.com/@autonxtautomation8368" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-2">
+                <Youtube className="w-3.5 h-3.5 text-white" />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-3">
+                <Instagram className="w-3.5 h-3.5 text-white" />
+              </a>
             </div>
           </div>
 
           {/* Products */}
           <div>
-            <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">Products</h3>
+            <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">{t.nav.product}</h3>
             <ul className="space-y-3 text-sm text-white/60">
               <li><Link href="/product" className="hover:text-primary transition-colors">Autonxt X45H2</Link></li>
               <li><Link href="/product" className="hover:text-primary transition-colors">Autonxt X25H4</Link></li>
@@ -45,19 +55,19 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">Company</h3>
+            <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">{t.nav.about}</h3>
             <ul className="space-y-3 text-sm text-white/60">
-              <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link href="/industry" className="hover:text-primary transition-colors">Industries</Link></li>
-              <li><Link href="/contribution" className="hover:text-primary transition-colors">Sustainability</Link></li>
-              <li><Link href="/gallery" className="hover:text-primary transition-colors">Gallery</Link></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Careers</a></li>
+              <li><Link href="/about" className="hover:text-primary transition-colors">{t.nav.about}</Link></li>
+              <li><Link href="/industry" className="hover:text-primary transition-colors">{t.nav.industry}</Link></li>
+              <li><Link href="/contribution" className="hover:text-primary transition-colors">{t.nav.contribution}</Link></li>
+              <li><Link href="/gallery" className="hover:text-primary transition-colors">{t.nav.gallery}</Link></li>
+              <li><Link href="/news" className="hover:text-primary transition-colors">{t.nav.news}</Link></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">Contact</h3>
+            <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">{t.common.getInTouch}</h3>
             <ul className="space-y-4 text-sm text-white/60">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
@@ -76,13 +86,13 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
-          <p>&copy; {new Date().getFullYear()} Autonxt Automation Pvt. Ltd. All rights reserved.</p>
+          <p>{t.common.copyright}</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Use</a>
             <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
           </div>
-          <p>Designed & Engineered in India</p>
+          <p>{t.common.madeIn}</p>
         </div>
       </div>
     </footer>

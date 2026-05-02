@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, Calendar, Clock, User, Tag } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
 const POSTS = [
   {
@@ -61,25 +62,26 @@ const POSTS = [
 ];
 
 export default function Blog() {
+  const { t } = useLang();
   const [featured, ...rest] = POSTS;
 
   return (
     <div className="w-full min-h-screen pt-20 pb-0 bg-background">
 
       {/* Header */}
-      <section className="py-16 bg-white border-b border-border">
+      <section className="py-16 bg-background border-b border-border">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            AutoNxt Blog
+            {t.blog.tag}
           </motion.p>
           <motion.h1
             className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           >
-            Insights on <span className="text-primary">Farming's Future.</span>
+            {t.blog.title} <span className="text-primary">{t.blog.titleHighlight}</span>
           </motion.h1>
           <motion.p className="text-lg text-muted-foreground max-w-2xl" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-            Stories, deep-dives, and perspectives from the AutoNxt team on electric tractors, sustainable agriculture, and the future of farming in India.
+            {t.blog.desc}
           </motion.p>
         </div>
       </section>
@@ -87,9 +89,9 @@ export default function Blog() {
       {/* Featured Post */}
       <section className="py-14 bg-muted/30">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <p className="text-xs font-bold text-primary uppercase tracking-widest mb-6">Featured Post</p>
+          <p className="text-xs font-bold text-primary uppercase tracking-widest mb-6">{t.blog.featured}</p>
           <motion.div
-            className="bg-white border border-border rounded-2xl p-8 md:p-10 hover:border-primary/40 hover:shadow-lg transition-all group"
+            className="bg-card border border-border rounded-2xl p-8 md:p-10 hover:border-primary/40 hover:shadow-lg transition-all group"
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           >
             <div className="flex flex-wrap gap-3 items-center mb-5">
@@ -101,21 +103,21 @@ export default function Blog() {
             <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">{featured.title}</h2>
             <p className="text-muted-foreground text-base leading-relaxed mb-6">{featured.summary}</p>
             <Button className="bg-primary text-white hover:bg-primary/90">
-              Read Full Post <ArrowRight className="ml-2 w-4 h-4" />
+              {t.blog.readFull} <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </motion.div>
         </div>
       </section>
 
       {/* All Posts Grid */}
-      <section className="py-14 bg-white">
+      <section className="py-14 bg-background">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <p className="text-xs font-bold text-primary uppercase tracking-widest mb-8">All Posts</p>
+          <p className="text-xs font-bold text-primary uppercase tracking-widest mb-8">{t.blog.allPosts}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {rest.map((post, i) => (
               <motion.div
                 key={i}
-                className="bg-white border border-border rounded-xl p-6 hover:border-primary/40 hover:shadow-md transition-all group flex flex-col"
+                className="bg-card border border-border rounded-xl p-6 hover:border-primary/40 hover:shadow-md transition-all group flex flex-col"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 3) * 0.07 }}
               >
                 <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full w-fit mb-4 ${post.color}`}>{post.tag}</span>
@@ -138,11 +140,11 @@ export default function Blog() {
       {/* CTA */}
       <section className="py-16 bg-foreground">
         <div className="container mx-auto px-4 md:px-8 text-center">
-          <h2 className="font-display text-3xl font-bold text-white mb-3">Want to write for AutoNxt?</h2>
-          <p className="text-white/70 mb-6 max-w-xl mx-auto">We collaborate with farmers, engineers, and agri-tech experts to share real stories from the field.</p>
+          <h2 className="font-display text-3xl font-bold text-white mb-3">{t.blog.writeFor}</h2>
+          <p className="text-white/70 mb-6 max-w-xl mx-auto">{t.blog.writeDesc}</p>
           <a href="mailto:info@autonxt.in">
             <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold px-8">
-              Get in Touch <ArrowRight className="ml-2 w-4 h-4" />
+              {t.common.getInTouch} <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </a>
         </div>

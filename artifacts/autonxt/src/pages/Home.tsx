@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 import { ArrowRight, ChevronRight, ChevronDown, Zap, Cpu, BatteryCharging, ShieldCheck, Globe, Activity, Trash2, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
 import tractor1 from "@assets/1_1777731255751.png";
 import tractor2 from "@assets/2_1777731255751.png";
@@ -111,7 +112,7 @@ function FaqSection() {
               className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all duration-200 cursor-pointer ${
                 activeCategory === cat.id
                   ? "bg-primary text-white border-primary shadow-sm"
-                  : "bg-white text-foreground border-border hover:border-primary/50 hover:text-primary"
+                  : "bg-card text-foreground border-border hover:border-primary/50 hover:text-primary"
               }`}
             >
               {cat.label}
@@ -131,7 +132,7 @@ function FaqSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ delay: i * 0.04, duration: 0.35 }}
-                  className={`bg-white rounded-xl border transition-all duration-200 overflow-hidden ${
+                  className={`bg-card rounded-xl border transition-all duration-200 overflow-hidden ${
                     isOpen ? "border-primary/50 shadow-md" : "border-border hover:border-primary/30"
                   }`}
                   data-testid={`faq-item-${i}`}
@@ -171,11 +172,12 @@ function FaqSection() {
 }
 
 export default function Home() {
+  const { t } = useLang();
   return (
     <div className="w-full flex flex-col min-h-screen pt-16">
 
       {/* ── HERO ── */}
-      <section className="relative w-full min-h-[92vh] flex items-center overflow-hidden bg-white">
+      <section className="relative w-full min-h-[92vh] flex items-center overflow-hidden bg-background">
         {/* Red diagonal accent */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-primary/8 via-transparent to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent to-primary/30" />
@@ -190,7 +192,7 @@ export default function Home() {
               transition={{ duration: 0.5 }}
             >
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              India's Electric Tractor Pioneer
+              {t.home.heroBadge}
             </motion.span>
 
             <motion.h1
@@ -199,9 +201,9 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
-              Power the <br />
-              <span className="text-primary">Fields</span> of <br />
-              <span className="text-accent">Tomorrow.</span>
+              {t.home.heroTitle1} <br />
+              <span className="text-primary">{t.home.heroTitleHighlight}</span><br />
+              <span className="text-accent">{t.home.heroTitle2}</span>
             </motion.h1>
 
             <motion.p
@@ -210,7 +212,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.25 }}
             >
-              Autonxt builds India's most advanced electric tractors — zero-emission, high-performance, built for every Indian farmer and every kind of land.
+              {t.home.heroDesc}
             </motion.p>
 
             <motion.div
@@ -221,12 +223,12 @@ export default function Home() {
             >
               <Link href="/product">
                 <Button size="lg" className="h-13 px-8 text-base bg-primary text-white hover:bg-primary/90 font-semibold shadow-md" data-testid="btn-explore-products">
-                  Explore Products <ArrowRight className="ml-2 w-4 h-4" />
+                  {t.home.exploreProducts} <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
               <Link href="/book">
                 <Button size="lg" variant="outline" className="h-13 px-8 text-base border-accent text-accent hover:bg-accent hover:text-white font-semibold" data-testid="btn-book-now-hero">
-                  Book Now
+                  {t.home.bookNow}
                 </Button>
               </Link>
             </motion.div>
@@ -249,7 +251,7 @@ export default function Home() {
             </div>
             {/* Floating badge */}
             <motion.div
-              className="absolute top-8 right-4 bg-white border border-border rounded-xl px-4 py-2.5 shadow-lg"
+              className="absolute top-8 right-4 bg-card border border-border rounded-xl px-4 py-2.5 shadow-lg"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.9, duration: 0.4 }}
@@ -288,7 +290,7 @@ export default function Home() {
       </section>
 
       {/* ── TRUSTED BY ── */}
-      <section className="py-14 bg-white border-b border-border">
+      <section className="py-14 bg-background border-b border-border">
         <div className="container mx-auto px-4 md:px-8">
           <motion.p
             className="text-center text-xs font-bold uppercase tracking-widest text-muted-foreground mb-10"
@@ -330,7 +332,7 @@ export default function Home() {
       </section>
 
       {/* ── PRODUCT TEASER ── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-14">
             <div className="max-w-2xl">
@@ -367,7 +369,7 @@ export default function Home() {
             ].map((p, i) => (
               <motion.div
                 key={i}
-                className="group bg-white border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all duration-300"
+                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-lg transition-all duration-300"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -419,7 +421,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07 }}
               >
-                <Card className="bg-white border-border hover:border-primary/40 hover:shadow-md transition-all h-full">
+                <Card className="bg-card border-border hover:border-primary/40 hover:shadow-md transition-all h-full">
                   <CardContent className="p-7">
                     <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
                       <f.icon className="w-5 h-5 text-primary" />
@@ -435,7 +437,7 @@ export default function Home() {
       </section>
 
       {/* ── INDUSTRIAL SOLUTIONS ── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Industrial Solutions</p>
@@ -519,7 +521,7 @@ export default function Home() {
                 transition={{ delay: i * 0.07, duration: 0.5 }}
                 data-testid={`card-industry-${i}`}
               >
-                <Card className={`bg-white border border-border ${sol.border} hover:shadow-md transition-all duration-300 h-full`}>
+                <Card className={`bg-card border border-border ${sol.border} hover:shadow-md transition-all duration-300 h-full`}>
                   <CardContent className="p-7">
                     <div className={`w-12 h-12 rounded-xl ${sol.bg} flex items-center justify-center mb-5`}>
                       <sol.icon className={`w-6 h-6 ${sol.color}`} />
@@ -549,7 +551,7 @@ export default function Home() {
       </section>
 
       {/* ── TECH SHOWCASE: Battery + Motor ── */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -622,7 +624,7 @@ export default function Home() {
       </section>
 
       {/* ── VIDEOS ── */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
             <div>
@@ -678,7 +680,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="p-3 bg-white">
+                <div className="p-3 bg-card">
                   <p className="text-xs font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">{v.title}</p>
                 </div>
               </motion.a>

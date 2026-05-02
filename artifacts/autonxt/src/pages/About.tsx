@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, Linkedin, Users, Target, Lightbulb, Award, Leaf } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
 import kaustubhImg from "@assets/Kaustubh_1777738266292.png";
 import pankajImg from "@assets/pankaj_1777738266293.jpg";
@@ -68,26 +69,27 @@ const PROCESS = [
 ];
 
 export default function About() {
+  const { t } = useLang();
   return (
     <div className="w-full min-h-screen pt-20 pb-0 bg-background">
 
       {/* ── HERO ── */}
-      <section className="py-20 bg-white border-b border-border">
+      <section className="py-20 bg-background border-b border-border">
         <div className="container mx-auto px-4 md:px-8 max-w-4xl">
           <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            About AutoNxt
+            {t.about.tag}
           </motion.p>
           <motion.h1
             className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8 leading-tight"
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           >
-            We believe technology can <span className="text-primary">revolutionize</span> the way we farm.
+            {t.about.heroTitle} <span className="text-primary">{t.about.heroHighlight}</span> {t.about.heroTitle2}
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
           >
-            We started as a small team of engineers passionate about creating a better future — working on ideas with large, long-lasting impact on society. Today AutoNxt stands at the forefront of India's electric agriculture revolution, building tractors that are cleaner, smarter, and more powerful than anything the fields have seen before.
+            {t.about.heroDesc}
           </motion.p>
         </div>
       </section>
@@ -97,12 +99,12 @@ export default function About() {
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-              <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Our Mission</p>
+              <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">{t.about.missionTag}</p>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
-                Empowering farmers. Protecting our planet.
+                {t.about.missionTitle}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                To revolutionize farming by providing sustainable, efficient, and powerful electric tractors that empower farmers while protecting our environment.
+                {t.about.missionDesc}
               </p>
             </motion.div>
 
@@ -115,7 +117,7 @@ export default function About() {
               ].map((v, i) => (
                 <motion.div
                   key={i}
-                  className="bg-white rounded-xl border border-border p-6 hover:border-primary/30 hover:shadow-sm transition-all"
+                  className="bg-card rounded-xl border border-border p-6 hover:border-primary/30 hover:shadow-sm transition-all"
                   initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
                 >
                   <div className={`w-10 h-10 rounded-lg ${v.bg} flex items-center justify-center mb-4`}>
@@ -131,12 +133,12 @@ export default function About() {
       </section>
 
       {/* ── ENGINEERING PROCESS ── */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Our Engineering Process</p>
+            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">{t.about.processTag}</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-              Built to the Highest Standards.
+              {t.about.processTitle}
             </h2>
             <p className="text-muted-foreground mt-4">We follow a rigorous process to ensure every AutoNxt tractor meets the highest standards of quality and performance.</p>
           </div>
@@ -144,7 +146,7 @@ export default function About() {
             {PROCESS.map((p, i) => (
               <motion.div
                 key={i}
-                className="relative bg-white border border-border rounded-2xl p-7 hover:border-primary/40 hover:shadow-md transition-all"
+                className="relative bg-card border border-border rounded-2xl p-7 hover:border-primary/40 hover:shadow-md transition-all"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}
               >
                 <span className="font-display text-5xl font-black text-primary/10 select-none absolute top-4 right-5">{p.step}</span>
@@ -191,14 +193,14 @@ export default function About() {
       </section>
 
       {/* ── TEAM ── */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Meet Our Team</p>
+            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">{t.about.teamTag}</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-              The People Powering the Future.
+              {t.about.teamTitle}
             </h2>
-            <p className="text-muted-foreground mt-4">Our diverse team of experts is dedicated to revolutionizing the agricultural industry through innovative electric vehicle solutions.</p>
+            <p className="text-muted-foreground mt-4">{t.about.teamDesc}</p>
           </div>
 
           {/* Featured leaders — horizontal card with big circular portrait */}
@@ -206,7 +208,7 @@ export default function About() {
             {TEAM.filter(m => m.featured).map((member, i) => (
               <motion.div
                 key={i}
-                className="flex gap-5 items-start bg-white border border-border rounded-2xl p-6 hover:border-primary/40 hover:shadow-lg transition-all"
+                className="flex gap-5 items-start bg-card border border-border rounded-2xl p-6 hover:border-primary/40 hover:shadow-lg transition-all"
                 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 data-testid={`team-featured-${i}`}
               >
@@ -236,7 +238,7 @@ export default function About() {
             {TEAM.filter(m => !m.featured).map((member, i) => (
               <motion.div
                 key={i}
-                className="bg-white border border-border rounded-2xl p-5 flex flex-col items-center text-center hover:border-primary/40 hover:shadow-md transition-all group"
+                className="bg-card border border-border rounded-2xl p-5 flex flex-col items-center text-center hover:border-primary/40 hover:shadow-md transition-all group"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 4) * 0.07 }}
                 data-testid={`team-member-${i}`}
               >
@@ -256,7 +258,7 @@ export default function About() {
                     target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-1 text-[10px] font-semibold text-[#0A66C2] border border-[#0A66C2]/30 hover:bg-[#0A66C2] hover:text-white px-3 py-1 rounded-full transition-colors"
                   >
-                    <Linkedin className="w-2.5 h-2.5" /> Connect
+                    <Linkedin className="w-2.5 h-2.5" /> {t.about.connect}
                   </a>
                 </div>
               </motion.div>
@@ -269,16 +271,16 @@ export default function About() {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Our Advisors</p>
+            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">{t.about.advisorsTag}</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-              Industry Veterans Guiding Our Vision.
+              {t.about.advisorsTitle}
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {ADVISORS.map((a, i) => (
               <motion.div
                 key={i}
-                className="bg-white border border-border rounded-2xl p-7 flex flex-col items-center text-center hover:border-primary/40 hover:shadow-md transition-all group"
+                className="bg-card border border-border rounded-2xl p-7 flex flex-col items-center text-center hover:border-primary/40 hover:shadow-md transition-all group"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 data-testid={`advisor-${i}`}
               >
@@ -309,18 +311,18 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           >
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-              Want to be part of our journey?
+              {t.about.ctaTitle}
             </h2>
-            <p className="text-white/80 mb-8">Join us in building the future of sustainable farming in India.</p>
+            <p className="text-white/80 mb-8">{t.about.ctaDesc}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/book">
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8" data-testid="btn-about-cta">
-                  Book a Demo <ArrowRight className="ml-2 w-4 h-4" />
+                  {t.about.bookDemo} <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
               <Link href="/contribution">
                 <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10 font-semibold px-8">
-                  Our Impact
+                  {t.about.ourImpact}
                 </Button>
               </Link>
             </div>

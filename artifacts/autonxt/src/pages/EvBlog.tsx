@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Clock, Zap, BatteryCharging, Globe, Cpu } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
 const CATEGORIES = ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"];
 
@@ -69,6 +70,7 @@ const STATS = [
 ];
 
 export default function EvBlog() {
+  const { t } = useLang();
   return (
     <div className="w-full min-h-screen pt-20 pb-0 bg-background">
 
@@ -77,16 +79,16 @@ export default function EvBlog() {
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <motion.div className="flex items-center gap-2 mb-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Zap className="w-4 h-4 text-primary" />
-            <p className="text-primary font-semibold text-sm uppercase tracking-widest">EV Knowledge Hub</p>
+            <p className="text-primary font-semibold text-sm uppercase tracking-widest">{t.evBlog.tag}</p>
           </motion.div>
           <motion.h1
             className="font-display text-4xl md:text-5xl font-bold text-white mb-4 leading-tight"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           >
-            Everything Electric. <br /><span className="text-primary">Everything Agriculture.</span>
+            {t.evBlog.title} <br /><span className="text-primary">{t.evBlog.titleHighlight}</span>
           </motion.h1>
           <motion.p className="text-lg text-white/70 max-w-2xl" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-            Deep technical insights, market analysis, policy breakdowns, and future forecasts on electric vehicles in Indian and global agriculture.
+            {t.evBlog.desc}
           </motion.p>
         </div>
       </section>
@@ -106,13 +108,13 @@ export default function EvBlog() {
       </section>
 
       {/* Articles Grid */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {ARTICLES.map((a, i) => (
               <motion.div
                 key={i}
-                className="bg-white border border-border rounded-2xl p-6 hover:border-primary/40 hover:shadow-md transition-all group flex flex-col"
+                className="bg-card border border-border rounded-2xl p-6 hover:border-primary/40 hover:shadow-md transition-all group flex flex-col"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 3) * 0.07 }}
               >
                 <div className="flex items-center justify-between mb-4">
@@ -137,11 +139,11 @@ export default function EvBlog() {
       <section className="py-16 bg-muted/30 border-t border-border">
         <div className="container mx-auto px-4 md:px-8 max-w-2xl text-center">
           <Zap className="w-8 h-8 text-primary mx-auto mb-4" />
-          <h2 className="font-display text-3xl font-bold text-foreground mb-3">Stay Charged on EV News</h2>
-          <p className="text-muted-foreground mb-6">Get the latest insights on electric agriculture, battery technology, and policy updates delivered to your inbox.</p>
+          <h2 className="font-display text-3xl font-bold text-foreground mb-3">{t.evBlog.ctaTitle}</h2>
+          <p className="text-muted-foreground mb-6">{t.evBlog.ctaDesc}</p>
           <a href="mailto:info@autonxt.in?subject=Subscribe to EV Blog">
             <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold px-8">
-              Subscribe to Updates <ArrowRight className="ml-2 w-4 h-4" />
+              {t.common.subscribe} <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </a>
         </div>

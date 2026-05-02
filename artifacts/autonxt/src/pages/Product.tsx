@@ -115,7 +115,7 @@ export default function Product() {
                 {/* Specs Grid */}
                 <div className="grid grid-cols-3 gap-4">
                   {product.specs.map((spec, i) => (
-                    <div key={i} className="bg-white border border-border rounded-xl p-3 text-center hover:border-primary/30 transition-colors">
+                    <div key={i} className="bg-card border border-border rounded-xl p-3 text-center hover:border-primary/30 transition-colors">
                       <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">{spec.label}</p>
                       <p className="text-base font-bold text-foreground">{spec.value}</p>
                     </div>
@@ -159,7 +159,7 @@ export default function Product() {
           ].map((tech, i) => (
             <motion.div
               key={i}
-              className="bg-white border border-border rounded-2xl p-8 flex gap-6 items-start hover:border-primary/30 hover:shadow-md transition-all"
+              className="bg-card border border-border rounded-2xl p-8 flex gap-6 items-start hover:border-primary/30 hover:shadow-md transition-all"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

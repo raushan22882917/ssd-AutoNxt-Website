@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { X, ZoomIn, Images, PlayCircle, ExternalLink, ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
 import tractor1 from "@assets/1_1777731255751.png";
 import tractor2 from "@assets/2_1777731255751.png";
@@ -168,6 +169,7 @@ const VIDEOS = [
 ];
 
 export default function Gallery() {
+  const { t } = useLang();
   const [activeTab, setActiveTab] = useState<Tab>("photos");
   const [lightbox, setLightbox] = useState<{ index: number; source: "photos" | "events" } | null>(null);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
@@ -232,7 +234,7 @@ export default function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            Gallery
+            {t.gallery.photos}
           </motion.p>
           <motion.h1
             className="font-display text-4xl md:text-6xl font-bold mb-4 text-foreground"
@@ -240,7 +242,7 @@ export default function Gallery() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
-            See AutoNxt in <span className="text-primary">Action.</span>
+            {t.gallery.title} <span className="text-primary">{t.gallery.titleHighlight}</span>
           </motion.h1>
           <motion.p
             className="text-lg text-muted-foreground max-w-2xl"
@@ -248,23 +250,23 @@ export default function Gallery() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            Explore our full photo gallery, event coverage, and real-world videos of AutoNxt electric tractors across farms, industries, and events.
+            {t.gallery.desc}
           </motion.p>
         </div>
 
         {/* Tabs */}
         <div className="flex gap-1 p-1 bg-muted/50 rounded-xl w-fit mb-12 border border-border">
           {([
-            { id: "photos" as Tab, label: "Photos", icon: Images },
-            { id: "events" as Tab, label: "Events", icon: CalendarDays },
-            { id: "videos" as Tab, label: "Videos", icon: PlayCircle },
+            { id: "photos" as Tab, label: t.gallery.photos, icon: Images },
+            { id: "events" as Tab, label: t.gallery.events, icon: CalendarDays },
+            { id: "videos" as Tab, label: t.gallery.videos, icon: PlayCircle },
           ]).map(({ id, label, icon: Icon }) => (
             <button
               key={id}
               onClick={() => setActiveTab(id)}
               className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer ${
                 activeTab === id
-                  ? "bg-white text-primary shadow-sm border border-border"
+                  ? "bg-card text-primary shadow-sm border border-border"
                   : "text-muted-foreground hover:text-foreground"
               }`}
               data-testid={`tab-${id}`}
@@ -293,7 +295,7 @@ export default function Gallery() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
               >
-                Click any photo to view full size
+                {t.gallery.clickToView}
               </motion.p>
             </motion.div>
           )}
@@ -327,7 +329,7 @@ export default function Gallery() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
               >
-                Click any photo to view full size
+                {t.gallery.clickToView}
               </motion.p>
             </motion.div>
           )}
@@ -345,7 +347,7 @@ export default function Gallery() {
                 {VIDEOS.map((video, i) => (
                   <motion.div
                     key={video.id}
-                    className="bg-white border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-md transition-all duration-300"
+                    className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/40 hover:shadow-md transition-all duration-300"
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}

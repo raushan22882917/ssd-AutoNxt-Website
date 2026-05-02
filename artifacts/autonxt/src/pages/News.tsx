@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight, Calendar, ExternalLink, Tag } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
 const NEWS = [
   {
@@ -51,23 +52,24 @@ const NEWS = [
 const FEATURED = NEWS[0];
 
 export default function News() {
+  const { t } = useLang();
   return (
     <div className="w-full min-h-screen pt-20 pb-0 bg-background">
 
       {/* Header */}
-      <section className="py-16 bg-white border-b border-border">
+      <section className="py-16 bg-background border-b border-border">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            News & Press
+            {t.news.tag}
           </motion.p>
           <motion.h1
             className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4 leading-tight"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           >
-            AutoNxt in the <span className="text-primary">Headlines.</span>
+            {t.news.title} <span className="text-primary">{t.news.titleHighlight}</span>
           </motion.h1>
           <motion.p className="text-lg text-muted-foreground max-w-2xl" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-            Stay up to date with the latest news, announcements, and media coverage from AutoNxt Automation.
+            {t.news.desc}
           </motion.p>
         </div>
       </section>
@@ -75,9 +77,9 @@ export default function News() {
       {/* Featured Story */}
       <section className="py-14 bg-muted/30">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <p className="text-xs font-bold text-primary uppercase tracking-widest mb-6">Featured Story</p>
+          <p className="text-xs font-bold text-primary uppercase tracking-widest mb-6">{t.news.featured}</p>
           <motion.div
-            className="bg-white border border-border rounded-2xl p-8 md:p-10 hover:border-primary/40 hover:shadow-lg transition-all"
+            className="bg-card border border-border rounded-2xl p-8 md:p-10 hover:border-primary/40 hover:shadow-lg transition-all"
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           >
             <div className="flex flex-wrap gap-3 items-center mb-4">
@@ -96,14 +98,14 @@ export default function News() {
       </section>
 
       {/* News Grid */}
-      <section className="py-14 bg-white">
+      <section className="py-14 bg-background">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <p className="text-xs font-bold text-primary uppercase tracking-widest mb-8">All News</p>
+          <p className="text-xs font-bold text-primary uppercase tracking-widest mb-8">{t.news.allNews}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {NEWS.slice(1).map((item, i) => (
               <motion.div
                 key={i}
-                className="bg-white border border-border rounded-xl p-6 hover:border-primary/40 hover:shadow-md transition-all group"
+                className="bg-card border border-border rounded-xl p-6 hover:border-primary/40 hover:shadow-md transition-all group"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 2) * 0.07 }}
               >
                 <div className="flex items-center gap-2 mb-3">
@@ -127,11 +129,11 @@ export default function News() {
       {/* CTA */}
       <section className="py-16 bg-primary">
         <div className="container mx-auto px-4 md:px-8 text-center">
-          <h2 className="font-display text-3xl font-bold text-white mb-3">Media Enquiries</h2>
-          <p className="text-white/80 mb-6 max-w-xl mx-auto">For press kits, interviews, and partnership announcements, reach out to the AutoNxt communications team.</p>
+          <h2 className="font-display text-3xl font-bold text-white mb-3">{t.news.ctaTitle}</h2>
+          <p className="text-white/80 mb-6 max-w-xl mx-auto">{t.news.ctaDesc}</p>
           <a href="mailto:info@autonxt.in">
             <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8">
-              Contact Press Team <ArrowRight className="ml-2 w-4 h-4" />
+              {t.news.contactPress} <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </a>
         </div>
