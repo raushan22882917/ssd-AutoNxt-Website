@@ -319,9 +319,9 @@ export default function Home() {
       </section>
 
       {/* ── STATS BAR ── */}
-      <section className="py-14 bg-surface-dark text-white">
+      <section className="py-14 bg-muted/40 border-y border-border">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-border">
             {[
               { label: "Electric Tractors Deployed", value: "5,000+" },
               { label: "States Covered", value: "18+" },
@@ -337,7 +337,7 @@ export default function Home() {
                 transition={{ delay: i * 0.1 }}
               >
                 <h3 className="font-display text-3xl md:text-4xl font-bold text-primary mb-1">{stat.value}</h3>
-                <p className="text-xs uppercase tracking-widest text-white/60 font-medium">{stat.label}</p>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">{stat.label}</p>
               </motion.div>
             ))}
           </div>
@@ -345,10 +345,10 @@ export default function Home() {
       </section>
 
       {/* ── TRUSTED BY ── */}
-      <section className="py-14 bg-surface-dark">
+      <section className="py-14 bg-background border-b border-border">
         <div className="container mx-auto px-4 md:px-8">
           <motion.p
-            className="text-center text-xs font-bold uppercase tracking-widest text-white/40 mb-10 letter-spacing-widest"
+            className="text-center text-xs font-bold uppercase tracking-widest text-muted-foreground mb-10"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -372,14 +372,14 @@ export default function Home() {
                 transition={{ delay: i * 0.08 }}
                 data-testid={`logo-partner-${i}`}
               >
-                <div className={`h-16 w-40 rounded-xl border border-white/10 ${org.bg} flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10 transition-all duration-200 overflow-hidden px-4`}>
+                <div className={`h-16 w-40 rounded-xl border border-border ${org.bg} flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10 transition-all duration-200 overflow-hidden px-4`}>
                   <img
                     src={org.img}
                     alt={org.name}
                     className="h-10 w-full object-contain"
                   />
                 </div>
-                <span className="text-[10px] text-white/40 text-center max-w-[120px] leading-tight">{org.name}</span>
+                <span className="text-[10px] text-muted-foreground text-center max-w-[120px] leading-tight">{org.name}</span>
               </motion.div>
             ))}
           </div>
