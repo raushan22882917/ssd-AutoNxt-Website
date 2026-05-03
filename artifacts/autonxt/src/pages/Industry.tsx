@@ -13,6 +13,7 @@ const industries = [
   {
     icon: Leaf,
     title: "Biomass",
+    slug: "biomass",
     short: "BIO",
     desc: "Revolutionise biomass collection, processing, and transportation with zero emissions and low operating costs for a greener future.",
     detail: "AutoNxt Electric Tractors redefine efficiency in biomass operations. Designed for biomass collection, processing, and transportation, our tractors deliver reliability and sustainability in every cycle.",
@@ -23,6 +24,7 @@ const industries = [
     icon: Building2,
     title: "Cement Manufacturing",
     short: "CEMENT",
+    slug: "cement",
     desc: "Optimise material handling, transportation, and site maintenance in cement plants — reducing downtime and enhancing productivity.",
     detail: "Experience the power of AutoNxt Electric Tractors in cement manufacturing. Our tractors optimise material handling, transportation, and site maintenance with zero emissions and advanced features.",
     bg: "bg-orange-700",
@@ -32,6 +34,7 @@ const industries = [
     icon: Hammer,
     title: "Construction Industry",
     short: "CONST.",
+    slug: "construction",
     desc: "Unmatched versatility and power for site preparation, material handling, and equipment transportation — greener construction ahead.",
     detail: "AutoNxt Electric Tractors are the future of construction. With unmatched versatility and power, they excel in site preparation, material handling, and equipment transportation.",
     bg: "bg-yellow-700",
@@ -41,6 +44,7 @@ const industries = [
     icon: Shield,
     title: "Defence",
     short: "DEF.",
+    slug: "defence",
     desc: "Superior performance and rugged durability for military logistics, base maintenance, and all-terrain operations with remote operation options.",
     detail: "AutoNxt Electric Tractors offer superior performance and rugged durability for defence applications. From logistics support to base maintenance, they excel in the most demanding military environments.",
     bg: "bg-slate-700",
@@ -50,6 +54,7 @@ const industries = [
     icon: PlaneTakeoff,
     title: "Airport",
     short: "AIRPORT",
+    slug: "airport",
     desc: "From baggage handling to runway maintenance — zero-emission, autonomous-ready tractors for smoother, greener airport operations.",
     detail: "AutoNxt Electric Tractors redefine airport operations. From baggage handling to runway maintenance, our tractors offer zero emissions and advanced autonomous navigation features.",
     bg: "bg-sky-700",
@@ -59,6 +64,7 @@ const industries = [
     icon: Factory,
     title: "Metal Manufacturing",
     short: "METAL",
+    slug: "metal",
     desc: "From material handling to logistics, our tractors streamline metal manufacturing operations while minimising environmental impact.",
     detail: "AutoNxt Electric Tractors redefine efficiency in metal manufacturing. From material handling to logistics, our tractors streamline operations while minimising environmental impact.",
     bg: "bg-slate-600",
@@ -70,6 +76,7 @@ const tractors = [
   {
     img: tractor1,
     name: "AutoNxt X45H2",
+    slug: "x45h2",
     hp: "45HP",
     status: "available",
     statusLabel: "Available Now",
@@ -86,6 +93,7 @@ const tractors = [
   {
     img: tractor2,
     name: "AutoNxt X25H2",
+    slug: "x25h2",
     hp: "25HP",
     status: "upcoming",
     statusLabel: "Coming Soon",
@@ -102,6 +110,7 @@ const tractors = [
   {
     img: tractor1,
     name: "AutoNxt X60H2",
+    slug: "x60h2",
     hp: "60HP",
     status: "upcoming",
     statusLabel: "Coming Soon",
@@ -253,7 +262,7 @@ export default function Industry() {
                   <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{ind.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed flex-1">{ind.detail}</p>
                   <div className="mt-5 pt-4 border-t border-border">
-                    <Link href="/book">
+                    <Link href={`/industry/${ind.slug}`}>
                       <button className="inline-flex items-center text-sm font-semibold text-primary hover:gap-2 gap-1 transition-all">
                         Learn More <ChevronRight className="w-4 h-4" />
                       </button>
@@ -340,12 +349,12 @@ export default function Industry() {
                     ))}
                   </div>
 
-                  <Link href="/product">
+                  <Link href={`/product/${t.slug}`}>
                     <Button
                       size="sm"
                       className={`w-full transition-all ${t.status === "available" ? "bg-primary text-white hover:bg-primary/90" : "bg-background border border-border text-muted-foreground hover:border-primary hover:text-primary"}`}
                     >
-                      {t.status === "available" ? <>View Details <ArrowRight className="ml-1.5 w-3.5 h-3.5" /></> : "Notify Me When Available"}
+                      {t.status === "available" ? <>View Details <ArrowRight className="ml-1.5 w-3.5 h-3.5" /></> : "View Details"}
                     </Button>
                   </Link>
                 </div>

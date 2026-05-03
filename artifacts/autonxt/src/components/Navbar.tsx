@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import logoImg from "@assets/adaptive-icon_1777731255752.png";
 
 const LANGUAGES: { code: Lang; label: string; native: string; flag: string }[] = [
-  { code: "en", label: "English", native: "English", flag: "🇬🇧" },
+  { code: "en", label: "English", native: "English", flag: "🇮🇳" },
   { code: "hi", label: "Hindi", native: "हिंदी", flag: "🇮🇳" },
   { code: "mr", label: "Marathi", native: "मराठी", flag: "🇮🇳" },
 ];

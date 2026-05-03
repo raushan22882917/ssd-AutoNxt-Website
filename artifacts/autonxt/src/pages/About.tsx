@@ -393,7 +393,8 @@ export default function About() {
                 </div>
                 <div className="p-4">
                   <h3 className="font-bold text-foreground text-sm leading-tight mb-1 group-hover:text-primary transition-colors">{member.name}</h3>
-                  <p className="text-muted-foreground text-[11px] leading-snug mb-3">{member.role}</p>
+                  <p className="text-primary text-[10px] font-semibold uppercase tracking-widest mb-2">{member.role}</p>
+                  <p className="text-muted-foreground text-[11px] leading-relaxed mb-3">{member.bio}</p>
                   <a
                     href="https://www.linkedin.com/company/autonxt-automation"
                     target="_blank" rel="noopener noreferrer"

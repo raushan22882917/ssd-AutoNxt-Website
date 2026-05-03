@@ -12,6 +12,7 @@ import fieldImg from "@assets/8.RightSideGateWall_1777731255752.jpg";
 const products = [
   {
     name: "Autonxt X45H2",
+    slug: "x45h2",
     type: "45HP Electric Tractor",
     badge: "Flagship",
     badgeColor: "bg-primary",
@@ -30,6 +31,7 @@ const products = [
   },
   {
     name: "Autonxt X25H4",
+    slug: "x25h4",
     type: "25HP Electric Tractor",
     badge: "Best Value",
     badgeColor: "bg-accent",
@@ -179,10 +181,10 @@ export default function Product() {
                   ))}
                 </ul>
 
-                <div className="flex gap-3 pt-2">
-                  <Link href="/book">
+                <div className="flex gap-3 pt-2 flex-wrap">
+                  <Link href={`/product/${product.slug}`}>
                     <Button className="bg-primary text-white hover:bg-primary/90 font-semibold" data-testid={`btn-reserve-${index}`}>
-                      Reserve Now
+                      View Full Specs <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
                     </Button>
                   </Link>
                   <Link href="/book">
