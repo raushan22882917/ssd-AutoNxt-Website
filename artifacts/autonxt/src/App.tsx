@@ -22,6 +22,8 @@ import Terms from "@/pages/Terms";
 import IndustryDetail from "@/pages/IndustryDetail";
 import TractorDetail from "@/pages/TractorDetail";
 import NotFound from "@/pages/not-found";
+import AiChat from "@/components/AiChat";
+import PageLoader from "@/components/PageLoader";
 
 const queryClient = new QueryClient();
 
@@ -59,10 +61,12 @@ function App() {
     <LanguageProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
+          <PageLoader />
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
             <Router />
           </WouterRouter>
           <Toaster />
+          <AiChat />
         </TooltipProvider>
       </QueryClientProvider>
     </LanguageProvider>

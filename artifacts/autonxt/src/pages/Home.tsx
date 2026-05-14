@@ -327,7 +327,7 @@ export default function Home() {
       </section>
 
       {/* ── STATS BAR ── */}
-      <section className="py-14 bg-muted/40 border-y border-border">
+      <section className="py-14 bg-muted/30">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-border">
             {[
@@ -353,7 +353,7 @@ export default function Home() {
       </section>
 
       {/* ── TRUSTED BY ── */}
-      <section className="py-14 bg-background border-b border-border">
+      <section className="py-14 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <motion.p
             className="text-center text-xs font-bold uppercase tracking-widest text-muted-foreground mb-10"
@@ -395,7 +395,7 @@ export default function Home() {
       </section>
 
       {/* ── PROVEN TRACK RECORD ── */}
-      <section className="py-24 bg-muted/40 border-y border-border relative overflow-hidden">
+      <section className="py-24 bg-muted/30 relative overflow-hidden">
         {/* Subtle light glows */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,hsl(0,72%,40%,0.04),transparent_55%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,hsl(214,65%,32%,0.03),transparent_55%)] pointer-events-none" />

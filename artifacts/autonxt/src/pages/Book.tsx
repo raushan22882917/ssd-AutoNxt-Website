@@ -5,10 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CheckCircle2, Phone, Mail, MapPin, Clock } from "lucide-react";
+import { CheckCircle2, Phone, Mail, MapPin, Clock, Loader2 } from "lucide-react";
 
 export default function Book() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -22,16 +24,30 @@ export default function Book() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.vehicleType) return;
-    setSubmitted(true);
+    setSubmitting(true);
+    setError("");
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Submission failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again or contact us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const contactInfo = [
-    { icon: Phone, label: "Call Us", value: "+91 20 4567 8900" },
-    { icon: Mail, label: "Email Us", value: "hello@autonxt.in" },
-    { icon: MapPin, label: "Visit Us", value: "Hinjewadi Phase 2, Pune — 411057" },
+    { icon: Phone, label: "Call Us", value: "+91 9067404606" },
+    { icon: Mail, label: "Email Us", value: "sales@autonxt.in" },
+    { icon: MapPin, label: "Visit Us", value: "704 & 705 Amfotech IT Park, Thane, Maharashtra" },
     { icon: Clock, label: "Hours", value: "Mon–Sat, 9 AM – 6 PM IST" },
   ];
 
@@ -164,13 +180,13 @@ export default function Book() {
                       <SelectValue placeholder="Select what you're interested in..." />
                     </SelectTrigger>
                     <SelectContent className="bg-card border-border">
-                      <SelectItem value="sedan">Autonxt One — Premium Sedan</SelectItem>
-                      <SelectItem value="suv">Autonxt X-Series — Electric SUV</SelectItem>
-                      <SelectItem value="commercial">Autonxt Fleet Pro — Commercial Van</SelectItem>
-                      <SelectItem value="fleet">Fleet Management Solutions</SelectItem>
-                      <SelectItem value="bus">Public Transit / Electric Buses</SelectItem>
-                      <SelectItem value="infra">Charging Infrastructure</SelectItem>
-                      <SelectItem value="partnership">Government / B2B Partnership</SelectItem>
+                      <SelectItem value="x45h2">AutoNxt X45H2 — 45HP Flagship</SelectItem>
+                      <SelectItem value="x60h2">AutoNxt X60H2 — 60HP Heavy Duty</SelectItem>
+                      <SelectItem value="x25h2">AutoNxt X25H2 — 25HP Compact</SelectItem>
+                      <SelectItem value="x25h4">AutoNxt X25H4 — 25HP Entry</SelectItem>
+                      <SelectItem value="fleet">Fleet / Bulk Order</SelectItem>
+                      <SelectItem value="government">Government / B2B Partnership</SelectItem>
+                      <SelectItem value="demo">Test Drive / Demo Only</SelectItem>
                       <SelectItem value="other">Other / General Inquiry</SelectItem>
                     </SelectContent>
                   </Select>
@@ -189,13 +205,26 @@ export default function Book() {
                   />
                 </div>
 
+                {error && (
+                  <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-3">
+                    {error}
+                  </p>
+                )}
+
                 <Button
                   type="submit"
                   size="lg"
                   className="w-full h-14 text-lg bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
+                  disabled={submitting}
                   data-testid="btn-submit-booking"
                 >
-                  Submit Booking Request
+                  {submitting ? (
+                    <span className="flex items-center gap-2">
+                      <Loader2 className="w-5 h-5 animate-spin" /> Submitting…
+                    </span>
+                  ) : (
+                    "Submit Booking Request"
+                  )}
                 </Button>
                 <p className="text-muted-foreground text-xs text-center">
                   We'll respond within 24 hours. No commitment required.
@@ -220,7 +249,7 @@ export default function Book() {
                   </div>
                   <div>
                     <p className="text-muted-foreground text-xs font-medium uppercase tracking-wide mb-1">{info.label}</p>
-                    <p className="text-foreground font-medium">{info.value}</p>
+                    <p className="text-foreground font-medium text-sm">{info.value}</p>
                   </div>
                 </div>
               ))}
@@ -232,7 +261,13 @@ export default function Book() {
               <p className="text-muted-foreground text-sm mb-4">
                 Book a no-obligation test drive at our nearest experience center or at your location.
               </p>
-              <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground" data-testid="btn-test-drive">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                data-testid="btn-test-drive"
+                onClick={() => setForm(f => ({ ...f, vehicleType: "demo" }))}
+              >
                 Schedule Test Drive
               </Button>
             </div>
