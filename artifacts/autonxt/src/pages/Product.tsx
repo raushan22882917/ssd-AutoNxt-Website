@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Battery, Gauge, Zap } from "lucide-react";
@@ -8,6 +9,8 @@ import tractor2 from "@assets/2_1777731255751.png";
 import batteryImg from "@assets/battery_1777731255752.png";
 import motorImg from "@assets/motor_1777731255752.png";
 import fieldImg from "@assets/8.RightSideGateWall_1777731255752.jpg";
+
+const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
 
 const products = [
   {
@@ -107,18 +110,19 @@ export default function Product() {
               className="relative pb-0 hidden lg:block"
               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
             >
-              <div className="grid grid-cols-3 gap-2 h-[420px]">
-                <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden bg-white/[0.04] flex items-center justify-center">
-                  <img src={tractor1} alt="AutoNxt X45H2" className="w-full h-full object-contain p-8" />
+              <Suspense fallback={
+                <div className="h-[500px] flex items-center justify-center">
+                  <img src={tractor1} alt="AutoNxt X45H2" className="w-full max-w-md object-contain drop-shadow-2xl" />
                 </div>
-                <div className="rounded-tr-2xl overflow-hidden">
-                  <img src={fieldImg} alt="AutoNxt in the field" className="w-full h-full object-cover" />
-                </div>
-                <div className="overflow-hidden bg-white/[0.04] flex items-center justify-center">
-                  <img src={tractor2} alt="AutoNxt X25H4" className="w-full h-full object-contain p-3" />
-                </div>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
+              }>
+                <TractorViewer3D
+                  src="/tractor-model-2.glb"
+                  className="w-full h-[500px]"
+                  rotate={true}
+                  showHint={true}
+                />
+              </Suspense>
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
             </motion.div>
           </div>
         </div>
@@ -139,15 +143,32 @@ export default function Product() {
               transition={{ duration: 0.6 }}
               data-testid={`product-card-${index}`}
             >
-              {/* Image */}
+              {/* Image / 3D viewer */}
               <div className="w-full lg:w-1/2">
-                <div className="relative bg-muted/30 rounded-2xl border border-border p-10 flex items-center justify-center group hover:border-primary/40 transition-colors">
-                  <span className={`absolute top-5 left-5 text-xs font-bold text-white px-3 py-1.5 rounded-full ${product.badgeColor}`}>{product.badge}</span>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full max-w-sm object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-xl"
-                  />
+                <div className="relative bg-muted/30 rounded-2xl border border-border overflow-hidden group hover:border-primary/40 transition-colors">
+                  <span className={`absolute top-5 left-5 z-10 text-xs font-bold text-white px-3 py-1.5 rounded-full ${product.badgeColor}`}>{product.badge}</span>
+                  {index === 0 ? (
+                    <Suspense fallback={
+                      <div className="h-[380px] flex items-center justify-center p-10">
+                        <img src={product.image} alt={product.name} className="w-full max-w-sm object-contain drop-shadow-xl" />
+                      </div>
+                    }>
+                      <TractorViewer3D
+                        src="/tractor-model.glb"
+                        className="w-full h-[380px]"
+                        rotate={true}
+                        showHint={true}
+                      />
+                    </Suspense>
+                  ) : (
+                    <div className="p-10 flex items-center justify-center">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full max-w-sm object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-xl"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
 

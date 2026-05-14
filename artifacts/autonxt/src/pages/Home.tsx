@@ -288,7 +288,7 @@ export default function Home() {
                 />
               </div>
             }>
-              <TractorViewer3D className="w-full h-[560px] relative z-10" />
+              <TractorViewer3D className="w-full h-[560px] relative z-10" showHint={true} />
             </Suspense>
 
             {/* Floating spec badges */}
@@ -322,13 +322,6 @@ export default function Home() {
               <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Range</p>
               <p className="text-xs font-bold text-accent">8–10 hrs / charge</p>
             </motion.div>
-            {/* Drag hint */}
-            <motion.p
-              className="absolute bottom-3 right-4 z-20 text-[10px] text-muted-foreground/60 font-medium select-none"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}
-            >
-              ↺ drag to rotate
-            </motion.p>
           </motion.div>
         </div>
       </section>

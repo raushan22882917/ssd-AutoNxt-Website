@@ -1,2 +1,4 @@
 artifacts/autonxt/public/tractor-model.glb filter=lfs diff=lfs merge=lfs -text
 attached_assets/Hitem3d-1778725429429_1778750060287.glb filter=lfs diff=lfs merge=lfs -text
+artifacts/autonxt/public/tractor-model-2.glb filter=lfs diff=lfs merge=lfs -text
+attached_assets/Hitem3d-1778724248418_1778750685363.glb filter=lfs diff=lfs merge=lfs -text

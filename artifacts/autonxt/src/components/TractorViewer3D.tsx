@@ -5,7 +5,7 @@ import type { Group } from "three";
 import tractor1 from "@assets/1_1777731255751.png";
 import { motion } from "framer-motion";
 
-/* ── Detect WebGL support ── */
+/* ── WebGL pre-check ── */
 function supportsWebGL(): boolean {
   try {
     const c = document.createElement("canvas");
@@ -23,26 +23,26 @@ class ThreeErrorBoundary extends Component<
   render() { return this.state.error ? this.props.fallback : this.props.children; }
 }
 
-/* ── Trigger Bounds.refresh() once the model is mounted ── */
+/* ── Trigger camera fit after model mounts ── */
 function FitCamera() {
   const api = useBounds();
   useEffect(() => { api.refresh().fit(); }, [api]);
   return null;
 }
 
-/* ── Animated model inside Bounds ── */
-function TractorModel() {
-  const { scene } = useGLTF("/tractor-model.glb");
+/* ── Animated GLB model ── */
+function TractorModel({ src, rotate }: { src: string; rotate: boolean }) {
+  const { scene } = useGLTF(src);
   const ref = useRef<Group>(null);
 
   useFrame((state) => {
     if (!ref.current) return;
-    ref.current.rotation.y = state.clock.elapsedTime * 0.28;
+    if (rotate) ref.current.rotation.y = state.clock.elapsedTime * 0.28;
     ref.current.position.y = Math.sin(state.clock.elapsedTime * 0.65) * 0.06;
   });
 
   return (
-    <Bounds fit clip observe margin={1.05}>
+    <Bounds fit clip observe margin={0.92}>
       <group ref={ref}>
         <primitive object={scene} />
       </group>
@@ -57,9 +57,9 @@ function FallbackImage({ className = "" }: { className?: string }) {
     <div className={`flex items-center justify-center ${className}`}>
       <motion.img
         src={tractor1}
-        alt="AutoNxt X45H2"
-        className="w-full max-w-lg mx-auto drop-shadow-2xl"
-        animate={{ y: [0, -14, 0] }}
+        alt="AutoNxt Tractor"
+        className="w-full h-full object-contain drop-shadow-2xl"
+        animate={{ y: [0, -12, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
@@ -67,7 +67,17 @@ function FallbackImage({ className = "" }: { className?: string }) {
 }
 
 /* ── Exported component ── */
-export default function TractorViewer3D({ className = "" }: { className?: string }) {
+export default function TractorViewer3D({
+  className = "",
+  src = "/tractor-model.glb",
+  rotate = true,
+  showHint = false,
+}: {
+  className?: string;
+  src?: string;
+  rotate?: boolean;
+  showHint?: boolean;
+}) {
   const [webglOk, setWebglOk] = useState<boolean | null>(null);
   useEffect(() => { setWebglOk(supportsWebGL()); }, []);
 
@@ -75,31 +85,25 @@ export default function TractorViewer3D({ className = "" }: { className?: string
 
   return (
     <ThreeErrorBoundary fallback={<FallbackImage className={className} />}>
-      <div className={className} style={{ cursor: "grab" }}>
+      <div className={`relative ${className}`} style={{ cursor: "grab" }}>
         <Canvas
-          camera={{ position: [0, 0, 5], fov: 45 }}
+          camera={{ position: [0, 0, 5], fov: 40 }}
           gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
           style={{ background: "transparent" }}
           dpr={[1, 2]}
         >
           {/* Lighting */}
-          <ambientLight intensity={0.55} />
-          <directionalLight position={[6, 8, 6]} intensity={2.2} castShadow color="#fff8f0" />
+          <ambientLight intensity={0.6} />
+          <directionalLight position={[6, 9, 6]}  intensity={2.4} castShadow color="#fff8f0" />
           <directionalLight position={[-5, 3, -4]} intensity={0.7} color="#93c5fd" />
-          <spotLight
-            position={[0, 7, 3]}
-            angle={0.4}
-            penumbra={1}
-            intensity={1.8}
-            castShadow
-          />
-          <pointLight position={[2, -1, 3]} intensity={0.9} color="hsl(0,72%,40%)" />
+          <spotLight position={[0, 8, 3]} angle={0.4} penumbra={1} intensity={2.0} castShadow />
+          <pointLight  position={[2, -1, 3]}        intensity={1.0} color="hsl(0,72%,40%)" />
 
           <Suspense fallback={null}>
-            <TractorModel />
+            <TractorModel src={src} rotate={rotate} />
             <ContactShadows
-              position={[0, -1.5, 0]}
-              opacity={0.5}
+              position={[0, -1.6, 0]}
+              opacity={0.45}
               scale={10}
               blur={3.5}
               far={5}
@@ -118,9 +122,20 @@ export default function TractorViewer3D({ className = "" }: { className?: string
             enableDamping
           />
         </Canvas>
+
+        {showHint && (
+          <motion.p
+            className="absolute bottom-2 right-3 z-20 text-[10px] text-muted-foreground/50 font-medium select-none pointer-events-none"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}
+          >
+            ↺ drag to rotate
+          </motion.p>
+        )}
       </div>
     </ThreeErrorBoundary>
   );
 }
 
+/* Preload both models */
 useGLTF.preload("/tractor-model.glb");
+useGLTF.preload("/tractor-model-2.glb");
