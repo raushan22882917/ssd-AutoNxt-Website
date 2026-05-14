@@ -215,7 +215,7 @@ export default function Home() {
         <div className="absolute bottom-[18%] left-[6%] w-24 h-24 rounded-full border border-primary/6 pointer-events-none" />
         <div className="absolute bottom-[14%] left-[9%] w-10 h-10 rounded-full border border-accent/10 pointer-events-none" />
 
-        <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center py-16">
+        <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-8 items-center py-16">
           {/* Left: Text */}
           <div className="order-2 lg:order-1">
             <motion.span
@@ -278,17 +278,17 @@ export default function Home() {
             <div className="absolute -inset-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl blur-3xl pointer-events-none" />
             {/* 3D Canvas */}
             <Suspense fallback={
-              <div className="w-full h-[440px] flex items-center justify-center">
+              <div className="w-full h-[560px] flex items-center justify-center">
                 <motion.img
                   src={tractor1}
                   alt="AutoNxt X45H2"
-                  className="w-full max-w-md mx-auto drop-shadow-2xl"
+                  className="w-full max-w-lg mx-auto drop-shadow-2xl"
                   animate={{ y: [0, -14, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 />
               </div>
             }>
-              <TractorViewer3D className="w-full h-[440px] relative z-10" />
+              <TractorViewer3D className="w-full h-[560px] relative z-10" />
             </Suspense>
 
             {/* Floating spec badges */}
