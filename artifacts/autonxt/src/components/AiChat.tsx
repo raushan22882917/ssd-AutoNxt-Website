@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Bot, User, Sparkles, RotateCcw, ChevronDown } from "lucide-react";
+import { X, Send, User, RotateCcw, ChevronDown } from "lucide-react";
+import logoImg from "@assets/adaptive-icon_1777731255752.png";
 
 interface Message {
   id: string;
@@ -44,9 +45,16 @@ function MessageBubble({ msg }: { msg: Message }) {
     >
       {/* Avatar */}
       <div className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-sm mt-0.5 ${
-        isUser ? "bg-accent" : "bg-gradient-to-br from-primary to-primary/70"
+        isUser ? "bg-accent" : "bg-transparent"
       }`}>
-        {isUser ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
+        {isUser ? (
+          <User className="w-3.5 h-3.5" />
+        ) : (
+          <div className="relative w-7 h-7">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary via-primary/80 to-red-700 animate-pulse opacity-60 blur-[3px]" />
+            <img src={logoImg} alt="AutoNxt AI" className="relative w-7 h-7 rounded-full object-cover border border-primary/40" />
+          </div>
+        )}
       </div>
 
       {/* Bubble */}
@@ -195,25 +203,39 @@ export default function AiChat() {
     <>
       {/* Floating trigger button */}
       <motion.button
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/80 text-white shadow-xl shadow-primary/30 flex items-center justify-center hover:shadow-primary/50 hover:scale-105 active:scale-95 transition-all"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
+        style={{ padding: 0 }}
         onClick={() => setOpen(true)}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, type: "spring", stiffness: 260, damping: 20 }}
         aria-label="Open AI chat"
       >
+        {/* Animated glow rings */}
+        <span className="absolute inset-0 rounded-full bg-primary/40 animate-ping opacity-60" style={{ animationDuration: "2.5s" }} />
+        <span className="absolute inset-[-4px] rounded-full bg-gradient-to-br from-primary via-red-700 to-primary/60 opacity-70 blur-md" />
+        {/* AI circuit ring */}
+        <span className="absolute inset-0 rounded-full border-2 border-primary/60" style={{
+          background: "conic-gradient(from 0deg, hsl(0,72%,40%,0.6), transparent 60%, hsl(0,72%,40%,0.6))",
+          animation: "spin 3s linear infinite",
+        }} />
+        {/* Logo */}
+        <img
+          src={logoImg}
+          alt="AutoNxt AI"
+          className="relative w-11 h-11 rounded-full object-cover border-2 border-white/70 shadow-xl shadow-primary/50 z-10"
+        />
         <AnimatePresence mode="wait">
           {unread > 0 && !open ? (
             <motion.span
               key="badge"
-              className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center"
+              className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center z-20 border border-white"
               initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
             >
               {unread}
             </motion.span>
           ) : null}
         </AnimatePresence>
-        <Sparkles className="w-6 h-6" />
       </motion.button>
 
       {/* Chat panel */}
@@ -229,8 +251,11 @@ export default function AiChat() {
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-primary to-primary/80 px-4 py-3.5 flex items-center gap-3 shrink-0">
-              <div className="w-9 h-9 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center">
-                <Bot className="w-5 h-5 text-white" />
+              <div className="relative w-9 h-9 shrink-0">
+                <div className="absolute inset-0 rounded-xl bg-white/30 blur-sm animate-pulse" />
+                <div className="absolute inset-[-2px] rounded-xl bg-gradient-to-br from-white/30 via-primary/20 to-red-900/40" />
+                <img src={logoImg} alt="AutoNxt" className="relative w-9 h-9 rounded-xl object-cover border border-white/30 shadow-lg" />
+                <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 border-2 border-white/80 shadow-sm" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-white font-semibold text-sm leading-tight">AutoNxt Assistant</p>

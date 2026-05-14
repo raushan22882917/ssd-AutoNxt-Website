@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { PinContainer } from "@/components/ui/3d-pin";
 import { Link } from "wouter";
 import { ArrowRight, ChevronRight, ChevronDown, Zap, Cpu, BatteryCharging, ShieldCheck, Globe, Activity, Trash2, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf, Smartphone, CheckCircle, Monitor, BarChart3, Download, MapPin, Bell, Wrench, Package, Ticket, CalendarDays, QrCode, User, IndianRupee, TrendingUp } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
@@ -543,9 +544,13 @@ export default function Home() {
       </section>
 
       {/* ── PRODUCT TEASER ── */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-14">
+      <section className="py-24 bg-zinc-950 relative overflow-hidden">
+        {/* Background grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(0,72%,40%,0.08),transparent_65%)] pointer-events-none" />
+
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-6">
             <div>
               <motion.div
                 className="flex items-center gap-3 mb-3"
@@ -555,110 +560,112 @@ export default function Home() {
                 <p className="text-primary font-bold text-sm uppercase tracking-widest">Our Lineup</p>
               </motion.div>
               <motion.h2
-                className="font-display text-4xl md:text-5xl font-bold text-foreground"
+                className="font-display text-4xl md:text-5xl font-bold text-white"
                 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               >
                 Built for Every Field.
               </motion.h2>
             </div>
             <Link href="/product">
-              <Button variant="outline" className="mt-4 md:mt-0 border-foreground/20 text-foreground hover:border-primary hover:text-primary">
+              <Button variant="outline" className="mt-4 md:mt-0 border-white/20 text-white hover:border-primary hover:text-primary bg-transparent">
                 View All Models <ChevronRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: "1200px" }}>
+          {/* 3D Pin cards */}
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-0 lg:gap-4 pt-8">
             {[
               {
                 img: tractor1,
                 name: "AutoNxt X45H2",
                 type: "45HP Electric Tractor",
                 tag: "Best Seller",
-                tagColor: "bg-primary",
-                tagText: "text-white",
-                desc: "Experience the future of farming with AutoNxt's revolutionary 45HP Electric Tractor — designed for versatility and power across all farming and haulage activities.",
+                tagGrad: "from-primary to-red-700",
+                desc: "Versatility and power across all farming and haulage activities. AI load management, solar-compatible.",
                 specs: [
                   { icon: Zap, label: "Motor", value: "32 kW" },
                   { icon: BatteryCharging, label: "Battery", value: "38.4 kWh" },
                   { icon: Activity, label: "Runtime", value: "8 hrs" },
                 ],
-                accentBg: "bg-primary/5",
-                accentBorder: "border-primary/20",
+                grad: "from-red-950/80 via-zinc-900 to-zinc-950",
+                glow: "from-primary/30 to-transparent",
               },
               {
                 img: tractor1,
                 name: "AutoNxt X60H2",
                 type: "60HP Electric Tractor",
                 tag: "Most Powerful",
-                tagColor: "bg-accent",
-                tagText: "text-white",
-                desc: "The X60H2 brings even more power with its 60HP engine, ensuring high performance while maintaining zero emissions — a perfect balance of power and sustainability.",
+                tagGrad: "from-accent to-blue-800",
+                desc: "60HP heavy-duty performance with zero emissions — the perfect balance of raw power and sustainability.",
                 specs: [
                   { icon: Zap, label: "Motor", value: "45 kW" },
                   { icon: BatteryCharging, label: "Battery", value: "52 kWh" },
                   { icon: Activity, label: "Runtime", value: "10 hrs" },
                 ],
-                accentBg: "bg-accent/5",
-                accentBorder: "border-accent/20",
+                grad: "from-blue-950/80 via-zinc-900 to-zinc-950",
+                glow: "from-accent/30 to-transparent",
               },
               {
                 img: tractor2,
                 name: "AutoNxt X25H2",
                 type: "25HP Electric Tractor",
                 tag: "Compact",
-                tagColor: "bg-emerald-600",
-                tagText: "text-white",
-                desc: "The compact yet powerful X25H2 is perfect for small farms and precision farming. With a 25HP electric motor, it delivers efficiency while reducing operational costs.",
+                tagGrad: "from-emerald-700 to-green-800",
+                desc: "Perfect for small farms and precision farming. Lightweight at 1,400 kg with full field capability.",
                 specs: [
                   { icon: Zap, label: "Motor", value: "18 kW" },
                   { icon: BatteryCharging, label: "Battery", value: "24 kWh" },
                   { icon: Activity, label: "Runtime", value: "8 hrs" },
                 ],
-                accentBg: "bg-emerald-50",
-                accentBorder: "border-emerald-200",
+                grad: "from-emerald-950/80 via-zinc-900 to-zinc-950",
+                glow: "from-emerald-600/25 to-transparent",
               },
             ].map((p, i) => (
               <motion.div
                 key={i}
-                className="group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col"
-                initial={{ opacity: 0, y: 40, rotateX: 14 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                className="h-[28rem] w-full lg:w-80 flex items-center justify-center"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                whileHover={{ rotateY: i === 1 ? 0 : i === 0 ? 5 : -5, rotateX: -3, scale: 1.02, y: -10, transition: { type: "spring", stiffness: 280, damping: 22 } }}
-                style={{ transformPerspective: 1000, transformStyle: "preserve-3d" }}
+                transition={{ delay: i * 0.12, duration: 0.6 }}
                 data-testid={`card-product-${i}`}
               >
-                {/* Image area */}
-                <div className={`relative ${p.accentBg} p-8 flex items-center justify-center h-52 border-b ${p.accentBorder}`}>
-                  <span className={`absolute top-4 left-4 text-[10px] font-bold ${p.tagText} px-3 py-1 rounded-full ${p.tagColor} shadow-sm`}>{p.tag}</span>
-                  <img src={p.img} alt={p.name} className="h-36 object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-md" />
-                </div>
+                <PinContainer title={p.name} href="/product">
+                  <div className={`flex flex-col w-72 h-80 rounded-2xl bg-gradient-to-br ${p.grad} overflow-hidden relative border border-white/10`}>
+                    {/* Glow overlay */}
+                    <div className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-b ${p.glow} pointer-events-none`} />
 
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-1">
-                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{p.type}</p>
-                  <h3 className="font-display text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{p.name}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-5">{p.desc}</p>
+                    {/* Tag */}
+                    <div className="px-5 pt-5 pb-0 flex items-center justify-between relative z-10">
+                      <span className={`text-[10px] font-bold text-white px-2.5 py-1 rounded-full bg-gradient-to-r ${p.tagGrad} shadow-sm`}>{p.tag}</span>
+                      <span className="text-[10px] text-white/40 font-mono uppercase tracking-widest">{p.type.split(" ")[0]}</span>
+                    </div>
 
-                  {/* Spec chips */}
-                  <div className="flex flex-wrap gap-2 mb-5 mt-auto">
-                    {p.specs.map((s, si) => (
-                      <div key={si} className="inline-flex items-center gap-1.5 bg-muted rounded-lg px-3 py-1.5 border border-border">
-                        <s.icon className="w-3 h-3 text-primary shrink-0" />
-                        <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wide">{s.label}</span>
-                        <span className="text-[11px] font-bold text-foreground">{s.value}</span>
+                    {/* Tractor image */}
+                    <div className="flex-1 flex items-center justify-center px-4 py-2 relative z-10">
+                      <img src={p.img} alt={p.name} className="h-32 object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.6)] hover:scale-105 transition-transform duration-500" />
+                    </div>
+
+                    {/* Info */}
+                    <div className="px-5 pb-5 space-y-3 relative z-10">
+                      <div>
+                        <p className="text-white font-display text-base font-bold leading-tight">{p.name}</p>
+                        <p className="text-white/50 text-[11px] mt-0.5 leading-relaxed">{p.desc}</p>
                       </div>
-                    ))}
-                  </div>
 
-                  <Link href="/product">
-                    <Button size="sm" className="w-full bg-background border border-primary text-primary hover:bg-primary hover:text-white transition-all">
-                      Learn More <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
-                    </Button>
-                  </Link>
-                </div>
+                      {/* Specs */}
+                      <div className="flex gap-2">
+                        {p.specs.map((s, si) => (
+                          <div key={si} className="flex-1 bg-white/[0.06] border border-white/[0.09] rounded-lg px-2 py-1.5 text-center">
+                            <p className="text-[9px] text-white/40 uppercase tracking-wide font-medium">{s.label}</p>
+                            <p className="text-[11px] text-white font-bold mt-0.5">{s.value}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </PinContainer>
               </motion.div>
             ))}
           </div>
