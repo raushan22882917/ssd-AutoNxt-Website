@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
@@ -266,26 +267,33 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Right: Hero Image */}
+          {/* Right: 3D Tractor Model */}
           <motion.div
             className="order-1 lg:order-2 relative"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="relative" style={{ perspective: "900px" }}>
-              <div className="absolute -inset-4 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl blur-2xl" />
-              <motion.img
-                src={tractor1}
-                alt="Autonxt X45H2 Electric Tractor"
-                className="relative w-full max-w-xl mx-auto drop-shadow-2xl"
-                animate={{ y: [0, -18, 0] }}
-                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </div>
+            {/* Glow backdrop */}
+            <div className="absolute -inset-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl blur-3xl pointer-events-none" />
+            {/* 3D Canvas */}
+            <Suspense fallback={
+              <div className="w-full h-[440px] flex items-center justify-center">
+                <motion.img
+                  src={tractor1}
+                  alt="AutoNxt X45H2"
+                  className="w-full max-w-md mx-auto drop-shadow-2xl"
+                  animate={{ y: [0, -14, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                />
+              </div>
+            }>
+              <TractorViewer3D className="w-full h-[440px] relative z-10" />
+            </Suspense>
+
             {/* Floating spec badges */}
             <motion.div
-              className="absolute top-8 right-4 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-4 py-2.5 shadow-lg shadow-primary/5"
+              className="absolute top-8 right-4 z-20 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-4 py-2.5 shadow-lg shadow-primary/5"
               initial={{ opacity: 0, scale: 0.8, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.4 }}
@@ -295,7 +303,7 @@ export default function Home() {
               <p className="text-sm font-bold text-foreground">X45H2 — 45HP</p>
             </motion.div>
             <motion.div
-              className="absolute bottom-10 left-2 md:left-6 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 shadow-md"
+              className="absolute bottom-10 left-2 md:left-6 z-20 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 shadow-md"
               initial={{ opacity: 0, x: -16, scale: 0.85 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ delay: 1.2, duration: 0.4 }}
@@ -305,7 +313,7 @@ export default function Home() {
               <p className="text-xs font-semibold text-emerald-700">100% Electric</p>
             </motion.div>
             <motion.div
-              className="absolute top-[45%] left-0 md:left-2 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-3 py-2 shadow-md"
+              className="absolute top-[45%] left-0 md:left-2 z-20 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-3 py-2 shadow-md"
               initial={{ opacity: 0, x: -16, scale: 0.85 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ delay: 1.4, duration: 0.4 }}
@@ -314,6 +322,13 @@ export default function Home() {
               <p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">Range</p>
               <p className="text-xs font-bold text-accent">8–10 hrs / charge</p>
             </motion.div>
+            {/* Drag hint */}
+            <motion.p
+              className="absolute bottom-3 right-4 z-20 text-[10px] text-muted-foreground/60 font-medium select-none"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}
+            >
+              ↺ drag to rotate
+            </motion.p>
           </motion.div>
         </div>
       </section>
