@@ -2,7 +2,7 @@ import { Suspense, useRef, useState, useEffect, Component, type ReactNode } from
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Environment, ContactShadows, Bounds, useBounds } from "@react-three/drei";
 import type { Group } from "three";
-import tractor1 from "@assets/1_1777731255751.png";
+import defaultTractor from "@assets/1_1777731255751.png";
 import { motion } from "framer-motion";
 
 /* ── WebGL pre-check ── */
@@ -52,11 +52,11 @@ function TractorModel({ src, rotate }: { src: string; rotate: boolean }) {
 }
 
 /* ── Flat image fallback ── */
-function FallbackImage({ className = "" }: { className?: string }) {
+function FallbackImage({ src, className = "" }: { src?: string; className?: string }) {
   return (
     <div className={`flex items-center justify-center ${className}`}>
       <motion.img
-        src={tractor1}
+        src={src ?? defaultTractor}
         alt="AutoNxt Tractor"
         className="w-full h-full object-contain drop-shadow-2xl"
         animate={{ y: [0, -12, 0] }}
@@ -72,19 +72,21 @@ export default function TractorViewer3D({
   src = "/tractor-model.glb",
   rotate = true,
   showHint = false,
+  fallbackSrc,
 }: {
   className?: string;
   src?: string;
   rotate?: boolean;
   showHint?: boolean;
+  fallbackSrc?: string;
 }) {
   const [webglOk, setWebglOk] = useState<boolean | null>(null);
   useEffect(() => { setWebglOk(supportsWebGL()); }, []);
 
-  if (webglOk === null || !webglOk) return <FallbackImage className={className} />;
+  if (webglOk === null || !webglOk) return <FallbackImage src={fallbackSrc} className={className} />;
 
   return (
-    <ThreeErrorBoundary fallback={<FallbackImage className={className} />}>
+    <ThreeErrorBoundary fallback={<FallbackImage src={fallbackSrc} className={className} />}>
       <div className={`relative ${className}`} style={{ cursor: "grab" }}>
         <Canvas
           camera={{ position: [0, 0, 5], fov: 40 }}
@@ -136,6 +138,8 @@ export default function TractorViewer3D({
   );
 }
 
-/* Preload both models */
+/* Preload all models */
 useGLTF.preload("/tractor-model.glb");
 useGLTF.preload("/tractor-model-2.glb");
+useGLTF.preload("/hitem3d-1.glb");
+useGLTF.preload("/hitem3d-2.glb");

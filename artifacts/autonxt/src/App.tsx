@@ -21,6 +21,7 @@ import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 import IndustryDetail from "@/pages/IndustryDetail";
 import TractorDetail from "@/pages/TractorDetail";
+import AttachmentDetail from "@/pages/AttachmentDetail";
 import NotFound from "@/pages/not-found";
 import AiChat from "@/components/AiChat";
 import PageLoader from "@/components/PageLoader";
@@ -44,6 +45,7 @@ function Router() {
           <Route path="/blog" component={Blog} />
           <Route path="/ev-blog" component={EvBlog} />
           <Route path="/industry/:slug" component={IndustryDetail} />
+          <Route path="/product/attachment/:slug" component={AttachmentDetail} />
           <Route path="/product/:slug" component={TractorDetail} />
           <Route path="/careers" component={Careers} />
           <Route path="/privacy" component={Privacy} />

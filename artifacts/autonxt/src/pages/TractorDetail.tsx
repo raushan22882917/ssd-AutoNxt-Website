@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -8,12 +9,15 @@ import {
 } from "lucide-react";
 import tractor1 from "@assets/1_1777731255751.png";
 import tractor2 from "@assets/2_1777731255751.png";
+import tractor3 from "@assets/3_1777731255752.png";
 import batteryImg from "@assets/battery_1777731255752.png";
 import motorImg from "@assets/motor_1777731255752.png";
 
+const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
+
 const TRACTORS: Record<string, {
   name: string; type: string; badge: string; badgeColor: string;
-  tagline: string; desc: string; image: typeof tractor1;
+  tagline: string; desc: string; image: typeof tractor1; glbSrc: string;
   status: "available" | "upcoming";
   specs: { label: string; value: string; icon: React.ElementType }[];
   features: { icon: React.ElementType; title: string; desc: string }[];
@@ -30,6 +34,7 @@ const TRACTORS: Record<string, {
     tagline: "India's Most Powerful Electric Tractor",
     desc: "The X45H2 is AutoNxt's flagship agricultural and industrial electric tractor. Built for heavy-duty operations across large farms, sugar mills, cement plants, and construction sites — it delivers 45HP of instant electric torque, an 8+ hour runtime, and zero direct emissions. The world's first iCAT-certified electric tractor, now commercially available across India.",
     image: tractor1,
+    glbSrc: "/tractor-model.glb",
     status: "available",
     specs: [
       { label: "Motor Power", value: "45 HP (32 kW)", icon: Zap },
@@ -99,6 +104,7 @@ const TRACTORS: Record<string, {
     tagline: "Precision Electric Power for Small & Medium Farms",
     desc: "The X25H2 brings AutoNxt's zero-emission electric drivetrain to small and medium-scale agriculture. Lighter, more manoeuvrable, and more affordable than the X45H2, it's designed for precision farming, orchard operations, and mixed-crop farms where a compact, highly efficient tractor is the right tool.",
     image: tractor2,
+    glbSrc: "/tractor-model-2.glb",
     status: "upcoming",
     specs: [
       { label: "Motor Power", value: "25 HP (18 kW)", icon: Zap },
@@ -167,6 +173,7 @@ const TRACTORS: Record<string, {
     tagline: "The Ideal Entry-Level Electric Tractor",
     desc: "The X25H4 is AutoNxt's entry-level electric tractor — proven across India's diverse agricultural terrain. Compact, lightweight, and incredibly efficient, it's the right choice for small and medium farms looking to transition to electric without the upfront cost of a larger machine.",
     image: tractor2,
+    glbSrc: "/tractor-model-2.glb",
     status: "available",
     specs: [
       { label: "Motor Power", value: "25 HP (18 kW)", icon: Zap },
@@ -234,6 +241,7 @@ const TRACTORS: Record<string, {
     tagline: "Maximum Power. Zero Emissions.",
     desc: "The X60H2 is AutoNxt's most powerful tractor — designed for large-scale industrial and agricultural operations that demand the highest torque and longest runtime. With a 52 kWh LFP battery and 60HP peak output, it can handle the heaviest hauling, tilling, and implement-driving tasks across India's largest farms and industrial sites.",
     image: tractor1,
+    glbSrc: "/hitem3d-2.glb",
     status: "upcoming",
     specs: [
       { label: "Motor Power", value: "60 HP (45 kW)", icon: Zap },
@@ -294,6 +302,76 @@ const TRACTORS: Record<string, {
       "Eligible for FAME-III and state heavy EV incentives",
     ],
   },
+  h55c2: {
+    name: "AutoNxt H55C2",
+    type: "60HP Premium Tractor",
+    badge: "Most Powerful",
+    badgeColor: "bg-emerald-600",
+    tagline: "Liquid-Cooled Power for Commercial Agriculture",
+    desc: "The H55C2 is AutoNxt's premium 60HP tractor featuring a 66 kWh liquid-cooled battery pack — the largest in the lineup. Engineered for all-day commercial operation with the industry's fastest charge time of just 1.5 hours DC, it is purpose-built for sugar mills, large paddy farms, and industrial sites that need maximum uptime.",
+    image: tractor3,
+    glbSrc: "/hitem3d-1.glb",
+    status: "available",
+    specs: [
+      { label: "Motor Power",      value: "60 HP (45 kW)",             icon: Zap            },
+      { label: "Battery Capacity", value: "66 kWh Liquid-Cooled",      icon: BatteryCharging },
+      { label: "Runtime",          value: "10–12 hrs",                 icon: Clock          },
+      { label: "Charge Time",      value: "1.5 hrs DC / 7 hrs AC",     icon: Activity       },
+      { label: "Max Torque",       value: "360 Nm",                    icon: Gauge          },
+      { label: "Weight",           value: "2,900 kg",                  icon: Weight         },
+      { label: "Top Speed",        value: "28 km/h",                   icon: Settings       },
+      { label: "PTO Power",        value: "540/1000 RPM",              icon: Wrench         },
+      { label: "Hitch Type",       value: "3-Point Cat III",           icon: Settings       },
+      { label: "Cooling",          value: "Active Liquid Cooling",     icon: Thermometer    },
+      { label: "IP Rating",        value: "IP68 (Battery Pack)",       icon: Shield         },
+      { label: "Warranty",         value: "5 Years",                   icon: Shield         },
+    ],
+    features: [
+      { icon: BatteryCharging, title: "66 kWh Liquid-Cooled Battery", desc: "The largest battery in AutoNxt's lineup with active liquid cooling — sustains rated output for a full 10–12 hour working day regardless of ambient temperature." },
+      { icon: Zap,             title: "1.5 hr DC Fast Charge",        desc: "CCS2 DC fast charging port delivers a full charge in just 90 minutes — the fastest of any electric tractor in India, ideal for shift-change quick top-ups." },
+      { icon: Wifi,            title: "Advanced Fleet Telematics",    desc: "Real-time cell-level battery monitoring, coolant temperature, torque demand, geo-fencing, and remote diagnostics via the AutoNxt cloud platform." },
+      { icon: Shield,          title: "IP68 Battery",                 desc: "Enhanced sealing rated for sustained submersion — operates reliably through deep paddy flooding and the harshest Indian monsoon conditions." },
+      { icon: Settings,        title: "Dual PTO Speeds",              desc: "540 and 1000 RPM PTO — compatible with the full range of large agricultural and industrial implements including balers and heavy disc harrows." },
+      { icon: Sun,             title: "Solar-DC Hybrid Charging",     desc: "Compatible with on-farm solar DC charging arrays — combine rooftop solar with the DC fast charge port for near-zero running costs." },
+    ],
+    battery: [
+      { label: "Chemistry",     value: "Lithium Iron Phosphate (LFP)"            },
+      { label: "Capacity",      value: "66 kWh"                                  },
+      { label: "Cell Cycle Life", value: "2,500+ charge cycles"                  },
+      { label: "IP Rating",     value: "IP68 (waterproof — submersion rated)"    },
+      { label: "Cooling",       value: "Active liquid cooling"                   },
+      { label: "BMS",           value: "Advanced cell-level BMS with balancing"  },
+      { label: "Charge Port",   value: "IEC Type 2 (AC) + CCS2 DC"              },
+      { label: "Charge Time",   value: "1.5 hrs DC fast / 7 hrs AC"             },
+    ],
+    motor: [
+      { label: "Type",          value: "Permanent Magnet Synchronous Motor"  },
+      { label: "Peak Power",    value: "45 kW (60 HP)"                       },
+      { label: "Peak Torque",   value: "360 Nm"                              },
+      { label: "Peak Efficiency", value: "97%"                               },
+      { label: "Cooling",       value: "Liquid-cooled"                       },
+      { label: "Controller",    value: "AutoNxt NXT-Drive Pro VCU"           },
+      { label: "Drive Mode",    value: "2-speed reduction gearbox"           },
+      { label: "Regen Braking", value: "Variable regenerative braking"       },
+    ],
+    applications: [
+      "Sugarcane haulage and mill operations (100+ acre farms)",
+      "Commercial paddy and wheat farms",
+      "Industrial biomass processing and haulage",
+      "Steel and metal plant internal logistics",
+      "Construction site heavy earth preparation",
+      "Government and institutional agriculture",
+      "Airport and port ground operations",
+    ],
+    highlights: [
+      "66 kWh liquid-cooled battery — longest runtime in India",
+      "1.5 hr DC fast charge — fastest electric tractor charge",
+      "Dual PTO (540/1000 RPM) for all heavy implements",
+      "IP68 battery — monsoon & flood-terrain rated",
+      "Available now — production units ready",
+      "Eligible for FAME-III and state commercial EV incentives",
+    ],
+  },
 };
 
 export default function TractorDetail({ params }: { params: { slug: string } }) {
@@ -351,13 +429,24 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
               </div>
             </motion.div>
             <motion.div
-              className="flex items-center justify-center"
+              className="relative w-full h-[420px]"
               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl scale-150" />
-                <img src={tractor.image} alt={tractor.name} className="relative h-64 md:h-80 object-contain drop-shadow-2xl" loading="eager" decoding="async" />
-              </div>
+              <Suspense fallback={
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl scale-150 pointer-events-none" />
+                  <img src={tractor.image} alt={tractor.name} className="relative h-64 md:h-80 object-contain drop-shadow-2xl" loading="eager" decoding="async" />
+                </div>
+              }>
+                <TractorViewer3D
+                  src={tractor.glbSrc}
+                  fallbackSrc={tractor.image}
+                  className="w-full h-full"
+                  rotate
+                  showHint
+                />
+              </Suspense>
+              <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
             </motion.div>
           </div>
         </div>

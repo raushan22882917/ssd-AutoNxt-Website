@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
-import { ArrowRight, Battery, Gauge, Zap, BatteryCharging, Activity, Clock, CheckCircle2 } from "lucide-react";
+import {
+  ArrowRight, Battery, Gauge, Zap, BatteryCharging, Activity, Clock,
+  CheckCircle2, Box, ImageOff,
+} from "lucide-react";
 import { Link } from "wouter";
 
 import tractor1   from "@assets/1_1777731255751.png";
@@ -19,6 +22,8 @@ import ev3 from "@assets/IMG-20250630-WA0003_1777739120122.jpg";
 import ev4 from "@assets/IMG-20250630-WA0004_1777739120122.jpg";
 import ev5 from "@assets/IMG-20250630-WA0005_1777739120122.jpg";
 
+const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
+
 type Category = "all" | "tractors" | "attachments";
 
 const tractors = [
@@ -31,12 +36,13 @@ const tractors = [
     badgeGrad: "from-primary to-red-700",
     status: "Available Now",
     image: tractor1,
+    glb: "/tractor-model.glb",
     description: "Our flagship 45HP electric tractor with advanced battery technology and superior performance for large-scale agricultural operations.",
     specs: [
-      { icon: Zap,            label: "Power",    value: "32 kW"       },
-      { icon: BatteryCharging,label: "Battery",  value: "38.4 kWh"    },
-      { icon: Activity,       label: "Run Time", value: "8–10 hrs"    },
-      { icon: Clock,          label: "Charging", value: "4–6 hrs"     },
+      { icon: Zap,             label: "Power",    value: "32 kW"    },
+      { icon: BatteryCharging, label: "Battery",  value: "38.4 kWh" },
+      { icon: Activity,        label: "Run Time", value: "8–10 hrs" },
+      { icon: Clock,           label: "Charging", value: "4–6 hrs"  },
     ],
     cardGrad: "from-zinc-950 via-red-950/30 to-zinc-950",
     accentColor: "text-red-400",
@@ -51,12 +57,13 @@ const tractors = [
     badgeGrad: "from-accent to-blue-700",
     status: "Available Now",
     image: tractor2,
+    glb: "/tractor-model-2.glb",
     description: "Compact 25HP electric tractor designed for small farms and specialized applications — agile, efficient, and built for precision.",
     specs: [
-      { icon: Zap,            label: "Power",    value: "45 kW"       },
-      { icon: BatteryCharging,label: "Battery",  value: "38.4 kWh"    },
-      { icon: Activity,       label: "Run Time", value: "6–8 hrs"     },
-      { icon: Clock,          label: "Charging", value: "3–4 hrs"     },
+      { icon: Zap,             label: "Power",    value: "45 kW"    },
+      { icon: BatteryCharging, label: "Battery",  value: "38.4 kWh" },
+      { icon: Activity,        label: "Run Time", value: "6–8 hrs"  },
+      { icon: Clock,           label: "Charging", value: "3–4 hrs"  },
     ],
     cardGrad: "from-zinc-950 via-blue-950/30 to-zinc-950",
     accentColor: "text-blue-400",
@@ -71,12 +78,13 @@ const tractors = [
     badgeGrad: "from-emerald-700 to-green-800",
     status: "Available Now",
     image: tractor3,
+    glb: "/hitem3d-1.glb",
     description: "High-power 60HP electric tractor for commercial farming with extended liquid-cooled battery life and ultra-fast charging.",
     specs: [
-      { icon: Zap,            label: "Power",    value: "45 kW"             },
-      { icon: BatteryCharging,label: "Battery",  value: "66 kWh (LiquidCool)" },
-      { icon: Activity,       label: "Run Time", value: "10–12 hrs"         },
-      { icon: Clock,          label: "Charging", value: "1.5 / 7 hrs"       },
+      { icon: Zap,             label: "Power",    value: "45 kW"               },
+      { icon: BatteryCharging, label: "Battery",  value: "66 kWh Liquid-Cool"  },
+      { icon: Activity,        label: "Run Time", value: "10–12 hrs"           },
+      { icon: Clock,           label: "Charging", value: "1.5 / 7 hrs"         },
     ],
     cardGrad: "from-zinc-950 via-emerald-950/30 to-zinc-950",
     accentColor: "text-emerald-400",
@@ -88,29 +96,29 @@ const attachments = [
   {
     slug: "graber-bucket",
     name: "18 Ft Graber Bucket",
-    type: "Attachment",
+    type: "Implement",
     badge: "Heavy Duty",
     status: "Available Now",
     image: fieldImg,
-    description: "Heavy-duty 18 feet graber bucket attachment designed for efficient material handling and excavation operations.",
+    description: "Heavy-duty 18 feet graber bucket for efficient material handling and excavation operations.",
   },
   {
     slug: "catcher",
     name: "18 Ft Catcher",
-    type: "Attachment",
+    type: "Implement",
     badge: "Precision",
     status: "Available Now",
     image: wallImg,
-    description: "Precision-engineered 18 feet catcher for efficient material collection. Advanced hydraulic controls for harvesting and sorting.",
+    description: "Precision-engineered 18 feet catcher for efficient material collection and harvesting.",
   },
   {
     slug: "loader-bucket",
     name: "18 Ft Loader Bucket",
-    type: "Attachment",
+    type: "Implement",
     badge: "Max Load",
     status: "Available Now",
     image: garageImg,
-    description: "Heavy-duty 18 feet loader bucket engineered for maximum efficiency in loading and material transport operations.",
+    description: "Heavy-duty 18 feet loader bucket for maximum efficiency in loading and material transport.",
   },
 ];
 
@@ -120,13 +128,17 @@ const techSpecs = [
 ];
 
 const FILTER_TABS: { id: Category; label: string }[] = [
-  { id: "all",         label: "All Products" },
-  { id: "tractors",    label: "Tractors" },
-  { id: "attachments", label: "Attachments" },
+  { id: "all",         label: "All Products"  },
+  { id: "tractors",    label: "Tractors"      },
+  { id: "attachments", label: "Implements"    },
 ];
 
 export default function Product() {
   const [filter, setFilter] = useState<Category>("all");
+  const [show3D, setShow3D] = useState<Record<string, boolean>>({});
+
+  const toggle3D = (slug: string) =>
+    setShow3D(prev => ({ ...prev, [slug]: !prev[slug] }));
 
   const showTractors    = filter === "all" || filter === "tractors";
   const showAttachments = filter === "all" || filter === "attachments";
@@ -143,7 +155,6 @@ export default function Product() {
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
 
-            {/* Left text */}
             <div className="pb-16 pt-8">
               <motion.div
                 className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
@@ -169,9 +180,9 @@ export default function Product() {
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: Zap,     label: "HP Range",  value: "25–60 HP"  },
-                  { icon: Battery, label: "Charge",    value: "3–6 hrs"   },
-                  { icon: Gauge,   label: "Models",    value: "3 Tractors" },
+                  { icon: Zap,     label: "HP Range", value: "25–60 HP"   },
+                  { icon: Battery, label: "Charge",   value: "3–6 hrs"    },
+                  { icon: Gauge,   label: "Models",   value: "3 Tractors" },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-2.5 bg-white/[0.05] border border-white/[0.08] rounded-xl px-4 py-2.5">
                     <f.icon className="w-4 h-4 text-primary" />
@@ -184,34 +195,39 @@ export default function Product() {
               </motion.div>
             </div>
 
-            {/* Right hero image collage */}
+            {/* Hero 3D model */}
             <motion.div
               className="relative pb-0 hidden lg:block"
               initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.8 }}
             >
               <div className="relative h-[480px]">
-                {/* Main tractor */}
-                <div className="absolute bottom-0 right-0 w-[90%]">
-                  <img src={tractor1} alt="AutoNxt X45H2" className="w-full object-contain drop-shadow-[0_20px_60px_rgba(168,0,0,0.3)]" width={600} height={400} />
-                </div>
-                {/* Floating badge */}
+                <Suspense fallback={
+                  <div className="flex items-center justify-center h-full">
+                    <img src={tractor1} alt="AutoNxt X45H2" className="w-full max-w-md object-contain drop-shadow-[0_20px_60px_rgba(168,0,0,0.3)]" width={500} height={380} />
+                  </div>
+                }>
+                  <TractorViewer3D
+                    src="/tractor-model.glb"
+                    fallbackSrc={tractor1}
+                    className="w-full h-full"
+                    rotate
+                    showHint
+                  />
+                </Suspense>
                 <motion.div
-                  className="absolute top-16 left-0 bg-white/[0.07] backdrop-blur-md border border-white/[0.12] rounded-2xl px-5 py-3"
+                  className="absolute top-16 left-0 bg-white/[0.07] backdrop-blur-md border border-white/[0.12] rounded-2xl px-5 py-3 z-10"
                   animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <p className="text-white/50 text-[9px] uppercase tracking-widest font-medium">Flagship Model</p>
                   <p className="text-white font-bold text-sm mt-0.5">X45H2 — 45HP</p>
                 </motion.div>
                 <motion.div
-                  className="absolute top-36 right-4 bg-primary/10 backdrop-blur-md border border-primary/30 rounded-2xl px-4 py-2.5"
+                  className="absolute top-36 right-4 bg-primary/10 backdrop-blur-md border border-primary/30 rounded-2xl px-4 py-2.5 z-10"
                   animate={{ y: [0, 6, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                 >
                   <p className="text-primary text-[9px] uppercase tracking-widest font-medium">Zero Emissions</p>
                   <p className="text-white font-bold text-sm mt-0.5">100% Electric</p>
                 </motion.div>
-                {/* Glow */}
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-16 bg-primary/20 blur-3xl rounded-full pointer-events-none" />
-                {/* Gradient fade to section below */}
                 <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-zinc-950 to-transparent pointer-events-none" />
               </div>
             </motion.div>
@@ -219,11 +235,10 @@ export default function Product() {
         </div>
       </section>
 
-      {/* ── FILTER + PRODUCT GRID ── */}
+      {/* ── FILTER + PRODUCTS ── */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 md:px-8">
 
-          {/* Section header */}
           <div className="text-center mb-12">
             <motion.div
               className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-4"
@@ -236,18 +251,18 @@ export default function Product() {
               className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             >
-              Explore our range of electric tractors
+              Explore the full range
             </motion.h2>
             <motion.p
               className="text-muted-foreground max-w-xl mx-auto"
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
             >
-              Designed for the future of agriculture — from compact small-farm models to heavy-duty commercial powerhouses.
+              From compact small-farm models to heavy-duty commercial powerhouses — with compatible implements for every task.
             </motion.p>
           </div>
 
           {/* Filter tabs */}
-          <div className="flex items-center justify-center gap-2 mb-12">
+          <div className="flex items-center justify-center gap-2 mb-12 flex-wrap">
             {FILTER_TABS.map((tab) => (
               <button
                 key={tab.id}
@@ -266,11 +281,7 @@ export default function Product() {
           {/* TRACTORS */}
           <AnimatePresence>
             {showTractors && (
-              <motion.div
-                key="tractors"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                className="mb-16"
-              >
+              <motion.div key="tractors" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mb-16">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {tractors.map((t, i) => (
                     <motion.div
@@ -282,23 +293,53 @@ export default function Product() {
                     >
                       <BackgroundGradient className="rounded-[20px] overflow-hidden">
                         <div className={`bg-gradient-to-br ${t.cardGrad} rounded-[18px] overflow-hidden`}>
-                          {/* Image area */}
-                          <div className="relative flex items-center justify-center pt-8 pb-4 px-6"
+
+                          {/* Image / 3D area */}
+                          <div
+                            className="relative flex items-center justify-center pt-8 pb-4 px-6 min-h-[192px]"
                             style={{ background: `radial-gradient(ellipse at 50% 100%, ${t.glowColor}, transparent 70%)` }}
                           >
-                            <span className={`absolute top-4 left-4 text-[10px] font-bold text-white px-2.5 py-1 rounded-full bg-gradient-to-r ${t.badgeGrad} shadow-sm`}>{t.badge}</span>
-                            <span className="absolute top-4 right-4 flex items-center gap-1 text-[9px] font-semibold text-emerald-400">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                              {t.status}
+                            <span className={`absolute top-4 left-4 z-10 text-[10px] font-bold text-white px-2.5 py-1 rounded-full bg-gradient-to-r ${t.badgeGrad} shadow-sm`}>
+                              {t.badge}
                             </span>
-                            <img
-                              src={t.image}
-                              alt={t.fullName}
-                              loading="lazy"
-                              decoding="async"
-                              className="h-44 w-full object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.5)] hover:scale-105 transition-transform duration-500"
-                              width={320} height={176}
-                            />
+
+                            {/* 3D toggle button */}
+                            <button
+                              onClick={() => toggle3D(t.slug)}
+                              className={`absolute top-4 right-4 z-10 flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full border transition-all ${
+                                show3D[t.slug]
+                                  ? "bg-white/20 border-white/40 text-white"
+                                  : "bg-white/[0.07] border-white/20 text-white/60 hover:text-white hover:bg-white/15"
+                              }`}
+                            >
+                              {show3D[t.slug]
+                                ? <><ImageOff className="w-2.5 h-2.5" /> 2D</>
+                                : <><Box className="w-2.5 h-2.5" /> 3D</>
+                              }
+                            </button>
+
+                            {show3D[t.slug] ? (
+                              <Suspense fallback={
+                                <img src={t.image} alt={t.fullName} className="h-44 w-full object-contain" width={320} height={176} />
+                              }>
+                                <TractorViewer3D
+                                  src={t.glb}
+                                  fallbackSrc={t.image}
+                                  className="w-full h-44"
+                                  rotate
+                                  showHint
+                                />
+                              </Suspense>
+                            ) : (
+                              <img
+                                src={t.image}
+                                alt={t.fullName}
+                                loading="lazy"
+                                decoding="async"
+                                className="h-44 w-full object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.5)] hover:scale-105 transition-transform duration-500"
+                                width={320} height={176}
+                              />
+                            )}
                           </div>
 
                           {/* Content */}
@@ -309,7 +350,6 @@ export default function Product() {
                               <p className="text-white/50 text-xs mt-1.5 leading-relaxed line-clamp-2">{t.description}</p>
                             </div>
 
-                            {/* Spec grid */}
                             <div className="grid grid-cols-2 gap-2">
                               {t.specs.map((s, si) => (
                                 <div key={si} className="bg-white/[0.06] border border-white/[0.08] rounded-xl p-2.5 flex items-center gap-2">
@@ -323,8 +363,8 @@ export default function Product() {
                             </div>
 
                             <div className="flex gap-2 pt-1">
-                              <Link href={`/product/${t.slug}`}>
-                                <Button size="sm" className="flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold h-9">
+                              <Link href={`/product/${t.slug}`} className="flex-1">
+                                <Button size="sm" className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold h-9">
                                   View Details <ArrowRight className="ml-1 w-3 h-3" />
                                 </Button>
                               </Link>
@@ -344,16 +384,13 @@ export default function Product() {
             )}
           </AnimatePresence>
 
-          {/* ATTACHMENTS */}
+          {/* IMPLEMENTS */}
           <AnimatePresence>
             {showAttachments && (
-              <motion.div
-                key="attachments"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              >
+              <motion.div key="attachments" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <div className="flex items-center gap-3 mb-8">
                   <div className="h-px flex-1 bg-border" />
-                  <span className="text-muted-foreground text-xs font-bold uppercase tracking-widest px-3">Attachments & Implements</span>
+                  <span className="text-muted-foreground text-xs font-bold uppercase tracking-widest px-3">Implements & Attachments</span>
                   <div className="h-px flex-1 bg-border" />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -386,7 +423,7 @@ export default function Product() {
                         <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{a.type}</p>
                         <h3 className="font-display text-base font-bold text-foreground mb-2">{a.name}</h3>
                         <p className="text-muted-foreground text-xs leading-relaxed mb-4 line-clamp-2">{a.description}</p>
-                        <Link href="/book">
+                        <Link href={`/product/attachment/${a.slug}`}>
                           <Button size="sm" variant="outline" className="w-full border-primary/30 text-primary hover:bg-primary hover:text-white text-xs h-8 font-semibold">
                             View Details <ArrowRight className="ml-1 w-3 h-3" />
                           </Button>
@@ -430,7 +467,6 @@ export default function Product() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                {/* Component image */}
                 <div className="shrink-0 w-28 h-28 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center p-4 group-hover:border-primary/30 transition-colors">
                   <img src={tech.img} alt={tech.title} loading="lazy" decoding="async" className="w-full h-full object-contain" width={80} height={80} />
                 </div>
@@ -504,10 +540,10 @@ export default function Product() {
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { icon: CheckCircle2, title: "Zero Emissions",     desc: "100% electric drivetrain"        },
-              { icon: Zap,          title: "Instant Torque",     desc: "From zero RPM on every terrain"  },
-              { icon: Battery,      title: "Solar Compatible",   desc: "Charge directly from solar panels" },
-              { icon: Gauge,        title: "5-Year Warranty",    desc: "Backed by India service network" },
+              { icon: CheckCircle2, title: "Zero Emissions",   desc: "100% electric drivetrain"          },
+              { icon: Zap,          title: "Instant Torque",   desc: "From zero RPM on every terrain"    },
+              { icon: Battery,      title: "Solar Compatible", desc: "Charge directly from solar panels" },
+              { icon: Gauge,        title: "5-Year Warranty",  desc: "Backed by India service network"   },
             ].map((feat, i) => (
               <motion.div
                 key={i}
