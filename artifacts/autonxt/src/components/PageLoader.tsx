@@ -2,12 +2,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function PageLoader() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(() => {
+    // Only show loader once per browser session
+    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem("an-loaded")) return false;
+    return true;
+  });
 
   useEffect(() => {
-    const t = setTimeout(() => setVisible(false), 1800);
+    if (!visible) return;
+    const t = setTimeout(() => {
+      setVisible(false);
+      sessionStorage.setItem("an-loaded", "1");
+    }, 1600);
     return () => clearTimeout(t);
-  }, []);
+  }, [visible]);
 
   return (
     <AnimatePresence>

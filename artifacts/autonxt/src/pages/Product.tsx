@@ -1,275 +1,571 @@
-import { lazy, Suspense } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Battery, Gauge, Zap } from "lucide-react";
+import { BackgroundGradient } from "@/components/ui/background-gradient";
+import { ArrowRight, Battery, Gauge, Zap, BatteryCharging, Activity, Clock, CheckCircle2 } from "lucide-react";
 import { Link } from "wouter";
 
-import tractor1 from "@assets/1_1777731255751.png";
-import tractor2 from "@assets/2_1777731255751.png";
+import tractor1   from "@assets/1_1777731255751.png";
+import tractor2   from "@assets/2_1777731255751.png";
+import tractor3   from "@assets/3_1777731255752.png";
 import batteryImg from "@assets/battery_1777731255752.png";
-import motorImg from "@assets/motor_1777731255752.png";
-import fieldImg from "@assets/8.RightSideGateWall_1777731255752.jpg";
+import motorImg   from "@assets/motor_1777731255752.png";
+import fieldImg   from "@assets/8.RightSideGateWall_1777731255752.jpg";
+import garageImg  from "@assets/3._Garage_Entry_–_After_Gate_1777731255751.jpg";
+import wallImg    from "@assets/7.LeftSideGateWall_1777731255752.jpg";
+import ev1 from "@assets/IMG-20250630-WA0001_1777739120122.jpg";
+import ev2 from "@assets/IMG-20250630-WA0002_1777739120122.jpg";
+import ev3 from "@assets/IMG-20250630-WA0003_1777739120122.jpg";
+import ev4 from "@assets/IMG-20250630-WA0004_1777739120122.jpg";
+import ev5 from "@assets/IMG-20250630-WA0005_1777739120122.jpg";
 
-const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
+type Category = "all" | "tractors" | "attachments";
 
-const products = [
+const tractors = [
   {
-    name: "Autonxt X45H2",
     slug: "x45h2",
+    name: "X45H2",
+    fullName: "AutoNxt X45H2",
     type: "45HP Electric Tractor",
     badge: "Flagship",
-    badgeColor: "bg-primary",
+    badgeGrad: "from-primary to-red-700",
+    status: "Available Now",
     image: tractor1,
-    description:
-      "Our premium 45HP electric tractor built for heavy-duty agricultural work. Designed for large farms and commercial operations — zero diesel, maximum output.",
+    description: "Our flagship 45HP electric tractor with advanced battery technology and superior performance for large-scale agricultural operations.",
     specs: [
-      { label: "Motor Power", value: "45 HP" },
-      { label: "Range / Charge", value: "10+ hrs" },
-      { label: "Charge Time", value: "4 hrs" },
-      { label: "Max Torque", value: "280 Nm" },
-      { label: "Implement Rating", value: "3-Point", },
-      { label: "Warranty", value: "5 Years" },
+      { icon: Zap,            label: "Power",    value: "32 kW"       },
+      { icon: BatteryCharging,label: "Battery",  value: "38.4 kWh"    },
+      { icon: Activity,       label: "Run Time", value: "8–10 hrs"    },
+      { icon: Clock,          label: "Charging", value: "4–6 hrs"     },
     ],
-    features: ["AI-assisted load management", "Remote fleet tracking", "Solar charging compatible", "OTA software updates"],
+    cardGrad: "from-zinc-950 via-red-950/30 to-zinc-950",
+    accentColor: "text-red-400",
+    glowColor: "rgba(168,0,0,0.15)",
   },
   {
-    name: "Autonxt X25H4",
-    slug: "x25h4",
-    type: "25HP Electric Tractor",
+    slug: "x25h2",
+    name: "X25H2",
+    fullName: "AutoNxt X25H2",
+    type: "25HP Compact Tractor",
     badge: "Best Value",
-    badgeColor: "bg-accent",
+    badgeGrad: "from-accent to-blue-700",
+    status: "Available Now",
     image: tractor2,
-    description:
-      "The ideal entry-level electric tractor for small and medium farms. Compact, lightweight, and incredibly efficient — proven across India's diverse agricultural terrain.",
+    description: "Compact 25HP electric tractor designed for small farms and specialized applications — agile, efficient, and built for precision.",
     specs: [
-      { label: "Motor Power", value: "25 HP" },
-      { label: "Range / Charge", value: "8+ hrs" },
-      { label: "Charge Time", value: "3 hrs" },
-      { label: "Max Torque", value: "160 Nm" },
-      { label: "Weight", value: "1,400 kg" },
-      { label: "Warranty", value: "5 Years" },
+      { icon: Zap,            label: "Power",    value: "45 kW"       },
+      { icon: BatteryCharging,label: "Battery",  value: "38.4 kWh"    },
+      { icon: Activity,       label: "Run Time", value: "6–8 hrs"     },
+      { icon: Clock,          label: "Charging", value: "3–4 hrs"     },
     ],
-    features: ["Lightweight chassis", "Precision agriculture ready", "Solar charging compatible", "Easy-service design"],
+    cardGrad: "from-zinc-950 via-blue-950/30 to-zinc-950",
+    accentColor: "text-blue-400",
+    glowColor: "rgba(30,64,175,0.15)",
+  },
+  {
+    slug: "h55c2",
+    name: "H55C2",
+    fullName: "AutoNxt H55C2",
+    type: "60HP Premium Tractor",
+    badge: "Most Powerful",
+    badgeGrad: "from-emerald-700 to-green-800",
+    status: "Available Now",
+    image: tractor3,
+    description: "High-power 60HP electric tractor for commercial farming with extended liquid-cooled battery life and ultra-fast charging.",
+    specs: [
+      { icon: Zap,            label: "Power",    value: "45 kW"             },
+      { icon: BatteryCharging,label: "Battery",  value: "66 kWh (LiquidCool)" },
+      { icon: Activity,       label: "Run Time", value: "10–12 hrs"         },
+      { icon: Clock,          label: "Charging", value: "1.5 / 7 hrs"       },
+    ],
+    cardGrad: "from-zinc-950 via-emerald-950/30 to-zinc-950",
+    accentColor: "text-emerald-400",
+    glowColor: "rgba(5,150,105,0.15)",
   },
 ];
 
+const attachments = [
+  {
+    slug: "graber-bucket",
+    name: "18 Ft Graber Bucket",
+    type: "Attachment",
+    badge: "Heavy Duty",
+    status: "Available Now",
+    image: fieldImg,
+    description: "Heavy-duty 18 feet graber bucket attachment designed for efficient material handling and excavation operations.",
+  },
+  {
+    slug: "catcher",
+    name: "18 Ft Catcher",
+    type: "Attachment",
+    badge: "Precision",
+    status: "Available Now",
+    image: wallImg,
+    description: "Precision-engineered 18 feet catcher for efficient material collection. Advanced hydraulic controls for harvesting and sorting.",
+  },
+  {
+    slug: "loader-bucket",
+    name: "18 Ft Loader Bucket",
+    type: "Attachment",
+    badge: "Max Load",
+    status: "Available Now",
+    image: garageImg,
+    description: "Heavy-duty 18 feet loader bucket engineered for maximum efficiency in loading and material transport operations.",
+  },
+];
+
+const techSpecs = [
+  { img: batteryImg, title: "LFP Battery Pack",  icon: Battery, desc: "High-density Lithium Iron Phosphate cells. 2,000+ charge cycles. IP67 waterproofed for decade-long farm life.", stat: "2,000+", statLabel: "Charge Cycles" },
+  { img: motorImg,   title: "NXT-Drive Motor",    icon: Zap,     desc: "Axial flux permanent magnet motor. 96% peak efficiency. Instant torque delivery. India-manufactured with local service.", stat: "96%", statLabel: "Peak Efficiency" },
+];
+
+const FILTER_TABS: { id: Category; label: string }[] = [
+  { id: "all",         label: "All Products" },
+  { id: "tractors",    label: "Tractors" },
+  { id: "attachments", label: "Attachments" },
+];
+
 export default function Product() {
+  const [filter, setFilter] = useState<Category>("all");
+
+  const showTractors    = filter === "all" || filter === "tractors";
+  const showAttachments = filter === "all" || filter === "attachments";
+
   return (
     <div className="w-full min-h-screen bg-background">
 
       {/* ── HERO ── */}
-      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
-        <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
-          style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+      <section className="bg-zinc-950 relative overflow-hidden pt-24 pb-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_60%,hsl(0,72%,40%,0.10),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.07),transparent_50%)] pointer-events-none" />
+
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-            <div className="pb-16">
+
+            {/* Left text */}
+            <div className="pb-16 pt-8">
               <motion.div
                 className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                <span className="text-primary text-xs font-bold uppercase tracking-widest">Electric Lineup</span>
+                <span className="text-primary text-xs font-bold uppercase tracking-widest">Electric Lineup 2025</span>
               </motion.div>
               <motion.h1
-                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
+                className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-5 leading-[1.04]"
                 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
               >
-                The <span className="text-primary">Lineup.</span>
+                Electric<br /><span className="text-primary">Tractors.</span>
               </motion.h1>
               <motion.p
-                className="text-white/55 text-lg max-w-lg leading-relaxed mb-10"
+                className="text-white/50 text-lg max-w-md leading-relaxed mb-10"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
               >
-                India's most advanced electric tractors — engineered for every farm size, every terrain, every season.
+                Revolutionizing agriculture with sustainable, powerful, and efficient electric tractors — built for every farm, every terrain.
               </motion.p>
               <motion.div
-                className="flex flex-wrap gap-6"
+                className="flex flex-wrap gap-5"
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: Zap, label: "HP Range", value: "25–60 HP" },
-                  { icon: Battery, label: "Charge Time", value: "3–4 hrs" },
-                  { icon: Gauge, label: "Variants", value: "3 Models" },
+                  { icon: Zap,     label: "HP Range",  value: "25–60 HP"  },
+                  { icon: Battery, label: "Charge",    value: "3–6 hrs"   },
+                  { icon: Gauge,   label: "Models",    value: "3 Tractors" },
                 ].map((f, i) => (
-                  <div key={i} className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
-                      <f.icon className="w-4 h-4 text-white/60" />
-                    </div>
+                  <div key={i} className="flex items-center gap-2.5 bg-white/[0.05] border border-white/[0.08] rounded-xl px-4 py-2.5">
+                    <f.icon className="w-4 h-4 text-primary" />
                     <div>
-                      <p className="text-white/40 text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
-                      <p className="text-white font-bold text-sm">{f.value}</p>
+                      <p className="text-white/40 text-[9px] uppercase tracking-widest font-medium leading-none mb-0.5">{f.label}</p>
+                      <p className="text-white font-bold text-sm leading-none">{f.value}</p>
                     </div>
                   </div>
                 ))}
               </motion.div>
             </div>
+
+            {/* Right hero image collage */}
             <motion.div
               className="relative pb-0 hidden lg:block"
-              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
+              initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <Suspense fallback={
-                <div className="h-[500px] flex items-center justify-center">
-                  <img src={tractor1} alt="AutoNxt X45H2" className="w-full max-w-md object-contain drop-shadow-2xl" />
+              <div className="relative h-[480px]">
+                {/* Main tractor */}
+                <div className="absolute bottom-0 right-0 w-[90%]">
+                  <img src={tractor1} alt="AutoNxt X45H2" className="w-full object-contain drop-shadow-[0_20px_60px_rgba(168,0,0,0.3)]" width={600} height={400} />
                 </div>
-              }>
-                <TractorViewer3D
-                  src="/tractor-model-2.glb"
-                  className="w-full h-[500px]"
-                  rotate={true}
-                  showHint={true}
-                />
-              </Suspense>
-              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
+                {/* Floating badge */}
+                <motion.div
+                  className="absolute top-16 left-0 bg-white/[0.07] backdrop-blur-md border border-white/[0.12] rounded-2xl px-5 py-3"
+                  animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <p className="text-white/50 text-[9px] uppercase tracking-widest font-medium">Flagship Model</p>
+                  <p className="text-white font-bold text-sm mt-0.5">X45H2 — 45HP</p>
+                </motion.div>
+                <motion.div
+                  className="absolute top-36 right-4 bg-primary/10 backdrop-blur-md border border-primary/30 rounded-2xl px-4 py-2.5"
+                  animate={{ y: [0, 6, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                >
+                  <p className="text-primary text-[9px] uppercase tracking-widest font-medium">Zero Emissions</p>
+                  <p className="text-white font-bold text-sm mt-0.5">100% Electric</p>
+                </motion.div>
+                {/* Glow */}
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-16 bg-primary/20 blur-3xl rounded-full pointer-events-none" />
+                {/* Gradient fade to section below */}
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-zinc-950 to-transparent pointer-events-none" />
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <div className="py-20">
+      {/* ── FILTER + PRODUCT GRID ── */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 md:px-8">
 
-        {/* Product List */}
-        <div className="space-y-24 mb-24">
-          {products.map((product, index) => (
+          {/* Section header */}
+          <div className="text-center mb-12">
             <motion.div
-              key={index}
-              className={`flex flex-col lg:flex-row gap-12 lg:gap-16 items-center ${index % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              data-testid={`product-card-${index}`}
+              className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-4"
+              initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
             >
-              {/* Image / 3D viewer */}
-              <div className="w-full lg:w-1/2">
-                <div className="relative bg-muted/30 rounded-2xl border border-border overflow-hidden group hover:border-primary/40 transition-colors">
-                  <span className={`absolute top-5 left-5 z-10 text-xs font-bold text-white px-3 py-1.5 rounded-full ${product.badgeColor}`}>{product.badge}</span>
-                  {index === 0 ? (
-                    <Suspense fallback={
-                      <div className="h-[380px] flex items-center justify-center p-10">
-                        <img src={product.image} alt={product.name} className="w-full max-w-sm object-contain drop-shadow-xl" />
-                      </div>
-                    }>
-                      <TractorViewer3D
-                        src="/tractor-model.glb"
-                        className="w-full h-[380px]"
-                        rotate={true}
-                        showHint={true}
-                      />
-                    </Suspense>
-                  ) : (
-                    <div className="p-10 flex items-center justify-center">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full max-w-sm object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-xl"
-                      />
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="w-full lg:w-1/2 space-y-7">
-                <div>
-                  <span className="text-primary font-semibold tracking-widest uppercase text-xs block mb-2">{product.type}</span>
-                  <h2 className="font-display text-4xl lg:text-5xl font-bold text-foreground mb-4">{product.name}</h2>
-                  <p className="text-muted-foreground text-lg">{product.description}</p>
-                </div>
-
-                {/* Specs Grid */}
-                <div className="grid grid-cols-3 gap-4">
-                  {product.specs.map((spec, i) => (
-                    <div key={i} className="bg-card border border-border rounded-xl p-3 text-center hover:border-primary/30 transition-colors">
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">{spec.label}</p>
-                      <p className="text-base font-bold text-foreground">{spec.value}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Features */}
-                <ul className="space-y-2.5">
-                  {product.features.map((f, i) => (
-                    <li key={i} className="flex items-center gap-3 text-foreground text-sm">
-                      <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center shrink-0">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      </div>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex gap-3 pt-2 flex-wrap">
-                  <Link href={`/product/${product.slug}`}>
-                    <Button className="bg-primary text-white hover:bg-primary/90 font-semibold" data-testid={`btn-reserve-${index}`}>
-                      View Full Specs <ArrowRight className="ml-1.5 w-3.5 h-3.5" />
-                    </Button>
-                  </Link>
-                  <Link href="/book">
-                    <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-white font-semibold">
-                      Book Test Drive
-                    </Button>
-                  </Link>
-                </div>
-              </div>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+              <span className="text-primary text-xs font-bold uppercase tracking-widest">Our Products</span>
             </motion.div>
-          ))}
-        </div>
+            <motion.h2
+              className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3"
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            >
+              Explore our range of electric tractors
+            </motion.h2>
+            <motion.p
+              className="text-muted-foreground max-w-xl mx-auto"
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+            >
+              Designed for the future of agriculture — from compact small-farm models to heavy-duty commercial powerhouses.
+            </motion.p>
+          </div>
 
-        {/* Tech Banner */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
-          {[
-            { img: batteryImg, title: "LFP Battery Pack", desc: "High-density Lithium Iron Phosphate cells. 2,000+ charge cycles. IP67 waterproofed. Designed for decade-long farm life.", icon: Battery },
-            { img: motorImg, title: "NXT-Drive Motor", desc: "Axial flux permanent magnet motor. 96% peak efficiency. Instant torque delivery. India-manufactured with local service network.", icon: Zap },
-          ].map((tech, i) => (
+          {/* Filter tabs */}
+          <div className="flex items-center justify-center gap-2 mb-12">
+            {FILTER_TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setFilter(tab.id)}
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+                  filter === tab.id
+                    ? "bg-primary text-white shadow-lg shadow-primary/25"
+                    : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* TRACTORS */}
+          <AnimatePresence>
+            {showTractors && (
+              <motion.div
+                key="tractors"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className="mb-16"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {tractors.map((t, i) => (
+                    <motion.div
+                      key={t.slug}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.5 }}
+                    >
+                      <BackgroundGradient className="rounded-[20px] overflow-hidden">
+                        <div className={`bg-gradient-to-br ${t.cardGrad} rounded-[18px] overflow-hidden`}>
+                          {/* Image area */}
+                          <div className="relative flex items-center justify-center pt-8 pb-4 px-6"
+                            style={{ background: `radial-gradient(ellipse at 50% 100%, ${t.glowColor}, transparent 70%)` }}
+                          >
+                            <span className={`absolute top-4 left-4 text-[10px] font-bold text-white px-2.5 py-1 rounded-full bg-gradient-to-r ${t.badgeGrad} shadow-sm`}>{t.badge}</span>
+                            <span className="absolute top-4 right-4 flex items-center gap-1 text-[9px] font-semibold text-emerald-400">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              {t.status}
+                            </span>
+                            <img
+                              src={t.image}
+                              alt={t.fullName}
+                              loading="lazy"
+                              decoding="async"
+                              className="h-44 w-full object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.5)] hover:scale-105 transition-transform duration-500"
+                              width={320} height={176}
+                            />
+                          </div>
+
+                          {/* Content */}
+                          <div className="px-6 pb-6 space-y-4">
+                            <div>
+                              <p className={`text-[10px] font-bold ${t.accentColor} uppercase tracking-widest mb-1`}>{t.type}</p>
+                              <h3 className="font-display text-xl font-bold text-white">{t.fullName}</h3>
+                              <p className="text-white/50 text-xs mt-1.5 leading-relaxed line-clamp-2">{t.description}</p>
+                            </div>
+
+                            {/* Spec grid */}
+                            <div className="grid grid-cols-2 gap-2">
+                              {t.specs.map((s, si) => (
+                                <div key={si} className="bg-white/[0.06] border border-white/[0.08] rounded-xl p-2.5 flex items-center gap-2">
+                                  <s.icon className={`w-3 h-3 ${t.accentColor} shrink-0`} />
+                                  <div>
+                                    <p className="text-white/40 text-[8px] uppercase tracking-wide font-medium leading-none">{s.label}</p>
+                                    <p className="text-white font-bold text-[11px] mt-0.5 leading-none">{s.value}</p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+
+                            <div className="flex gap-2 pt-1">
+                              <Link href={`/product/${t.slug}`}>
+                                <Button size="sm" className="flex-1 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold h-9">
+                                  View Details <ArrowRight className="ml-1 w-3 h-3" />
+                                </Button>
+                              </Link>
+                              <Link href="/book">
+                                <Button size="sm" className="bg-primary hover:bg-primary/90 text-white text-xs font-semibold h-9 px-4">
+                                  Book
+                                </Button>
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </BackgroundGradient>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* ATTACHMENTS */}
+          <AnimatePresence>
+            {showAttachments && (
+              <motion.div
+                key="attachments"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              >
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="h-px flex-1 bg-border" />
+                  <span className="text-muted-foreground text-xs font-bold uppercase tracking-widest px-3">Attachments & Implements</span>
+                  <div className="h-px flex-1 bg-border" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {attachments.map((a, i) => (
+                    <motion.div
+                      key={a.slug}
+                      className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.08 }}
+                    >
+                      <div className="relative h-44 overflow-hidden">
+                        <img
+                          src={a.image}
+                          alt={a.name}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          width={400} height={176}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        <span className="absolute bottom-3 left-3 text-[9px] font-bold text-white px-2 py-0.5 rounded-full bg-primary/80">{a.badge}</span>
+                        <span className="absolute top-3 right-3 flex items-center gap-1 text-[9px] font-semibold text-emerald-400 bg-black/40 backdrop-blur-sm rounded-full px-2 py-0.5">
+                          <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                          {a.status}
+                        </span>
+                      </div>
+                      <div className="p-5">
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{a.type}</p>
+                        <h3 className="font-display text-base font-bold text-foreground mb-2">{a.name}</h3>
+                        <p className="text-muted-foreground text-xs leading-relaxed mb-4 line-clamp-2">{a.description}</p>
+                        <Link href="/book">
+                          <Button size="sm" variant="outline" className="w-full border-primary/30 text-primary hover:bg-primary hover:text-white text-xs h-8 font-semibold">
+                            View Details <ArrowRight className="ml-1 w-3 h-3" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* ── TECH COMPONENTS ── */}
+      <section className="py-20 bg-zinc-950 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="text-center mb-14">
+            <motion.div
+              className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-4"
+              initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+              <span className="text-primary text-xs font-bold uppercase tracking-widest">Core Technology</span>
+            </motion.div>
+            <motion.h2
+              className="font-display text-3xl md:text-4xl font-bold text-white"
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            >
+              Built Different.
+            </motion.h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {techSpecs.map((tech, i) => (
+              <motion.div
+                key={i}
+                className="group relative bg-white/[0.04] border border-white/[0.09] rounded-2xl p-8 flex gap-7 items-start hover:border-primary/30 hover:bg-white/[0.06] transition-all duration-300"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                {/* Component image */}
+                <div className="shrink-0 w-28 h-28 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center p-4 group-hover:border-primary/30 transition-colors">
+                  <img src={tech.img} alt={tech.title} loading="lazy" decoding="async" className="w-full h-full object-contain" width={80} height={80} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-2">
+                    <tech.icon className="w-4 h-4 text-primary" />
+                    <h3 className="font-display text-lg font-bold text-white">{tech.title}</h3>
+                  </div>
+                  <p className="text-white/50 text-sm leading-relaxed mb-4">{tech.desc}</p>
+                  <div className="inline-flex items-baseline gap-1.5 bg-primary/10 border border-primary/20 rounded-xl px-4 py-2">
+                    <span className="font-display text-2xl font-bold text-primary">{tech.stat}</span>
+                    <span className="text-white/50 text-xs font-medium">{tech.statLabel}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── EVENT GALLERY STRIP ── */}
+      <section className="py-16 bg-background overflow-hidden">
+        <div className="container mx-auto px-4 md:px-8 mb-8">
+          <div className="flex items-end justify-between">
+            <div>
+              <motion.p
+                className="text-primary text-xs font-bold uppercase tracking-widest mb-2"
+                initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+              >
+                June 2025 · Handover Ceremony
+              </motion.p>
+              <motion.h2
+                className="font-display text-2xl md:text-3xl font-bold text-foreground"
+                initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              >
+                Tractors in the Field.
+              </motion.h2>
+            </div>
+            <Link href="/gallery">
+              <Button variant="outline" size="sm" className="border-border text-muted-foreground hover:border-primary hover:text-primary text-xs">
+                View Gallery <ArrowRight className="ml-1 w-3 h-3" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <div className="flex gap-4 overflow-x-auto px-4 md:px-8 pb-4 scrollbar-none">
+          {[ev1, ev2, ev3, ev4, ev5].map((img, i) => (
             <motion.div
               key={i}
-              className="bg-card border border-border rounded-2xl p-8 flex gap-6 items-start hover:border-primary/30 hover:shadow-md transition-all"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className="shrink-0 w-64 h-44 rounded-2xl overflow-hidden border border-border hover:border-primary/40 transition-colors"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.07 }}
             >
-              <div className="shrink-0 w-24 h-24 rounded-xl bg-muted/40 flex items-center justify-center border border-border p-3">
-                <img src={tech.img} alt={tech.title} className="w-full h-full object-contain" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <tech.icon className="w-4 h-4 text-primary" />
-                  <h3 className="font-display text-lg font-bold text-foreground">{tech.title}</h3>
-                </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">{tech.desc}</p>
-              </div>
+              <img
+                src={img}
+                alt={`AutoNxt Event ${i + 1}`}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                width={256} height={176}
+              />
             </motion.div>
           ))}
         </div>
+      </section>
 
-        {/* Field CTA */}
-        <motion.div
-          className="relative rounded-3xl overflow-hidden"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <img src={fieldImg} alt="Autonxt in the Field" className="w-full h-72 object-cover object-center" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30" />
-          <div className="absolute inset-0 flex items-center px-10 md:px-16">
-            <div className="max-w-lg">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Ready to experience it?</h2>
+      {/* ── FEATURE HIGHLIGHTS ── */}
+      <section className="py-16 bg-muted/20">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { icon: CheckCircle2, title: "Zero Emissions",     desc: "100% electric drivetrain"        },
+              { icon: Zap,          title: "Instant Torque",     desc: "From zero RPM on every terrain"  },
+              { icon: Battery,      title: "Solar Compatible",   desc: "Charge directly from solar panels" },
+              { icon: Gauge,        title: "5-Year Warranty",    desc: "Backed by India service network" },
+            ].map((feat, i) => (
+              <motion.div
+                key={i}
+                className="text-center p-6"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07 }}
+              >
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-3">
+                  <feat.icon className="w-5 h-5 text-primary" />
+                </div>
+                <p className="font-display font-bold text-foreground text-sm mb-1">{feat.title}</p>
+                <p className="text-muted-foreground text-xs leading-relaxed">{feat.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FIELD CTA ── */}
+      <motion.section
+        className="relative overflow-hidden"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <img
+          src={fieldImg}
+          alt="AutoNxt in the Field"
+          loading="lazy"
+          decoding="async"
+          className="w-full h-80 object-cover object-center"
+          width={1280} height={320}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-transparent" />
+        <div className="absolute inset-0 flex items-center px-8 md:px-16">
+          <div className="max-w-lg">
+            <p className="text-primary text-xs font-bold uppercase tracking-widest mb-3">Experience AutoNxt</p>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-5 leading-tight">
+              Ready to Power the Fields?
+            </h2>
+            <div className="flex gap-3 flex-wrap">
               <Link href="/book">
-                <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold">
+                <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold shadow-lg shadow-primary/25">
                   Schedule a Test Drive <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+              <Link href="/industry">
+                <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 font-semibold">
+                  See Industries
                 </Button>
               </Link>
             </div>
           </div>
-        </motion.div>
-
         </div>
-      </div>
+      </motion.section>
+
     </div>
   );
 }
