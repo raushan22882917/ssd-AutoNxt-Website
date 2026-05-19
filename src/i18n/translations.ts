@@ -22,9 +22,9 @@ export const translations = {
     // Home
     home: {
       heroBadge: "India's Electric Tractor Pioneer",
-      heroTitle1: "Power the",
-      heroTitleHighlight: "Fields",
-      heroTitle2: "of Tomorrow.",
+      heroTitle1: "Green Technology",
+      heroTitleHighlight: "For",
+      heroTitle2: " Tomorrow.",
       heroDesc: "Electric Tractors for Modern Agriculture — Experience zero-emission farming with our advanced electric tractors. Sustainable, powerful, and intelligent solutions for the future of agriculture.",
       exploreProducts: "Explore Products",
       bookNow: "Book Now",
