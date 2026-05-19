@@ -693,7 +693,7 @@ export default function Home() {
                 <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
               </div>
             }>
-              <TractorViewer3D src="/3dmodel/x45.glb" className="w-full h-[560px] relative z-10" showHint={true} />
+              <TractorViewer3D src="/3dmodel/hero.glb" className="w-full h-[560px] relative z-10" showHint={true} />
             </Suspense>
 
             {/* Floating spec badges */}
