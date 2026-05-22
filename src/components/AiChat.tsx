@@ -51,6 +51,21 @@ function suggestsBookingForm(text: string): boolean {
   return BOOKING_INTENT_PATTERN.test(text);
 }
 
+/** Detect Indian language from user text for n8n reply matching */
+function detectUserLanguage(text: string): string {
+  if (!text.trim()) return "en";
+  if (/[\u0900-\u097F]/.test(text)) return "hi";
+  if (/[\u0980-\u09FF]/.test(text)) return "bn";
+  if (/[\u0B80-\u0BFF]/.test(text)) return "ta";
+  if (/[\u0C00-\u0C7F]/.test(text)) return "te";
+  if (/[\u0A80-\u0AFF]/.test(text)) return "gu";
+  if (/[\u0C80-\u0CFF]/.test(text)) return "kn";
+  if (/[\u0D00-\u0D7F]/.test(text)) return "ml";
+  if (/[\u0A00-\u0A7F]/.test(text)) return "pa";
+  if (/[\u0B00-\u0B7F]/.test(text)) return "or";
+  return "en";
+}
+
 function getOrCreateSessionId(): string {
   const existing = sessionStorage.getItem(SESSION_STORAGE_KEY);
   if (existing) return existing;
@@ -179,16 +194,19 @@ export default function StaticChatBot() {
   const [userInput, setUserInput] = useState("");
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [bookingForm, setBookingForm] = useState<BookingFormData>(emptyBookingForm);
+  const [userLanguage, setUserLanguage] = useState("en");
+  const lastUserMessageRef = useRef("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      text: `👋 Welcome to AutoNxt AI
+      text: `👋 AutoNxt AI में आपका स्वागत है / Welcome to AutoNxt AI
 
-I'm your intelligent farming assistant built to help you explore the future of electric tractors and smart agriculture.
+मैं इलेक्ट्रिक ट्रैक्टर और स्मार्ट खेती के बारे में आपकी मदद करता हूँ।
+I help you explore electric tractors and smart agriculture.
 
-How can I help you today?`,
+आप **हिंदी**, **English**, या किसी भी भारतीय भाषा में पूछ सकते हैं — जिस भाषा में पूछेंगे, उसी में जवाब मिलेगा।`,
     },
   ]);
 
@@ -222,6 +240,8 @@ How can I help you today?`,
           action: "sendMessage",
           chatInput: message,
           sessionId: getOrCreateSessionId(),
+          userLanguage,
+          language: userLanguage,
         }),
       });
 
@@ -259,11 +279,16 @@ How can I help you today?`,
   const handleSendMessage = async () => {
     if (!userInput.trim()) return;
 
+    const trimmed = userInput.trim();
+    const lang = detectUserLanguage(trimmed);
+    setUserLanguage(lang);
+    lastUserMessageRef.current = trimmed;
+
     const updatedMessages: Message[] = [
       ...messages,
       {
         role: "user",
-        text: userInput,
+        text: trimmed,
       },
     ];
 
@@ -271,7 +296,7 @@ How can I help you today?`,
     setUserInput("");
 
     // Send to n8n webhook
-    const aiResponse = await sendToN8N(userInput);
+    const aiResponse = await sendToN8N(trimmed);
 
     updatedMessages.push({
       role: "assistant",
@@ -314,6 +339,9 @@ How can I help you today?`,
         body: JSON.stringify({
           action: "submitBooking",
           sessionId: getOrCreateSessionId(),
+          userLanguage,
+          language: userLanguage,
+          lastUserMessage: lastUserMessageRef.current,
           ...bookingForm,
         }),
       });
@@ -354,13 +382,11 @@ How can I help you today?`,
 
   const openBookingForm = () => {
     setShowBookingForm(true);
-    setMessages((prev) => [
-      ...prev,
-      {
-        role: "assistant",
-        text: "Please fill the booking form below — we will save your details, email our sales team, and send you a confirmation reference.",
-      },
-    ]);
+    const formHint =
+      userLanguage === "hi"
+        ? "कृपया नीचे बुकिंग फॉर्म भरें — हम आपका विवरण सेव करेंगे, सेल्स टीम को ईमेल करेंगे, और पुष्टि ID भेजेंगे।"
+        : "Please fill the booking form below — we will save your details, email our sales team, and send you a confirmation reference.";
+    setMessages((prev) => [...prev, { role: "assistant", text: formHint }]);
   };
 
   return (
