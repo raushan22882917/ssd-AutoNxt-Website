@@ -8,7 +8,9 @@ import {
   CheckCircle,
   Send,
   Loader2,
+  AlertCircle,
 } from "lucide-react";
+import { submitBooking } from "../api/bookings";
 
 const contactInfo = [
   {
@@ -40,6 +42,7 @@ const contactInfo = [
 export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -47,6 +50,9 @@ export default function ContactPage() {
     phone: "",
     subject: "",
     message: "",
+    tractorModel: "",
+    preferredDate: "",
+    location: "",
   });
 
   const handleChange = (
@@ -60,23 +66,50 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setError(null);
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
+    try {
+      // Submit booking to DynamoDB
+      const result = await submitBooking({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+        tractorModel: formData.tractorModel,
+        preferredDate: formData.preferredDate,
+        location: formData.location,
       });
 
-      setTimeout(() => setSuccess(false), 4000);
-    }, 1500);
+      if (result.success) {
+        setSuccess(true);
+        console.log("Booking ID:", result.bookingId);
+
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+          tractorModel: "",
+          preferredDate: "",
+          location: "",
+        });
+
+        // Hide success message after 4 seconds
+        setTimeout(() => setSuccess(false), 4000);
+      } else {
+        setError(result.error || "Failed to submit booking");
+      }
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "An unexpected error occurred"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -271,6 +304,7 @@ export default function ContactPage() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      required
                     />
 
                     <InputField
@@ -279,22 +313,51 @@ export default function ContactPage() {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
+                      required
                     />
                   </div>
 
-                  <InputField
-                    label="Phone Number"
-                    name="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <InputField
+                      label="Phone Number"
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                    />
+
+                    <InputField
+                      label="Preferred Location"
+                      name="location"
+                      value={formData.location}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <InputField
+                      label="Tractor Model"
+                      name="tractorModel"
+                      value={formData.tractorModel}
+                      onChange={handleChange}
+                    />
+
+                    <InputField
+                      label="Preferred Date"
+                      name="preferredDate"
+                      type="date"
+                      value={formData.preferredDate}
+                      onChange={handleChange}
+                    />
+                  </div>
 
                   <InputField
                     label="Subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
+                    required
                   />
 
                   {/* MESSAGE */}
@@ -314,11 +377,19 @@ export default function ContactPage() {
                     </label>
                   </div>
 
-                  {/* SUCCESS */}
+                  {/* ERROR MESSAGE */}
+                  {error && (
+                    <div className="flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
+                      <AlertCircle className="w-4 h-4" />
+                      {error}
+                    </div>
+                  )}
+
+                  {/* SUCCESS MESSAGE */}
                   {success && (
                     <div className="flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-700 text-sm">
                       <CheckCircle className="w-4 h-4" />
-                      Message sent successfully!
+                      Booking submitted successfully! We'll contact you soon.
                     </div>
                   )}
 
@@ -331,12 +402,12 @@ export default function ContactPage() {
                     {loading ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        Sending...
+                        Submitting...
                       </>
                     ) : (
                       <>
                         <Send className="w-5 h-5" />
-                        Send Message
+                        Submit Booking
                       </>
                     )}
                   </button>
@@ -415,11 +486,13 @@ function InputField({
   value,
   onChange,
   type = "text",
+  required = false,
 }: {
   label: string;
   name: string;
   value: string;
   type?: string;
+  required?: boolean;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -432,12 +505,13 @@ function InputField({
         placeholder=" "
         value={value}
         onChange={onChange}
-        required
+        required={required}
         className="peer w-full h-14 rounded-2xl border border-gray-200 bg-gray-50 px-5 text-gray-900 outline-none focus:border-red-500 focus:bg-white transition-all"
       />
 
       <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-red-600 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-not-placeholder-shown:-top-3 peer-not-placeholder-shown:text-xs bg-white px-1">
         {label}
+        {required && <span className="text-red-600 ml-1">*</span>}
       </label>
     </div>
   );
