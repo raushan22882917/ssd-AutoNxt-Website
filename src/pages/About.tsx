@@ -235,12 +235,12 @@ export default function About() {
 
       {/* ── FACILITY PHOTO STRIP ── */}
       <section className="py-0 bg-background overflow-hidden">
-        <div className="flex gap-3 px-4 md:px-8 pb-16 max-w-screen-xl mx-auto">
+        {/* <div className="flex gap-3 px-4 md:px-8 pb-16 max-w-screen-xl mx-auto"> */}
+        <div className="flex gap-3 px-4 md:px-8 pb-16 max-w-screen-xl mx-auto overflow-x-auto scrollbar-hide snap-x snap-mandatory">
           {[fieldImg3, fieldImg4, fieldImg5, fieldImg6].map((img, i) => (
             <motion.div
               key={i}
-              className="relative flex-1 rounded-2xl overflow-hidden h-52 min-w-0 group"
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}
+              className="relative flex-shrink-0 w-[75vw] sm:flex-1 sm:w-auto rounded-2xl overflow-hidden h-52 snap-center group"              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}
             >
               <img src={img} alt={`AutoNxt operations ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
