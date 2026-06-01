@@ -18,6 +18,8 @@ export interface SalesMeetingPayload {
 export interface SalesMeetingResult {
   success: boolean;
   message?: string;
+  zoomLink?: string;
+  /** @deprecated use zoomLink */
   meetLink?: string;
   meetingId?: string;
   scheduledAt?: string;
@@ -64,11 +66,13 @@ export async function scheduleSalesMeeting(
     }
 
     try {
-      const data = JSON.parse(text) as SalesMeetingResult;
+      const data = JSON.parse(text) as SalesMeetingResult & { zoomLink?: string };
+      const zoomLink = data.zoomLink || data.meetLink;
       return {
         success: data.success !== false,
         message: data.message,
-        meetLink: data.meetLink,
+        zoomLink,
+        meetLink: zoomLink,
         meetingId: data.meetingId,
         scheduledAt: data.scheduledAt,
       };

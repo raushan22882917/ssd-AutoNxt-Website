@@ -32,10 +32,12 @@ import {
 } from "@/lib/indianLanguages";
 import {
   aiSuggestsBooking,
+  aiSuggestsMeeting,
   detectChatIntent,
   getIntentAssistantReply,
   type ChatIntent,
 } from "@/lib/chatIntents";
+import { getSessionClock } from "@/lib/relativeDate";
 
 const logoImg = "/small-logo-white.png";
 const N8N_WEBHOOK_URL = "https://autonxt.app.n8n.cloud/webhook/1b0b4ec9-24d5-40e0-aced-f9d107f81a86/chat";
@@ -46,7 +48,7 @@ I help you explore electric tractors and smart agriculture.
 
 आप **हिंदी**, **English**, **मराठी**, या **தமிழ்** में पूछ सकते हैं — जिस भाषा में पूछेंगे, उसी में जवाब मिलेगा।
 
-नीचे **Call** (फोन), **Meet** (Google Meet), या **Demo** (साइट विज़िट) चुन सकते हैं — या सीधे लिखें: “कॉल करो”, “मीटिंग शेड्यूल”, “डेमो बुक”।`;
+नीचे **Call** (फोन), **Meet** (Zoom), या **Demo** (साइट विज़िट) चुन सकते हैं — या सीधे लिखें: “कॉल करो”, “मीटिंग शेड्यूल”, “डेमो बुक”।`;
 
 interface Message {
   role: "user" | "assistant";
@@ -411,6 +413,7 @@ export default function StaticChatBot() {
           sessionId: getOrCreateSessionId(),
           userLanguage,
           language: userLanguage,
+          ...getSessionClock(),
         }),
       });
 
@@ -438,6 +441,19 @@ export default function StaticChatBot() {
         data,
         "I received your message but couldn't generate a reply. Please try again."
       );
+
+      if (aiSuggestsMeeting(reply)) {
+        setShowMeetingForm(true);
+        setShowCallForm(false);
+        setShowBookingForm(false);
+        return (
+          (userLanguage === "hi"
+            ? "नीचे **Zoom मीटिंग फॉर्म** में विवरण भरें — हम आपकी सेल्स मीटिंग शेड्यूल करेंगे।"
+            : "Use the **Zoom meeting form** below to enter your details — we'll schedule your sales meeting.") +
+          "\n\n" +
+          reply
+        );
+      }
 
       if (aiSuggestsBooking(reply)) {
         setShowBookingForm(true);
@@ -592,9 +608,10 @@ export default function StaticChatBot() {
 
       if (!result.success) throw new Error(result.error);
 
-      const meetLine = result.meetLink
-        ? `\n\n**Google Meet:** ${result.meetLink}`
-        : "\n\nCheck your email for the Google Meet invite.";
+      const zoomUrl = result.zoomLink || result.meetLink;
+      const meetLine = zoomUrl
+        ? `\n\n**Zoom:** ${zoomUrl}`
+        : "\n\nCheck your email for the Zoom meeting link.";
 
       const reply =
         (result.message || "Meeting scheduled with AutonXT sales.") +
@@ -603,13 +620,15 @@ export default function StaticChatBot() {
 
       appendSessionEvent("meeting_scheduled", reply, {
         meetingId: result.meetingId,
-        meetLink: result.meetLink,
+        meetLink: zoomUrl,
+        zoomLink: zoomUrl,
       });
 
       setMessages((prev) => [...prev, { role: "assistant", text: reply }]);
       setMeetingForm(emptyMeetingForm(f.language));
       await pushReportToSales("meeting_done", {
-        meet_link: result.meetLink,
+        meet_link: zoomUrl,
+        zoom_link: zoomUrl,
         meeting_id: result.meetingId,
       });
     } catch {
@@ -636,8 +655,8 @@ export default function StaticChatBot() {
         role: "assistant",
         text:
           userLanguage === "hi"
-            ? "Google Meet पर सेल्स टीम से मिलने के लिए फॉर्म भरें।"
-            : "Schedule a **Google Meet** with our sales team using the form below.",
+            ? "Zoom पर सेल्स टीम से मिलने के लिए फॉर्म भरें।"
+            : "Schedule a **Zoom** call with our sales team using the form below.",
       },
     ]);
   };
@@ -1214,7 +1233,7 @@ export default function StaticChatBot() {
             {showMeetingForm && (
               <div className="border-t border-gray-200 bg-blue-50/50 px-4 py-3 space-y-2 max-h-[280px] overflow-y-auto">
                 <p className="text-xs font-semibold text-blue-900 uppercase tracking-wide">
-                  Schedule Google Meet — sales team
+                  Schedule Zoom call — sales team
                 </p>
                 <input
                   type="text"

@@ -1,12 +1,12 @@
 /**
- * Routes user messages: general chat vs call vs Google Meet vs demo booking.
+ * Routes user messages: general chat vs call vs Zoom meeting vs demo booking.
  * Order: meeting → call → booking → chat (most specific first).
  */
 
 export type ChatIntent = "chat" | "call_now" | "call_scheduled" | "meeting" | "booking";
 
 const MEETING_RE =
-  /google\s*meet|zoom|microsoft\s*teams|teams\s*meeting|video\s*(call|meeting)|online\s*meeting|virtual\s*meeting|schedule\s+(a\s+)?(sales\s+)?meeting|sales\s+meeting|meet\s+with\s+sales|मीटिंग|वीडियो\s*कॉल|वर्चुअल|ऑनलाइन\s*मीटिंग/i;
+  /zoom|video\s*(call|meeting)|online\s*meeting|virtual\s*meeting|(?:schedule|book)\s+(?:my\s+|a\s+|the\s+)?(?:sales\s+)?meeting|meeting\s+with\s+(?:the\s+)?sales|(?:talk|speak)\s+(?:to|with)\s+(?:a\s+)?sales|sales\s+(?:person|team|rep)|sales\s+meeting|meet\s+with\s+sales|मीटिंग|सेल्स\s*(?:से|के\s*साथ)|वीडियो\s*कॉल|वर्चुअल|ऑनलाइन\s*मीटिंग/i;
 
 const CALL_RE =
   /(?:call\s+me|phone\s+call|ring\s+me|give\s+me\s+a\s+call|get\s+a\s+call|callback|talk\s+on\s+(?:the\s+)?phone|voice\s+call|मुझे\s+कॉल|कॉल\s+कर(?:ो|ें|े)?|फोन\s+पर\s+बात|फोन\s+कर(?:ो|ें|े)?|कॉल\s+चाहिए)/i;
@@ -23,6 +23,10 @@ const BOOKING_RE =
 /** AI reply suggests demo booking (not phone / video meeting). */
 const AI_BOOKING_RE =
   /book\s*(?:a\s+)?demo|test\s*drive|site\s*visit|booking\s*form|fill\s+(?:the\s+)?form\s+below|बुकिंग\s*फॉर्म|डेमो\s*बुक/i;
+
+/** AI listed meeting fields — open Zoom form instead of staying in free chat. */
+const AI_MEETING_FORM_RE =
+  /full\s+name|preferred\s+date|preferred\s+model|yyyy-mm-dd|zoom\s+form|schedule\s+(?:the\s+)?meeting|मीटिंग\s+शेड्यूल/i;
 
 export function detectChatIntent(text: string): ChatIntent {
   const raw = text.trim();
@@ -42,7 +46,26 @@ export function detectChatIntent(text: string): ChatIntent {
 }
 
 export function aiSuggestsBooking(reply: string): boolean {
-  return AI_BOOKING_RE.test(reply) && !MEETING_RE.test(reply) && !CALL_RE.test(reply);
+  return (
+    AI_BOOKING_RE.test(reply) &&
+    !MEETING_RE.test(reply) &&
+    !CALL_RE.test(reply) &&
+    !aiSuggestsMeeting(reply)
+  );
+}
+
+/** Gemini listed meeting intake fields — show Zoom form in chat. */
+export function aiSuggestsMeeting(reply: string): boolean {
+  const r = reply.trim();
+  if (!r) return false;
+  const meetingContext =
+    MEETING_RE.test(r) ||
+    /zoom|video\s*call|sales\s+(?:person|team)|मीटिंग/i.test(r);
+  const listsFields =
+    AI_MEETING_FORM_RE.test(r) &&
+    (/email/i.test(r) || /phone/i.test(r)) &&
+    (r.match(/full\s+name|email|phone/gi)?.length ?? 0) >= 2;
+  return meetingContext && listsFields;
 }
 
 export function getIntentAssistantReply(
@@ -53,8 +76,8 @@ export function getIntentAssistantReply(
   switch (intent) {
     case "meeting":
       return lang === "hi"
-        ? "नीचे **Google Meet** फॉर्म भरें — तारीख और समय (10 AM–5 PM IST) चुनें। सेल्स टीम और आपको Meet लिंक ईमेल पर मिलेगा।"
-        : "Fill the **Google Meet** form below — pick date & time (10 AM–5 PM IST). You and our sales team will get the Meet link by email.";
+        ? "नीचे **Zoom मीटिंग फॉर्म** खुला है — नाम, ईमेल, फोन, मॉडल, शहर, तारीख और समय (10 AM–5 PM IST) भरें। Zoom लिंक ईमेल पर मिलेगा।"
+        : "The **Zoom meeting form** is open below — enter name, email, phone, model, city, date & time (10 AM–5 PM IST). You'll get the Zoom link by email.";
     case "call_now":
       return lang === "hi"
         ? `नीचे **फोन कॉल** फॉर्म भरें, भाषा चुनें, Submit दबाएँ। **${callDelaySeconds} सेकंड** में हम कॉल करेंगे।`
