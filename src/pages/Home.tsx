@@ -947,8 +947,8 @@ export default function Home() {
             transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
           >
             <img
-              src="/image.png"
-              alt="Precision Engineering"
+              src={t.home.featureImage}
+              alt={t.home.featureImageAlt}
               className="w-full h-auto object-cover"
             />
           </motion.div>

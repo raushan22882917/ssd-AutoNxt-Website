@@ -202,6 +202,8 @@ export const en = {
     precisionTag: "Technology",
     precisionTitle: "Precision Engineering.",
     precisionDesc: "Every component engineered for maximum efficiency, safety, and performance in Indian field conditions.",
+    featureImage: "/image-en.png",
+    featureImageAlt: "Precision Engineering",
     industryTag: "Industrial Solutions",
     industryHeading: "EV Tractor of Choice for Industry.",
     industryDesc: "Autonxt electric tractors are built for constant workload across India's most demanding industrial environments.",
@@ -264,6 +266,9 @@ export const en = {
     connect: "Connect",
   },
   // Common
+  chat: {
+    welcome: "👋 Welcome to AutoNxt AI\n\nI help you explore electric tractors and smart agriculture.\n\nYou can ask in **English**, **हिंदी**, **मराठी**, or **తెలుగు** — reply in the same language you ask in.\n\nBelow you can choose **Call** (Phone), **Meet** (Google Meet), or **Demo** (Site Visit) — or just type: \"call me\", \"schedule meeting\", \"book demo\".",
+  },
   common: {
     readMore: "Read More",
     learnMore: "Learn More",
@@ -278,6 +283,7 @@ export const en = {
     batterySystems: "Battery Systems",
     motors: "NXT-Drive Motors",
     slogan: "India's electric tractor pioneer. Powering the fields of tomorrow, built for Indian farmers today.",
+    cancel: "Cancel",
   },
   // Book
   book: {

@@ -71,7 +71,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-white/60">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <span>704 &amp; 705, Amfotech IT Park, Rd 8, Wagle Estate Rd, Padwal Nagar, Thane West, Thane, Maharashtra 400604</span>
+                <span>{t.bookPage.contactInfo.visitVal}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-primary shrink-0" />
