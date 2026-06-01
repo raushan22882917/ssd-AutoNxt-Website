@@ -22,7 +22,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
-              India's electric tractor pioneer. Powering the fields of tomorrow, built for Indian farmers today.
+              {t.common.slogan}
             </p>
             <div className="flex gap-3">
               <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-0">
@@ -46,9 +46,9 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-white/60">
               <li><Link href="/product" className="hover:text-primary transition-colors">Autonxt X45H2</Link></li>
               <li><Link href="/product" className="hover:text-primary transition-colors">Autonxt X25H4</Link></li>
-              <li><Link href="/product" className="hover:text-primary transition-colors">Battery Systems</Link></li>
-              <li><Link href="/product" className="hover:text-primary transition-colors">NXT-Drive Motors</Link></li>
-              <li><Link href="/product" className="hover:text-primary transition-colors">Fleet Solutions</Link></li>
+              <li><Link href="/product" className="hover:text-primary transition-colors">{t.common.batterySystems}</Link></li>
+              <li><Link href="/product" className="hover:text-primary transition-colors">{t.common.motors}</Link></li>
+              <li><Link href="/product" className="hover:text-primary transition-colors">{t.common.fleetSolutions}</Link></li>
             </ul>
           </div>
 
@@ -61,7 +61,7 @@ export default function Footer() {
               <li><Link href="/contribution" className="hover:text-primary transition-colors">{t.nav.contribution}</Link></li>
               <li><Link href="/gallery" className="hover:text-primary transition-colors">{t.nav.gallery}</Link></li>
               <li><Link href="/news" className="hover:text-primary transition-colors">{t.nav.news}</Link></li>
-              <li><Link href="/careers" className="hover:text-primary transition-colors">Careers</Link></li>
+              <li><Link href="/careers" className="hover:text-primary transition-colors">{t.common.careers}</Link></li>
             </ul>
           </div>
 
@@ -88,9 +88,9 @@ export default function Footer() {
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
           <p>{t.common.copyright}</p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms &amp; Conditions</Link>
-            <Link href="/careers" className="hover:text-white transition-colors">Careers</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">{t.common.privacyPolicy}</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">{t.common.termsConditions}</Link>
+            <Link href="/careers" className="hover:text-white transition-colors">{t.common.careers}</Link>
           </div>
           <p>{t.common.madeIn}</p>
         </div>

@@ -4,65 +4,23 @@ import { Link } from "wouter";
 import { ArrowRight, Calendar, Clock, User, Tag, BookOpen, Users } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
-const POSTS = [
-  {
-    tag: "Sustainability",
-    title: "How India's Farmers Are Leading the Electric Revolution",
-    author: "Kaustubh Dhonde",
-    date: "April 2025",
-    readTime: "6 min read",
-    summary: "India has over 140 million farming households. If even 10% switch to electric tractors over the next decade, the carbon savings would be equivalent to removing millions of cars from Indian roads. Here's why the shift is already happening.",
-    color: "bg-green-50 text-green-700",
-  },
-  {
-    tag: "Technology",
-    title: "From Diesel to Electric: What the Transition Looks Like on a Real Farm",
-    author: "Pankaj Goyal",
-    date: "March 2025",
-    readTime: "8 min read",
-    summary: "Raju Patil farms 12 acres in Nashik. Last season was his first full season with the AutoNxt X45H2. We followed him from sowing to harvest to understand what the shift from diesel really means on the ground — in cost, in effort, and in confidence.",
-    color: "bg-blue-50 text-blue-700",
-  },
-  {
-    tag: "Engineering",
-    title: "Why We Chose Lithium Iron Phosphate (LFP) Over NMC for the X45H2",
-    author: "Sudipto Deb",
-    date: "February 2025",
-    readTime: "5 min read",
-    summary: "Battery chemistry is the heart of any electric vehicle. When designing the X45H2, we faced a critical choice between NMC and LFP. This post explains why LFP was the right choice for Indian farming conditions — and what it means for safety, longevity, and cost.",
-    color: "bg-orange-50 text-orange-700",
-  },
-  {
-    tag: "Policy",
-    title: "FAME-III and What It Means for Electric Tractors in India",
-    author: "Avinash Singh",
-    date: "January 2025",
-    readTime: "7 min read",
-    summary: "The Government of India's FAME-III scheme is set to expand incentives to electric agricultural equipment. We break down what the policy means, how farmers can benefit, and how AutoNxt is working with policymakers to accelerate adoption.",
-    color: "bg-purple-50 text-purple-700",
-  },
-  {
-    tag: "Agri-Tech",
-    title: "Precision Farming Meets Electric Power: AutoNxt's Vision for Smart Agriculture",
-    author: "Dr. Dharmateja Adapa",
-    date: "December 2024",
-    readTime: "9 min read",
-    summary: "The future of Indian agriculture is not just electric — it's autonomous. Integrating GPS-guided operations, IoT sensors, and AI-driven crop management with the X45H2 platform opens up possibilities that diesel machines could never deliver.",
-    color: "bg-teal-50 text-teal-700",
-  },
-  {
-    tag: "Business",
-    title: "The Total Cost of Ownership: Electric vs Diesel Tractor Over 5 Years",
-    author: "Maneesh Dubey",
-    date: "November 2024",
-    readTime: "6 min read",
-    summary: "Farmers ask us one question more than any other: 'Is it worth the higher upfront cost?' We ran the full numbers on 5-year TCO across fuel, maintenance, servicing, and productivity — the results speak for themselves.",
-    color: "bg-red-50 text-red-700",
-  },
-];
-
 export default function Blog() {
   const { t } = useLang();
+
+  const blogPostsFromT = t.blogPage.posts;
+  const colors = [
+    "bg-green-50 text-green-700",
+    "bg-blue-50 text-blue-700",
+    "bg-orange-50 text-orange-700",
+    "bg-purple-50 text-purple-700",
+    "bg-teal-50 text-teal-700",
+    "bg-red-50 text-red-700",
+  ];
+  const POSTS = blogPostsFromT.map((post, i) => ({
+    ...post,
+    color: colors[i] || "bg-gray-50 text-gray-700",
+  }));
+
   const [featured, ...rest] = POSTS;
 
   return (
@@ -102,9 +60,9 @@ export default function Blog() {
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: BookOpen, label: "Posts", value: "20+" },
-                  { icon: Users, label: "Authors", value: "6" },
-                  { icon: Tag, label: "Topics", value: "5" },
+                  { icon: BookOpen, label: t.blogPage.postsLabel, value: "20+" },
+                  { icon: Users, label: t.blogPage.authorsLabel, value: "6" },
+                  { icon: Tag, label: t.blogPage.topicsLabel, value: "5" },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">

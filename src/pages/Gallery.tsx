@@ -32,148 +32,41 @@ type GalleryPhoto = {
   wide?: boolean;
 };
 
-const PHOTOS: GalleryPhoto[] = [
-  {
-    src: fieldImg,
-    alt: "Autonxt X45C2 at Golden Hour",
-    label: "X45C2 — Field Edition",
-    tag: "In the Field",
-    wide: true,
-  },
-  {
-    src: tractor1,
-    alt: "Autonxt X45H2 Electric Tractor",
-    label: "X45H2 — 45HP Flagship",
-    tag: "Product",
-    wide: false,
-  },
-  {
-    src: tractor2,
-    alt: "Autonxt X25H4 Electric Tractor",
-    label: "X25H4 — Compact Series",
-    tag: "Product",
-    wide: false,
-  },
-  {
-    src: trailerImg,
-    alt: "Autonxt X45C2 with Commercial Trailer",
-    label: "X45C2 — Commercial Hauling",
-    tag: "Industrial",
-    wide: true,
-  },
-  {
-    src: batteryImg,
-    alt: "Autonxt LFP Battery Pack",
-    label: "Lithium Iron Phosphate Battery System",
-    tag: "Technology",
-    wide: false,
-  },
-  {
-    src: motorImg,
-    alt: "Autonxt NXT-Drive Motor",
-    label: "NXT-Drive Axial Flux Motor",
-    tag: "Technology",
-    wide: false,
-  },
-  {
-    src: logoImg,
-    alt: "Autonxt Automation Logo",
-    label: "Autonxt Automation",
-    tag: "Brand",
-    wide: false,
-  },
-];
-
-const EVENTS: GalleryPhoto[] = [
-  {
-    src: event1,
-    alt: "AutoNxt X45C2 launch ceremony with officials and media",
-    label: "Official Launch Address — Jun 29, 2025",
-    tag: "Event",
-    wide: true,
-  },
-  {
-    src: event2,
-    alt: "MOU signing ceremony — AutoNxt tractor handover",
-    label: "Handover Ceremony & MOU Signing",
-    tag: "Event",
-    wide: false,
-  },
-  {
-    src: event3,
-    alt: "Officials blessing the AutoNxt X45C2 electric tractor",
-    label: "X45C2 Inauguration Ceremony",
-    tag: "Event",
-    wide: false,
-  },
-  {
-    src: event4,
-    alt: "Dignitaries and team gathered around the AutoNxt X45C2",
-    label: "X45C2 — Official Blessing",
-    tag: "Event",
-    wide: false,
-  },
-  {
-    src: event5,
-    alt: "AutoNxt X45C2 tractor surrounded by guests during ceremony",
-    label: "X45C2 — Flag-Off Ceremony",
-    tag: "Event",
-    wide: false,
-  },
-  {
-    src: event6,
-    alt: "Tricolour balloon arch and X45C2 display at event",
-    label: "Tricolour Launch Stage — Jun 29, 2025",
-    tag: "Event",
-    wide: true,
-  },
-  {
-    src: event7,
-    alt: "Close-up of AutoNxt X45C2 electric tractor at launch event",
-    label: "AutoNxt X45C2 — Up Close",
-    tag: "Product",
-    wide: false,
-  },
-];
-
-const VIDEOS = [
-  {
-    id: "3PVEHTybb_o",
-    title: "AutoNxt X45H2 Electric Tractor — Product Description (English)",
-    desc: "Full product walkthrough of AutoNxt's flagship 45HP electric tractor — the X45H2 — covering specs, features, and capabilities.",
-  },
-  {
-    id: "9Px1KnfeBdY",
-    title: "X45H2 — Rotavator Puddling in Heavy Rains & Flooded Farms",
-    desc: "Watch the X45H2 tackle rotavator puddling operations in heavy rainy season and completely flooded farm conditions.",
-  },
-  {
-    id: "kia8cxkaUJc",
-    title: "First Electric Tractor of Maharashtra Delivered to Jaywant Sugar Mill",
-    desc: "Historic delivery of the first AutoNxt electric tractor to Jaywant Sugar Mill, Karad, Satara — a landmark for Indian agri-EV.",
-  },
-  {
-    id: "u2a1EoXayrk",
-    title: "AutoNxt 45HP Electric Tractor — Full Power Demo",
-    desc: "See the X45H2 demonstrating its full torque and performance capabilities across multiple field operations.",
-  },
-  {
-    id: "UHtiUSmO27I",
-    title: "X45H2 — Haulage, Tiller, Reaper & Water Jet Wash",
-    desc: "Comprehensive field demonstration of the X45H2 performing haulage, tilling, reaping operations and a thorough water jet wash.",
-  },
-  {
-    id: "Z6107d2ygF0",
-    title: "AutoNxt X45H2 इलेक्ट्रिक ट्रैक्टर — उत्पाद विवरण (हिंदी में)",
-    desc: "हिंदी में AutoNxt X45H2 इलेक्ट्रिक ट्रैक्टर का पूरा उत्पाद विवरण — भारतीय किसानों के लिए।",
-  },
-];
-
 export default function Gallery() {
   const { t } = useLang();
   const [activeTab, setActiveTab] = useState<Tab>("photos");
   const [lightbox, setLightbox] = useState<{ index: number; source: "photos" | "events" } | null>(null);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  const photosFromT = t.galleryPage.photos;
+  const PHOTOS: GalleryPhoto[] = [
+    { src: fieldImg, alt: photosFromT[0].alt, label: photosFromT[0].label, tag: photosFromT[0].tag, wide: true },
+    { src: tractor1, alt: photosFromT[1].alt, label: photosFromT[1].label, tag: photosFromT[1].tag, wide: false },
+    { src: tractor2, alt: photosFromT[2].alt, label: photosFromT[2].label, tag: photosFromT[2].tag, wide: false },
+    { src: trailerImg, alt: photosFromT[3].alt, label: photosFromT[3].label, tag: photosFromT[3].tag, wide: true },
+    { src: batteryImg, alt: photosFromT[4].alt, label: photosFromT[4].label, tag: photosFromT[4].tag, wide: false },
+    { src: motorImg, alt: photosFromT[5].alt, label: photosFromT[5].label, tag: photosFromT[5].tag, wide: false },
+    { src: logoImg, alt: photosFromT[6].alt, label: photosFromT[6].label, tag: photosFromT[6].tag, wide: false },
+  ];
+
+  const eventsFromT = t.galleryPage.events;
+  const EVENTS: GalleryPhoto[] = [
+    { src: event1, alt: eventsFromT[0].alt, label: eventsFromT[0].label, tag: eventsFromT[0].tag, wide: true },
+    { src: event2, alt: eventsFromT[1].alt, label: eventsFromT[1].label, tag: eventsFromT[1].tag, wide: false },
+    { src: event3, alt: eventsFromT[2].alt, label: eventsFromT[2].label, tag: eventsFromT[2].tag, wide: false },
+    { src: event4, alt: eventsFromT[3].alt, label: eventsFromT[3].label, tag: eventsFromT[3].tag, wide: false },
+    { src: event5, alt: eventsFromT[4].alt, label: eventsFromT[4].label, tag: eventsFromT[4].tag, wide: false },
+    { src: event6, alt: eventsFromT[5].alt, label: eventsFromT[5].label, tag: eventsFromT[5].tag, wide: true },
+    { src: event7, alt: eventsFromT[6].alt, label: eventsFromT[6].label, tag: eventsFromT[6].tag, wide: false },
+  ];
+
+  const videosFromT = t.galleryPage.videos;
+  const videoIds = ["3PVEHTybb_o", "9Px1KnfeBdY", "kia8cxkaUJc", "u2a1EoXayrk", "UHtiUSmO27I", "Z6107d2ygF0"];
+  const VIDEOS = videoIds.map((id, idx) => ({
+    id,
+    title: videosFromT[idx].title,
+    desc: videosFromT[idx].desc,
+  }));
 
   const currentPhotos = lightbox?.source === "events" ? EVENTS : PHOTOS;
 
@@ -260,9 +153,9 @@ export default function Gallery() {
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: Images, label: "Photos", value: "40+" },
-                  { icon: PlayCircle, label: "Videos", value: "6" },
-                  { icon: CalendarDays, label: "Events", value: "5+" },
+                  { icon: Images, label: t.galleryPage.galleryPhotos, value: "40+" },
+                  { icon: PlayCircle, label: t.galleryPage.galleryVideos, value: "6" },
+                  { icon: CalendarDays, label: t.galleryPage.galleryEvents, value: "5+" },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
@@ -361,9 +254,9 @@ export default function Gallery() {
                   <CalendarDays className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <p className="font-bold text-foreground text-sm">Official Government Handover Ceremony</p>
+                  <p className="font-bold text-foreground text-sm">{t.gallery.eventBannerTitle}</p>
                   <p className="text-muted-foreground text-sm mt-0.5">
-                    June 29, 2025 — AutoNxt delivered the X45C2 electric tractor at an official ceremony attended by government officials, police representatives, and media. A landmark moment in AutoNxt's journey to serve India's public institutions.
+                    {t.gallery.eventBannerDesc}
                   </p>
                 </div>
               </div>
@@ -402,7 +295,7 @@ export default function Gallery() {
                   >
                     {activeVideo === video.id ? (
                       <div className="relative w-full aspect-video bg-black">
-                        <iframe
+                         <iframe
                           src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
                           title={video.title}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -450,7 +343,7 @@ export default function Gallery() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
                       >
-                        Watch on YouTube <ExternalLink className="w-3 h-3" />
+                        {t.gallery.watchOnYouTube} <ExternalLink className="w-3 h-3" />
                       </a>
                     </div>
                   </motion.div>
@@ -469,7 +362,7 @@ export default function Gallery() {
                   <div className="w-14 h-14 bg-[#FF0000] rounded-full flex items-center justify-center mx-auto mb-4">
                     <PlayCircle className="w-7 h-7 text-white fill-white" />
                   </div>
-                  <h3 className="font-display text-2xl font-bold text-white mb-2">More on YouTube</h3>
+                  <h3 className="font-display text-2xl font-bold text-white mb-2">{t.gallery.moreOnYouTube}</h3>
                   <p className="text-white/60 text-sm mb-6 max-w-md mx-auto">
                     Subscribe to the AutoNxt YouTube channel for product videos, farm demos, industry applications, and company updates.
                   </p>
@@ -479,7 +372,7 @@ export default function Gallery() {
                     rel="noopener noreferrer"
                   >
                     <Button className="bg-[#FF0000] hover:bg-[#cc0000] text-white font-semibold px-8" size="lg">
-                      View All Videos on YouTube <ExternalLink className="ml-2 w-4 h-4" />
+                      {t.gallery.viewAllVideos} <ExternalLink className="ml-2 w-4 h-4" />
                     </Button>
                   </a>
                 </div>
@@ -496,11 +389,11 @@ export default function Gallery() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl font-display font-bold text-foreground mb-3">Want to see it in person?</h3>
-          <p className="text-muted-foreground mb-6">Schedule a live demo at your farm or our nearest experience centre.</p>
+          <h3 className="text-2xl font-display font-bold text-foreground mb-3">{t.gallery.seeInPerson}</h3>
+          <p className="text-muted-foreground mb-6">{t.gallery.seeInPersonDesc}</p>
           <Link href="/book">
             <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold" data-testid="btn-schedule-viewing">
-              Schedule a Demo
+              {t.gallery.scheduleDemo}
             </Button>
           </Link>
         </motion.div>

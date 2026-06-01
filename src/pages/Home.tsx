@@ -32,93 +32,59 @@ const fadeUp = {
   transition: { duration: 0.6 },
 };
 
-const FAQ_CATEGORIES = [
-  { id: "all",        label: "All" },
-  { id: "technical",  label: "Technical Specifications" },
-  { id: "charging",   label: "Charging & Battery" },
-  { id: "apps",       label: "Applications & Suitability" },
-  { id: "cost",       label: "Cost & Financing" },
-  { id: "perf",       label: "Performance & Efficiency" },
-];
-
-const FAQS = [
-  {
-    cat: "technical",
-    q: "Why AutoNxt electric tractors over diesel tractors?",
-    a: "AutoNxt electric tractors offer significantly lower running costs — electricity is up to 70% cheaper per hour than diesel. They produce zero direct emissions, have fewer moving parts (meaning lower maintenance costs), deliver instant full torque from startup, and operate silently. Over a 5-year period, farmers typically save ₹3–5 lakh compared to diesel equivalents.",
-  },
-  {
-    cat: "perf",
-    q: "How many hours does the tractor work on a single charge?",
-    a: "Our tractors are designed for a full working day. The X45H2 delivers 8–10 hours of standard field operations on one charge. For heavy-duty tasks such as deep tilling or loaded haulage, expect 6–8 hours. Our smart battery management system gives you real-time range estimates so you're never caught off guard.",
-  },
-  {
-    cat: "charging",
-    q: "How long does the tractor take to charge from 0–100%?",
-    a: "Using our standard AC charger (included), a full charge takes approximately 6–8 hours — ideal for overnight charging. With our optional DC fast charger, you can reach 80% charge in under 3 hours. A complete charge costs roughly ₹150–200 at standard Indian electricity rates.",
-  },
-  {
-    cat: "apps",
-    q: "What implements can be used with AutoNxt tractors?",
-    a: "AutoNxt tractors are compatible with all standard 3-point hitch implements including rotavators, ploughs, seed drills, cultivators, harrows, and post-hole diggers. The PTO (Power Take-Off) is compatible with most standard Indian agricultural equipment. Our team can advise on compatibility for specific implements.",
-  },
-  {
-    cat: "charging",
-    q: "Can the tractor be charged at home?",
-    a: "Yes. Our standard charger plugs into any 15-amp single-phase socket — the same as a regular home power point. You don't need a special charging station. For faster charging, we recommend a dedicated 32-amp circuit, which most agricultural households already have for irrigation pump connections.",
-  },
-  {
-    cat: "perf",
-    q: "Does the tractor have enough power for heavy-duty work?",
-    a: "Absolutely. Electric motors deliver maximum torque from zero RPM — unlike diesel engines that need to rev up. The X45H2's motor produces the pulling equivalent of a 55HP diesel tractor in practical fieldwork. Farmers switching from diesel consistently report better performance in demanding conditions like wet paddy fields and heavy soil.",
-  },
-  {
-    cat: "charging",
-    q: "After how many years will the battery need to be replaced?",
-    a: "Our lithium iron phosphate (LFP) battery packs are rated for 3,000+ charge cycles with less than 20% capacity degradation — translating to roughly 8–10 years of typical farm use. The battery comes with a 5-year / 3,000-cycle warranty. Post-warranty, the battery can be replaced as a modular unit.",
-  },
-  {
-    cat: "cost",
-    q: "How much savings will I have by using Electric Tractors?",
-    a: "On average, AutoNxt owners save ₹60,000–₹90,000 per year on fuel and maintenance compared to a diesel tractor of equivalent power. Over 5 years that's ₹3–4.5 lakh in direct savings, before accounting for government subsidies and carbon credits. Our finance calculator can give you a personalised estimate.",
-  },
-  {
-    cat: "technical",
-    q: "Is the tractor remote controlled?",
-    a: "Select models in our commercial range offer optional GPS-guided autonomous operation and remote monitoring via the AutoNxt NXT-OS app. The standard range includes full telematics — you can monitor location, battery health, and usage data remotely. Full autonomous driving is available for industrial and airport applications.",
-  },
-  {
-    cat: "cost",
-    q: "Are there any financing options for buying the tractor?",
-    a: "Yes. We partner with leading rural banks and NBFCs to offer EMI plans starting from ₹8,000/month with as low as 10% down payment. Kisan Credit Card (KCC) holders get preferential rates. Additionally, multiple state governments offer EV subsidies of ₹50,000–₹1.5 lakh on agricultural EVs. Contact our team to explore the best option for you.",
-  },
+const FAQ_CATS_MAP = [
+  "technical",
+  "perf",
+  "charging",
+  "apps",
+  "charging",
+  "perf",
+  "charging",
+  "cost",
+  "technical",
+  "cost",
 ];
 
 function FaqSection() {
+  const { t } = useLang();
   const [activeCategory, setActiveCategory] = useState("all");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const filtered = FAQS.filter(
+  const faqsWithCategories = t.home.faqs.map((faq, index) => ({
+    ...faq,
+    cat: FAQ_CATS_MAP[index] || "technical"
+  }));
+
+  const filtered = faqsWithCategories.filter(
     (f) => activeCategory === "all" || f.cat === activeCategory
   );
+
+  const faqCategories = [
+    { id: "all", label: t.home.faqCategories.all },
+    { id: "technical", label: t.home.faqCategories.technical },
+    { id: "charging", label: t.home.faqCategories.charging },
+    { id: "apps", label: t.home.faqCategories.apps },
+    { id: "cost", label: t.home.faqCategories.cost },
+    { id: "perf", label: t.home.faqCategories.perf },
+  ];
 
   return (
     <section className="py-24 bg-muted/30" id="faq">
       <div className="container mx-auto px-4 md:px-8">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">FAQ</p>
+          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">{t.home.faqTitle}</p>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Have a question? Find the answer.
+            {t.home.faqSub}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Frequently asked questions about our electric tractors.
+            {t.home.faqDesc}
           </p>
         </div>
 
         {/* Category tabs */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {FAQ_CATEGORIES.map((cat) => (
+          {faqCategories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => { setActiveCategory(cat.id); setOpenIndex(null); }}
@@ -185,41 +151,20 @@ function FaqSection() {
 }
 
 /* ── TECH SHOWCASE TABS ── */
-const techTabs = [
-  {
-    id: "motor",
-    label: "Motor",
-    glb: "/3dmodel/motor.glb",
-    title: "32 kW Electric Motor",
-    subtitle: "High-Efficiency Drive System",
-    desc: "The X45H2 is powered by a high-efficiency 32 kW electric motor designed for maximum torque and precision. It ensures smooth and powerful performance, making it ideal for heavy-duty agricultural tasks.",
-    specs: [
-      { label: "Power Output", value: "32 kW" },
-      { label: "Torque", value: "Max Torque" },
-      { label: "Performance", value: "Precision" },
-      { label: "Application", value: "Heavy-Duty" },
-    ],
-    accent: "text-amber-500",
-  },
-  {
-    id: "battery",
-    label: "Battery",
-    glb: "/3dmodel/battery.glb",
-    title: "38.4 kWh Battery Pack",
-    subtitle: "High-Capacity Energy System",
-    desc: "Equipped with a 38.4 kWh high-capacity battery, the X45H2 provides 8 hours of continuous operation. Optimized for fast charging and extended lifespan, ensuring reliability in the field.",
-    specs: [
-      { label: "Capacity", value: "38.4 kWh" },
-      { label: "Runtime", value: "8 hrs" },
-      { label: "Charging", value: "Fast Charge" },
-      { label: "Lifespan", value: "Extended" },
-    ],
-    accent: "text-blue-500",
-  },
+const TECH_TABS_META = [
+  { id: "motor", glb: "/3dmodel/motor.glb", accent: "text-amber-500" },
+  { id: "battery", glb: "/3dmodel/battery.glb", accent: "text-blue-500" }
 ];
 
 function TechShowcase() {
+  const { t } = useLang();
   const [activeTab, setActiveTab] = useState(0);
+  
+  const techTabs = t.home.techTabs.map((tab, i) => ({
+    ...tab,
+    ...TECH_TABS_META[i]
+  }));
+
   const tab = techTabs[activeTab];
 
   return (
@@ -232,9 +177,8 @@ function TechShowcase() {
         className="space-y-8"
       >
         <div>
-          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Proprietary Technology</p>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Built from the Ground Up.</h2>
-          
+          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">{t.home.techTag}</p>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">{t.home.techHeading}</h2>
         </div>
 
         {/* Tabs */}
@@ -359,54 +303,50 @@ function MobileScreenCarousel({ screens }: { screens: string[] }) {
 }
 
 
-/* ── Software Showcase: tabs left, device right ── */
-const softwareTabs = [
+/* ── Software Showcase ── */
+const SOFTWARE_TABS_META = [
   {
     id: "web",
-    label: "Web App",
     icon: Monitor,
     accent: "text-secondary",
     accentBg: "bg-secondary",
     accentBorder: "border-secondary",
-    subtitle: "Web Platform",
-    title: "NXT-Fleet Dashboard",
-    desc: "A powerful browser-based fleet management platform. Monitor every tractor in real time, track battery health, and manage multiple farms from a single dashboard.",
-    features: ["Real-time GPS fleet tracking", "Battery & diagnostics monitoring", "Fleet analytics & performance reports", "Multi-farm management portal"],
-    cta: { label: "Request Access", href: "/book", variant: "outline" as const },
+    cta: { href: "/book", variant: "outline" as const },
     device: "desktop",
   },
   {
     id: "mobile",
-    label: "Mobile App",
     icon: Smartphone,
     accent: "text-primary",
     accentBg: "bg-primary",
     accentBorder: "border-primary",
-    subtitle: "iOS & Android",
-    title: "AutoNxt Service App",
-    desc: "Book service, track technicians live, and manage your tractor's complete service history — all from your phone. Available on iOS and Android.",
-    features: ["Book & schedule service appointments", "Live technician location tracking", "Complete service history & records", "Spare parts ordering & delivery"],
-    cta: { label: "Download App", href: "#", variant: "default" as const },
+    cta: { href: "#", variant: "default" as const },
     device: "mobile",
   },
   {
     id: "tablet",
-    label: "Tablet",
     icon: Monitor,
     accent: "text-accent",
     accentBg: "bg-accent",
     accentBorder: "border-accent",
-    subtitle: "Analytics Dashboard",
-    title: "NXT-Fleet Analytics",
-    desc: "Deep fleet analytics on a tablet-optimised interface. Track performance trends, battery cycles, and operational efficiency across your entire fleet — in the field or at the office.",
-    features: ["Fleet-wide performance analytics", "Battery health & cycle tracking", "Operational efficiency reports", "Multi-user access control"],
-    cta: { label: "Request Access", href: "/book", variant: "outline" as const },
+    cta: { href: "/book", variant: "outline" as const },
     device: "tablet",
   },
 ];
 
 function SoftwareShowcase() {
+  const { t } = useLang();
   const [active, setActive] = useState(0);
+
+  const softwareTabs = t.home.softwareTabs.map((tab, i) => ({
+    ...tab,
+    ...SOFTWARE_TABS_META[i],
+    cta: {
+      ...SOFTWARE_TABS_META[i].cta,
+      label: tab.cta
+    }
+  }));
+
   const tab = softwareTabs[active];
 
   return (
@@ -594,8 +534,86 @@ function SoftwareShowcase() {
   );
 }
 
+const PRODUCTS_META = [
+  {
+    img: tractor1,
+    tagColor: "bg-primary/10 text-primary border-primary/20",
+    accentBar: "bg-primary",
+    specs: [
+      { icon: Zap },
+      { icon: BatteryCharging },
+      { icon: Activity },
+    ],
+  },
+  {
+    img: tractor1,
+    tagColor: "bg-accent/10 text-accent border-accent/20",
+    accentBar: "bg-accent",
+    specs: [
+      { icon: Zap },
+      { icon: BatteryCharging },
+      { icon: Activity },
+    ],
+  },
+  {
+    img: tractor2,
+    tagColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    accentBar: "bg-emerald-500",
+    specs: [
+      { icon: Zap },
+      { icon: BatteryCharging },
+      { icon: Activity },
+    ],
+  },
+];
+
+const INDUSTRY_ICONS_MAP: Record<string, any> = {
+  biomass: Leaf,
+  cement: Building2,
+  construction: Hammer,
+  defence: Shield,
+  airport: PlaneTakeoff,
+  metal: Factory,
+};
+
+const INDUSTRY_COLORS_MAP: Record<string, { color: string; border: string }> = {
+  biomass: { color: "text-lime-300", border: "hover:border-lime-300" },
+  cement: { color: "text-orange-300", border: "hover:border-orange-300" },
+  construction: { color: "text-yellow-300", border: "hover:border-yellow-300" },
+  defence: { color: "text-red-300", border: "hover:border-primary/40" },
+  airport: { color: "text-sky-300", border: "hover:border-accent/40" },
+  metal: { color: "text-slate-300", border: "hover:border-slate-300" },
+};
+
+const VIDEO_IDS = [
+  "3PVEHTybb_o",
+  "9Px1KnfeBdY",
+  "kia8cxkaUJc",
+  "u2a1EoXayrk",
+  "UHtiUSmO27I",
+  "Z6107d2ygF0",
+];
+
 export default function Home() {
   const { t } = useLang();
+
+  const teaserProducts = t.home.products.map((p, i) => ({
+    ...p,
+    ...PRODUCTS_META[i],
+    specs: p.specs.map((spec, si) => ({
+      ...spec,
+      icon: PRODUCTS_META[i].specs[si].icon
+    }))
+  }));
+
+  const PARTNERS_META = [
+    { img: baifLogo, logoBg: "bg-white" },
+    { img: dksmLogo, logoBg: "bg-white" },
+    { img: noidaAirportLogo, logoBg: "bg-[#0a1628]" },
+    { img: jslLogo, logoBg: "bg-white" },
+    { img: relianceLogo, logoBg: "bg-black" },
+  ];
+
   return (
     <div className="w-full flex flex-col min-h-screen pt-16">
 
@@ -735,12 +753,7 @@ export default function Home() {
       <section className="py-14 bg-muted/30">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-border">
-            {[
-              { label: "Orders Placed", value: "250+", sub: "Tractors delivered across industries" },
-              { label: "Happy Industry", value: "8", sub: "Industries trusting our solutions" },
-              { label: "Trees Saved", value: "47,135", sub: "Global period CO₂ reduction across all tractors" },
-              { label: "Cost Saved", value: "₹3.16Cr", sub: "Operational cost reduction" },
-            ].map((stat, i) => (
+            {t.home.stats.map((stat, i) => (
               <motion.div
                 key={i}
                 className="flex flex-col items-center justify-center text-center px-4"
@@ -767,39 +780,36 @@ export default function Home() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            Trusted by India's Leading Organisations
+            {t.home.trustedBy}
           </motion.p>
           <div className="flex flex-wrap items-center justify-center gap-4">
-            {[
-              { img: baifLogo,         name: "BAIF Development Research",  logoBg: "bg-white" },
-              { img: dksmLogo,         name: "DKSM",                       logoBg: "bg-white" },
-              { img: noidaAirportLogo, name: "Noida International Airport", logoBg: "bg-[#0a1628]" },
-              { img: jslLogo,          name: "Jaywant Sugars Ltd.",         logoBg: "bg-white" },
-              { img: relianceLogo,     name: "Reliance New Energy",         logoBg: "bg-black" },
-            ].map((org, i) => (
-              <motion.div
-                key={i}
-                className="group flex items-center gap-3 bg-card border border-border hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all duration-200 rounded-xl px-4 py-3 cursor-default"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                data-testid={`logo-partner-${i}`}
-              >
-                {/* Logo box */}
-                <div className={`h-10 w-10 rounded-lg ${org.logoBg} flex items-center justify-center flex-shrink-0 overflow-hidden p-1.5 border border-border/40`}>
-                  <img
-                    src={org.img}
-                    alt={org.name}
-                    className="h-full w-full object-contain"
-                  />
-                </div>
-                {/* Company name */}
-                <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight max-w-[140px]">
-                  {org.name}
-                </span>
-              </motion.div>
-            ))}
+            {t.home.partners.map((partnerName, i) => {
+              const meta = PARTNERS_META[i];
+              return (
+                <motion.div
+                  key={i}
+                  className="group flex items-center gap-3 bg-card border border-border hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all duration-200 rounded-xl px-4 py-3 cursor-default"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  data-testid={`logo-partner-${i}`}
+                >
+                  {/* Logo box */}
+                  <div className={`h-10 w-10 rounded-lg ${meta.logoBg} flex items-center justify-center flex-shrink-0 overflow-hidden p-1.5 border border-border/40`}>
+                    <img
+                      src={meta.img}
+                      alt={partnerName}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                  {/* Company name */}
+                  <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight max-w-[140px]">
+                    {partnerName}
+                  </span>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -819,68 +829,25 @@ export default function Home() {
                 initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
               >
                 <div className="h-px w-10 bg-primary rounded-full" />
-                <p className="text-primary font-bold text-sm uppercase tracking-widest">Our Lineup</p>
+                <p className="text-primary font-bold text-sm uppercase tracking-widest">{t.home.lineupTag}</p>
               </motion.div>
               <motion.h2
                 className="font-display text-4xl md:text-5xl font-bold text-foreground"
                 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
               >
-                Built for Every Field.
+                {t.home.lineupTitle}
               </motion.h2>
             </div>
             <Link href="/product">
               <Button variant="outline" className="mt-4 md:mt-0">
-                View All Models <ChevronRight className="w-4 h-4 ml-1" />
+                {t.home.viewAllModels} <ChevronRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
           </div>
 
           {/* Product cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                img: tractor1,
-                name: "AutoNxt X45H2",
-                type: "45HP Electric Tractor",
-                tag: "Best Seller",
-                tagColor: "bg-primary/10 text-primary border-primary/20",
-                accentBar: "bg-primary",
-                desc: "Versatility and power across all farming and haulage activities. AI load management, solar-compatible.",
-                specs: [
-                  { icon: Zap,            label: "Motor",   value: "32 kW"     },
-                  { icon: BatteryCharging, label: "Battery", value: "38.4 kWh"  },
-                  { icon: Activity,        label: "Runtime", value: "8–10 hrs"  },
-                ],
-              },
-              {
-                img: tractor1,
-                name: "AutoNxt X60H2",
-                type: "60HP Electric Tractor",
-                tag: "Most Powerful",
-                tagColor: "bg-accent/10 text-accent border-accent/20",
-                accentBar: "bg-accent",
-                desc: "60HP heavy-duty performance with zero emissions — the perfect balance of raw power and sustainability.",
-                specs: [
-                  { icon: Zap,            label: "Motor",   value: "45 kW"    },
-                  { icon: BatteryCharging, label: "Battery", value: "52 kWh"   },
-                  { icon: Activity,        label: "Runtime", value: "10–12 hrs" },
-                ],
-              },
-              {
-                img: tractor2,
-                name: "AutoNxt X25H2",
-                type: "25HP Electric Tractor",
-                tag: "Compact",
-                tagColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
-                accentBar: "bg-emerald-500",
-                desc: "Perfect for small farms and precision farming. Lightweight at 1,400 kg with full field capability.",
-                specs: [
-                  { icon: Zap,            label: "Motor",   value: "18 kW"   },
-                  { icon: BatteryCharging, label: "Battery", value: "24 kWh"  },
-                  { icon: Activity,        label: "Runtime", value: "8 hrs"   },
-                ],
-              },
-            ].map((p, i) => (
+            {teaserProducts.map((p, i) => (
               <motion.div
                 key={i}
                 className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
@@ -917,17 +884,20 @@ export default function Home() {
 
                   {/* Specs row */}
                   <div className="grid grid-cols-3 gap-2 pt-1">
-                    {p.specs.map((s, si) => (
-                      <div key={si} className="bg-muted/50 rounded-xl px-3 py-2.5 text-center border border-border/60">
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-1">{s.label}</p>
-                        <p className="text-sm text-foreground font-bold">{s.value}</p>
-                      </div>
-                    ))}
+                    {p.specs.map((s, si) => {
+                      const Icon = s.icon;
+                      return (
+                        <div key={si} className="bg-muted/50 rounded-xl px-3 py-2.5 text-center border border-border/60">
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-1">{s.label}</p>
+                          <p className="text-sm text-foreground font-bold">{s.value}</p>
+                        </div>
+                      );
+                    })}
                   </div>
 
                   <Link href="/product">
                     <Button size="sm" variant="outline" className="w-full mt-1 group-hover:border-primary group-hover:text-primary transition-colors">
-                      View Details <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                      {t.home.viewDetails} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                     </Button>
                   </Link>
                 </div>
@@ -951,20 +921,20 @@ export default function Home() {
                 initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
               >
                 <div className="h-px w-10 bg-primary rounded-full" />
-                <p className="text-primary font-bold text-sm uppercase tracking-widest">Technology</p>
+                <p className="text-primary font-bold text-sm uppercase tracking-widest">{t.home.precisionTag}</p>
               </motion.div>
               <motion.h2
                 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.08]"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.05 }}
               >
-                Precision<br />Engineering.
+                {t.home.precisionTitle}
               </motion.h2>
             </div>
             <motion.p
               className="text-muted-foreground text-lg max-w-sm lg:text-right"
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.15 }}
             >
-              Every component engineered for maximum efficiency, safety, and performance in Indian field conditions.
+              {t.home.precisionDesc}
             </motion.p>
           </div>
 
@@ -989,123 +959,60 @@ export default function Home() {
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Industrial Solutions</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">EV Tractor of Choice for Industry.</h2>
+            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">{t.home.industryTag}</p>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">{t.home.industryHeading}</h2>
             <p className="text-muted-foreground mt-4 text-lg">
-              Autonxt electric tractors are built for constant workload across India's most demanding industrial environments.
+              {t.home.industryDesc}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: "1200px" }}>
-            {[
-              {
-                icon: Leaf,
-                title: "Biomass",
-                short: "BIO",
-                slug: "biomass",
-                desc: "Revolutionise biomass collection, processing, and transportation with zero emissions and low operating costs for a greener future.",
-                color: "text-lime-300",
-                bg: "bg-lime-700",
-                border: "hover:border-lime-300",
-                img: "/images/industry/biomass.png",
-              },
-              {
-                icon: Building2,
-                title: "Cement Manufacturing",
-                short: "CEMENT",
-                slug: "cement",
-                desc: "Optimise material handling, transportation, and site maintenance in cement plants — reducing downtime and enhancing productivity.",
-                color: "text-orange-300",
-                bg: "bg-orange-700",
-                border: "hover:border-orange-300",
-                img: "/images/industry/cement.png",
-              },
-              {
-                icon: Hammer,
-                title: "Construction Industry",
-                short: "CONST.",
-                slug: "construction",
-                desc: "Unmatched versatility and power for site preparation, material handling, and equipment transportation — greener construction ahead.",
-                color: "text-yellow-300",
-                bg: "bg-yellow-700",
-                border: "hover:border-yellow-300",
-                img: "/images/industry/construction.png",
-              },
-              {
-                icon: Shield,
-                title: "Defence",
-                short: "DEF.",
-                slug: "defence",
-                desc: "Superior performance and rugged durability for military logistics, base maintenance, and all-terrain operations with remote operation options.",
-                color: "text-red-300",
-                bg: "bg-primary",
-                border: "hover:border-primary/40",
-                img: "/images/industry/defence.png",
-              },
-              {
-                icon: PlaneTakeoff,
-                title: "Airports",
-                short: "AIRPORT",
-                slug: "airport",
-                desc: "From baggage handling to runway maintenance — zero-emission, autonomous-ready tractors for smoother, greener airport operations.",
-                color: "text-sky-300",
-                bg: "bg-accent",
-                border: "hover:border-accent/40",
-                img: "/images/industry/airport.png",
-              },
-              {
-                icon: Factory,
-                title: "Metal Manufacturing",
-                short: "METAL",
-                slug: "metal",
-                desc: "From material handling to logistics, our tractors streamline metal manufacturing operations while minimising environmental impact.",
-                color: "text-slate-300",
-                bg: "bg-slate-700",
-                border: "hover:border-slate-300",
-                img: "/images/industry/metal.png",
-              },
-            ].map((sol, i) => (
-              <motion.div
-                key={i}
-                className="group"
-                initial={{ opacity: 0, y: 36, rotateX: 12 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
-                whileHover={{ rotateY: 5, rotateX: -4, scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 22 } }}
-                style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
-                data-testid={`card-industry-${i}`}
-              >
-                <Link href={`/industry/${sol.slug}`} className="block h-full">
-                  <Card className={`bg-card border border-border ${sol.border} hover:shadow-xl transition-all duration-300 h-full overflow-hidden cursor-pointer`}>
-                    {/* Photo header */}
-                    <div className="relative h-44 overflow-hidden">
-                      <img
-                        src={sol.img}
-                        alt={sol.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                      {/* Icon + label overlay */}
-                      <div className="absolute bottom-3 left-4 flex items-center gap-2">
-                        <div className={`w-7 h-7 rounded-lg ${sol.bg} flex items-center justify-center shrink-0`}>
-                          <sol.icon className={`w-3.5 h-3.5 ${sol.color}`} />
+            {t.industryPage.industries.map((sol, i) => {
+              const IconComponent = INDUSTRY_ICONS_MAP[sol.slug] || Leaf;
+              const styleMeta = INDUSTRY_COLORS_MAP[sol.slug] || { color: "text-lime-300", border: "hover:border-lime-300" };
+              return (
+                <motion.div
+                  key={i}
+                  className="group"
+                  initial={{ opacity: 0, y: 36, rotateX: 12 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.07, duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
+                  whileHover={{ rotateY: 5, rotateX: -4, scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 22 } }}
+                  style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
+                  data-testid={`card-industry-${i}`}
+                >
+                  <Link href={`/industry/${sol.slug}`} className="block h-full">
+                    <Card className={`bg-card border border-border ${styleMeta.border} hover:shadow-xl transition-all duration-300 h-full overflow-hidden cursor-pointer`}>
+                      {/* Photo header */}
+                      <div className="relative h-44 overflow-hidden">
+                        <img
+                          src={sol.img}
+                          alt={sol.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                        {/* Icon + label overlay */}
+                        <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                          <div className={`w-7 h-7 rounded-lg ${sol.bg} flex items-center justify-center shrink-0`}>
+                            <IconComponent className={`w-3.5 h-3.5 ${styleMeta.color}`} />
+                          </div>
+                          <span className="text-white text-[11px] font-bold uppercase tracking-widest drop-shadow-sm">{sol.short}</span>
                         </div>
-                        <span className="text-white text-[11px] font-bold uppercase tracking-widest drop-shadow-sm">{sol.short}</span>
+                        {/* Arrow hint on hover */}
+                        <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <ArrowRight className="w-3.5 h-3.5 text-white" />
+                        </div>
                       </div>
-                      {/* Arrow hint on hover */}
-                      <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <ArrowRight className="w-3.5 h-3.5 text-white" />
-                      </div>
-                    </div>
-                    <CardContent className="p-6">
-                      <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{sol.title}</h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{sol.desc}</p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
+                      <CardContent className="p-6">
+                        <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{sol.title}</h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{sol.desc}</p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
 
           <motion.div
@@ -1116,7 +1023,7 @@ export default function Home() {
           >
             <Link href="/industry">
               <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white font-semibold" data-testid="btn-all-industries">
-                Explore All Industries <ArrowRight className="ml-2 w-4 h-4" />
+                {t.home.exploreAllIndustries} <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
           </motion.div>
@@ -1141,12 +1048,12 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-primary font-bold text-sm uppercase tracking-widest mb-3">In the Field</p>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">From Sunrise to Sunset.</h2>
-              <p className="text-white/80 text-lg mb-6">One charge. All day. Every season. Autonxt is built for the rhythm of Indian farming.</p>
+              <p className="text-primary font-bold text-sm uppercase tracking-widest mb-3">{t.home.fieldBannerTag}</p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">{t.home.fieldBannerTitle}</h2>
+              <p className="text-white/80 text-lg mb-6">{t.home.fieldBannerDesc}</p>
               <Link href="/gallery">
                 <Button size="lg" className="bg-primary text-white hover:bg-primary/90" data-testid="btn-view-gallery">
-                  View Gallery <ArrowRight className="ml-2 w-4 h-4" />
+                  {t.home.viewGallery} <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
             </motion.div>
@@ -1159,11 +1066,11 @@ export default function Home() {
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
             <div>
-              <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">AutoNxt in Action</p>
+              <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">{t.home.videoActionTag}</p>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
-                Watch the X45H2 at Work.
+                {t.home.videoHeading}
               </h2>
-              <p className="text-muted-foreground mt-3 max-w-xl">Real-world videos straight from our YouTube channel — from flooded paddy fields to industrial hauling.</p>
+              <p className="text-muted-foreground mt-3 max-w-xl">{t.home.videoSub}</p>
             </div>
             <a
               href="https://www.youtube.com/@autonxtautomation8368"
@@ -1173,54 +1080,50 @@ export default function Home() {
             >
               <Button variant="outline" className="border-border hover:border-primary hover:text-primary gap-2 font-semibold">
                 <svg viewBox="0 0 24 24" className="w-4 h-4 fill-[#FF0000]"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                View Channel
+                {t.home.viewChannel}
               </Button>
             </a>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { id: "3PVEHTybb_o", title: "X45H2 Product Description (English)" },
-              { id: "9Px1KnfeBdY", title: "Rotavator Puddling in Flooded Farms" },
-              { id: "kia8cxkaUJc", title: "First Delivery — Jaywant Sugar Mill" },
-              { id: "u2a1EoXayrk", title: "45HP Electric Tractor Full Power Demo" },
-              { id: "UHtiUSmO27I", title: "Haulage, Tiller, Reaper & Water Wash" },
-              { id: "Z6107d2ygF0", title: "X45H2 उत्पाद विवरण — हिंदी में" },
-            ].map((v, i) => (
-              <motion.a
-                key={v.id}
-                href={`https://www.youtube.com/watch?v=${v.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative rounded-xl overflow-hidden border border-border hover:border-primary/40 hover:shadow-lg transition-all block bg-black"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: (i % 3) * 0.08 }}
-              >
-                <div className="relative aspect-video">
-                  <img
-                    src={`https://img.youtube.com/vi/${v.id}/maxresdefault.jpg`}
-                    alt={v.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                    onError={(e) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`; }}
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-12 h-12 bg-primary/90 group-hover:bg-primary rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-all duration-300">
-                      <div className="w-0 h-0 border-t-[8px] border-b-[8px] border-l-[14px] border-transparent border-l-white ml-0.5" />
+            {t.home.videos.map((title, i) => {
+              const id = VIDEO_IDS[i];
+              return (
+                <motion.a
+                  key={id}
+                  href={`https://www.youtube.com/watch?v=${id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative rounded-xl overflow-hidden border border-border hover:border-primary/40 hover:shadow-lg transition-all block bg-black"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (i % 3) * 0.08 }}
+                >
+                  <div className="relative aspect-video">
+                    <img
+                      src={`https://img.youtube.com/vi/${id}/maxresdefault.jpg`}
+                      alt={title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
+                      onError={(e) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }}
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-12 h-12 bg-primary/90 group-hover:bg-primary rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-all duration-300">
+                        <div className="w-0 h-0 border-t-[8px] border-b-[8px] border-l-[14px] border-transparent border-l-white ml-0.5" />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="p-3 bg-card">
-                  <p className="text-xs font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">{v.title}</p>
-                </div>
-              </motion.a>
-            ))}
+                  <div className="p-3 bg-card">
+                    <p className="text-xs font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">{title}</p>
+                  </div>
+                </motion.a>
+              );
+            })}
           </div>
           <div className="text-center mt-10">
             <Link href="/gallery">
               <Button variant="outline" className="border-border hover:border-primary hover:text-primary font-semibold gap-2" data-testid="btn-view-all-videos">
-                View Full Gallery <ArrowRight className="w-4 h-4" />
+                {t.home.viewGallery} <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
           </div>
@@ -1231,12 +1134,12 @@ export default function Home() {
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center mb-16">
-            <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>Digital Ecosystem</motion.p>
+            <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>{t.home.softwareTag}</motion.p>
             <motion.h2 className="font-display text-4xl md:text-5xl font-bold text-foreground" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              Software We <span className="text-primary">Deliver.</span>
+              {t.home.softwareHeading}
             </motion.h2>
             <motion.p className="text-muted-foreground mt-4 max-w-xl mx-auto" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-              Complete digital tools to manage, monitor, and maintain your AutoNxt electric tractor fleet.
+              {t.home.softwareDesc}
             </motion.p>
           </div>
 

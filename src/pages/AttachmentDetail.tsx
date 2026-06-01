@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
+import { useLang } from "@/contexts/LanguageContext";
 
 import {
   ArrowRight,
@@ -22,266 +23,72 @@ const TractorViewer3D = lazy(
   () => import("@/components/TractorViewer3D")
 );
 
-const ATTACHMENTS: Record<
-  string,
-  {
-    name: string;
-    type: string;
-    badge: string;
-    tagline: string;
-    desc: string;
-    heroImage: string;
-    specs: {
-      label: string;
-      value: string;
-      icon: React.ElementType;
-    }[];
-    features: {
-      icon: React.ElementType;
-      title: string;
-      desc: string;
-    }[];
-    compatibility: string[];
-    highlights: string[];
-  }
-> = {
-  "bucket": {
-    name: "18 Ft s Bucket",
-    type: "Heavy Duty Implement",
-    badge: "Heavy Duty",
-    tagline: "Maximum Digging Power for Any Terrain",
-    desc:
-      "The AutoNxt 18 Ft Graber Bucket is engineered for heavy-duty excavation and material handling with seamless AutoNxt integration.",
-
-    heroImage: "/3dmodel/bucket.glb",
-
-    specs: [
-      {
-        label: "Width",
-        value: "18 Feet",
-        icon: Gauge,
-      },
-      {
-        label: "Capacity",
-        value: "0.8m³",
-        icon: Package,
-      },
-      {
-        label: "Material",
-        value: "Hardox 450",
-        icon: Shield,
-      },
-      {
-        label: "Weight",
-        value: "480kg",
-        icon: Weight,
-      },
-    ],
-
-    features: [
-      {
-        icon: Shield,
-        title: "Hardox Steel",
-        desc:
-          "Extreme wear resistance for long-term durability in rugged environments.",
-      },
-
-      {
-        icon: Settings,
-        title: "Universal Hitch",
-        desc:
-          "Compatible with all AutoNxt tractor platforms.",
-      },
-
-      {
-        icon: Wrench,
-        title: "Quick Release Teeth",
-        desc:
-          "Replaceable teeth system for easy maintenance.",
-      },
-    ],
-
-    compatibility: [
-      "AutoNxt X45H2",
-      "AutoNxt H55C2",
-      "AutoNxt X25H2",
-    ],
-
-    highlights: [
-      "Heavy Duty Design",
-      "Zero Emission Compatible",
-      "3 Point Hitch",
-      "Industrial Grade Steel",
-      "Fast Maintenance",
-      "Made For Bharat",
-    ],
-  },
-  "catcher": {
-    name: "18 Ft Catcher",
-    type: "Precision Implement",
-    badge: "Precision",
-    tagline: "Efficient Material Collection and Harvesting",
-    desc:
-      "The AutoNxt 18 Ft Catcher is precision-engineered for efficient material collection and harvesting with seamless AutoNxt integration.",
-
-    heroImage: "/3dmodel/bucket.glb",
-
-    specs: [
-      {
-        label: "Width",
-        value: "18 Feet",
-        icon: Gauge,
-      },
-      {
-        label: "Capacity",
-        value: "0.75m³",
-        icon: Package,
-      },
-      {
-        label: "Material",
-        value: "Hardox 400",
-        icon: Shield,
-      },
-      {
-        label: "Weight",
-        value: "450kg",
-        icon: Weight,
-      },
-    ],
-
-    features: [
-      {
-        icon: Shield,
-        title: "Precision Engineering",
-        desc:
-          "Optimized design for accurate material collection and minimal spillage.",
-      },
-
-      {
-        icon: Settings,
-        title: "Universal Hitch",
-        desc:
-          "Compatible with all AutoNxt tractor platforms.",
-      },
-
-      {
-        icon: Wrench,
-        title: "Easy Maintenance",
-        desc:
-          "Simplified maintenance design for quick servicing.",
-      },
-    ],
-
-    compatibility: [
-      "AutoNxt X45H2",
-      "AutoNxt H55C2",
-      "AutoNxt X25H2",
-    ],
-
-    highlights: [
-      "Precision Design",
-      "Zero Emission Compatible",
-      "3 Point Hitch",
-      "Optimized Capacity",
-      "Easy Maintenance",
-      "Made For Bharat",
-    ],
-  },
-  "loader": {
-    name: "18 Ft Loader Bucket",
-    type: "Max Load Implement",
-    badge: "Max Load",
-    tagline: "Maximum Efficiency in Loading and Material Transport",
-    desc:
-      "The AutoNxt 18 Ft Loader Bucket is engineered for maximum efficiency in loading and material transport with seamless AutoNxt integration.",
-
-    heroImage: "/3dmodel/bucket.glb",
-
-    specs: [
-      {
-        label: "Width",
-        value: "18 Feet",
-        icon: Gauge,
-      },
-      {
-        label: "Capacity",
-        value: "0.9m³",
-        icon: Package,
-      },
-      {
-        label: "Material",
-        value: "Hardox 500",
-        icon: Shield,
-      },
-      {
-        label: "Weight",
-        value: "520kg",
-        icon: Weight,
-      },
-    ],
-
-    features: [
-      {
-        icon: Shield,
-        title: "Maximum Capacity",
-        desc:
-          "Engineered for maximum load capacity and durability in heavy operations.",
-      },
-
-      {
-        icon: Settings,
-        title: "Universal Hitch",
-        desc:
-          "Compatible with all AutoNxt tractor platforms.",
-      },
-
-      {
-        icon: Wrench,
-        title: "Reinforced Structure",
-        desc:
-          "Extra reinforcement for handling maximum loads safely.",
-      },
-    ],
-
-    compatibility: [
-      "AutoNxt X45H2",
-      "AutoNxt H55C2",
-      "AutoNxt X25H2",
-    ],
-
-    highlights: [
-      "Maximum Capacity",
-      "Zero Emission Compatible",
-      "3 Point Hitch",
-      "Reinforced Steel",
-      "Heavy Duty Design",
-      "Made For Bharat",
-    ],
-  },
-};
-
 export default function AttachmentDetail({
   params,
 }: {
   params: { slug: string };
 }) {
-  const att = ATTACHMENTS[params?.slug ?? ""];
+  const { t } = useLang();
+  
+  const attsFromT = t.attachmentDetailPage.attachments;
+  const slug = params?.slug ?? "bucket";
+  const attachmentData = attsFromT[slug as "bucket" | "catcher" | "loader"] || attsFromT.bucket;
 
-  if (!att) {
+  if (!attachmentData) {
     return (
       <div className="w-full min-h-screen flex items-center justify-center bg-black">
         <div className="text-center">
           <h1 className="text-white text-4xl font-bold mb-5">
-            Product Not Found
+            {t.attachmentDetailPage.productNotFound}
           </h1>
 
           <Link href="/product">
-            <Button>Back To Products</Button>
+            <Button>
+              {t.attachmentDetailPage.backToProducts}
+            </Button>
           </Link>
         </div>
       </div>
     );
   }
+
+  const specLabels = [
+    attachmentData.specs.widthLabel,
+    attachmentData.specs.capacityLabel,
+    attachmentData.specs.materialLabel,
+    attachmentData.specs.weightLabel,
+  ];
+  const specValues = [
+    attachmentData.specs.width,
+    attachmentData.specs.capacity,
+    attachmentData.specs.material,
+    attachmentData.specs.weight,
+  ];
+  const specIcons = [Gauge, Package, Shield, Weight];
+
+  const specs = specIcons.map((icon, idx) => ({
+    icon,
+    label: specLabels[idx],
+    value: specValues[idx],
+  }));
+
+  const featureIcons = [Shield, Settings, Wrench];
+  const features = attachmentData.features.map((f, idx) => ({
+    ...f,
+    icon: featureIcons[idx] || Shield,
+  }));
+
+  const att = {
+    ...attachmentData,
+    heroImage: "/3dmodel/bucket.glb",
+    compatibility: [
+      "AutoNxt X45H2",
+      "AutoNxt H55C2",
+      "AutoNxt X25H2",
+    ],
+    specs,
+    features,
+  };
 
   return (
     <div className="w-full min-h-screen bg-white overflow-hidden">
@@ -311,7 +118,7 @@ export default function AttachmentDetail({
             className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-10 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back To Products
+            {t.attachmentDetailPage.backToProducts}
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
@@ -327,7 +134,7 @@ export default function AttachmentDetail({
                 </span>
 
                 <span className="text-xs font-bold text-emerald-400 bg-emerald-400/15 border border-emerald-400/30 px-3 py-1.5 rounded-full">
-                  Available Now
+                  {t.attachmentDetailPage.availableNow}
                 </span>
               </div>
 
@@ -352,20 +159,20 @@ export default function AttachmentDetail({
                 {[
                   {
                     icon: Phone,
-                    label: "Support",
-                    value: "24/7",
+                    label: t.attachmentDetailPage.stats.support,
+                    value: t.attachmentDetailPage.stats.supportVal,
                   },
 
                   {
                     icon: MapPin,
-                    label: "Availability",
-                    value: "Pan India",
+                    label: t.attachmentDetailPage.stats.availability,
+                    value: t.attachmentDetailPage.stats.availabilityVal,
                   },
 
                   {
                     icon: Mail,
-                    label: "Response",
-                    value: "< 24H",
+                    label: t.attachmentDetailPage.stats.response,
+                    value: t.attachmentDetailPage.stats.responseVal,
                   },
                 ].map((item, index) => (
                   <div
@@ -393,7 +200,7 @@ export default function AttachmentDetail({
               <div className="flex flex-wrap gap-4">
                 <Link href="/book">
                   <Button className="bg-red-600 hover:bg-red-700 text-white h-12 px-7 rounded-xl">
-                    Request Quote
+                    {t.attachmentDetailPage.quoteBtn}
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </Link>
@@ -403,7 +210,7 @@ export default function AttachmentDetail({
                     variant="outline"
                     className="border-white/20 bg-white/5 text-white hover:bg-white/10 h-12 px-7 rounded-xl"
                   >
-                    Book Demo
+                    {t.attachmentDetailPage.bookBtn}
                   </Button>
                 </Link>
               </div>
@@ -424,7 +231,7 @@ export default function AttachmentDetail({
                 <Suspense
                   fallback={
                     <div className="w-full h-full flex items-center justify-center text-white/60">
-                      Loading 3D Model...
+                      {t.attachmentDetailPage.loadingModel}
                     </div>
                   }
                 >
@@ -443,11 +250,11 @@ export default function AttachmentDetail({
               <div className="absolute top-5 right-5 z-30">
                 <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl px-4 py-3">
                   <p className="text-white/40 text-[10px] uppercase tracking-widest mb-1">
-                    3D Preview
+                    {t.attachmentDetailPage.preview3D}
                   </p>
 
                   <h4 className="text-white font-semibold text-sm">
-                    Interactive Model
+                    {t.attachmentDetailPage.interactiveModel}
                   </h4>
                 </div>
               </div>
@@ -482,11 +289,11 @@ export default function AttachmentDetail({
 
           <div className="text-center mb-14">
             <p className="text-red-600 text-sm uppercase tracking-widest font-bold mb-3">
-              Specifications
+              {t.attachmentDetailPage.specifications}
             </p>
 
             <h2 className="text-4xl font-bold text-gray-900">
-              Technical Details
+              {t.attachmentDetailPage.technicalDetails}
             </h2>
           </div>
 
@@ -517,11 +324,11 @@ export default function AttachmentDetail({
 
           <div className="text-center mb-14">
             <p className="text-red-600 text-sm uppercase tracking-widest font-bold mb-3">
-              Features
+              {t.attachmentDetailPage.features}
             </p>
 
             <h2 className="text-4xl font-bold text-gray-900">
-              Why Choose This Product
+              {t.attachmentDetailPage.whyChoose}
             </h2>
           </div>
 

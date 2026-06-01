@@ -23,11 +23,11 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          "vendor-react":  ["react", "react-dom"],
+          "vendor-react": ["react", "react-dom"],
           "vendor-motion": ["framer-motion"],
-          "vendor-three":  ["three", "@react-three/fiber", "@react-three/drei"],
-          "vendor-query":  ["@tanstack/react-query"],
-          "vendor-ui":     ["@radix-ui/react-dialog", "@radix-ui/react-select", "@radix-ui/react-tooltip"],
+          "vendor-three": ["three", "@react-three/fiber", "@react-three/drei"],
+          "vendor-query": ["@tanstack/react-query"],
+          "vendor-ui": ["@radix-ui/react-dialog", "@radix-ui/react-select", "@radix-ui/react-tooltip"],
         },
       },
     },
@@ -35,6 +35,9 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true,
+    allowedHosts: [
+      ".ngrok-free.app"
+    ],
     proxy: {
       "/api/n8n-form-callback": {
         target: "https://autonxt.app.n8n.cloud",
