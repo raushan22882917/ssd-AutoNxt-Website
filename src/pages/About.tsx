@@ -43,29 +43,29 @@ export default function About() {
 
   const teamFromT = t.aboutPage.team;
   const TEAM = [
-    { name: teamFromT[0].name, role: teamFromT[0].role, img: kaustubhImg, bio: teamFromT[0].bio, featured: true },
-    { name: teamFromT[1].name, role: teamFromT[1].role, img: pankajImg, bio: teamFromT[1].bio, featured: true },
-    { name: teamFromT[2].name, role: teamFromT[2].role, img: harikishan, bio: teamFromT[2].bio },
-    { name: teamFromT[3].name, role: teamFromT[3].role, img: sudiptoImg, bio: teamFromT[3].bio },
-    { name: teamFromT[4].name, role: teamFromT[4].role, img: vamsiImg, bio: teamFromT[4].bio },
-    { name: teamFromT[5].name, role: teamFromT[5].role, img: dharmateja, bio: teamFromT[5].bio },
-    { name: teamFromT[6].name, role: teamFromT[6].role, img: tejashImg, bio: teamFromT[6].bio },
-    { name: teamFromT[7].name, role: teamFromT[7].role, img: siddhantImg, bio: teamFromT[7].bio },
-    { name: teamFromT[8].name, role: teamFromT[8].role, img: saiImg, bio: teamFromT[8].bio },
-    { name: teamFromT[9].name, role: teamFromT[9].role, img: ajinkyaImg, bio: teamFromT[9].bio },
-    { name: teamFromT[10].name, role: teamFromT[10].role, img: khushpreetImg, bio: teamFromT[10].bio },
-    { name: teamFromT[11].name, role: teamFromT[11].role, img: shantanuImg, bio: teamFromT[11].bio },
-    { name: teamFromT[12].name, role: teamFromT[12].role, img: manishImg, bio: teamFromT[12].bio },
-    { name: teamFromT[13].name, role: teamFromT[13].role, img: swapneshImg, bio: teamFromT[13].bio },
-    { name: teamFromT[14].name, role: teamFromT[14].role, img: harendar, bio: teamFromT[14].bio },
-    { name: teamFromT[15].name, role: teamFromT[15].role, img: rajinder, bio: teamFromT[15].bio },
+    { name: teamFromT[0].name, role: teamFromT[0].role, img: kaustubhImg, bio: teamFromT[0].bio, featured: true, objectPosition: "top" },
+    { name: teamFromT[1].name, role: teamFromT[1].role, img: pankajImg, bio: teamFromT[1].bio, featured: true, objectPosition: "top" },
+    { name: teamFromT[2].name, role: teamFromT[2].role, img: harikishan, bio: teamFromT[2].bio, objectPosition: "top" },
+    { name: teamFromT[3].name, role: teamFromT[3].role, img: sudiptoImg, bio: teamFromT[3].bio, objectPosition: "top" },
+    { name: teamFromT[4].name, role: teamFromT[4].role, img: vamsiImg, bio: teamFromT[4].bio, objectPosition: "30% 30%" },
+    { name: teamFromT[5].name, role: teamFromT[5].role, img: dharmateja, bio: teamFromT[5].bio, objectPosition: "top" },
+    { name: teamFromT[6].name, role: teamFromT[6].role, img: tejashImg, bio: teamFromT[6].bio, objectPosition: "30% 70%" },
+    { name: teamFromT[7].name, role: teamFromT[7].role, img: siddhantImg, bio: teamFromT[7].bio, objectPosition: "top" },
+    { name: teamFromT[8].name, role: teamFromT[8].role, img: saiImg, bio: teamFromT[8].bio, objectPosition: "top" },
+    { name: teamFromT[9].name, role: teamFromT[9].role, img: ajinkyaImg, bio: teamFromT[9].bio, objectPosition: "top" },
+    { name: teamFromT[10].name, role: teamFromT[10].role, img: khushpreetImg, bio: teamFromT[10].bio, objectPosition: "top" },
+    { name: teamFromT[11].name, role: teamFromT[11].role, img: shantanuImg, bio: teamFromT[11].bio, objectPosition: "top" },
+    { name: teamFromT[12].name, role: teamFromT[12].role, img: manishImg, bio: teamFromT[12].bio, objectPosition: "top" },
+    { name: teamFromT[13].name, role: teamFromT[13].role, img: swapneshImg, bio: teamFromT[13].bio, objectPosition: "100% 20%" },
+    { name: teamFromT[14].name, role: teamFromT[14].role, img: harendar, bio: teamFromT[14].bio, objectPosition: "top" },
+    { name: teamFromT[15].name, role: teamFromT[15].role, img: rajinder, bio: teamFromT[15].bio, objectPosition: "top" },
   ];
 
   const advisorsFromT = t.aboutPage.advisors;
   const ADVISORS = [
-    { name: advisorsFromT[0].name, role: advisorsFromT[0].role, img: ivRao, bio: advisorsFromT[0].bio },
-    { name: advisorsFromT[1].name, role: advisorsFromT[1].role, img: ashishImg, bio: advisorsFromT[1].bio },
-    { name: advisorsFromT[2].name, role: advisorsFromT[2].role, img: swadeepImg, bio: advisorsFromT[2].bio },
+    { name: advisorsFromT[0].name, role: advisorsFromT[0].role, img: ivRao, bio: advisorsFromT[0].bio, objectPosition: "top" },
+    { name: advisorsFromT[1].name, role: advisorsFromT[1].role, img: ashishImg, bio: advisorsFromT[1].bio, objectPosition: "top" },
+    { name: advisorsFromT[2].name, role: advisorsFromT[2].role, img: swadeepImg, bio: advisorsFromT[2].bio, objectPosition: "top" },
   ];
 
   const journeyFromT = t.aboutPage.journey;
@@ -237,12 +237,16 @@ export default function About() {
 
       {/* ── FACILITY PHOTO STRIP ── */}
       <section className="py-0 bg-background overflow-hidden">
-        <div className="flex gap-3 px-4 md:px-8 pb-16 max-w-screen-xl mx-auto">
+        {/* <div className="flex gap-3 px-4 md:px-8 pb-16 max-w-screen-xl mx-auto"> */}
+        <div className="flex gap-3 px-4 md:px-8 pb-16 max-w-screen-xl mx-auto overflow-x-auto scrollbar-hide snap-x snap-mandatory">
           {[fieldImg3, fieldImg4, fieldImg5, fieldImg6].map((img, i) => (
             <motion.div
               key={i}
-              className="relative flex-1 rounded-2xl overflow-hidden h-52 min-w-0 group"
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}
+              className="relative flex-shrink-0 w-[75vw] sm:flex-1 sm:w-auto rounded-2xl overflow-hidden h-52 snap-center group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
             >
               <img src={img} alt={`AutoNxt operations ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
@@ -352,8 +356,21 @@ export default function About() {
                 data-testid={`team-featured-${i}`}
               >
                 {/* Portrait photo — tall */}
-                <div className="relative h-72 overflow-hidden bg-muted">
-                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-[20%] group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+
+                <div className="relative w-full aspect-[3/4] overflow-hidden bg-muted">
+                <img
+                  src={member.img}
+                  alt={member.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  style={{ objectPosition: member.objectPosition ?? "top center" }}
+                  loading="lazy"
+                  decoding="async"
+                />
+
+                {/* <div className="relative h-72 overflow-hidden bg-muted">
+                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-[20%] group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" /> */}
+
+
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                   {/* Role badge */}
                   <div className="absolute bottom-4 left-4 right-4">
@@ -388,8 +405,20 @@ export default function About() {
                 data-testid={`team-member-${i}`}
               >
                 {/* Square portrait */}
-                <div className="relative h-44 bg-muted overflow-hidden">
-                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-[20%] group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+                {/* <div className="relative h-44 bg-muted overflow-hidden">
+                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-[20%] group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" /> */}
+                  <div className="relative w-full aspect-square overflow-hidden bg-muted">
+                    <img
+                      src={member.img}
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      style={{ objectPosition: member.objectPosition ?? "top center" }}
+                      loading="lazy"
+                      decoding="async"
+                    />
+
+
+
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
                 <div className="p-4">
@@ -433,9 +462,25 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 data-testid={`advisor-${i}`}
               >
+
+
                 {/* Portrait */}
-                <div className="relative h-60 bg-muted overflow-hidden">
+
+                {/* <div className="relative h-60 bg-muted overflow-hidden">
                   <img src={a.img} alt={a.name} className="w-full h-full object-cover object-[20%] group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+                 */}
+
+                <div className="relative w-full aspect-[3/4] overflow-hidden bg-muted">
+                  <img
+                    src={a.img}
+                    alt={a.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    style={{ objectPosition: a.objectPosition ?? "top center" }}
+                    loading="lazy"
+                    decoding="async"
+                  />
+
+                                  
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-4 left-4">
                     <span className="inline-block bg-accent/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-1.5">
