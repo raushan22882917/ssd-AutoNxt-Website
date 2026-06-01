@@ -93,12 +93,12 @@ export function getIntentAssistantReply(
   switch (intent) {
     case "meeting":
       return lang === "hi"
-        ? "नीचे **Zoom मीटिंग फॉर्म** खुला है — नाम, ईमेल, फोन, मॉडल, शहर, तारीख और समय (10 AM–5 PM IST) भरें। Zoom लिंक ईमेल पर मिलेगा।"
-        : "The **Zoom meeting form** is open below — enter name, email, phone, model, city, date & time (10 AM–5 PM IST). You'll get the Zoom link by email.";
+        ? "नीचे **Schedule meeting** फॉर्म खुला है — नाम, ईमेल, फोन, मॉडल, शहर, तारीख और समय (10 AM–5 PM IST) भरें। Zoom लिंक ईमेल पर मिलेगा।"
+        : "**Schedule meeting** form is open below — enter name, email, phone, model, city, date & time (10 AM–5 PM IST). You'll get the Zoom link by email.";
     case "call_now":
       return lang === "hi"
-        ? `नीचे **फोन कॉल** फॉर्म भरें, भाषा चुनें, Submit दबाएँ। **${callDelaySeconds} सेकंड** में हम कॉल करेंगे।`
-        : `Use the **phone call** form below, choose your language, then Submit. We'll call you in **${callDelaySeconds} seconds**.`;
+        ? `नीचे **Talk with agent** फॉर्म भरें, भाषा चुनें, Submit दबाएँ। **${callDelaySeconds} सेकंड** में एजेंट कॉल करेगा।`
+        : `Use **Talk with agent** below, choose your language, then Submit. Our agent will call you in **${callDelaySeconds} seconds**.`;
     case "call_scheduled":
       return lang === "hi"
         ? "नीचे फॉर्म में **तारीख/समय** चुनें — निर्धारित समय पर कॉल होगी (तुरंत कॉल नहीं)।"

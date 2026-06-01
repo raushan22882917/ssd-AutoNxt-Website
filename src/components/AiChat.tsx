@@ -49,7 +49,7 @@ I help you explore electric tractors and smart agriculture.
 
 आप **हिंदी**, **English**, **मराठी**, या **தமிழ்** में पूछ सकते हैं — जिस भाषा में पूछेंगे, उसी में जवाब मिलेगा।
 
-नीचे **Call** (फोन), **Meet** (Zoom), या **Demo** (साइट विज़िट) चुन सकते हैं — या सीधे लिखें: “कॉल करो”, “मीटिंग शेड्यूल”, “डेमो बुक”।`;
+नीचे **Talk with agent** (फोन) या **Schedule meeting** (Zoom) चुनें — या लिखें: “एजेंट से बात करो”, “मीटिंग शेड्यूल करो”।`;
 
 interface Message {
   role: "user" | "assistant";
@@ -94,9 +94,9 @@ function closeAllForms(setters: {
 
 function getCallFormPrompt(lang: string): string {
   if (lang === "hi") {
-    return `कृपया नीचे फॉर्म भरें, **भाषा** चुनें, और **Submit** दबाएँ। **${CALL_NOW_DELAY_SECONDS} सेकंड** बाद हम आपकी चुनी भाषा में कॉल करेंगे।`;
+    return `**Talk with agent** — नीचे फॉर्म भरें, **भाषा** चुनें, Submit दबाएँ। **${CALL_NOW_DELAY_SECONDS} सेकंड** में एजेंट कॉल करेगा।`;
   }
-  return `Fill in the form below, choose your **language**, then tap **Submit**. We'll call you in **${CALL_NOW_DELAY_SECONDS} seconds** in that language.`;
+  return `**Talk with agent** — fill the form below, choose your **language**, then tap **Submit**. Our agent will call you in **${CALL_NOW_DELAY_SECONDS} seconds**.`;
 }
 
 function getScheduledCallPrompt(lang: string): string {
@@ -468,8 +468,8 @@ export default function StaticChatBot() {
           ? error.message.replace(/^Error: /, "")
           : null;
       return detail
-        ? `Sorry, chat is temporarily unavailable (${detail}). You can still use **Call**, **Meet**, or **Demo** below.`
-        : "Sorry, I'm having trouble connecting. Use **Call**, **Meet**, or **Demo** below, or try again in a moment.";
+        ? `Sorry, chat is temporarily unavailable (${detail}). You can still use **Talk with agent** or **Schedule meeting** below.`
+        : "Sorry, I'm having trouble connecting. Use **Talk with agent** or **Schedule meeting** below, or try again in a moment.";
     } finally {
       setLoading(false);
     }
@@ -617,12 +617,18 @@ export default function StaticChatBot() {
       if (!result.success) throw new Error(result.error);
 
       const zoomUrl = result.zoomLink || result.meetLink;
+      const emailNote =
+        f.language === "hi"
+          ? "\n\n📧 पुष्टि ईमेल **आपको** और **sales@autonxt.in** पर भेज दिया गया है।"
+          : "\n\n📧 Confirmation email sent to **you** and **sales@autonxt.in**.";
+
       const meetLine = zoomUrl
         ? `\n\n**Zoom:** ${zoomUrl}`
-        : "\n\nCheck your email for the Zoom meeting link.";
+        : "\n\nZoom join link is in your email (or coming from sales shortly).";
 
       const reply =
         (result.message || "Meeting scheduled with AutonXT sales.") +
+        emailNote +
         meetLine +
         (result.meetingId ? `\n\n**Reference:** ${result.meetingId}` : "");
 
@@ -960,16 +966,6 @@ export default function StaticChatBot() {
     }
   };
 
-  const openBookingForm = () => {
-    closeAllForms({ setShowCallForm, setShowMeetingForm, setShowBookingForm });
-    setShowBookingForm(true);
-    const formHint =
-      userLanguage === "hi"
-        ? "कृपया नीचे बुकिंग फॉर्म भरें — हम आपका विवरण सेव करेंगे, सेल्स टीम को ईमेल करेंगे, और पुष्टि ID भेजेंगे।"
-        : "Please fill the booking form below — we will save your details, email our sales team, and send you a confirmation reference.";
-    setMessages((prev) => [...prev, { role: "assistant", text: formHint }]);
-  };
-
   const handleClearSession = () => {
     const confirmMsg =
       userLanguage === "hi"
@@ -1244,7 +1240,7 @@ export default function StaticChatBot() {
                 className="border-t border-gray-200 bg-blue-50/50 px-4 py-3 space-y-2 max-h-[280px] overflow-y-auto"
               >
                 <p className="text-xs font-semibold text-blue-900 uppercase tracking-wide">
-                  Schedule Zoom call — sales team
+                  Schedule meeting — sales team
                 </p>
                 <input
                   type="text"
@@ -1447,18 +1443,14 @@ export default function StaticChatBot() {
 
             {/* FOOTER */}
             <div className="border-t border-gray-100 bg-white px-4 py-3 space-y-3">
-              <div className="grid grid-cols-3 gap-1.5">
-                <button type="button" onClick={() => openCallForm("now")} disabled={loading} className="flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg bg-red-600 text-white text-[10px] font-semibold hover:bg-red-700 disabled:opacity-50">
-                  <PhoneCall className="w-3.5 h-3.5" />
-                  Call
+              <div className="grid grid-cols-2 gap-2">
+                <button type="button" onClick={() => openCallForm("now")} disabled={loading} aria-label="Talk with agent" className="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-lg bg-red-600 text-white text-[9px] font-semibold leading-tight hover:bg-red-700 disabled:opacity-50">
+                  <PhoneCall className="w-3.5 h-3.5 shrink-0" />
+                  Talk with agent
                 </button>
-                <button type="button" onClick={openMeetingForm} disabled={loading} className="flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg bg-blue-700 text-white text-[10px] font-semibold hover:bg-blue-800 disabled:opacity-50">
-                  <Calendar className="w-3.5 h-3.5" />
-                  Meet
-                </button>
-                <button type="button" onClick={openBookingForm} disabled={loading} className="flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg border border-red-200 bg-red-50 text-red-700 text-[10px] font-semibold hover:bg-red-100 disabled:opacity-50">
-                  <Calendar className="w-3.5 h-3.5" />
-                  Demo
+                <button type="button" onClick={openMeetingForm} disabled={loading} aria-label="Schedule meeting" className="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-lg bg-blue-700 text-white text-[9px] font-semibold leading-tight hover:bg-blue-800 disabled:opacity-50">
+                  <Calendar className="w-3.5 h-3.5 shrink-0" />
+                  Schedule meeting
                 </button>
               </div>
               {/* Text Input */}

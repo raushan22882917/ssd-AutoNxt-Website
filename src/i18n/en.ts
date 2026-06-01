@@ -267,7 +267,7 @@ export const en = {
   },
   // Common
   chat: {
-    welcome: "👋 Welcome to AutoNxt AI\n\nI help you explore electric tractors and smart agriculture.\n\nYou can ask in **English**, **हिंदी**, **मराठी**, or **తెలుగు** — reply in the same language you ask in.\n\nBelow you can choose **Call** (Phone), **Meet** (Zoom), or **Demo** (Site Visit) — or just type: \"call me\", \"schedule meeting\", \"book demo\".",
+    welcome: "👋 Welcome to AutoNxt AI\n\nI help you explore electric tractors and smart agriculture.\n\nYou can ask in **English**, **हिंदी**, **मराठी**, or **తెలుగు** — reply in the same language you ask in.\n\nBelow you can tap **Talk with agent** (phone) or **Schedule meeting** (Zoom) — or type: \"call me\", \"schedule meeting\".",
   },
   common: {
     readMore: "Read More",
