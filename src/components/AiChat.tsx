@@ -35,6 +35,7 @@ import {
   aiSuggestsMeeting,
   detectChatIntent,
   getIntentAssistantReply,
+  isMeetingScheduleRequest,
   type ChatIntent,
 } from "@/lib/chatIntents";
 import { getSessionClock } from "@/lib/relativeDate";
@@ -317,6 +318,7 @@ export default function StaticChatBot() {
   );
   const [callCountdown, setCallCountdown] = useState<number | null>(null);
   const lastUserMessageRef = useRef("");
+  const meetingFormRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const callTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const callCountdownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -442,17 +444,14 @@ export default function StaticChatBot() {
         "I received your message but couldn't generate a reply. Please try again."
       );
 
-      if (aiSuggestsMeeting(reply)) {
+      if (aiSuggestsMeeting(reply, lastUserMessageRef.current)) {
         setShowMeetingForm(true);
         setShowCallForm(false);
         setShowBookingForm(false);
-        return (
-          (userLanguage === "hi"
-            ? "नीचे **Zoom मीटिंग फॉर्म** में विवरण भरें — हम आपकी सेल्स मीटिंग शेड्यूल करेंगे।"
-            : "Use the **Zoom meeting form** below to enter your details — we'll schedule your sales meeting.") +
-          "\n\n" +
-          reply
+        requestAnimationFrame(() =>
+          meetingFormRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" })
         );
+        return getIntentAssistantReply("meeting", userLanguage, CALL_NOW_DELAY_SECONDS);
       }
 
       if (aiSuggestsBooking(reply)) {
@@ -491,6 +490,9 @@ export default function StaticChatBot() {
           language: lang,
           topic: f.topic || trimmed,
         }));
+        requestAnimationFrame(() =>
+          meetingFormRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+        );
         break;
       case "call_now":
         setShowCallForm(true);
@@ -550,6 +552,12 @@ export default function StaticChatBot() {
 
     if (intent !== "chat") {
       applyIntent(intent, trimmed, lang);
+      return;
+    }
+
+    // Safety: meeting phrases must open Zoom form, not Gemini field list
+    if (isMeetingScheduleRequest(trimmed)) {
+      applyIntent("meeting", trimmed, lang);
       return;
     }
 
@@ -1231,7 +1239,10 @@ export default function StaticChatBot() {
 
             {/* BOOKING FORM */}
             {showMeetingForm && (
-              <div className="border-t border-gray-200 bg-blue-50/50 px-4 py-3 space-y-2 max-h-[280px] overflow-y-auto">
+              <div
+                ref={meetingFormRef}
+                className="border-t border-gray-200 bg-blue-50/50 px-4 py-3 space-y-2 max-h-[280px] overflow-y-auto"
+              >
                 <p className="text-xs font-semibold text-blue-900 uppercase tracking-wide">
                   Schedule Zoom call — sales team
                 </p>

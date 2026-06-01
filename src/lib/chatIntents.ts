@@ -24,15 +24,24 @@ const BOOKING_RE =
 const AI_BOOKING_RE =
   /book\s*(?:a\s+)?demo|test\s*drive|site\s*visit|booking\s*form|fill\s+(?:the\s+)?form\s+below|बुकिंग\s*फॉर्म|डेमो\s*बुक/i;
 
-/** AI listed meeting fields — open Zoom form instead of staying in free chat. */
+/** AI listed meeting/booking intake fields (EN + HI). */
 const AI_MEETING_FORM_RE =
-  /full\s+name|preferred\s+date|preferred\s+model|yyyy-mm-dd|zoom\s+form|schedule\s+(?:the\s+)?meeting|मीटिंग\s+शेड्यूल/i;
+  /full\s+name|preferred\s+date|preferred\s+model|yyyy-mm-dd|zoom\s+form|schedule\s+(?:the\s+)?meeting|मीटिंग\s+शेड्यूल|पूरा\s+नाम|पसंदीदा\s+तारीख|पसंदीदा\s+मॉडल|ईमेल|फ़ोन|फोन\s+नंबर/i;
+
+/** User wants a Zoom / sales meeting (not demo site visit). */
+export function isMeetingScheduleRequest(text: string): boolean {
+  return detectChatIntent(text.trim()) === "meeting";
+}
 
 export function detectChatIntent(text: string): ChatIntent {
   const raw = text.trim();
   if (!raw) return "chat";
 
   if (MEETING_RE.test(raw)) return "meeting";
+  // "schedule ... meeting" with words in between (e.g. "schedule my meeting with sales person")
+  if (/schedul\w*.*\bmeeting\b/i.test(raw) && !/\bdemo\b|test\s*drive|site\s*visit/i.test(raw)) {
+    return "meeting";
+  }
 
   if (CALL_SCHEDULE_RE.test(raw)) return "call_scheduled";
 
@@ -55,16 +64,24 @@ export function aiSuggestsBooking(reply: string): boolean {
 }
 
 /** Gemini listed meeting intake fields — show Zoom form in chat. */
-export function aiSuggestsMeeting(reply: string): boolean {
+export function aiSuggestsMeeting(reply: string, userMessage = ""): boolean {
   const r = reply.trim();
   if (!r) return false;
-  const meetingContext =
-    MEETING_RE.test(r) ||
-    /zoom|video\s*call|sales\s+(?:person|team)|मीटिंग/i.test(r);
+
+  const userWantsMeeting = isMeetingScheduleRequest(userMessage);
   const listsFields =
     AI_MEETING_FORM_RE.test(r) &&
-    (/email/i.test(r) || /phone/i.test(r)) &&
-    (r.match(/full\s+name|email|phone/gi)?.length ?? 0) >= 2;
+    (/email|ईमेल/i.test(r) || /phone|फ़ोन|फोन/i.test(r)) &&
+    (r.match(/full\s+name|email|phone|पूरा\s+नाम|ईमेल|फ़ोन|फोन/gi)?.length ?? 0) >= 2;
+
+  if (userWantsMeeting && listsFields) return true;
+  if (userWantsMeeting && /मीटिंग|meeting|शेड्यूल|schedule|सेल्स\s+टीम|sales\s+team/i.test(r)) {
+    return true;
+  }
+
+  const meetingContext =
+    MEETING_RE.test(r) ||
+    /zoom|video\s*call|sales\s+(?:person|team)|मीटिंग|सेल्स\s+टीम/i.test(r);
   return meetingContext && listsFields;
 }
 
