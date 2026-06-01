@@ -13,10 +13,18 @@ export interface CallCallbackPayload {
   call_delay_seconds?: number;
   chat_session_id?: string;
   source?: string;
+  /** Outbound AI voice gender (default female) */
+  voice_gender?: "female" | "male";
 }
 
 export interface CallCallbackResult {
   success: boolean;
+  scheduled?: boolean;
+  /** Call now deferred because another outbound call is active */
+  queued?: boolean;
+  queuePosition?: number;
+  /** Same phone + date + time already scheduled */
+  duplicateSchedule?: boolean;
   message?: string;
   formId?: string;
   callSid?: string;
@@ -50,6 +58,9 @@ export async function requestPhoneCallback(
         user_language: payload.language,
         userLanguage: payload.language,
         source: payload.source || "autonxt-website-chat",
+        voice_gender: payload.voice_gender ?? "female",
+        voiceGender: payload.voice_gender ?? "female",
+        action: "submitCallback",
       }),
     });
 
@@ -62,13 +73,25 @@ export async function requestPhoneCallback(
     }
 
     try {
-      const data = JSON.parse(text) as CallCallbackResult;
+      const data = JSON.parse(text) as CallCallbackResult & { error?: string };
+      const success =
+        data.success === true ||
+        (data.scheduled === true && data.success !== false) ||
+        data.queued === true;
       return {
-        success: data.success !== false,
+        success,
+        scheduled: data.scheduled,
+        queued: data.queued,
+        queuePosition: data.queuePosition,
+        duplicateSchedule: data.duplicateSchedule,
         message: data.message,
         formId: data.formId,
         callSid: data.callSid,
         route: data.route,
+        error:
+          data.error ||
+          (data.duplicateSchedule ? data.message : undefined) ||
+          (!success ? data.message : undefined),
       };
     } catch {
       return {

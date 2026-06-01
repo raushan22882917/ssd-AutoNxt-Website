@@ -13,6 +13,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { requestPhoneCallback } from "@/api/callCallback";
+import { isValidCallbackPhone, normalizePhoneForCallback } from "@/lib/phone";
 import { scheduleSalesMeeting } from "@/api/salesMeeting";
 import { sendSessionReportToSales } from "@/api/sessionReport";
 import { useLang } from "@/contexts/LanguageContext";
@@ -693,6 +694,7 @@ export default function StaticChatBot() {
       call_delay_seconds: isCallNow ? 0 : undefined,
       chat_session_id: getOrCreateSessionId(),
       source: "autonxt-website-chat",
+      voice_gender: "female",
     });
   };
 
@@ -719,6 +721,18 @@ export default function StaticChatBot() {
       return;
     }
 
+    const phone = normalizePhoneForCallback(customer_phone);
+    if (!isValidCallbackPhone(customer_phone)) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          text: "Please enter a valid phone with country code (e.g. **+91 9876543210**, **+1 5551234567**).",
+        },
+      ]);
+      return;
+    }
+
     if (schedule_mode === "scheduled" && !preferred_date.trim()) {
       setMessages((prev) => [
         ...prev,
@@ -728,17 +742,16 @@ export default function StaticChatBot() {
     }
 
     setShowCallForm(false);
-    appendSessionEvent("call_requested", `Call ${schedule_mode} to ${customer_phone}`, {
+    appendSessionEvent("call_requested", `Call ${schedule_mode} to ${phone}`, {
       language: callLanguage,
     });
     updateSessionProfile({
       name: customer_name,
       email: customer_email,
-      phone: customer_phone,
+      phone,
       language: callLanguage,
     });
 
-    const phone = customer_phone.trim();
     const payload = {
       customer_name: customer_name.trim(),
       customer_email: customer_email.trim() || "chat@autonxt.in",
@@ -755,7 +768,7 @@ export default function StaticChatBot() {
       setLoading(true);
       try {
         const result = await submitCallToN8n(payload);
-        if (!result.success) throw new Error(result.error);
+        if (!result.success) throw new Error(result.error || result.message || "Schedule failed");
         setMessages((prev) => [
           ...prev,
           {
@@ -768,12 +781,13 @@ export default function StaticChatBot() {
         setCallForm(emptyCallForm(callLanguage));
         appendSessionEvent("call_completed", result.message || "Scheduled call");
         await pushReportToSales("call_done", { call_sid: result.callSid });
-      } catch {
+      } catch (err) {
+        const detail = err instanceof Error ? err.message : "Please try again";
         setMessages((prev) => [
           ...prev,
           {
             role: "assistant",
-            text: "Could not save your scheduled call. Please call **+91 9067404606**.",
+            text: `Could not save your scheduled call. ${detail}\n\nPlease check your number and try again.`,
           },
         ]);
         setShowCallForm(true);
@@ -799,7 +813,13 @@ export default function StaticChatBot() {
       setLoading(true);
       try {
         const result = await submitCallToN8n(payload);
-        if (!result.success) throw new Error(result.error);
+        if (!result.success) {
+          throw new Error(
+            result.error ||
+              result.message ||
+              "Call could not be placed. Please check your phone number and try again."
+          );
+        }
         setMessages((prev) => [
           ...prev,
           {
@@ -812,12 +832,16 @@ export default function StaticChatBot() {
           callSid: result.callSid,
         });
         await pushReportToSales("call_done", { call_sid: result.callSid });
-      } catch {
+      } catch (err) {
+        const detail =
+          err instanceof Error && err.message
+            ? err.message
+            : "Network or server error";
         setMessages((prev) => [
           ...prev,
           {
             role: "assistant",
-            text: "Could not start your call. Please call **+91 9067404606** or try again.",
+            text: `Could not start your call. ${detail}\n\nPlease check your number (with country code) and try again.`,
           },
         ]);
         setShowCallForm(true);
