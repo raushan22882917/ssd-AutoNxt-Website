@@ -35,6 +35,28 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true,
+    proxy: {
+      "/api/n8n-form-callback": {
+        target: "https://autonxt.app.n8n.cloud",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (p) => p.replace(/^\/api\/n8n-form-callback/, "/webhook/autonxt-form-callback"),
+      },
+      "/api/n8n-schedule-meeting": {
+        target: "https://autonxt.app.n8n.cloud",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (p) =>
+          p.replace(/^\/api\/n8n-schedule-meeting/, "/webhook/autonxt-schedule-meeting"),
+      },
+      "/api/n8n-session-report": {
+        target: "https://autonxt.app.n8n.cloud",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (p) =>
+          p.replace(/^\/api\/n8n-session-report/, "/webhook/autonxt-session-report"),
+      },
+    },
   },
   preview: {
     port: 4173,

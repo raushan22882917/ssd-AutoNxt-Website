@@ -9,11 +9,43 @@ import {
   Send,
   Loader,
   Calendar,
+  PhoneCall,
+  RotateCcw,
 } from "lucide-react";
+import { requestPhoneCallback } from "@/api/callCallback";
+import { scheduleSalesMeeting } from "@/api/salesMeeting";
+import { sendSessionReportToSales } from "@/api/sessionReport";
+import { useLang } from "@/contexts/LanguageContext";
+import {
+  appendSessionEvent,
+  updateSessionProfile,
+  clearChatSession,
+  createChatSessionId,
+  CHAT_SESSION_ID_KEY,
+} from "@/lib/sessionLog";
+import {
+  detectLanguageFromText,
+  INDIAN_CALL_LANGUAGES,
+  normalizeIndianLanguageCode,
+  type IndianLanguageCode,
+} from "@/lib/indianLanguages";
+import {
+  aiSuggestsBooking,
+  detectChatIntent,
+  getIntentAssistantReply,
+  type ChatIntent,
+} from "@/lib/chatIntents";
 
 const logoImg = "/small-logo-white.png";
 const N8N_WEBHOOK_URL = "https://autonxt.app.n8n.cloud/webhook/1b0b4ec9-24d5-40e0-aced-f9d107f81a86/chat";
-const SESSION_STORAGE_KEY = "autonxt-ai-chat-session";
+const WELCOME_MESSAGE = `👋 AutoNxt AI में आपका स्वागत है / Welcome to AutoNxt AI
+
+मैं इलेक्ट्रिक ट्रैक्टर और स्मार्ट खेती के बारे में आपकी मदद करता हूँ।
+I help you explore electric tractors and smart agriculture.
+
+आप **हिंदी**, **English**, **मराठी**, या **தமிழ்** में पूछ सकते हैं — जिस भाषा में पूछेंगे, उसी में जवाब मिलेगा।
+
+नीचे **Call** (फोन), **Meet** (Google Meet), या **Demo** (साइट विज़िट) चुन सकते हैं — या सीधे लिखें: “कॉल करो”, “मीटिंग शेड्यूल”, “डेमो बुक”।`;
 
 interface Message {
   role: "user" | "assistant";
@@ -44,38 +76,63 @@ interface BookingFormData {
 
 const TRACTOR_MODELS = ["X45 C2", "H55C2", "X27H2"] as const;
 
-const BOOKING_INTENT_PATTERN =
-  /book|demo|schedule|call back|callback|test drive|site visit|बुक|डेमो|कॉल|मुलाकात/i;
+const CALL_NOW_DELAY_SECONDS = 10;
 
-function suggestsBookingForm(text: string): boolean {
-  return BOOKING_INTENT_PATTERN.test(text);
+function closeAllForms(setters: {
+  setShowCallForm: (v: boolean) => void;
+  setShowMeetingForm: (v: boolean) => void;
+  setShowBookingForm: (v: boolean) => void;
+}) {
+  setters.setShowCallForm(false);
+  setters.setShowMeetingForm(false);
+  setters.setShowBookingForm(false);
 }
 
-/** Detect Indian language from user text for n8n reply matching */
-function detectUserLanguage(text: string): string {
-  if (!text.trim()) return "en";
-  if (/[\u0900-\u097F]/.test(text)) return "hi";
-  if (/[\u0980-\u09FF]/.test(text)) return "bn";
-  if (/[\u0B80-\u0BFF]/.test(text)) return "ta";
-  if (/[\u0C00-\u0C7F]/.test(text)) return "te";
-  if (/[\u0A80-\u0AFF]/.test(text)) return "gu";
-  if (/[\u0C80-\u0CFF]/.test(text)) return "kn";
-  if (/[\u0D00-\u0D7F]/.test(text)) return "ml";
-  if (/[\u0A00-\u0A7F]/.test(text)) return "pa";
-  if (/[\u0B00-\u0B7F]/.test(text)) return "or";
-  return "en";
+function getCallFormPrompt(lang: string): string {
+  if (lang === "hi") {
+    return `कृपया नीचे फॉर्म भरें, **भाषा** चुनें, और **Submit** दबाएँ। **${CALL_NOW_DELAY_SECONDS} सेकंड** बाद हम आपकी चुनी भाषा में कॉल करेंगे।`;
+  }
+  return `Fill in the form below, choose your **language**, then tap **Submit**. We'll call you in **${CALL_NOW_DELAY_SECONDS} seconds** in that language.`;
+}
+
+function getScheduledCallPrompt(lang: string): string {
+  if (lang === "hi") {
+    return "कृपया फॉर्म भरें और तारीख/समय चुनें। हम निर्धारित समय पर कॉल करेंगे — तुरंत कॉल नहीं होगी।";
+  }
+  return "Fill in the form and pick a date & time. We'll call at your scheduled slot — no immediate call.";
+}
+
+function callQueuedMessage(phone: string, lang: string): string {
+  if (lang === "hi") {
+    return `✅ फॉर्म सबमिट हो गया। **${CALL_NOW_DELAY_SECONDS} सेकंड** में **${phone}** पर AutonXT कॉल करेगा।`;
+  }
+  return `✅ Form submitted. AutonXT will call **${phone}** in **${CALL_NOW_DELAY_SECONDS} seconds**.`;
+}
+
+function callScheduledMessage(date: string, time: string, lang: string): string {
+  const when = [date, time].filter(Boolean).join(" at ") || "your chosen time";
+  if (lang === "hi") {
+    return `✅ कॉल शेड्यूल हो गई: **${when}**। पुष्टि के लिए टीम संपर्क करेगी।`;
+  }
+  return `✅ Call scheduled for **${when}**. Our team will confirm shortly.`;
+}
+
+function languageLabel(code: IndianLanguageCode): string {
+  const row = INDIAN_CALL_LANGUAGES.find((l) => l.code === code);
+  return row ? `${row.native} (${row.label})` : code;
 }
 
 function getOrCreateSessionId(): string {
-  const existing = sessionStorage.getItem(SESSION_STORAGE_KEY);
+  const existing = sessionStorage.getItem(CHAT_SESSION_ID_KEY);
   if (existing) return existing;
 
-  const id =
-    typeof crypto !== "undefined" && "randomUUID" in crypto
-      ? crypto.randomUUID()
-      : `session-${Date.now()}`;
-  sessionStorage.setItem(SESSION_STORAGE_KEY, id);
+  const id = createChatSessionId();
+  sessionStorage.setItem(CHAT_SESSION_ID_KEY, id);
   return id;
+}
+
+function getWelcomeMessages(): Message[] {
+  return [{ role: "assistant", text: WELCOME_MESSAGE }];
 }
 
 function ChatMarkdown({ content }: { content: string }) {
@@ -188,32 +245,143 @@ const emptyBookingForm = (): BookingFormData => ({
   notes: "",
 });
 
+interface MeetingFormData {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  city: string;
+  tractor_model: string;
+  topic: string;
+  preferred_date: string;
+  preferred_time: string;
+  language: IndianLanguageCode;
+}
+
+interface CallFormData {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  request_type: "sales" | "support";
+  /** Language for AI phone call (user picks in form) */
+  language: IndianLanguageCode;
+  message: string;
+  preferred_date: string;
+  preferred_time: string;
+  schedule_mode: "now" | "scheduled";
+}
+
+const emptyMeetingForm = (defaultLang: IndianLanguageCode = "hi"): MeetingFormData => ({
+  customer_name: "",
+  customer_email: "",
+  customer_phone: "",
+  city: "",
+  tractor_model: "X45 C2",
+  topic: "Sales consultation — AutonXT electric tractors",
+  preferred_date: "",
+  preferred_time: "",
+  language: defaultLang,
+});
+
+const emptyCallForm = (defaultLang: IndianLanguageCode = "hi"): CallFormData => ({
+  customer_name: "",
+  customer_email: "",
+  customer_phone: "",
+  request_type: "support",
+  language: defaultLang,
+  message: "",
+  preferred_date: "",
+  preferred_time: "",
+  schedule_mode: "now",
+});
+
 export default function StaticChatBot() {
+  const { lang: siteLang } = useLang();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [showCallForm, setShowCallForm] = useState(false);
+  const [showMeetingForm, setShowMeetingForm] = useState(false);
   const [bookingForm, setBookingForm] = useState<BookingFormData>(emptyBookingForm);
-  const [userLanguage, setUserLanguage] = useState("en");
+  const [callForm, setCallForm] = useState<CallFormData>(() =>
+    emptyCallForm(normalizeIndianLanguageCode(siteLang))
+  );
+  const [meetingForm, setMeetingForm] = useState<MeetingFormData>(() =>
+    emptyMeetingForm(normalizeIndianLanguageCode(siteLang))
+  );
+  const [userLanguage, setUserLanguage] = useState<IndianLanguageCode>(() =>
+    normalizeIndianLanguageCode(siteLang)
+  );
+  const [callCountdown, setCallCountdown] = useState<number | null>(null);
   const lastUserMessageRef = useRef("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const callTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const callCountdownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      text: `👋 AutoNxt AI में आपका स्वागत है / Welcome to AutoNxt AI
-
-मैं इलेक्ट्रिक ट्रैक्टर और स्मार्ट खेती के बारे में आपकी मदद करता हूँ।
-I help you explore electric tractors and smart agriculture.
-
-आप **हिंदी**, **English**, या किसी भी भारतीय भाषा में पूछ सकते हैं — जिस भाषा में पूछेंगे, उसी में जवाब मिलेगा।`,
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>(getWelcomeMessages);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, showCallForm, showBookingForm, showMeetingForm, callCountdown]);
+
+  const pushReportToSales = async (
+    trigger: "chat_close" | "call_done" | "booking_done" | "meeting_done",
+    extra?: {
+      meet_link?: string;
+      booking_id?: string;
+      call_sid?: string;
+      meeting_id?: string;
+    }
+  ) => {
+    try {
+      await sendSessionReportToSales({
+        session_id: getOrCreateSessionId(),
+        customer_name: meetingForm.customer_name || callForm.customer_name || bookingForm.customer_name,
+        customer_email: meetingForm.customer_email || callForm.customer_email || bookingForm.customer_email,
+        customer_phone: meetingForm.customer_phone || callForm.customer_phone || bookingForm.customer_phone,
+        language: userLanguage,
+        trigger,
+        ...extra,
+      });
+    } catch (e) {
+      console.warn("Session report failed", e);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (callTimeoutRef.current) clearTimeout(callTimeoutRef.current);
+      if (callCountdownIntervalRef.current) clearInterval(callCountdownIntervalRef.current);
+    };
+  }, []);
+
+  const clearCallTimers = () => {
+    if (callTimeoutRef.current) {
+      clearTimeout(callTimeoutRef.current);
+      callTimeoutRef.current = null;
+    }
+    if (callCountdownIntervalRef.current) {
+      clearInterval(callCountdownIntervalRef.current);
+      callCountdownIntervalRef.current = null;
+    }
+    setCallCountdown(null);
+  };
+
+  const startCallCountdown = (seconds: number, onComplete: () => void) => {
+    clearCallTimers();
+    setCallCountdown(seconds);
+    callCountdownIntervalRef.current = setInterval(() => {
+      setCallCountdown((prev) => {
+        if (prev === null || prev <= 1) return null;
+        return prev - 1;
+      });
+    }, 1000);
+    callTimeoutRef.current = setTimeout(() => {
+      clearCallTimers();
+      onComplete();
+    }, seconds * 1000);
+  };
 
   const parseN8nReply = (data: N8nChatResponse, fallbackText: string): string => {
     return (
@@ -248,7 +416,14 @@ I help you explore electric tractors and smart agriculture.
       const responseText = await response.text();
 
       if (!response.ok) {
-        throw new Error(`n8n webhook error: ${response.status} ${responseText}`);
+        let detail = responseText.slice(0, 200);
+        try {
+          const errJson = JSON.parse(responseText) as { message?: string };
+          if (errJson.message) detail = errJson.message;
+        } catch {
+          /* plain text */
+        }
+        throw new Error(`Chat service error (${response.status}): ${detail}`);
       }
 
       let data: N8nChatResponse = {};
@@ -263,16 +438,81 @@ I help you explore electric tractors and smart agriculture.
         "I received your message but couldn't generate a reply. Please try again."
       );
 
-      if (suggestsBookingForm(reply)) {
+      if (aiSuggestsBooking(reply)) {
         setShowBookingForm(true);
+        setShowCallForm(false);
+        setShowMeetingForm(false);
       }
 
       return reply;
     } catch (error) {
       console.error("Error sending to n8n:", error);
-      return "Sorry, I'm having trouble connecting. Please try again or contact our team directly.";
+      const detail =
+        error instanceof Error && error.message.includes("Chat service")
+          ? error.message.replace(/^Error: /, "")
+          : null;
+      return detail
+        ? `Sorry, chat is temporarily unavailable (${detail}). You can still use **Call**, **Meet**, or **Demo** below.`
+        : "Sorry, I'm having trouble connecting. Use **Call**, **Meet**, or **Demo** below, or try again in a moment.";
     } finally {
       setLoading(false);
+    }
+  };
+
+  const applyIntent = (intent: ChatIntent, trimmed: string, lang: IndianLanguageCode) => {
+    closeAllForms({
+      setShowCallForm,
+      setShowMeetingForm,
+      setShowBookingForm,
+    });
+
+    switch (intent) {
+      case "meeting":
+        setShowMeetingForm(true);
+        setMeetingForm((f) => ({
+          ...f,
+          language: lang,
+          topic: f.topic || trimmed,
+        }));
+        break;
+      case "call_now":
+        setShowCallForm(true);
+        setCallForm((f) => ({
+          ...f,
+          language: lang,
+          message: f.message || trimmed,
+          schedule_mode: "now",
+        }));
+        break;
+      case "call_scheduled":
+        setShowCallForm(true);
+        setCallForm((f) => ({
+          ...f,
+          language: lang,
+          message: f.message || trimmed,
+          schedule_mode: "scheduled",
+        }));
+        break;
+      case "booking":
+        setShowBookingForm(true);
+        setBookingForm((f) => ({
+          ...f,
+          notes: f.notes || trimmed,
+        }));
+        break;
+      case "chat":
+      default:
+        break;
+    }
+
+    if (intent !== "chat") {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          text: getIntentAssistantReply(intent, lang, CALL_NOW_DELAY_SECONDS),
+        },
+      ]);
     }
   };
 
@@ -280,30 +520,311 @@ I help you explore electric tractors and smart agriculture.
     if (!userInput.trim()) return;
 
     const trimmed = userInput.trim();
-    const lang = detectUserLanguage(trimmed);
+    const lang = detectLanguageFromText(trimmed);
     setUserLanguage(lang);
     lastUserMessageRef.current = trimmed;
 
-    const updatedMessages: Message[] = [
-      ...messages,
-      {
-        role: "user",
-        text: trimmed,
-      },
-    ];
+    appendSessionEvent("chat_user", trimmed);
 
-    setMessages(updatedMessages);
+    setMessages((prev) => [...prev, { role: "user", text: trimmed }]);
     setUserInput("");
 
-    // Send to n8n webhook
-    const aiResponse = await sendToN8N(trimmed);
+    const intent = detectChatIntent(trimmed);
 
-    updatedMessages.push({
-      role: "assistant",
-      text: aiResponse,
+    if (intent !== "chat") {
+      applyIntent(intent, trimmed, lang);
+      return;
+    }
+
+    // General questions → n8n Gemini chat (no call/meet/booking forms)
+    closeAllForms({
+      setShowCallForm,
+      setShowMeetingForm,
+      setShowBookingForm,
     });
 
-    setMessages(updatedMessages);
+    const aiResponse = await sendToN8N(trimmed);
+    appendSessionEvent("chat_assistant", aiResponse);
+    setMessages((prev) => [...prev, { role: "assistant", text: aiResponse }]);
+  };
+
+  const submitMeetingForm = async () => {
+    const f = meetingForm;
+    if (!f.customer_name.trim() || !f.customer_email.trim() || !f.customer_phone.trim()) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", text: "Please enter **name**, **email**, and **phone** for the meeting." },
+      ]);
+      return;
+    }
+    if (!f.preferred_date.trim() || !f.preferred_time.trim()) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", text: "Please pick **date** and **time** for the sales meeting." },
+      ]);
+      return;
+    }
+
+    setUserLanguage(f.language);
+    updateSessionProfile({
+      name: f.customer_name,
+      email: f.customer_email,
+      phone: f.customer_phone,
+      language: f.language,
+    });
+    setShowMeetingForm(false);
+    setLoading(true);
+
+    try {
+      const result = await scheduleSalesMeeting({
+        customer_name: f.customer_name.trim(),
+        customer_email: f.customer_email.trim(),
+        customer_phone: f.customer_phone.trim(),
+        city: f.city.trim(),
+        tractor_model: f.tractor_model,
+        topic: f.topic.trim(),
+        preferred_date: f.preferred_date,
+        preferred_time: f.preferred_time,
+        language: f.language,
+        chat_session_id: getOrCreateSessionId(),
+      });
+
+      if (!result.success) throw new Error(result.error);
+
+      const meetLine = result.meetLink
+        ? `\n\n**Google Meet:** ${result.meetLink}`
+        : "\n\nCheck your email for the Google Meet invite.";
+
+      const reply =
+        (result.message || "Meeting scheduled with AutonXT sales.") +
+        meetLine +
+        (result.meetingId ? `\n\n**Reference:** ${result.meetingId}` : "");
+
+      appendSessionEvent("meeting_scheduled", reply, {
+        meetingId: result.meetingId,
+        meetLink: result.meetLink,
+      });
+
+      setMessages((prev) => [...prev, { role: "assistant", text: reply }]);
+      setMeetingForm(emptyMeetingForm(f.language));
+      await pushReportToSales("meeting_done", {
+        meet_link: result.meetLink,
+        meeting_id: result.meetingId,
+      });
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          text: "Could not schedule the meeting. Email **sales@autonxt.in** or try again.",
+        },
+      ]);
+      setShowMeetingForm(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const openMeetingForm = () => {
+    closeAllForms({ setShowCallForm, setShowMeetingForm, setShowBookingForm });
+    setShowMeetingForm(true);
+    setMeetingForm((f) => ({ ...f, language: userLanguage }));
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "assistant",
+        text:
+          userLanguage === "hi"
+            ? "Google Meet पर सेल्स टीम से मिलने के लिए फॉर्म भरें।"
+            : "Schedule a **Google Meet** with our sales team using the form below.",
+      },
+    ]);
+  };
+
+  const openCallForm = (mode: "now" | "scheduled" = "now") => {
+    closeAllForms({ setShowCallForm, setShowMeetingForm, setShowBookingForm });
+    setShowCallForm(true);
+    setCallForm((f) => ({
+      ...f,
+      language: userLanguage,
+      schedule_mode: mode,
+      message: f.message || lastUserMessageRef.current || "Support from website chat",
+    }));
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "assistant",
+        text: mode === "scheduled" ? getScheduledCallPrompt(userLanguage) : getCallFormPrompt(userLanguage),
+      },
+    ]);
+  };
+
+  const submitCallToN8n = async (payload: {
+    customer_name: string;
+    customer_email: string;
+    customer_phone: string;
+    request_type: "sales" | "support";
+    language: IndianLanguageCode;
+    message: string;
+    schedule_mode: "now" | "scheduled";
+    preferred_date?: string;
+    preferred_time?: string;
+  }) => {
+    const isCallNow = payload.schedule_mode === "now";
+    const fullMessage = [
+      payload.message,
+      isCallNow
+        ? "Immediate callback from website chat"
+        : `Scheduled callback: ${payload.preferred_date || ""} ${payload.preferred_time || ""}`.trim(),
+    ]
+      .filter(Boolean)
+      .join(" | ");
+
+    return requestPhoneCallback({
+      customer_name: payload.customer_name,
+      customer_email: payload.customer_email,
+      customer_phone: payload.customer_phone,
+      request_type: payload.request_type,
+      language: payload.language,
+      message: fullMessage,
+      preferred_date: payload.preferred_date,
+      preferred_time: payload.preferred_time,
+      schedule_mode: payload.schedule_mode,
+      call_delay_seconds: isCallNow ? 0 : undefined,
+      chat_session_id: getOrCreateSessionId(),
+      source: "autonxt-website-chat",
+    });
+  };
+
+  const submitCallForm = async () => {
+    const {
+      customer_name,
+      customer_email,
+      customer_phone,
+      request_type,
+      language: callLanguage,
+      message,
+      schedule_mode,
+      preferred_date,
+      preferred_time,
+    } = callForm;
+
+    setUserLanguage(callLanguage);
+
+    if (!customer_name.trim() || !customer_phone.trim()) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", text: "Please enter **name** and **phone** to receive a call." },
+      ]);
+      return;
+    }
+
+    if (schedule_mode === "scheduled" && !preferred_date.trim()) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", text: "Please pick a **date** for your scheduled call." },
+      ]);
+      return;
+    }
+
+    setShowCallForm(false);
+    appendSessionEvent("call_requested", `Call ${schedule_mode} to ${customer_phone}`, {
+      language: callLanguage,
+    });
+    updateSessionProfile({
+      name: customer_name,
+      email: customer_email,
+      phone: customer_phone,
+      language: callLanguage,
+    });
+
+    const phone = customer_phone.trim();
+    const payload = {
+      customer_name: customer_name.trim(),
+      customer_email: customer_email.trim() || "chat@autonxt.in",
+      customer_phone: phone,
+      request_type,
+      language: callLanguage,
+      message: message || lastUserMessageRef.current || "Support from website chat",
+      schedule_mode: schedule_mode as "now" | "scheduled",
+      preferred_date: schedule_mode === "scheduled" ? preferred_date : undefined,
+      preferred_time: schedule_mode === "scheduled" ? preferred_time : undefined,
+    };
+
+    if (schedule_mode === "scheduled") {
+      setLoading(true);
+      try {
+        const result = await submitCallToN8n(payload);
+        if (!result.success) throw new Error(result.error);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            text:
+              result.message ||
+              callScheduledMessage(preferred_date, preferred_time, callLanguage),
+          },
+        ]);
+        setCallForm(emptyCallForm(callLanguage));
+        appendSessionEvent("call_completed", result.message || "Scheduled call");
+        await pushReportToSales("call_done", { call_sid: result.callSid });
+      } catch {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            text: "Could not save your scheduled call. Please call **+91 9067404606**.",
+          },
+        ]);
+        setShowCallForm(true);
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
+    // Call now: 10s countdown, then POST to n8n → Twilio outbound in selected language
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "assistant",
+        text:
+          callLanguage === "hi"
+            ? `✅ फॉर्म सबमिट। **${CALL_NOW_DELAY_SECONDS} सेकंड** में **${phone}** पर **${languageLabel(callLanguage)}** में कॉल शुरू होगी…`
+            : `✅ Form received. Calling **${phone}** in **${languageLabel(callLanguage)}** in **${CALL_NOW_DELAY_SECONDS} seconds**…`,
+      },
+    ]);
+
+    startCallCountdown(CALL_NOW_DELAY_SECONDS, async () => {
+      setLoading(true);
+      try {
+        const result = await submitCallToN8n(payload);
+        if (!result.success) throw new Error(result.error);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            text: result.message || callQueuedMessage(phone, callLanguage),
+          },
+        ]);
+        setCallForm(emptyCallForm(callLanguage));
+        appendSessionEvent("call_completed", result.message || callQueuedMessage(phone, callLanguage), {
+          callSid: result.callSid,
+        });
+        await pushReportToSales("call_done", { call_sid: result.callSid });
+      } catch {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            text: "Could not start your call. Please call **+91 9067404606** or try again.",
+          },
+        ]);
+        setShowCallForm(true);
+      } finally {
+        setLoading(false);
+      }
+    });
   };
 
   const submitBookingForm = async () => {
@@ -363,8 +884,16 @@ I help you explore electric tractors and smart agriculture.
         "Thank you! Your booking was submitted. Our sales team will contact you soon."
       );
 
+      appendSessionEvent("booking_submitted", reply, { bookingId: data.bookingId });
       setMessages((prev) => [...prev, { role: "assistant", text: reply }]);
       setBookingForm(emptyBookingForm());
+      updateSessionProfile({
+        name: customer_name,
+        email: customer_email,
+        phone: customer_phone,
+        language: userLanguage,
+      });
+      await pushReportToSales("booking_done", { booking_id: data.bookingId });
     } catch (error) {
       console.error("Booking submit error:", error);
       setMessages((prev) => [
@@ -381,6 +910,7 @@ I help you explore electric tractors and smart agriculture.
   };
 
   const openBookingForm = () => {
+    closeAllForms({ setShowCallForm, setShowMeetingForm, setShowBookingForm });
     setShowBookingForm(true);
     const formHint =
       userLanguage === "hi"
@@ -389,11 +919,40 @@ I help you explore electric tractors and smart agriculture.
     setMessages((prev) => [...prev, { role: "assistant", text: formHint }]);
   };
 
+  const handleClearSession = () => {
+    const confirmMsg =
+      userLanguage === "hi"
+        ? "चैट, फॉर्म और सेशन डेटा साफ करें? नई बातचीत शुरू होगी।"
+        : "Clear chat, forms, and session data? A new conversation will start.";
+    if (!window.confirm(confirmMsg)) return;
+
+    clearCallTimers();
+    clearChatSession();
+    setLoading(false);
+    setUserInput("");
+    setShowBookingForm(false);
+    setShowCallForm(false);
+    setShowMeetingForm(false);
+    setBookingForm(emptyBookingForm());
+    setCallForm(emptyCallForm(normalizeIndianLanguageCode(siteLang)));
+    setMeetingForm(emptyMeetingForm(normalizeIndianLanguageCode(siteLang)));
+    setUserLanguage(normalizeIndianLanguageCode(siteLang));
+    lastUserMessageRef.current = "";
+    setMessages(getWelcomeMessages());
+  };
+
   return (
     <>
       {/* FLOATING BUTTON */}
       <motion.button
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          if (open) {
+            void pushReportToSales("chat_close");
+            setOpen(false);
+          } else {
+            setOpen(true);
+          }
+        }}
         className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-black flex items-center justify-center shadow-2xl"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -472,13 +1031,33 @@ I help you explore electric tractors and smart agriculture.
                   </div>
                 </div>
 
-                {/* Close */}
-                <button
-                  onClick={() => setOpen(false)}
-                  className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 transition-all"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={handleClearSession}
+                    disabled={loading || callCountdown !== null}
+                    title={
+                      userLanguage === "hi" ? "सेशन साफ करें" : "Clear session"
+                    }
+                    aria-label={
+                      userLanguage === "hi" ? "सेशन साफ करें" : "Clear session"
+                    }
+                    className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 transition-all disabled:opacity-40"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      void pushReportToSales("chat_close");
+                      setOpen(false);
+                    }}
+                    className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 transition-all"
+                    aria-label="Close chat"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -522,8 +1101,26 @@ I help you explore electric tractors and smart agriculture.
                 );
               })}
 
+              {/* Outbound call countdown */}
+              {callCountdown !== null && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex justify-start"
+                >
+                  <div className="bg-red-50 border border-red-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+                    <div className="flex items-center gap-2">
+                      <PhoneCall className="w-4 h-4 text-red-600" />
+                      <span className="text-sm text-red-800 font-medium">
+                        Calling in {callCountdown}s…
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
               {/* Loading indicator */}
-              {loading && (
+              {loading && callCountdown === null && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -541,7 +1138,162 @@ I help you explore electric tractors and smart agriculture.
               <div ref={messagesEndRef} />
             </div>
 
+            {showCallForm && (
+              <div className="border-t border-gray-200 bg-gray-50 px-4 py-3 space-y-2 max-h-[260px] overflow-y-auto">
+                <p className="text-xs font-semibold text-gray-800 uppercase tracking-wide">Phone support</p>
+                <div className="flex gap-2">
+                  <button type="button" onClick={() => setCallForm((f) => ({ ...f, schedule_mode: "now" }))} className={`flex-1 py-1.5 rounded-lg text-xs font-medium ${callForm.schedule_mode === "now" ? "bg-red-600 text-white" : "border border-gray-200"}`}>Call now</button>
+                  <button type="button" onClick={() => setCallForm((f) => ({ ...f, schedule_mode: "scheduled" }))} className={`flex-1 py-1.5 rounded-lg text-xs font-medium ${callForm.schedule_mode === "scheduled" ? "bg-red-600 text-white" : "border border-gray-200"}`}>Schedule</button>
+                </div>
+                <input type="text" placeholder="Name *" value={callForm.customer_name} onChange={(e) => setCallForm((f) => ({ ...f, customer_name: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
+                <input type="tel" placeholder="Mobile *" value={callForm.customer_phone} onChange={(e) => setCallForm((f) => ({ ...f, customer_phone: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
+                <input type="email" placeholder="Email" value={callForm.customer_email} onChange={(e) => setCallForm((f) => ({ ...f, customer_email: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
+                <select
+                  value={callForm.language}
+                  onChange={(e) =>
+                    setCallForm((f) => ({
+                      ...f,
+                      language: normalizeIndianLanguageCode(e.target.value),
+                    }))
+                  }
+                  className="w-full px-2.5 py-1.5 rounded-lg border text-xs bg-white"
+                  aria-label="Call language"
+                >
+                  {INDIAN_CALL_LANGUAGES.map((l) => (
+                    <option key={l.code} value={l.code}>
+                      {l.native} — {l.label}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-[10px] text-gray-500 leading-snug">
+                  AI will call you and speak in the language you select above.
+                </p>
+                <select value={callForm.request_type} onChange={(e) => setCallForm((f) => ({ ...f, request_type: e.target.value as "sales" | "support" }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs bg-white">
+                  <option value="support">Technical support</option>
+                  <option value="sales">Sales / demo</option>
+                </select>
+                {callForm.schedule_mode === "scheduled" && (
+                  <div className="grid grid-cols-2 gap-2">
+                    <input type="date" value={callForm.preferred_date} onChange={(e) => setCallForm((f) => ({ ...f, preferred_date: e.target.value }))} className="px-2.5 py-1.5 rounded-lg border text-xs" />
+                    <input type="time" value={callForm.preferred_time} onChange={(e) => setCallForm((f) => ({ ...f, preferred_time: e.target.value }))} className="px-2.5 py-1.5 rounded-lg border text-xs" />
+                  </div>
+                )}
+                <textarea placeholder="What do you need help with?" value={callForm.message} onChange={(e) => setCallForm((f) => ({ ...f, message: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs min-h-[48px]" />
+                <div className="flex gap-2">
+                  <button type="button" onClick={submitCallForm} disabled={loading || callCountdown !== null} className="flex-1 py-2 rounded-lg bg-red-600 text-white text-xs font-semibold disabled:opacity-50">{callForm.schedule_mode === "now" ? "Submit & call in 10s" : "Schedule call"}</button>
+                  <button type="button" onClick={() => setShowCallForm(false)} className="px-3 py-2 rounded-lg border text-xs">Cancel</button>
+                </div>
+              </div>
+            )}
+
             {/* BOOKING FORM */}
+            {showMeetingForm && (
+              <div className="border-t border-gray-200 bg-blue-50/50 px-4 py-3 space-y-2 max-h-[280px] overflow-y-auto">
+                <p className="text-xs font-semibold text-blue-900 uppercase tracking-wide">
+                  Schedule Google Meet — sales team
+                </p>
+                <input
+                  type="text"
+                  placeholder="Full name *"
+                  value={meetingForm.customer_name}
+                  onChange={(e) => setMeetingForm((f) => ({ ...f, customer_name: e.target.value }))}
+                  className="w-full px-2.5 py-1.5 rounded-lg border text-xs"
+                />
+                <input
+                  type="email"
+                  placeholder="Email *"
+                  value={meetingForm.customer_email}
+                  onChange={(e) => setMeetingForm((f) => ({ ...f, customer_email: e.target.value }))}
+                  className="w-full px-2.5 py-1.5 rounded-lg border text-xs"
+                />
+                <input
+                  type="tel"
+                  placeholder="Mobile *"
+                  value={meetingForm.customer_phone}
+                  onChange={(e) => setMeetingForm((f) => ({ ...f, customer_phone: e.target.value }))}
+                  className="w-full px-2.5 py-1.5 rounded-lg border text-xs"
+                />
+                <select
+                  value={meetingForm.language}
+                  onChange={(e) =>
+                    setMeetingForm((f) => ({
+                      ...f,
+                      language: normalizeIndianLanguageCode(e.target.value),
+                    }))
+                  }
+                  className="w-full px-2.5 py-1.5 rounded-lg border text-xs bg-white"
+                >
+                  {INDIAN_CALL_LANGUAGES.map((l) => (
+                    <option key={l.code} value={l.code}>
+                      Meeting language: {l.native}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={meetingForm.tractor_model}
+                  onChange={(e) => setMeetingForm((f) => ({ ...f, tractor_model: e.target.value }))}
+                  className="w-full px-2.5 py-1.5 rounded-lg border text-xs bg-white"
+                >
+                  {TRACTOR_MODELS.map((m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  placeholder="City"
+                  value={meetingForm.city}
+                  onChange={(e) => setMeetingForm((f) => ({ ...f, city: e.target.value }))}
+                  className="w-full px-2.5 py-1.5 rounded-lg border text-xs"
+                />
+                <p className="text-[10px] text-blue-800">
+                  Sales meetings: Mon–Sat 10:00 AM – 5:00 PM IST. If your slot is busy, the next free slot is booked automatically.
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  <input
+                    type="date"
+                    value={meetingForm.preferred_date}
+                    min={new Date().toISOString().slice(0, 10)}
+                    onChange={(e) => setMeetingForm((f) => ({ ...f, preferred_date: e.target.value }))}
+                    className="px-2.5 py-1.5 rounded-lg border text-xs"
+                  />
+                  <input
+                    type="time"
+                    value={meetingForm.preferred_time}
+                    min="10:00"
+                    max="16:30"
+                    step={1800}
+                    onChange={(e) => setMeetingForm((f) => ({ ...f, preferred_time: e.target.value }))}
+                    className="px-2.5 py-1.5 rounded-lg border text-xs"
+                  />
+                </div>
+                <textarea
+                  placeholder="What would you like to discuss? *"
+                  value={meetingForm.topic}
+                  onChange={(e) => setMeetingForm((f) => ({ ...f, topic: e.target.value }))}
+                  className="w-full px-2.5 py-1.5 rounded-lg border text-xs min-h-[48px]"
+                />
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={submitMeetingForm}
+                    disabled={loading}
+                    className="flex-1 py-2 rounded-lg bg-blue-700 text-white text-xs font-semibold disabled:opacity-50"
+                  >
+                    Schedule meeting
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowMeetingForm(false)}
+                    className="px-3 py-2 rounded-lg border text-xs"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
             {showBookingForm && (
               <div className="border-t border-red-100 bg-red-50/40 px-4 py-3 space-y-2 max-h-[240px] overflow-y-auto">
                 <p className="text-xs font-semibold text-red-700 uppercase tracking-wide">
@@ -641,15 +1393,20 @@ I help you explore electric tractors and smart agriculture.
 
             {/* FOOTER */}
             <div className="border-t border-gray-100 bg-white px-4 py-3 space-y-3">
-              <button
-                type="button"
-                onClick={openBookingForm}
-                disabled={loading}
-                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg border border-red-200 bg-red-50 text-red-700 text-xs font-semibold hover:bg-red-100 disabled:opacity-50"
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                Book demo / Schedule call
-              </button>
+              <div className="grid grid-cols-3 gap-1.5">
+                <button type="button" onClick={() => openCallForm("now")} disabled={loading} className="flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg bg-red-600 text-white text-[10px] font-semibold hover:bg-red-700 disabled:opacity-50">
+                  <PhoneCall className="w-3.5 h-3.5" />
+                  Call
+                </button>
+                <button type="button" onClick={openMeetingForm} disabled={loading} className="flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg bg-blue-700 text-white text-[10px] font-semibold hover:bg-blue-800 disabled:opacity-50">
+                  <Calendar className="w-3.5 h-3.5" />
+                  Meet
+                </button>
+                <button type="button" onClick={openBookingForm} disabled={loading} className="flex flex-col items-center justify-center gap-0.5 py-2 rounded-lg border border-red-200 bg-red-50 text-red-700 text-[10px] font-semibold hover:bg-red-100 disabled:opacity-50">
+                  <Calendar className="w-3.5 h-3.5" />
+                  Demo
+                </button>
+              </div>
               {/* Text Input */}
               <div className="flex items-center gap-2">
                 <input
