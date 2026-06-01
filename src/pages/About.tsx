@@ -38,58 +38,60 @@ const fieldImg4 = "/images/events/event-4.jpg";
 const fieldImg5 = "/images/events/event-5.jpg";
 const fieldImg6 = "/images/events/event-6.jpg";
 
-const TEAM = [
-  { name: "Kaustubh Dhonde", role: "Chief Executive Officer", img: kaustubhImg, bio: "Visionary leader driving AutoNxt's mission to revolutionize agriculture with innovative electric vehicle solutions.", featured: true },
-  { name: "Pankaj Goyal", role: "Co-Founder & COO", img: pankajImg, bio: "Operational strategist ensuring seamless execution and growth, overseeing day-to-day operations and partnerships.", featured: true },
-  { name: "Hari Kishan", role: "Plant Head", img: harikishan, bio: "Oversees plant operations, ensuring quality and efficiency in every tractor produced." },
-  { name: "Sudipto Deb", role: "Lead Power Train Engineer", img: sudiptoImg, bio: "Expert in power electronics, responsible for designing and optimizing the electrical systems powering our tractors." },
-  { name: "Vamsi Atluri", role: "Lead Mechanical Design Engineer", img: vamsiImg, bio: "Mechanical design innovator, crafting robust and efficient tractor structures for diverse agricultural needs." },
-  { name: "Dr. Dharmateja Adapa", role: "Lead Robotics Engineer", img: dharmateja, bio: "Automation expert focused on integrating smart technologies for seamless and reliable tractor performance." },
-  { name: "Tejesh Madireddy", role: "Lead Embedded Engineer", img: tejashImg, bio: "Leads embedded systems development, ensuring reliable and efficient hardware-software integration." },
-  { name: "Siddhant Singhal", role: "Lead Software Developer", img: siddhantImg, bio: "Heads software development, building robust and scalable solutions for autonomous tractors." },
-  { name: "Aswanth Mulupuri", role: "Robotics & Automation Engineer", img: saiImg, bio: "Specialist in automation, developing advanced control systems for autonomous tractor operation." },
-  { name: "Ajinkya Delvi", role: "Power Train Engineer", img: ajinkyaImg, bio: "Works on power train systems, optimizing performance and efficiency." },
-  { name: "Khushpreet Singh", role: "Testing & Validation Engineer", img: khushpreetImg, bio: "Responsible for rigorous testing and validation, guaranteeing the reliability and safety of our products." },
-  { name: "Avinash Singh", role: "Business Development Manager", img: shantanuImg, bio: "Focused on identifying new opportunities and fostering relationships to accelerate company expansion." },
-  { name: "Maneesh Dubey", role: "Business Development Manager", img: manishImg, bio: "Drives business growth by building strategic partnerships and expanding AutoNxt's market presence." },
-  { name: "Swapnesh Jahagirdar", role: "Business Development Manager", img: swapneshImg, bio: "Focused on identifying new opportunities and fostering relationships to accelerate company expansion." },
-  { name: "Harender Chauhan", role: "Service Manager", img: harendar, bio: "Ensures top-notch service and support for all customers and partners." },
-  { name: "Rajinder Parkash Sharma", role: "Plant Manager", img: rajinder, bio: "Oversees manufacturing operations, ensuring quality and efficiency in every tractor produced." },
-];
-
-const ADVISORS = [
-  { name: "IV-Rao", role: "Senior Advisor", img: ivRao, bio: "Together, we challenge ourselves for a better tomorrow through meaningful designs and lasting relevance." },
-  { name: "Ashish Mehta", role: "Financial Advisor", img: ashishImg, bio: "Contemporary design and well-made products are things that everyone should benefit from — driving what we do." },
-  { name: "Swadeep Pillarisetti", role: "Strategy Consultant", img: swadeepImg, bio: "Our collection is ever-evolving yet consistently relatable. Our purpose is to inspire and help showcase the look you want." },
-];
-
-const JOURNEY = [
-  { year: "2016", title: "Foundation", desc: "AutoNxt Automation Pvt. Ltd. was founded by Kaustubh Dhonde in Mumbai with a vision to revolutionize agriculture and industrial operations through electric and autonomous tractors." },
-  { year: "2018–19", title: "Research & Early Prototypes", desc: "Extensive R&D on high-torque electric powertrains and intelligent control systems. AutoNxt successfully built and tested early prototypes, proving the feasibility of replacing diesel with electric technology." },
-  { year: "2020–21", title: "Innovation & Development", desc: "Enhanced prototypes with smarter vehicle control units and IoT-based monitoring. Expanded the engineering team and strengthened partnerships for component development and testing." },
-  { year: "2022–23", title: "Validation & Certification", desc: "Electric tractors underwent rigorous performance and safety testing. Received certifications from iCAT (International Centre for Automotive Technology), finalizing 20 HP, 35 HP, and 45 HP variants." },
-  { year: "2024", title: "Commercial Launch", desc: "AutoNxt officially launched the X45H2 in Thane, Maharashtra. First unit delivered to Jaywant Sugars Ltd. — establishing AutoNxt as India's pioneer in the electric tractor ecosystem." },
-  { year: "2025+", title: "Growth & Expansion", desc: "Expanding production capabilities and customer base across agricultural and industrial sectors. Advancing autonomous driving, smart connectivity, and next-generation battery systems." },
-];
-
-const PROCESS = [
-  { step: "01", title: "Define", desc: "Define requirements for the electric self-driving tractors — gathering field insights and engineering constraints." },
-  { step: "02", title: "Design", desc: "Create 3D models and schematics, select components such as motor, battery, and sensors, and design the autonomous driving system." },
-  { step: "03", title: "Develop", desc: "Build physical components including the chassis, motor, battery, sensors, and autonomous driving system." },
-  { step: "04", title: "Test", desc: "Test performance in a variety of conditions — different terrains, weather conditions, and driving scenarios across India." },
-  { step: "05", title: "Refine", desc: "Based on test results, adjust components, fine-tune software algorithms, or make changes to the user interface." },
-  { step: "06", title: "Manufacture", desc: "Set up the manufacturing process, source components, and develop a distribution network for scale." },
-];
-
-const VALUES = [
-  { icon: Users, title: "Customer First", desc: "We prioritize our customers' needs and satisfaction above all else.", color: "text-primary", bg: "bg-primary/8", border: "border-primary/20" },
-  { icon: Lightbulb, title: "Innovation", desc: "Constantly pushing boundaries in electric vehicle technology.", color: "text-accent", bg: "bg-accent/8", border: "border-accent/20" },
-  { icon: Award, title: "Excellence", desc: "Committed to delivering the highest quality products and services.", color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-200" },
-  { icon: Leaf, title: "Sustainability", desc: "Dedicated to creating a greener future for agriculture.", color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-200" },
-];
-
 export default function About() {
   const { t } = useLang();
+
+  const teamFromT = t.aboutPage.team;
+  const TEAM = [
+    { name: teamFromT[0].name, role: teamFromT[0].role, img: kaustubhImg, bio: teamFromT[0].bio, featured: true },
+    { name: teamFromT[1].name, role: teamFromT[1].role, img: pankajImg, bio: teamFromT[1].bio, featured: true },
+    { name: teamFromT[2].name, role: teamFromT[2].role, img: harikishan, bio: teamFromT[2].bio },
+    { name: teamFromT[3].name, role: teamFromT[3].role, img: sudiptoImg, bio: teamFromT[3].bio },
+    { name: teamFromT[4].name, role: teamFromT[4].role, img: vamsiImg, bio: teamFromT[4].bio },
+    { name: teamFromT[5].name, role: teamFromT[5].role, img: dharmateja, bio: teamFromT[5].bio },
+    { name: teamFromT[6].name, role: teamFromT[6].role, img: tejashImg, bio: teamFromT[6].bio },
+    { name: teamFromT[7].name, role: teamFromT[7].role, img: siddhantImg, bio: teamFromT[7].bio },
+    { name: teamFromT[8].name, role: teamFromT[8].role, img: saiImg, bio: teamFromT[8].bio },
+    { name: teamFromT[9].name, role: teamFromT[9].role, img: ajinkyaImg, bio: teamFromT[9].bio },
+    { name: teamFromT[10].name, role: teamFromT[10].role, img: khushpreetImg, bio: teamFromT[10].bio },
+    { name: teamFromT[11].name, role: teamFromT[11].role, img: shantanuImg, bio: teamFromT[11].bio },
+    { name: teamFromT[12].name, role: teamFromT[12].role, img: manishImg, bio: teamFromT[12].bio },
+    { name: teamFromT[13].name, role: teamFromT[13].role, img: swapneshImg, bio: teamFromT[13].bio },
+    { name: teamFromT[14].name, role: teamFromT[14].role, img: harendar, bio: teamFromT[14].bio },
+    { name: teamFromT[15].name, role: teamFromT[15].role, img: rajinder, bio: teamFromT[15].bio },
+  ];
+
+  const advisorsFromT = t.aboutPage.advisors;
+  const ADVISORS = [
+    { name: advisorsFromT[0].name, role: advisorsFromT[0].role, img: ivRao, bio: advisorsFromT[0].bio },
+    { name: advisorsFromT[1].name, role: advisorsFromT[1].role, img: ashishImg, bio: advisorsFromT[1].bio },
+    { name: advisorsFromT[2].name, role: advisorsFromT[2].role, img: swadeepImg, bio: advisorsFromT[2].bio },
+  ];
+
+  const journeyFromT = t.aboutPage.journey;
+  const JOURNEY = [
+    { year: "2016", title: journeyFromT[0].title, desc: journeyFromT[0].desc },
+    { year: "2018–19", title: journeyFromT[1].title, desc: journeyFromT[1].desc },
+    { year: "2020–21", title: journeyFromT[2].title, desc: journeyFromT[2].desc },
+    { year: "2022–23", title: journeyFromT[3].title, desc: journeyFromT[3].desc },
+    { year: "2024", title: journeyFromT[4].title, desc: journeyFromT[4].desc },
+    { year: "2025+", title: journeyFromT[5].title, desc: journeyFromT[5].desc },
+  ];
+
+  const PROCESS = t.aboutPage.process;
+
+  const valueIcons = [Users, Lightbulb, Award, Leaf];
+  const valueColors = ["text-primary", "text-accent", "text-amber-600", "text-emerald-600"];
+  const valueBgs = ["bg-primary/8", "bg-accent/8", "bg-amber-50", "bg-emerald-50"];
+  const valueBorders = ["border-primary/20", "border-accent/20", "border-amber-200", "border-emerald-200"];
+  const VALUES = t.aboutPage.values.map((v, i) => ({
+    title: v.title,
+    desc: v.desc,
+    icon: valueIcons[i],
+    color: valueColors[i],
+    bg: valueBgs[i],
+    border: valueBorders[i],
+  }));
 
   return (
     <div className="w-full min-h-screen bg-background">
@@ -110,7 +112,7 @@ export default function About() {
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                <span className="text-primary text-xs font-bold uppercase tracking-widest">About AutoNxt</span>
+                <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.aboutPage.aboutAutoNxt}</span>
               </motion.div>
               <motion.h1
                 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
@@ -130,9 +132,9 @@ export default function About() {
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: Calendar, label: "Founded", value: "2016" },
-                  { icon: MapPin, label: "Headquartered", value: "Thane, MH" },
-                  { icon: Users, label: "Team Size", value: "150+" },
+                  { icon: Calendar, label: t.aboutPage.foundedLabel, value: "2016" },
+                  { icon: MapPin, label: t.aboutPage.headquarteredLabel, value: "Thane, MH" },
+                  { icon: Users, label: t.aboutPage.teamSizeLabel, value: "150+" },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
@@ -184,7 +186,7 @@ export default function About() {
               {/* Overlay stat */}
               <div className="absolute bottom-5 left-5 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-3 shadow-xl">
                 <p className="text-primary font-black text-2xl font-display">2016</p>
-                <p className="text-foreground text-xs font-semibold">Founded in Mumbai</p>
+                <p className="text-foreground text-xs font-semibold">{t.aboutPage.foundedInMumbai}</p>
               </div>
               {/* Second image floating */}
               <div className="absolute -bottom-5 -right-4 w-40 h-28 rounded-xl overflow-hidden border-4 border-background shadow-xl">
@@ -221,7 +223,7 @@ export default function About() {
                     initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}
                   >
                     <div className={`w-9 h-9 rounded-lg ${v.bg} flex items-center justify-center mb-3`}>
-                      <v.icon className={`w-4.5 h-4.5 ${v.color} w-[18px] h-[18px]`} />
+                      <v.icon className={`w-[18px] h-[18px] ${v.color}`} />
                     </div>
                     <h3 className="font-bold text-foreground text-sm mb-1">{v.title}</h3>
                     <p className="text-muted-foreground text-xs leading-relaxed">{v.desc}</p>
@@ -257,11 +259,11 @@ export default function About() {
             <motion.div className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-5"
               initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary text-xs font-bold uppercase tracking-widest">Our Journey</span>
+              <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.aboutPage.ourJourney}</span>
             </motion.div>
             <motion.h2 className="font-display text-3xl md:text-4xl font-bold text-white"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              From Concept to Market Leader.
+              {t.aboutPage.fromConcept}
             </motion.h2>
           </div>
           <div className="relative max-w-3xl mx-auto">
@@ -286,6 +288,37 @@ export default function About() {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ENGINEERING PROCESS ── */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <motion.div className="flex items-center justify-center gap-3 mb-4"
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+              <div className="h-px w-10 bg-primary rounded-full" />
+              <p className="text-primary font-bold text-sm uppercase tracking-widest">{t.about.processTag}</p>
+              <div className="h-px w-10 bg-primary rounded-full" />
+            </motion.div>
+            <motion.h2 className="font-display text-3xl md:text-4xl font-bold text-foreground"
+              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              {t.about.processTitle}
+            </motion.h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {PROCESS.map((p, i) => (
+              <motion.div
+                key={i}
+                className="bg-card border border-border rounded-2xl p-7 hover:border-primary/30 hover:shadow-lg transition-all"
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+              >
+                <div className="font-display text-3xl font-black text-primary/20 mb-3">{p.step}</div>
+                <h3 className="font-bold text-foreground text-base mb-2">{p.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -338,7 +371,7 @@ export default function About() {
                     target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-[#0A66C2] hover:bg-[#004182] px-4 py-2 rounded-full transition-colors"
                   >
-                    <Linkedin className="w-3 h-3" /> Connect on LinkedIn
+                    <Linkedin className="w-3 h-3" /> {t.aboutPage.connectLinkedIn}
                   </a>
                 </div>
               </motion.div>
@@ -419,7 +452,7 @@ export default function About() {
                     target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-[#0A66C2] hover:bg-[#004182] px-4 py-2 rounded-full transition-colors"
                   >
-                    <Linkedin className="w-3 h-3" /> Connect on LinkedIn
+                    <Linkedin className="w-3 h-3" /> {t.aboutPage.connectLinkedIn}
                   </a>
                 </div>
               </motion.div>

@@ -4,55 +4,25 @@ import { Link } from "wouter";
 import { ArrowRight, Calendar, ExternalLink, Tag, FileText, Globe, Award } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
-const NEWS = [
-  {
-    date: "March 2024",
-    tag: "Product Launch",
-    title: "AutoNxt Officially Launches X45H2 in Thane, Maharashtra",
-    summary: "AutoNxt Automation Pvt. Ltd. officially launched India's most powerful electric tractor — the X45H2 — at a grand ceremony in Thane. The event was attended by government officials, agricultural scientists, and early adopters.",
-    link: "https://www.linkedin.com/company/autonxt-automation",
-  },
-  {
-    date: "March 2024",
-    tag: "Milestone",
-    title: "First Unit Delivered to Jaywant Sugars Ltd., Karad",
-    summary: "AutoNxt delivered the first commercial unit of the X45H2 electric tractor to Jaywant Sugar Mill in Karad, Satara — establishing AutoNxt as India's pioneer in the electric tractor ecosystem for industrial agriculture.",
-    link: "https://www.youtube.com/watch?v=kia8cxkaUJc",
-  },
-  {
-    date: "2023",
-    tag: "Certification",
-    title: "AutoNxt Receives iCAT Certification for X45H2",
-    summary: "The X45H2 successfully completed rigorous performance and safety testing at the International Centre for Automotive Technology (iCAT), receiving certification for all three variants — 20 HP, 35 HP, and 45 HP.",
-    link: "https://www.linkedin.com/company/autonxt-automation",
-  },
-  {
-    date: "2022",
-    tag: "Funding",
-    title: "AutoNxt Raises Seed Funding to Scale Manufacturing",
-    summary: "AutoNxt secured seed funding to accelerate manufacturing scale-up and expand its R&D capabilities in electric powertrains, autonomous systems, and IoT-based farm management solutions.",
-    link: "https://www.linkedin.com/company/autonxt-automation",
-  },
-  {
-    date: "2021",
-    tag: "Partnership",
-    title: "AutoNxt Partners with BAIF Development Research Foundation",
-    summary: "AutoNxt joined hands with BAIF Development Research Foundation to co-develop sustainable electric farming solutions for India's rural agricultural communities, combining technology with deep grassroots field expertise.",
-    link: "https://www.linkedin.com/company/autonxt-automation",
-  },
-  {
-    date: "2020",
-    tag: "Recognition",
-    title: "AutoNxt Recognized by National Innovation Foundation",
-    summary: "The National Innovation Foundation (NIA) recognised AutoNxt among India's most promising deep-tech agri-startups, validating the company's approach to sustainable agriculture through electric and autonomous solutions.",
-    link: "https://www.linkedin.com/company/autonxt-automation",
-  },
-];
-
-const FEATURED = NEWS[0];
-
 export default function News() {
   const { t } = useLang();
+
+  const newsFromT = t.newsPage.news;
+  const links = [
+    "https://www.linkedin.com/company/autonxt-automation",
+    "https://www.youtube.com/watch?v=kia8cxkaUJc",
+    "https://www.linkedin.com/company/autonxt-automation",
+    "https://www.linkedin.com/company/autonxt-automation",
+    "https://www.linkedin.com/company/autonxt-automation",
+    "https://www.linkedin.com/company/autonxt-automation",
+  ];
+
+  const NEWS = newsFromT.map((item, i) => ({
+    ...item,
+    link: links[i] || "https://www.linkedin.com/company/autonxt-automation",
+  }));
+
+  const FEATURED = NEWS[0];
   return (
     <div className="w-full min-h-screen bg-background">
 
@@ -90,9 +60,9 @@ export default function News() {
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: FileText, label: "Stories", value: "50+" },
-                  { icon: Globe, label: "Coverage", value: "National" },
-                  { icon: Award, label: "Milestones", value: "6 Key" },
+                  { icon: FileText, label: t.newsPage.storiesLabel, value: "50+" },
+                  { icon: Globe, label: t.newsPage.coverageLabel, value: t.newsPage.coverageValue },
+                  { icon: Award, label: t.newsPage.milestonesLabel, value: t.newsPage.milestonesValue },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
@@ -159,7 +129,7 @@ export default function News() {
             <p className="text-muted-foreground text-base leading-relaxed mb-6">{FEATURED.summary}</p>
             <a href={FEATURED.link} target="_blank" rel="noopener noreferrer">
               <Button className="bg-primary text-white hover:bg-primary/90">
-                Read More <ExternalLink className="ml-2 w-4 h-4" />
+                {t.newsPage.readMore} <ExternalLink className="ml-2 w-4 h-4" />
               </Button>
             </a>
           </motion.div>
@@ -187,7 +157,7 @@ export default function News() {
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">{item.summary}</p>
                 <a href={item.link} target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline">
-                  Read More <ArrowRight className="w-3 h-3" />
+                  {t.newsPage.readMore} <ArrowRight className="w-3 h-3" />
                 </a>
               </motion.div>
             ))}

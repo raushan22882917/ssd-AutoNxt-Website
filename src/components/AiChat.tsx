@@ -131,8 +131,8 @@ function getOrCreateSessionId(): string {
   return id;
 }
 
-function getWelcomeMessages(): Message[] {
-  return [{ role: "assistant", text: WELCOME_MESSAGE }];
+function getWelcomeMessages(welcomeText: string): Message[] {
+  return [{ role: "assistant", text: welcomeText }];
 }
 
 function ChatMarkdown({ content }: { content: string }) {
@@ -295,7 +295,7 @@ const emptyCallForm = (defaultLang: IndianLanguageCode = "hi"): CallFormData => 
 });
 
 export default function StaticChatBot() {
-  const { lang: siteLang } = useLang();
+  const { lang: siteLang, t } = useLang();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userInput, setUserInput] = useState("");
@@ -318,7 +318,7 @@ export default function StaticChatBot() {
   const callTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const callCountdownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const [messages, setMessages] = useState<Message[]>(getWelcomeMessages);
+  const [messages, setMessages] = useState<Message[]>(() => getWelcomeMessages(t.chat.welcome));
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -938,7 +938,7 @@ export default function StaticChatBot() {
     setMeetingForm(emptyMeetingForm(normalizeIndianLanguageCode(siteLang)));
     setUserLanguage(normalizeIndianLanguageCode(siteLang));
     lastUserMessageRef.current = "";
-    setMessages(getWelcomeMessages());
+    setMessages(getWelcomeMessages(t.chat.welcome));
   };
 
   return (
@@ -1142,12 +1142,12 @@ export default function StaticChatBot() {
               <div className="border-t border-gray-200 bg-gray-50 px-4 py-3 space-y-2 max-h-[260px] overflow-y-auto">
                 <p className="text-xs font-semibold text-gray-800 uppercase tracking-wide">Phone support</p>
                 <div className="flex gap-2">
-                  <button type="button" onClick={() => setCallForm((f) => ({ ...f, schedule_mode: "now" }))} className={`flex-1 py-1.5 rounded-lg text-xs font-medium ${callForm.schedule_mode === "now" ? "bg-red-600 text-white" : "border border-gray-200"}`}>Call now</button>
-                  <button type="button" onClick={() => setCallForm((f) => ({ ...f, schedule_mode: "scheduled" }))} className={`flex-1 py-1.5 rounded-lg text-xs font-medium ${callForm.schedule_mode === "scheduled" ? "bg-red-600 text-white" : "border border-gray-200"}`}>Schedule</button>
+                  <button type="button" onClick={() => setCallForm((f) => ({ ...f, schedule_mode: "now" }))} className={`flex-1 py-1.5 rounded-lg text-xs font-medium ${callForm.schedule_mode === "now" ? "bg-red-600 text-white" : "border border-gray-200"}`}>{t.bookPage.contactInfo.call}</button>
+                  <button type="button" onClick={() => setCallForm((f) => ({ ...f, schedule_mode: "scheduled" }))} className={`flex-1 py-1.5 rounded-lg text-xs font-medium ${callForm.schedule_mode === "scheduled" ? "bg-red-600 text-white" : "border border-gray-200"}`}>{t.bookPage.cta.tag}</button>
                 </div>
-                <input type="text" placeholder="Name *" value={callForm.customer_name} onChange={(e) => setCallForm((f) => ({ ...f, customer_name: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
-                <input type="tel" placeholder="Mobile *" value={callForm.customer_phone} onChange={(e) => setCallForm((f) => ({ ...f, customer_phone: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
-                <input type="email" placeholder="Email" value={callForm.customer_email} onChange={(e) => setCallForm((f) => ({ ...f, customer_email: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
+                <input type="text" placeholder={`${t.bookPage.form.name} *`} value={callForm.customer_name} onChange={(e) => setCallForm((f) => ({ ...f, customer_name: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
+                <input type="tel" placeholder={`${t.bookPage.form.phone} *`} value={callForm.customer_phone} onChange={(e) => setCallForm((f) => ({ ...f, customer_phone: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
+                <input type="email" placeholder={t.bookPage.form.email} value={callForm.customer_email} onChange={(e) => setCallForm((f) => ({ ...f, customer_email: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
                 <select
                   value={callForm.language}
                   onChange={(e) =>
@@ -1181,7 +1181,7 @@ export default function StaticChatBot() {
                 <textarea placeholder="What do you need help with?" value={callForm.message} onChange={(e) => setCallForm((f) => ({ ...f, message: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs min-h-[48px]" />
                 <div className="flex gap-2">
                   <button type="button" onClick={submitCallForm} disabled={loading || callCountdown !== null} className="flex-1 py-2 rounded-lg bg-red-600 text-white text-xs font-semibold disabled:opacity-50">{callForm.schedule_mode === "now" ? "Submit & call in 10s" : "Schedule call"}</button>
-                  <button type="button" onClick={() => setShowCallForm(false)} className="px-3 py-2 rounded-lg border text-xs">Cancel</button>
+                  <button type="button" onClick={() => setShowCallForm(false)} className="px-3 py-2 rounded-lg border text-xs">{t.common.cancel}</button>
                 </div>
               </div>
             )}
@@ -1194,21 +1194,21 @@ export default function StaticChatBot() {
                 </p>
                 <input
                   type="text"
-                  placeholder="Full name *"
+                  placeholder={`${t.bookPage.form.name} *`}
                   value={meetingForm.customer_name}
                   onChange={(e) => setMeetingForm((f) => ({ ...f, customer_name: e.target.value }))}
                   className="w-full px-2.5 py-1.5 rounded-lg border text-xs"
                 />
                 <input
                   type="email"
-                  placeholder="Email *"
+                  placeholder={`${t.bookPage.form.email} *`}
                   value={meetingForm.customer_email}
                   onChange={(e) => setMeetingForm((f) => ({ ...f, customer_email: e.target.value }))}
                   className="w-full px-2.5 py-1.5 rounded-lg border text-xs"
                 />
                 <input
                   type="tel"
-                  placeholder="Mobile *"
+                  placeholder={`${t.bookPage.form.phone} *`}
                   value={meetingForm.customer_phone}
                   onChange={(e) => setMeetingForm((f) => ({ ...f, customer_phone: e.target.value }))}
                   className="w-full px-2.5 py-1.5 rounded-lg border text-xs"
@@ -1288,7 +1288,7 @@ export default function StaticChatBot() {
                     onClick={() => setShowMeetingForm(false)}
                     className="px-3 py-2 rounded-lg border text-xs"
                   >
-                    Cancel
+                    {t.common.cancel}
                   </button>
                 </div>
               </div>
@@ -1302,7 +1302,7 @@ export default function StaticChatBot() {
                 <div className="grid grid-cols-2 gap-2">
                   <input
                     type="text"
-                    placeholder="Full name *"
+                    placeholder={`${t.bookPage.form.name} *`}
                     value={bookingForm.customer_name}
                     onChange={(e) =>
                       setBookingForm((f) => ({ ...f, customer_name: e.target.value }))
@@ -1311,7 +1311,7 @@ export default function StaticChatBot() {
                   />
                   <input
                     type="email"
-                    placeholder="Email *"
+                    placeholder={`${t.bookPage.form.email} *`}
                     value={bookingForm.customer_email}
                     onChange={(e) =>
                       setBookingForm((f) => ({ ...f, customer_email: e.target.value }))
@@ -1365,7 +1365,7 @@ export default function StaticChatBot() {
                   />
                   <input
                     type="text"
-                    placeholder="Notes (optional)"
+                    placeholder={t.bookPage.form.message}
                     value={bookingForm.notes}
                     onChange={(e) => setBookingForm((f) => ({ ...f, notes: e.target.value }))}
                     className="col-span-2 px-2.5 py-1.5 rounded-lg border border-gray-200 text-xs"
@@ -1378,14 +1378,14 @@ export default function StaticChatBot() {
                     disabled={loading}
                     className="flex-1 py-2 rounded-lg bg-red-600 text-white text-xs font-semibold hover:bg-red-700 disabled:opacity-50"
                   >
-                    Submit booking
+                    {t.bookPage.form.submitBtn}
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowBookingForm(false)}
                     className="px-3 py-2 rounded-lg border border-gray-200 text-xs text-gray-600"
                   >
-                    Cancel
+                    {t.common.cancel}
                   </button>
                 </div>
               </div>

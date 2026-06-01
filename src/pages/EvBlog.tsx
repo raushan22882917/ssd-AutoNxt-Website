@@ -3,74 +3,30 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Clock, Zap, BatteryCharging, Globe, Cpu, TrendingUp, Leaf, IndianRupee } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
-const CATEGORIES = ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"];
-
-const ARTICLES = [
-  {
-    icon: BatteryCharging,
-    cat: "Battery Tech",
-    title: "Solid-State Batteries: What They Mean for Electric Tractors by 2030",
-    date: "April 2025",
-    readTime: "7 min",
-    summary: "Solid-state batteries promise 2x the energy density of today's LFP cells, near-zero degradation over 10+ years, and complete elimination of fire risk. Here's how that technology roadmap intersects with agricultural EV design challenges.",
-    accent: "bg-blue-50 text-blue-700",
-  },
-  {
-    icon: Globe,
-    cat: "Policy & Incentives",
-    title: "How India's PM-KUSUM and FAME Schemes Are Powering Agricultural EV Adoption",
-    date: "March 2025",
-    readTime: "6 min",
-    summary: "India's subsidy architecture for agricultural EVs is evolving rapidly. PM-KUSUM provides solar charging infrastructure while FAME-III targets agri-EV acquisition cost parity. We map out every available incentive for Indian farmers going electric.",
-    accent: "bg-green-50 text-green-700",
-  },
-  {
-    icon: Zap,
-    cat: "Market Trends",
-    title: "Electric Tractor Market in India: ₹4,000 Cr Opportunity by 2027",
-    date: "February 2025",
-    readTime: "5 min",
-    summary: "India's electric tractor market is expected to grow at 38% CAGR through 2027, driven by rising diesel prices, government policy, and increasing farmer awareness. AutoNxt is positioned at the leading edge of this transformation.",
-    accent: "bg-orange-50 text-orange-700",
-  },
-  {
-    icon: Cpu,
-    cat: "Future Tech",
-    title: "Level 4 Autonomy in Agriculture: AutoNxt's Roadmap to Driverless Farming",
-    date: "January 2025",
-    readTime: "9 min",
-    summary: "While the automotive world targets level 4 autonomy for roads, we are targeting fields. The constraints are different — GPS precision, soil variability, implement compatibility. This is our engineering roadmap to fully autonomous electric tractors.",
-    accent: "bg-purple-50 text-purple-700",
-  },
-  {
-    icon: BatteryCharging,
-    cat: "Battery Tech",
-    title: "Fast Charging for Farms: How AutoNxt Is Building India's Agri-EV Charging Grid",
-    date: "December 2024",
-    readTime: "6 min",
-    summary: "Urban EV charging is solved. Rural agricultural charging is not. AutoNxt is pioneering a solar-powered mobile charging network designed for Indian farms, from 5-acre holdings to 500-acre industrial operations.",
-    accent: "bg-yellow-50 text-yellow-700",
-  },
-  {
-    icon: Globe,
-    cat: "Market Trends",
-    title: "Why Indian Electric Tractors Are Winning Export Markets in Africa and Southeast Asia",
-    date: "November 2024",
-    readTime: "7 min",
-    summary: "The same challenges that shaped AutoNxt for India — rough terrain, variable power supply, extreme heat, cost sensitivity — make AutoNxt tractors ideal for emerging agricultural markets globally. An overview of export demand signals.",
-    accent: "bg-teal-50 text-teal-700",
-  },
-];
-
-const STATS = [
-  { value: "38%", label: "Market CAGR 2024–27" },
-  { value: "₹4,000 Cr", label: "India EV Tractor TAM by 2027" },
-  { value: "70%", label: "Lower running costs vs diesel" },
-  { value: "0", label: "Direct CO₂ emissions" },
-];
-
 export default function EvBlog() {
   const { t } = useLang();
+
+  const CATEGORIES = t.evBlogPage.categories;
+  const articlesFromT = t.evBlogPage.articles;
+  const statsFromT = t.evBlogPage.stats;
+
+  const icons = [BatteryCharging, Globe, Zap, Cpu, BatteryCharging, Globe];
+  const accents = [
+    "bg-blue-50 text-blue-700",
+    "bg-green-50 text-green-700",
+    "bg-orange-50 text-orange-700",
+    "bg-purple-50 text-purple-700",
+    "bg-yellow-50 text-yellow-700",
+    "bg-teal-50 text-teal-700",
+  ];
+
+  const ARTICLES = articlesFromT.map((article, i) => ({
+    ...article,
+    icon: icons[i] || Globe,
+    accent: accents[i] || "bg-gray-50 text-gray-700",
+  }));
+
+  const STATS = statsFromT;
   return (
     <div className="w-full min-h-screen bg-background">
 
@@ -108,9 +64,9 @@ export default function EvBlog() {
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: TrendingUp, label: "Market CAGR", value: "38%" },
-                  { icon: IndianRupee, label: "Market Size", value: "₹4K Cr" },
-                  { icon: Leaf, label: "Direct CO₂", value: "Zero" },
+                  { icon: TrendingUp, label: t.evBlogPage.marketCagrLabel, value: "38%" },
+                  { icon: IndianRupee, label: t.evBlogPage.marketSizeLabel, value: "₹4K Cr" },
+                  { icon: Leaf, label: t.evBlogPage.directCo2Label, value: t.evBlogPage.directCo2Value },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
