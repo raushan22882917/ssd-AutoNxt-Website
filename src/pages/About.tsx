@@ -39,28 +39,28 @@ const fieldImg5 = "/images/events/event-5.jpg";
 const fieldImg6 = "/images/events/event-6.jpg";
 
 const TEAM = [
-  { name: "Kaustubh Dhonde", role: "Chief Executive Officer", img: kaustubhImg, bio: "Visionary leader driving AutoNxt's mission to revolutionize agriculture with innovative electric vehicle solutions.", featured: true },
-  { name: "Pankaj Goyal", role: "Co-Founder & COO", img: pankajImg, bio: "Operational strategist ensuring seamless execution and growth, overseeing day-to-day operations and partnerships.", featured: true },
-  { name: "Hari Kishan", role: "Plant Head", img: harikishan, bio: "Oversees plant operations, ensuring quality and efficiency in every tractor produced." },
-  { name: "Sudipto Deb", role: "Lead Power Train Engineer", img: sudiptoImg, bio: "Expert in power electronics, responsible for designing and optimizing the electrical systems powering our tractors." },
-  { name: "Vamsi Atluri", role: "Lead Mechanical Design Engineer", img: vamsiImg, bio: "Mechanical design innovator, crafting robust and efficient tractor structures for diverse agricultural needs." },
-  { name: "Dr. Dharmateja Adapa", role: "Lead Robotics Engineer", img: dharmateja, bio: "Automation expert focused on integrating smart technologies for seamless and reliable tractor performance." },
-  { name: "Tejesh Madireddy", role: "Lead Embedded Engineer", img: tejashImg, bio: "Leads embedded systems development, ensuring reliable and efficient hardware-software integration." },
-  { name: "Siddhant Singhal", role: "Lead Software Developer", img: siddhantImg, bio: "Heads software development, building robust and scalable solutions for autonomous tractors." },
-  { name: "Aswanth Mulupuri", role: "Robotics & Automation Engineer", img: saiImg, bio: "Specialist in automation, developing advanced control systems for autonomous tractor operation." },
-  { name: "Ajinkya Delvi", role: "Power Train Engineer", img: ajinkyaImg, bio: "Works on power train systems, optimizing performance and efficiency." },
-  { name: "Khushpreet Singh", role: "Testing & Validation Engineer", img: khushpreetImg, bio: "Responsible for rigorous testing and validation, guaranteeing the reliability and safety of our products." },
-  { name: "Avinash Singh", role: "Business Development Manager", img: shantanuImg, bio: "Focused on identifying new opportunities and fostering relationships to accelerate company expansion." },
-  { name: "Maneesh Dubey", role: "Business Development Manager", img: manishImg, bio: "Drives business growth by building strategic partnerships and expanding AutoNxt's market presence." },
-  { name: "Swapnesh Jahagirdar", role: "Business Development Manager", img: swapneshImg, bio: "Focused on identifying new opportunities and fostering relationships to accelerate company expansion." },
-  { name: "Harender Chauhan", role: "Service Manager", img: harendar, bio: "Ensures top-notch service and support for all customers and partners." },
-  { name: "Rajinder Parkash Sharma", role: "Plant Manager", img: rajinder, bio: "Oversees manufacturing operations, ensuring quality and efficiency in every tractor produced." },
+  { name: "Kaustubh Dhonde", role: "Chief Executive Officer", img: kaustubhImg, bio: "Visionary leader driving AutoNxt's mission to revolutionize agriculture with innovative electric vehicle solutions.", featured: true,objectPosition: "top" },
+  { name: "Pankaj Goyal", role: "Co-Founder & COO", img: pankajImg, bio: "Operational strategist ensuring seamless execution and growth, overseeing day-to-day operations and partnerships.", featured: true, objectPosition: "top" },
+  { name: "Hari Kishan", role: "Plant Head", img: harikishan, bio: "Oversees plant operations, ensuring quality and efficiency in every tractor produced.", objectPosition: "top" },
+  { name: "Sudipto Deb", role: "Lead Power Train Engineer", img: sudiptoImg, bio: "Expert in power electronics, responsible for designing and optimizing the electrical systems powering our tractors.", objectPosition: "top"},
+  { name: "Vamsi Atluri", role: "Lead Mechanical Design Engineer", img: vamsiImg, bio: "Mechanical design innovator, crafting robust and efficient tractor structures for diverse agricultural needs.", objectPosition: "30% 30%" },
+  { name: "Dr. Dharmateja Adapa", role: "Lead Robotics Engineer", img: dharmateja, bio: "Automation expert focused on integrating smart technologies for seamless and reliable tractor performance.", objectPosition: "top" },
+  { name: "Tejesh Madireddy", role: "Lead Embedded Engineer", img: tejashImg, bio: "Leads embedded systems development, ensuring reliable and efficient hardware-software integration.", objectPosition: "30% 70%" },
+  { name: "Siddhant Singhal", role: "Lead Software Developer", img: siddhantImg, bio: "Heads software development, building robust and scalable solutions for autonomous tractors.", objectPosition: "top" },
+  { name: "Aswanth Mulupuri", role: "Robotics & Automation Engineer", img: saiImg, bio: "Specialist in automation, developing advanced control systems for autonomous tractor operation." , objectPosition: "top"},
+  { name: "Ajinkya Delvi", role: "Power Train Engineer", img: ajinkyaImg, bio: "Works on power train systems, optimizing performance and efficiency." , objectPosition: "top"},
+  { name: "Khushpreet Singh", role: "Testing & Validation Engineer", img: khushpreetImg, bio: "Responsible for rigorous testing and validation, guaranteeing the reliability and safety of our products.", objectPosition: "top" },
+  { name: "Avinash Singh", role: "Business Development Manager", img: shantanuImg, bio: "Focused on identifying new opportunities and fostering relationships to accelerate company expansion.", objectPosition: "top" },
+  { name: "Maneesh Dubey", role: "Business Development Manager", img: manishImg, bio: "Drives business growth by building strategic partnerships and expanding AutoNxt's market presence.", objectPosition: "top" },
+  { name: "Swapnesh Jahagirdar", role: "Business Development Manager", img: swapneshImg, bio: "Focused on identifying new opportunities and fostering relationships to accelerate company expansion.", objectPosition: "100% 20%" },
+  { name: "Harender Chauhan", role: "Service Manager", img: harendar, bio: "Ensures top-notch service and support for all customers and partners.", objectPosition: "top" },
+  { name: "Rajinder Parkash Sharma", role: "Plant Manager", img: rajinder, bio: "Oversees manufacturing operations, ensuring quality and efficiency in every tractor produced.", objectPosition: "top" },
 ];
 
 const ADVISORS = [
-  { name: "IV-Rao", role: "Senior Advisor", img: ivRao, bio: "Together, we challenge ourselves for a better tomorrow through meaningful designs and lasting relevance." },
-  { name: "Ashish Mehta", role: "Financial Advisor", img: ashishImg, bio: "Contemporary design and well-made products are things that everyone should benefit from — driving what we do." },
-  { name: "Swadeep Pillarisetti", role: "Strategy Consultant", img: swadeepImg, bio: "Our collection is ever-evolving yet consistently relatable. Our purpose is to inspire and help showcase the look you want." },
+  { name: "IV-Rao", role: "Senior Advisor", img: ivRao, bio: "Together, we challenge ourselves for a better tomorrow through meaningful designs and lasting relevance.",objectPosition: "top" },
+  { name: "Ashish Mehta", role: "Financial Advisor", img: ashishImg, bio: "Contemporary design and well-made products are things that everyone should benefit from — driving what we do.",objectPosition: "top"},
+  { name: "Swadeep Pillarisetti", role: "Strategy Consultant", img: swadeepImg, bio: "Our collection is ever-evolving yet consistently relatable. Our purpose is to inspire and help showcase the look you want.",objectPosition: "top" },
 ];
 
 const JOURNEY = [
@@ -319,8 +319,21 @@ export default function About() {
                 data-testid={`team-featured-${i}`}
               >
                 {/* Portrait photo — tall */}
-                <div className="relative h-72 overflow-hidden bg-muted">
-                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-[20%] group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+
+                <div className="relative w-full aspect-[3/4] overflow-hidden bg-muted">
+                <img
+                  src={member.img}
+                  alt={member.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  style={{ objectPosition: member.objectPosition ?? "top center" }}
+                  loading="lazy"
+                  decoding="async"
+                />
+
+                {/* <div className="relative h-72 overflow-hidden bg-muted">
+                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-[20%] group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" /> */}
+
+
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                   {/* Role badge */}
                   <div className="absolute bottom-4 left-4 right-4">
@@ -355,8 +368,20 @@ export default function About() {
                 data-testid={`team-member-${i}`}
               >
                 {/* Square portrait */}
-                <div className="relative h-44 bg-muted overflow-hidden">
-                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-[20%] group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+                {/* <div className="relative h-44 bg-muted overflow-hidden">
+                  <img src={member.img} alt={member.name} className="w-full h-full object-cover object-[20%] group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" /> */}
+                  <div className="relative w-full aspect-square overflow-hidden bg-muted">
+                    <img
+                      src={member.img}
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      style={{ objectPosition: member.objectPosition ?? "top center" }}
+                      loading="lazy"
+                      decoding="async"
+                    />
+
+
+
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
                 <div className="p-4">
@@ -400,9 +425,25 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 data-testid={`advisor-${i}`}
               >
+
+
                 {/* Portrait */}
-                <div className="relative h-60 bg-muted overflow-hidden">
+
+                {/* <div className="relative h-60 bg-muted overflow-hidden">
                   <img src={a.img} alt={a.name} className="w-full h-full object-cover object-[20%] group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
+                 */}
+
+                <div className="relative w-full aspect-[3/4] overflow-hidden bg-muted">
+                  <img
+                    src={a.img}
+                    alt={a.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    style={{ objectPosition: a.objectPosition ?? "top center" }}
+                    loading="lazy"
+                    decoding="async"
+                  />
+
+                                  
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-4 left-4">
                     <span className="inline-block bg-accent/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-1.5">
