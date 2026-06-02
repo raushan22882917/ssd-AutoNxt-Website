@@ -1,9 +1,37 @@
-import { Suspense, useRef, useState, useEffect, Component, type ReactNode } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useRef, useState, useEffect, useCallback, Component, type ReactNode } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Environment, ContactShadows, Bounds, useBounds } from "@react-three/drei";
 import type { Group } from "three";
+import { motion, AnimatePresence } from "framer-motion";
+
 const defaultTractor = "/images/product-ev-platform.png";
-import { motion } from "framer-motion";
+
+/* ── Wire Draco decoder into useGLTF's loader once at module level ── */
+useGLTF.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
+
+/* ── Static placeholder images per model path (first-ever load only) ── */
+const MODEL_PLACEHOLDER: Record<string, string> = {
+  "/3dmodel/hero.glb":    "/images/3dtractorplaceholder.png",
+  "/3dmodel/battery.glb": "/images/batteryimage.avif",
+  "/3dmodel/motor.glb":   "/images/motorimage.avif",
+  "/3dmodel/x45.glb":     "/images/products/x45h2.png",
+  "/3dmodel/bucket.glb":  "/images/implement/bucket.png",
+};
+
+/* ── sessionStorage key for a captured screenshot ── */
+const screenshotKey = (src: string) => `3d-screenshot:${src}`;
+
+/* ── Read a previously captured screenshot from sessionStorage ── */
+function getCachedScreenshot(src: string): string | null {
+  try { return sessionStorage.getItem(screenshotKey(src)); }
+  catch { return null; }
+}
+
+/* ── Save a screenshot to sessionStorage (fire-and-forget) ── */
+function saveCachedScreenshot(src: string, dataUrl: string) {
+  try { sessionStorage.setItem(screenshotKey(src), dataUrl); }
+  catch { /* quota exceeded — silently skip */ }
+}
 
 /* ── WebGL pre-check ── */
 function supportsWebGL(): boolean {
@@ -30,6 +58,29 @@ function FitCamera() {
   return null;
 }
 
+/* ── Capture one frame from the WebGL canvas and cache it ── */
+function ScreenshotCapture({ src, onCapture }: { src: string; onCapture: (dataUrl: string) => void }) {
+  const { gl } = useThree();
+  const captured = useRef(false);
+
+  useFrame(() => {
+    // Fire once, two frames after mount so the model is fully rendered
+    if (captured.current) return;
+    captured.current = true;
+
+    // Defer slightly to ensure the render pass has completed
+    requestAnimationFrame(() => {
+      try {
+        const dataUrl = gl.domElement.toDataURL("image/png");
+        saveCachedScreenshot(src, dataUrl);
+        onCapture(dataUrl);
+      } catch { /* cross-origin or security error — skip silently */ }
+    });
+  });
+
+  return null;
+}
+
 /* ── Animated GLB model ── */
 function TractorModel({ src, rotate }: { src: string; rotate: boolean }) {
   const { scene } = useGLTF(src);
@@ -51,7 +102,7 @@ function TractorModel({ src, rotate }: { src: string; rotate: boolean }) {
   );
 }
 
-/* ── Flat image fallback ── */
+/* ── Flat image fallback (WebGL unavailable or error) ── */
 function FallbackImage({ src, className = "" }: { src?: string; className?: string }) {
   return (
     <div className={`flex items-center justify-center ${className}`}>
@@ -64,6 +115,39 @@ function FallbackImage({ src, className = "" }: { src?: string; className?: stri
       />
     </div>
   );
+}
+
+/* ── Placeholder shown while the 3D model is loading ── */
+function ModelPlaceholder({ src, className = "" }: { src?: string; className?: string }) {
+  const isCaptured = src?.startsWith("data:");   // cached screenshot → show crisp, no pulse
+
+  return (
+    <div className={`absolute inset-0 flex items-center justify-center ${className}`}>
+      {src ? (
+        <motion.img
+          src={src}
+          alt="Loading 3D model…"
+          className="w-full h-full object-contain drop-shadow-xl"
+          style={{ opacity: isCaptured ? 1 : undefined }}
+          animate={isCaptured ? undefined : { opacity: [0.45, 0.75, 0.45] }}
+          transition={isCaptured ? undefined : { duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ) : (
+        <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+      )}
+      {!isCaptured && (
+        <span className="absolute bottom-3 left-0 right-0 text-center text-[10px] text-muted-foreground/50 font-medium select-none">
+          Loading 3D model…
+        </span>
+      )}
+    </div>
+  );
+}
+
+/* ── Notifies parent that the Suspense boundary resolved ── */
+function ModelReady({ onReady }: { onReady: () => void }) {
+  useEffect(() => { onReady(); }, [onReady]);
+  return null;
 }
 
 /* ── Exported component ── */
@@ -80,17 +164,61 @@ export default function TractorViewer3D({
   showHint?: boolean;
   fallbackSrc?: string;
 }) {
-  const [webglOk, setWebglOk] = useState<boolean | null>(null);
+  const [webglOk, setWebglOk]     = useState<boolean | null>(null);
+  const [modelReady, setModelReady] = useState(false);
+
+  // Start with a cached screenshot if one exists, else use the static image
+  const [placeholderImg, setPlaceholderImg] = useState<string>(
+    () => getCachedScreenshot(src) ?? fallbackSrc ?? MODEL_PLACEHOLDER[src] ?? defaultTractor
+  );
+
   useEffect(() => { setWebglOk(supportsWebGL()); }, []);
 
-  if (webglOk === null || !webglOk) return <FallbackImage src={fallbackSrc} className={className} />;
+  // When src changes (tab switch), reset state and reload from cache
+  useEffect(() => {
+    setModelReady(false);
+    setPlaceholderImg(
+      getCachedScreenshot(src) ?? fallbackSrc ?? MODEL_PLACEHOLDER[src] ?? defaultTractor
+    );
+  }, [src, fallbackSrc]);
+
+  const handleCapture = useCallback((dataUrl: string) => {
+    // Update placeholder with the live screenshot for future renders
+    setPlaceholderImg(dataUrl);
+  }, []);
+
+  const staticFallback = fallbackSrc ?? MODEL_PLACEHOLDER[src] ?? defaultTractor;
+
+  if (webglOk === null || !webglOk)
+    return <FallbackImage src={staticFallback} className={className} />;
 
   return (
-    <ThreeErrorBoundary fallback={<FallbackImage src={fallbackSrc} className={className} />}>
+    <ThreeErrorBoundary fallback={<FallbackImage src={staticFallback} className={className} />}>
       <div className={`relative ${className}`} style={{ cursor: "grab" }}>
+
+        {/* Placeholder — static image on first load, captured screenshot on subsequent loads */}
+        <AnimatePresence>
+          {!modelReady && (
+            <motion.div
+              key="placeholder"
+              className="absolute inset-0 z-10 pointer-events-none"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.45 }}
+            >
+              <ModelPlaceholder src={placeholderImg} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <Canvas
           camera={{ position: [0, 0, 5], fov: 40 }}
-          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+          gl={{
+            antialias: true,
+            alpha: true,
+            powerPreference: "high-performance",
+            preserveDrawingBuffer: true,   // required to read canvas pixels for screenshot
+          }}
           style={{ background: "transparent" }}
           dpr={[1, 2]}
         >
@@ -98,11 +226,14 @@ export default function TractorViewer3D({
           <ambientLight intensity={0.6} />
           <directionalLight position={[6, 9, 6]}  intensity={2.4} castShadow color="#fff8f0" />
           <directionalLight position={[-5, 3, -4]} intensity={0.7} color="#93c5fd" />
-          <spotLight position={[0, 8, 3]} angle={0.4} penumbra={1} intensity={2.0} castShadow />
-          <pointLight  position={[2, -1, 3]}        intensity={1.0} color="hsl(0,72%,40%)" />
+          <spotLight        position={[0, 8, 3]}   angle={0.4} penumbra={1} intensity={2.0} castShadow />
+          <pointLight       position={[2, -1, 3]}  intensity={1.0} color="hsl(0,72%,40%)" />
 
           <Suspense fallback={null}>
             <TractorModel src={src} rotate={rotate} />
+            <ModelReady onReady={() => setModelReady(true)} />
+            {/* Capture the canvas once after first render and cache in sessionStorage */}
+            <ScreenshotCapture src={src} onCapture={handleCapture} />
             <ContactShadows
               position={[0, -1.6, 0]}
               opacity={0.45}
@@ -138,12 +269,9 @@ export default function TractorViewer3D({
   );
 }
 
-/* Preload all models */
-useGLTF.preload("/tractor-model.glb");
-useGLTF.preload("/tractor-model-2.glb");
-useGLTF.preload("/hitem3d-1.glb");
-useGLTF.preload("/hitem3d-2.glb");
+/* ── Preload all Draco-compressed models at module init ── */
+useGLTF.preload("/3dmodel/hero.glb");
 useGLTF.preload("/3dmodel/battery.glb");
 useGLTF.preload("/3dmodel/motor.glb");
-useGLTF.preload("/3dmodel/motor.glb");
-
+useGLTF.preload("/3dmodel/x45.glb");
+useGLTF.preload("/3dmodel/bucket.glb");

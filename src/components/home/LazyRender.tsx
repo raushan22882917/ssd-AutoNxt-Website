@@ -3,11 +3,13 @@ import { useEffect, useRef, useState } from "react";
 interface LazyRenderProps {
   children: React.ReactNode;
   minHeight?: string;
+  placeholder?: React.ReactNode;
 }
 
 function LazyRender({
   children,
-  minHeight = "2000px",
+  minHeight = "600px",
+  placeholder = null,
 }: LazyRenderProps) {
   const sectionRef =
     useRef<HTMLDivElement | null>(null);
@@ -47,7 +49,7 @@ function LazyRender({
           : minHeight,
       }}
     >
-      {hasBeenVisible ? children : null}
+      {hasBeenVisible ? children : placeholder}
     </div>
   );
 }
