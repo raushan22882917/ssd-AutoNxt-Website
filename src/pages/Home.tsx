@@ -36,11 +36,12 @@ const tractor1         = "/images/products/x45h2.png";
 const tractor2         = "/images/products/x25h2.png";
 const fieldImg         = "/images/facility/right-wall.jpg";
 const trailerImg       = "/images/facility/left-wall.jpg";
-const baifLogo         = "/images/partners/baif.jpg";
-const dksmLogo         = "/images/partners/dksm.png";
-const noidaAirportLogo = "/images/partners/noida-airport.jpg";
-const jslLogo          = "/images/partners/jsl.webp";
-const relianceLogo     = "/images/partners/reliance.png";
+const baifLogo         = "/images/partners/baif-removebg-preview.png";
+const dksmLogo         = "/images/partners/dksm-removebg-preview.png";
+const noidaAirportLogo = "/images/partners/Firefly_Gemini_Flash_change_the_colour_of_text_to_black_present_in_the_refrence_image_313537-removebg-preview.png";
+const jslLogo          = "/images/partners/jsl-removebg-preview.png";
+const relianceLogo     = "/images/partners/reliance-removebg-preview.png";
+const thermaxLogo      = "/images/partners/thermax.png";
 
 
 
@@ -115,11 +116,12 @@ export default function Home() {
   }));
 
   const PARTNERS_META = [
-    { img: baifLogo, logoBg: "bg-white" },
-    { img: dksmLogo, logoBg: "bg-white" },
-    { img: noidaAirportLogo, logoBg: "bg-[#0a1628]" },
-    { img: jslLogo, logoBg: "bg-white" },
-    { img: relianceLogo, logoBg: "bg-black" },
+    { img: baifLogo,         logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
+    { img: dksmLogo,         logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
+    { img: noidaAirportLogo, logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
+    { img: jslLogo,          logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
+    { img: relianceLogo,     logoBg: "bg-transparent", blend: true,  size: "h-14 w-14" },
+    { img: thermaxLogo,      logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
   ];
 
   return (
@@ -304,11 +306,12 @@ export default function Home() {
                   data-testid={`logo-partner-${i}`}
                 >
                   {/* Logo box */}
-                  <div className={`h-10 w-10 rounded-lg ${meta.logoBg} flex items-center justify-center flex-shrink-0 overflow-hidden p-1.5 border border-border/40`}>
+                  <div className={`${meta.size} rounded-lg ${meta.logoBg} flex items-center justify-center flex-shrink-0 overflow-hidden p-1.5`}>
                     <img
                       src={meta.img}
                       alt={partnerName}
                       className="h-full w-full object-contain"
+                      style={meta.blend ? { mixBlendMode: "multiply" } : undefined}
                     />
                   </div>
                   {/* Company name */}
