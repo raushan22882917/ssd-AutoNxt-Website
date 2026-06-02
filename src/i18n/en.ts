@@ -1441,7 +1441,9 @@ export const en = {
   },
   blogPage: {
     postsLabel: "Posts",
+    postsValue: "20+",
     authorsLabel: "Authors",
+    authorsValue: "6",
     topicsLabel: "Topics",
     posts: [
       {
@@ -1450,29 +1452,10 @@ export const en = {
         author: "The India Wire Network",
         date: "August 2025",
         readTime: "4 min read",
+        image: "/images/blog/revolutionizing-indian-agriculture.webp",
         summary: "In an exclusive interview with Kaustabh Dhonde, Founder and CEO of AutoNxt Automation, and Pankaj Goyal, Co-founder and COO, share how their company is pioneering the electric tractor revolution in India — from cutting farmers' diesel dependence to integrating AI, IoT, and telematics for smarter operations.",
         externalUrl: "https://theindiawire.com/india/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers/",
         featured: true
-      },
-      {
-        tag: "Startup",
-        title: "Mumbai Startup AutoNxt Pioneers Autonomous Vehicles In India, Starting With An Electric Tractor",
-        author: "CrowdforThink Editorial Team",
-        date: "March 2025",
-        readTime: "7 min read",
-        summary: "AutoNxt's self-reliant tractor is ideal for farm operations including tilling, pest control, ploughing and sowing. Founded in 2016, AutoNxt envisions a tractor-sharing platform to reach greater farmers and make its tractor more affordable.",
-        externalUrl: "http://crowdforthink.com/blogs/mumbai-startup-autonxt-pioneers-autonomous-vehicles-in-india-starting-with-an-electric-tractor",
-        featured: true
-      },
-      {
-        tag: "Innovation",
-        title: "AutoNxt's Game-Changing Electric Tractor Set to Transform Farming and Industry in India",
-        author: "India Post Daily",
-        date: "January 2025",
-        readTime: "5 min read",
-        summary: "AutoNxt Automation is revolutionizing Indian agriculture with its innovative electric tractors that combine sustainability with advanced technology, providing farmers with cost-effective and environmentally friendly alternatives to traditional diesel tractors.",
-        externalUrl: "https://indiapostdaily.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/",
-        featured: false
       },
       {
         tag: "Autonomous Technology",
@@ -1480,6 +1463,7 @@ export const en = {
         author: "Insiders Talk",
         date: "December 2024",
         readTime: "6 min read",
+        image: "/images/blog/indias-first-self-driving-tractor.webp",
         summary: "AutoNxt is at the forefront of developing autonomous farming technology, creating India's first self-driving tractor. The development offers farmers increased efficiency, reduced labor costs, and improved precision in farming operations.",
         externalUrl: "https://insiderstalk.in/building-indias-first-ever-self-driving-tractor/",
         featured: false
@@ -1490,6 +1474,7 @@ export const en = {
         author: "Tractor Junction",
         date: "November 2024",
         readTime: "8 min read",
+        image: "/images/blog/future-of-farming.webp",
         summary: "AutoNxt Automation is pioneering the future of farming with India's first autonomous electric tractor, combining cutting-edge technology with sustainable agriculture and offering unprecedented control and efficiency.",
         externalUrl: "https://www.tractorjunction.com/tractor-news/future-of-farming-india-first-self-driving-tractor/",
         featured: false
@@ -1500,6 +1485,7 @@ export const en = {
         author: "Tractor Guru",
         date: "October 2024",
         readTime: "9 min read",
+        image: "/images/blog/autonxt-tractor-revolutionizing-agriculture.webp",
         summary: "Comprehensive coverage of AutoNxt's innovative tractor solutions — electric tractors, autonomous driving capabilities, and smart farming solutions that address the evolving needs of modern agriculture in India and beyond.",
         externalUrl: "https://tractorguru.in/blog/category/autonxt-tractor/",
         featured: false
@@ -1510,6 +1496,7 @@ export const en = {
         author: "Tracxn Research Team",
         date: "September 2024",
         readTime: "7 min read",
+        image: "/images/blog/game-changing-electric-tractor.webp",
         summary: "Detailed company profile and analysis of AutoNxt Automation's innovative approach to sustainable agriculture. AutoNxt has established itself as a leader in agricultural innovation, combining environmental sustainability with cutting-edge technology.",
         externalUrl: "https://tracxn.com/d/companies/autonxt-automation/__ZSsZ4cr50wm63YgF4zOMI1CcYVW2V43yS-5Lojtdze0",
         featured: false
@@ -1520,6 +1507,7 @@ export const en = {
         author: "Tech Innovation Team",
         date: "August 2024",
         readTime: "11 min read",
+        image: "/images/blog/technology-behind-autonxt.webp",
         summary: "Deep dive into the advanced technology stack powering AutoNxt's electric tractors — including artificial intelligence for autonomous operations, IoT sensors for real-time monitoring, and telematics for remote diagnostics and fleet management.",
         externalUrl: "https://theindiawire.com/india/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers/",
         featured: false
@@ -1528,7 +1516,9 @@ export const en = {
   },
   evBlogPage: {
     marketCagrLabel: "Market CAGR",
+    marketCagrValue: "38%",
     marketSizeLabel: "Market Size",
+    marketSizeValue: "₹4K Cr",
     directCo2Label: "Direct CO₂",
     directCo2Value: "Zero",
     categories: ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"],
@@ -1580,6 +1570,7 @@ export const en = {
   },
   newsPage: {
     storiesLabel: "Stories",
+    storiesValue: "50+",
     coverageLabel: "Coverage",
     coverageValue: "National",
     milestonesLabel: "Milestones",

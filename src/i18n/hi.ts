@@ -1426,7 +1426,9 @@ export const hi: typeof en = {
   },
   blogPage: {
     postsLabel: "Posts",
+    postsValue: "20+",
     authorsLabel: "Authors",
+    authorsValue: "6",
     topicsLabel: "Topics",
             posts: [
       {
@@ -1435,29 +1437,10 @@ export const hi: typeof en = {
         author: "द इंडिया वायर नेटवर्क",
         date: "अगस्त 2025",
         readTime: "4 मिनट पढ़ें",
+        image: "/images/blog/revolutionizing-indian-agriculture.webp",
         summary: "ऑटोनेक्स्ट ऑटोमेशन के संस्थापक और सीईओ कौस्तभ धोंडे और सह-संस्थापक और सीओओ पंकज गोयल के साथ एक विशेष साक्षात्कार में जानें कि कैसे उनकी कंपनी भारत में इलेक्ट्रिक ट्रैक्टर क्रांति का नेतृत्व कर रही है — किसानों की डीजल पर निर्भरता कम करने से लेकर स्मार्ट संचालन के लिए AI, IoT और टेलीमैटिक्स को एकीकृत करने तक।",
         externalUrl: "https://theindiawire.com/india/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers/",
         featured: true
-      },
-      {
-        tag: "स्टार्टअप",
-        title: "मुंबई का स्टार्टअप ऑटोनेक्स्ट भारत में स्वायत्त वाहनों का नेतृत्व कर रहा है, एक इलेक्ट्रिक ट्रैक्टर से शुरुआत",
-        author: "क्राउडफॉरथिंक संपादकीय टीम",
-        date: "मार्च 2025",
-        readTime: "7 मिनट पढ़ें",
-        summary: "ऑटोनेक्स्ट का आत्मनिर्भर ट्रैक्टर जुताई, कीट नियंत्रण और बुवाई सहित खेत के संचालन के लिए आदर्श है। 2016 में स्थापित, ऑटोनेक्स्ट अधिक किसानों तक पहुंचने और अपने ट्रैक्टर को अधिक किफायती बनाने के लिए एक ट्रैक्टर-साझाकरण मंच की कल्पना करता है।",
-        externalUrl: "http://crowdforthink.com/blogs/mumbai-startup-autonxt-pioneers-autonomous-vehicles-in-india-starting-with-an-electric-tractor",
-        featured: true
-      },
-      {
-        tag: "नवाचार",
-        title: "ऑटोनेक्स्ट का गेम-चेंजिंग इलेक्ट्रिक ट्रैक्टर भारत में कृषि और उद्योग को बदलने के लिए तैयार",
-        author: "इंडिया पोस्ट डेली",
-        date: "जनवरी 2025",
-        readTime: "5 मिनट पढ़ें",
-        summary: "ऑटोनेक्स्ट ऑटोमेशन अपने अभिनव इलेक्ट्रिक ट्रैक्टरों के साथ भारतीय कृषि में क्रांति ला रहा है, जो उन्नत तकनीक के साथ स्थिरता को जोड़ता है, किसानों को पारंपरिक डीजल ट्रैक्टरों के लिए लागत प्रभावी और पर्यावरण के अनुकूल विकल्प प्रदान करता है।",
-        externalUrl: "https://indiapostdaily.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/",
-        featured: false
       },
       {
         tag: "स्वायत्त तकनीक",
@@ -1465,6 +1448,7 @@ export const hi: typeof en = {
         author: "इनसाइडर्स टॉक",
         date: "दिसंबर 2024",
         readTime: "6 मिनट पढ़ें",
+        image: "/images/blog/indias-first-self-driving-tractor.webp",
         summary: "ऑटोनेक्स्ट स्वायत्त खेती तकनीक विकसित करने में सबसे आगे है, जिसने भारत का पहला सेल्फ-ड्राइविंग ट्रैक्टर बनाया है। यह विकास किसानों को बढ़ी हुई दक्षता, कम श्रम लागत और खेती के संचालन में बेहतर सटीकता प्रदान करता है।",
         externalUrl: "https://insiderstalk.in/building-indias-first-ever-self-driving-tractor/",
         featured: false
@@ -1475,6 +1459,7 @@ export const hi: typeof en = {
         author: "ट्रैक्टर जंक्शन",
         date: "नवंबर 2024",
         readTime: "8 मिनट पढ़ें",
+        image: "/images/blog/future-of-farming.webp",
         summary: "ऑटोनेक्स्ट ऑटोमेशन भारत के पहले स्वायत्त इलेक्ट्रिक ट्रैक्टर के साथ खेती के भविष्य का नेतृत्व कर रहा है, जो टिकाऊ कृषि के साथ अत्याधुनिक तकनीक का संयोजन कर रहा है।",
         externalUrl: "https://www.tractorjunction.com/tractor-news/future-of-farming-india-first-self-driving-tractor/",
         featured: false
@@ -1485,6 +1470,7 @@ export const hi: typeof en = {
         author: "ट्रैक्टर गुरु",
         date: "अक्टूबर 2024",
         readTime: "9 मिनट पढ़ें",
+        image: "/images/blog/autonxt-tractor-revolutionizing-agriculture.webp",
         summary: "ऑटोनेक्स्ट के अभिनव ट्रैक्टर समाधानों का व्यापक कवरेज — इलेक्ट्रिक ट्रैक्टर, स्वायत्त ड्राइविंग क्षमताएं और स्मार्ट खेती समाधान जो भारत और उसके बाहर आधुनिक कृषि की उभरती जरूरतों को पूरा करते हैं।",
         externalUrl: "https://tractorguru.in/blog/category/autonxt-tractor/",
         featured: false
@@ -1495,6 +1481,7 @@ export const hi: typeof en = {
         author: "ट्रैक्सन रिसर्च टीम",
         date: "सितंबर 2024",
         readTime: "7 मिनट पढ़ें",
+        image: "/images/blog/game-changing-electric-tractor.webp",
         summary: "ऑटोनेक्स्ट ऑटोमेशन के अभिनव दृष्टिकोण का विस्तृत कंपनी प्रोफाइल और विश्लेषण। ऑटोनेक्स्ट ने खुद को कृषि नवाचार में एक नेता के रूप में स्थापित किया है, जो अत्याधुनिक तकनीक के साथ पर्यावरणीय स्थिरता को जोड़ता है।",
         externalUrl: "https://tracxn.com/d/companies/autonxt-automation/__ZSsZ4cr50wm63YgF4zOMI1CcYVW2V43yS-5Lojtdze0",
         featured: false
@@ -1505,6 +1492,7 @@ export const hi: typeof en = {
         author: "टेक इनोवेशन टीम",
         date: "अगस्त 2024",
         readTime: "11 मिनट पढ़ें",
+        image: "/images/blog/technology-behind-autonxt.webp",
         summary: "ऑटोनेक्स्ट के इलेक्ट्रिक ट्रैक्टरों को शक्ति प्रदान करने वाले उन्नत प्रौद्योगिकी स्टैक में गहराई से उतरें — जिसमें स्वायत्त संचालन के लिए कृत्रिम बुद्धिमत्ता, वास्तविक समय की निगरानी के लिए IoT सेंसर, और रिमोट डायग्नोस्टिक्स और फ्लीट प्रबंधन के लिए टेलीमैटिक्स शामिल हैं।",
         externalUrl: "https://theindiawire.com/india/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers/",
         featured: false
@@ -1513,7 +1501,9 @@ export const hi: typeof en = {
   },
   evBlogPage: {
     marketCagrLabel: "Market CAGR",
+    marketCagrValue: "38%",
     marketSizeLabel: "Market Size",
+    marketSizeValue: "₹4K Cr",
     directCo2Label: "Direct CO₂",
     directCo2Value: "Zero",
     categories: ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"],
@@ -1565,6 +1555,7 @@ export const hi: typeof en = {
   },
   newsPage: {
     storiesLabel: "Stories",
+    storiesValue: "50+",
     coverageLabel: "Coverage",
     coverageValue: "National",
     milestonesLabel: "Milestones",
