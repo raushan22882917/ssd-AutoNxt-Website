@@ -34,3 +34,7 @@ logs/
 .parcel-cache/
 .next/
 out/
+
+# Generated WebP image artifacts — run `npm run compress-images` to regenerate.
+# Originals (.jpg / .png) are source-controlled; .webp files are derived output.
+public/images/**/*.webp
