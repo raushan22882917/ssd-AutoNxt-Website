@@ -1,30 +1,91 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
-import { ArrowRight, Calendar, ExternalLink, Tag, FileText, Globe, Award } from "lucide-react";
+import { 
+  ArrowRight, Calendar, ExternalLink, Tag, FileText, Globe, Award, Search, Filter, Clock, Eye, User
+} from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
 export default function News() {
   const { t } = useLang();
 
-  const newsFromT = t.newsPage.news;
-  const links = [
-    "https://www.linkedin.com/company/autonxt-automation",
-    "https://www.youtube.com/watch?v=kia8cxkaUJc",
-    "https://www.linkedin.com/company/autonxt-automation",
-    "https://www.linkedin.com/company/autonxt-automation",
-    "https://www.linkedin.com/company/autonxt-automation",
-    "https://www.linkedin.com/company/autonxt-automation",
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [imageErrors, setImageErrors] = useState<{ [key: number]: boolean }>({});
+
+  const handleReadArticle = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleImageError = (postId: number) => {
+    setImageErrors(prev => ({ ...prev, [postId]: true }));
+  };
+
+  const getImageSrc = (post: any) => {
+    if (imageErrors[post.id]) {
+      return "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80";
+    }
+    return post.image || "/unnamed.jpg";
+  };
+
+  const localizedNews = t.newsPage.news || [];
+
+  const externalUrls = [
+    "https://www.cmv360.com/tractors/news/autonxt-automation-launching-india-first-self-driving-electric-tractor",
+    "https://auto.economictimes.indiatimes.com/news/automotive/autonxt-automation-secures-pre-series-a-funding-led-by-saama/109165048",
+    "https://tractornews.in/news/autonxt-automation-to-introduce-india-s-first-self-driving-electric-tractor-secures-pre-series-a-funding/",
+    "https://www.tractorjunction.com/tractor-news/autonxt-automation-secures-pre-series-a-funding-from-saama/",
+    "https://www.mercomindia.com/autonxt-pre-series-a-funding",
+    "https://indiabuzznews.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/",
+    "https://firstindia.co.in/news/press-releases/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers",
+    "https://evreporter.com/autonxt-automation-secures-pre-series-a-funding-for-electric-autonomous-tractor/"
   ];
 
-  const NEWS = newsFromT.map((item, i) => ({
-    ...item,
-    link: links[i] || "https://www.linkedin.com/company/autonxt-automation",
+  const newsPosts = localizedNews.map((post: any, i: number) => {
+    return {
+      id: i + 1,
+      title: post.title,
+      summary: post.summary,
+      date: post.date,
+      readTime: post.readTime || (i % 2 === 0 ? "5 min read" : "3 min read"),
+      cat: post.tag,
+      author: post.author || "AutoNxt Team",
+      views: 750 + i * 150,
+      image: `/News/News_daily/${(i % 8) + 1}.png`,
+      externalUrl: post.externalUrl || externalUrls[i] || "https://www.autonxt.in",
+      featured: i < 2, // The first 2 items are featured!
+      tags: [post.tag, "AutoNxt", "Electric Tractor", "Innovation"]
+    };
+  });
+
+  const categories = ["all", ...Array.from(new Set(newsPosts.map((p: any) => p.cat)))];
+
+  const accents = [
+    "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400",
+    "bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400",
+    "bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400",
+    "bg-purple-50 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400"
+  ];
+
+  const ARTICLES = newsPosts.map((article, i) => ({
+    ...article,
+    accent: accents[i % accents.length]
   }));
 
-  const FEATURED = NEWS[0];
+  const filteredPosts = ARTICLES.filter(post => {
+    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         post.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const matchesCategory = selectedCategory === "all" || post.cat.toLowerCase() === selectedCategory.toLowerCase();
+    return matchesSearch && matchesCategory;
+  });
+
+  const featuredPosts = filteredPosts.filter(post => post.featured);
+  const regularPosts = filteredPosts.filter(post => !post.featured);
+
   return (
-    <div className="w-full min-h-screen bg-background">
+    <div className="w-full min-h-screen bg-background pb-16">
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
@@ -113,65 +174,234 @@ export default function News() {
         </div>
       </section>
 
-      {/* Featured Story */}
-      <section className="py-14 bg-muted/30">
+      {/* ── SEARCH & FILTER SECTION ── */}
+      <section className="py-8 bg-muted/20 border-y border-border">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <p className="text-xs font-bold text-primary uppercase tracking-widest mb-6">{t.news.featured}</p>
-          <motion.div
-            className="bg-card border border-border rounded-2xl p-8 md:p-10 hover:border-primary/40 hover:shadow-lg transition-all"
-            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          >
-            <div className="flex flex-wrap gap-3 items-center mb-4">
-              <span className="bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">{FEATURED.tag}</span>
-              <span className="text-muted-foreground text-sm flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />{FEATURED.date}</span>
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            {/* Search Input */}
+            <div className="relative flex-1 w-full max-w-md">
+              <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <input
+                type="text"
+                placeholder="Search news..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm text-foreground placeholder-muted-foreground"
+              />
             </div>
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">{FEATURED.title}</h2>
-            <p className="text-muted-foreground text-base leading-relaxed mb-6">{FEATURED.summary}</p>
-            <a href={FEATURED.link} target="_blank" rel="noopener noreferrer">
-              <Button className="bg-primary text-white hover:bg-primary/90">
-                {t.newsPage.readMore} <ExternalLink className="ml-2 w-4 h-4" />
-              </Button>
-            </a>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* News Grid */}
-      <section className="py-14 bg-background">
-        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <p className="text-xs font-bold text-primary uppercase tracking-widest mb-8">{t.news.allNews}</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {NEWS.slice(1).map((item, i) => (
-              <motion.div
-                key={i}
-                className="bg-card border border-border rounded-xl p-6 hover:border-primary/40 hover:shadow-md transition-all group"
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 2) * 0.07 }}
+            {/* Category Dropdown */}
+            <div className="flex items-center gap-2 w-full md:w-auto justify-end">
+              <Filter className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="px-3.5 py-2.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm text-foreground cursor-pointer"
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="bg-muted text-muted-foreground text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full flex items-center gap-1">
-                    <Tag className="w-2.5 h-2.5" />{item.tag}
-                  </span>
-                  <span className="text-muted-foreground text-xs flex items-center gap-1"><Calendar className="w-3 h-3" />{item.date}</span>
-                </div>
-                <h3 className="font-bold text-foreground text-base leading-snug mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">{item.summary}</p>
-                <a href={item.link} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline">
-                  {t.newsPage.readMore} <ArrowRight className="w-3 h-3" />
-                </a>
-              </motion.div>
-            ))}
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category === "all" ? "All Categories" : category}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-primary">
-        <div className="container mx-auto px-4 md:px-8 text-center">
+      {/* ── FEATURED STORIES ── */}
+      {featuredPosts.length > 0 && (
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-8">{t.news.featured}</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {featuredPosts.map((post, i) => (
+                <motion.article
+                  key={post.id}
+                  className="bg-card border border-border rounded-2xl hover:border-primary/45 hover:shadow-lg transition-all group flex flex-col overflow-hidden"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (i % 2) * 0.07 }}
+                >
+                  {/* Card Image Container */}
+                  <div 
+                    className="relative h-56 w-full overflow-hidden cursor-pointer"
+                    onClick={() => handleReadArticle(post.externalUrl)}
+                    title="Click to read full article"
+                  >
+                    <img
+                      src={getImageSrc(post)}
+                      alt={post.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={() => handleImageError(post.id)}
+                    />
+                    
+                    {/* Category tag */}
+                    <div className="absolute top-3 left-3" onClick={(e) => e.stopPropagation()}>
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${post.accent}`}>
+                        {post.cat}
+                      </span>
+                    </div>
+
+                    {/* Top Right External Link Icon */}
+                    <div className="absolute top-3 right-3">
+                      <div className="bg-black/60 backdrop-blur-sm rounded-full p-1.5 transition-transform group-hover:scale-110">
+                        <ExternalLink className="w-3.5 h-3.5 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Center "Read Article" Button on Hover */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/95 text-black px-4 py-2 rounded-xl text-xs font-semibold shadow-md tracking-wider">
+                        Read Article
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-4 mb-3 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />{post.date}</span>
+                      <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
+                    </div>
+                    
+                    <h3 
+                      className="font-bold text-foreground text-base leading-snug mb-3 hover:text-primary transition-colors cursor-pointer line-clamp-2"
+                      onClick={() => handleReadArticle(post.externalUrl)}
+                    >
+                      {post.title}
+                    </h3>
+                    
+                    <p className="text-muted-foreground text-xs leading-relaxed mb-4 flex-1 line-clamp-3">
+                      {post.summary}
+                    </p>
+
+                    <div className="flex items-center justify-between pt-3 border-t border-border text-muted-foreground text-[10px]">
+                      <span className="flex items-center gap-1"><User className="w-3.5 h-3.5" />{post.author}</span>
+                      <span className="flex items-center gap-1"><Eye className="w-3.5 h-3.5" />{post.views} views</span>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border/40">
+                      {post.tags.slice(0, 3).map((tag, idx) => (
+                        <span key={idx} className="flex items-center gap-1 bg-muted text-muted-foreground px-2 py-0.5 rounded text-[9px] font-medium">
+                          <Tag className="w-2.5 h-2.5" />
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── REGULAR STORIES (ALL ARTICLES) ── */}
+      {regularPosts.length > 0 && (
+        <section className="py-16 bg-muted/30 border-t border-border">
+          <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-8">{t.news.allNews}</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {regularPosts.map((post, i) => (
+                <motion.div
+                  key={post.id}
+                  className="bg-card border border-border rounded-2xl hover:border-primary/45 hover:shadow-lg transition-all group flex flex-col overflow-hidden"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (i % 3) * 0.07 }}
+                >
+                  {/* Card Image Container */}
+                  <div 
+                    className="relative h-48 w-full overflow-hidden cursor-pointer"
+                    onClick={() => handleReadArticle(post.externalUrl)}
+                    title="Click to read full article"
+                  >
+                    <img
+                      src={getImageSrc(post)}
+                      alt={post.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={() => handleImageError(post.id)}
+                    />
+                    
+                    {/* Category tag */}
+                    <div className="absolute top-3 left-3" onClick={(e) => e.stopPropagation()}>
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${post.accent}`}>
+                        {post.cat}
+                      </span>
+                    </div>
+
+                    {/* Top Right External Link Icon */}
+                    <div className="absolute top-3 right-3">
+                      <div className="bg-black/60 backdrop-blur-sm rounded-full p-1.5 transition-transform group-hover:scale-110">
+                        <ExternalLink className="w-3.5 h-3.5 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Center "Read Article" Button on Hover */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/95 text-black px-4 py-2 rounded-xl text-xs font-semibold shadow-md tracking-wider">
+                        Read Article
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <div className="flex items-center gap-3 mb-2 text-[10px] text-muted-foreground">
+                      <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{post.date}</span>
+                      <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{post.readTime}</span>
+                    </div>
+                    
+                    <h3 
+                      className="font-bold text-foreground text-sm leading-snug mb-2 hover:text-primary transition-colors cursor-pointer line-clamp-2"
+                      onClick={() => handleReadArticle(post.externalUrl)}
+                    >
+                      {post.title}
+                    </h3>
+                    <p className="text-muted-foreground text-xs leading-relaxed mb-4 line-clamp-3">
+                      {post.summary}
+                    </p>
+
+                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/80 text-muted-foreground text-[10px]">
+                      <span className="flex items-center gap-1"><User className="w-3 h-3" />{post.author}</span>
+                      <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{post.views} views</span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Empty State */}
+      {filteredPosts.length === 0 && (
+        <section className="py-16">
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-md mx-auto">
+              <Search className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+              <h3 className="text-2xl font-bold mb-2 text-gray-300">No news articles found</h3>
+              <p className="text-gray-400">
+                Try adjusting your search query or choosing another category filter.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── PRESS CONTACT CTA ── */}
+      <section className="py-16 bg-primary border-t border-border">
+        <div className="container mx-auto px-4 md:px-8 max-w-2xl text-center">
+          <FileText className="w-8 h-8 text-white mx-auto mb-4" />
           <h2 className="font-display text-3xl font-bold text-white mb-3">{t.news.ctaTitle}</h2>
-          <p className="text-white/80 mb-6 max-w-xl mx-auto">{t.news.ctaDesc}</p>
-          <a href="mailto:info@autonxt.in">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold px-8">
+          <p className="text-white/80 mb-6">{t.news.ctaDesc}</p>
+          <a href="mailto:info@autonxt.in?subject=Media Enquiry">
+            <Button size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold px-8">
               {t.news.contactPress} <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </a>

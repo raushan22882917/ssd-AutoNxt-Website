@@ -1,34 +1,87 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Clock, Zap, BatteryCharging, Globe, Cpu, TrendingUp, Leaf, IndianRupee } from "lucide-react";
+import { 
+  ArrowRight, Calendar, Clock, Zap, BatteryCharging, Globe, Cpu, 
+  TrendingUp, Leaf, IndianRupee, Search, Filter, ExternalLink 
+} from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
 export default function EvBlog() {
   const { t } = useLang();
+  
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [imageErrors, setImageErrors] = useState<{ [key: number]: boolean }>({});
 
-  const CATEGORIES = t.evBlogPage.categories;
-  const articlesFromT = t.evBlogPage.articles;
-  const statsFromT = t.evBlogPage.stats;
+  const handleReadArticle = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleImageError = (postId: number) => {
+    setImageErrors(prev => ({ ...prev, [postId]: true }));
+  };
+
+  const getImageSrc = (post: any) => {
+    if (imageErrors[post.id]) {
+      return "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=900&q=80";
+    }
+    return post.image || "/unnamed.jpg";
+  };
+
+  const STATS = t.evBlogPage.stats;
+
+  const localizedArticles = t.evBlogPage.articles || [];
+
+  const externalUrls = [
+    "https://www.theautomonitor.com/the-rise-of-eco-friendly-tractors-in-indias-push-for-green-growth/",
+    "https://emobilityplus.com/2025/11/17/opinion-bridging-sustainability-and-productivity-with-electric-tractor-technology/",
+    "https://republicnewsindia.com/how-electric-tractors-are-powering-a-sustainable-revolution-in-indian-agriculture/",
+    "https://www.google.com/amp/s/www.thehindubusinessline.com/economy/agri-business/farming-without-fumes-why-electric-tractors-are-the-future-of-indian-agriculture/article70202273.ece/amp/",
+    "https://www.autonxt.in",
+    "https://www.autonxt.in"
+  ];
+
+  const evBlogPosts = localizedArticles.map((article: any, i: number) => {
+    return {
+      id: i + 1,
+      title: article.title,
+      summary: article.summary,
+      date: article.date,
+      readTime: article.readTime,
+      cat: article.cat,
+      image: "/unnamed.jpg",
+      externalUrl: externalUrls[i] || "https://www.autonxt.in"
+    };
+  });
+
+  const categories = ["all", ...Array.from(new Set(evBlogPosts.map((p: any) => p.cat)))];
 
   const icons = [BatteryCharging, Globe, Zap, Cpu, BatteryCharging, Globe];
   const accents = [
-    "bg-blue-50 text-blue-700",
-    "bg-green-50 text-green-700",
-    "bg-orange-50 text-orange-700",
-    "bg-purple-50 text-purple-700",
-    "bg-yellow-50 text-yellow-700",
-    "bg-teal-50 text-teal-700",
+    "bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400",
+    "bg-green-50 text-green-700 dark:bg-green-950/30 dark:text-green-400",
+    "bg-orange-50 text-orange-700 dark:bg-orange-950/30 dark:text-orange-400",
+    "bg-purple-50 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400",
+    "bg-yellow-50 text-yellow-700 dark:bg-yellow-950/30 dark:text-yellow-400",
+    "bg-teal-50 text-teal-700 dark:bg-teal-950/30 dark:text-teal-400",
   ];
 
-  const ARTICLES = articlesFromT.map((article, i) => ({
+  const ARTICLES = evBlogPosts.map((article, i) => ({
     ...article,
     icon: icons[i] || Globe,
-    accent: accents[i] || "bg-gray-50 text-gray-700",
+    accent: accents[i] || "bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
   }));
 
-  const STATS = statsFromT;
+  const filteredPosts = ARTICLES.filter(post => {
+    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         post.summary.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "all" || post.cat.toLowerCase() === selectedCategory.toLowerCase();
+    return matchesSearch && matchesCategory;
+  });
+
   return (
-    <div className="w-full min-h-screen bg-background">
+    <div className="w-full min-h-screen bg-background pb-16">
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
@@ -117,7 +170,7 @@ export default function EvBlog() {
         </div>
       </section>
 
-      {/* Stats Bar */}
+      {/* ── STATS BAR ── */}
       <section className="bg-primary py-8">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -131,35 +184,129 @@ export default function EvBlog() {
         </div>
       </section>
 
-      {/* Articles Grid */}
-      <section className="py-16 bg-background">
+      {/* ── SEARCH & FILTER SECTION ── */}
+      <section className="py-8 bg-muted/20 border-y border-border">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {ARTICLES.map((a, i) => (
-              <motion.div
-                key={i}
-                className="bg-card border border-border rounded-2xl p-6 hover:border-primary/40 hover:shadow-md transition-all group flex flex-col"
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 3) * 0.07 }}
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            {/* Search Input */}
+            <div className="relative flex-1 w-full max-w-md">
+              <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <input
+                type="text"
+                placeholder="Search articles..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm text-foreground placeholder-muted-foreground"
+              />
+            </div>
+
+            {/* Category Dropdown */}
+            <div className="flex items-center gap-2 w-full md:w-auto justify-end">
+              <Filter className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="px-3.5 py-2.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm text-foreground cursor-pointer"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${a.accent}`}>{a.cat}</span>
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${a.accent}`}>
-                    <a.icon className="w-4 h-4" />
-                  </div>
-                </div>
-                <h3 className="font-bold text-foreground text-sm leading-snug mb-3 group-hover:text-primary transition-colors flex-1">{a.title}</h3>
-                <p className="text-muted-foreground text-xs leading-relaxed mb-4 line-clamp-3">{a.summary}</p>
-                <div className="flex items-center gap-3 text-muted-foreground text-[11px] mt-auto pt-3 border-t border-border">
-                  <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{a.date}</span>
-                  <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{a.readTime}</span>
-                </div>
-              </motion.div>
-            ))}
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category === "all" ? "All Categories" : category}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Newsletter CTA */}
+      {/* ── ARTICLES GRID ── */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+          {filteredPosts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredPosts.map((post, i) => (
+                <motion.div
+                  key={post.id}
+                  className="bg-card border border-border rounded-2xl hover:border-primary/45 hover:shadow-lg transition-all group flex flex-col overflow-hidden"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (i % 3) * 0.07 }}
+                >
+                  {/* Card Image Container */}
+                  <div 
+                    className="relative h-48 w-full overflow-hidden cursor-pointer"
+                    onClick={() => handleReadArticle(post.externalUrl)}
+                    title="Click to read full article"
+                  >
+                    <img
+                      src={getImageSrc(post)}
+                      alt={post.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={() => handleImageError(post.id)}
+                    />
+                    
+                    {/* Category tag */}
+                    <div className="absolute top-3 left-3" onClick={(e) => e.stopPropagation()}>
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${post.accent}`}>
+                        {post.cat}
+                      </span>
+                    </div>
+
+                    {/* Top Right External Link Icon */}
+                    <div className="absolute top-3 right-3">
+                      <div className="bg-black/60 backdrop-blur-sm rounded-full p-1.5 transition-transform group-hover:scale-110">
+                        <ExternalLink className="w-3.5 h-3.5 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Center "Read Article" Button on Hover */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/95 text-black px-4 py-2 rounded-xl text-xs font-semibold shadow-md tracking-wider">
+                        Read Article
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 
+                      className="font-bold text-foreground text-sm leading-snug mb-2 hover:text-primary transition-colors cursor-pointer line-clamp-2"
+                      onClick={() => handleReadArticle(post.externalUrl)}
+                    >
+                      {post.title}
+                    </h3>
+                    <p className="text-muted-foreground text-xs leading-relaxed mb-4 line-clamp-3">
+                      {post.summary}
+                    </p>
+
+                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/80 text-muted-foreground text-[10px]">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3.5 h-3.5" />
+                        {post.date}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5" />
+                        {post.readTime}
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 max-w-md mx-auto">
+              <Search className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+              <h3 className="text-lg font-bold mb-1 text-foreground">No articles found</h3>
+              <p className="text-sm text-muted-foreground">
+                Try adjusting your search query or choosing another category filter.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── NEWSLETTER CTA ── */}
       <section className="py-16 bg-muted/30 border-t border-border">
         <div className="container mx-auto px-4 md:px-8 max-w-2xl text-center">
           <Zap className="w-8 h-8 text-primary mx-auto mb-4" />

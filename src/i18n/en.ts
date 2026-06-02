@@ -268,7 +268,21 @@ export const en = {
   // Common
   chat: {
     welcome: "👋 Welcome to AutoNxt AI\n\nI help you explore electric tractors and smart agriculture.\n\nYou can ask in **English**, **हिंदी**, **मराठी**, or **తెలుగు** — reply in the same language you ask in.\n\nBelow you can choose **Call** (Phone), **Meet** (Google Meet), or **Demo** (Site Visit) — or just type: \"call me\", \"schedule meeting\", \"book demo\".",
+    callPromptNow: "Call AutoNxt Team Now",
+    callPromptScheduled: "Schedule a Call",
+    meetingOpenMessage: "I am ready to schedule your virtual meeting.",
+    bookingOpenMessage: "I can help you place a booking for your tractor.",
+    callSupport: "TELEPHONE SUPPORT & SALES",
+    callDescription: "Enter your number. Our agent will call you instantly during business hours or at your preferred time.",
+    callTypeSupport: "Technical Support",
+    callTypeSales: "Sales & Dealership",
+    meetingHeading: "SCHEDULE A GOOGLE MEET",
+    meetingLanguageLabel: "Preferred Language:",
+    salesMeetingInfo: "Meetings are conducted via Google Meet with a product specialist (10 AM - 5 PM).",
+    scheduleMeeting: "Confirm Meeting Schedule",
+    bookingHeader: "PRE-BOOK YOUR AUTONXT TRACTOR"
   },
+
   common: {
     readMore: "Read More",
     learnMore: "Learn More",
@@ -450,7 +464,13 @@ export const en = {
       submitting: "Submitting...",
       submitBtn: "Submit Booking",
       success: "Booking submitted successfully! We'll contact you soon.",
+      help: "Describe your farming needs / questions...",
+      submitCall: "Call Me Now",
+      scheduleCall: "Schedule Call Request",
+      city: "City / District",
+      topic: "Meeting Topic / Questions"
     },
+
     contactInfo: {
       title: "Get In Touch",
       call: "Call Us",
@@ -1416,7 +1436,8 @@ export const en = {
         date: "April 2025",
         readTime: "6 min read",
         summary: "India has over 140 million farming households. If even 10% switch to electric tractors over the next decade, the carbon savings would be equivalent to removing millions of cars from Indian roads. Here's why the shift is already happening."
-      },
+     ,
+        externalUrl: "http://crowdforthink.com/blogs/mumbai-startup-autonxt-pioneers-autonomous-vehicles-in-india-starting-with-an-electric-tractor" },
       {
         tag: "Technology",
         title: "From Diesel to Electric: What the Transition Looks Like on a Real Farm",
@@ -1424,7 +1445,8 @@ export const en = {
         date: "March 2025",
         readTime: "8 min read",
         summary: "Raju Patil farms 12 acres in Nashik. Last season was his first full season with the AutoNxt X45H2. We followed him from sowing to harvest to understand what the shift from diesel really means on the ground — in cost, in effort, and in confidence."
-      },
+     ,
+        externalUrl: "http://crowdforthink.com/blogs/mumbai-startup-autonxt-pioneers-autonomous-vehicles-in-india-starting-with-an-electric-tractor" },
       {
         tag: "Engineering",
         title: "Why We Chose Lithium Iron Phosphate (LFP) Over NMC for the X45H2",
@@ -1432,7 +1454,8 @@ export const en = {
         date: "February 2025",
         readTime: "5 min read",
         summary: "Battery chemistry is the heart of any electric vehicle. When designing the X45H2, we faced a critical choice between NMC and LFP. This post explains why LFP was the right choice for Indian farming conditions — and what it means for safety, longevity, and cost."
-      },
+     ,
+        externalUrl: "https://indiapostdaily.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/" },
       {
         tag: "Policy",
         title: "FAME-III and What It Means for Electric Tractors in India",
@@ -1440,7 +1463,8 @@ export const en = {
         date: "January 2025",
         readTime: "7 min read",
         summary: "The Government of India's FAME-III scheme is set to expand incentives to electric agricultural equipment. We break down what the policy means, how farmers can benefit, and how AutoNxt is working with policymakers to accelerate adoption."
-      },
+     ,
+        externalUrl: "https://insiderstalk.in/building-indias-first-ever-self-driving-tractor/" },
       {
         tag: "Agri-Tech",
         title: "Precision Farming Meets Electric Power: AutoNxt's Vision for Smart Agriculture",
@@ -1448,7 +1472,8 @@ export const en = {
         date: "December 2024",
         readTime: "9 min read",
         summary: "The future of Indian agriculture is not just electric — it's autonomous. Integrating GPS-guided operations, IoT sensors, and AI-driven crop management with the X45H2 platform opens up possibilities that diesel machines could never deliver."
-      },
+     ,
+        externalUrl: "https://www.tractorjunction.com/tractor-news/future-of-farming-india-first-self-driving-tractor/" },
       {
         tag: "Business",
         title: "The Total Cost of Ownership: Electric vs Diesel Tractor Over 5 Years",
@@ -1456,7 +1481,8 @@ export const en = {
         date: "November 2024",
         readTime: "6 min read",
         summary: "Farmers ask us one question more than any other: 'Is it worth the higher upfront cost?' We ran the full numbers on 5-year TCO across fuel, maintenance, servicing, and productivity — the results speak for themselves."
-      }
+     ,
+        externalUrl: "https://tractorguru.in/blog/category/autonxt-tractor/" }
     ]
   },
   evBlogPage: {
@@ -1525,40 +1551,76 @@ export const en = {
     readMore: "Read More",
     news: [
       {
-        date: "March 2024",
+        date: "4/10/2024",
         tag: "Product Launch",
-        title: "AutoNxt Officially Launches X45H2 in Thane, Maharashtra",
-        summary: "AutoNxt Automation Pvt. Ltd. officially launched India's most powerful electric tractor — the X45H2 — at a grand ceremony in Thane. The event was attended by government officials, agricultural scientists, and early adopters."
+        title: "AutoNxt Automation Set to Launch India's First Self-Driving Electric Tractor",
+        summary: "AutoNxt unveils India's first self-driving electric tractor, advancing sustainable farming and commercial sectors with innovative technology and funding support.",
+        author: "Robin Kumar Attri",
+        readTime: "5 min read",
+        externalUrl: "https://www.cmv360.com/tractors/news/autonxt-automation-launching-india-first-self-driving-electric-tractor"
       },
       {
-        date: "March 2024",
-        tag: "Milestone",
-        title: "First Unit Delivered to Jaywant Sugars Ltd., Karad",
-        summary: "AutoNxt delivered the first commercial unit of the X45H2 electric tractor to Jaywant Sugar Mill in Karad, Satara — establishing AutoNxt as India's pioneer in the electric tractor ecosystem for industrial agriculture."
-      },
-      {
-        date: "2023",
-        tag: "Certification",
-        title: "AutoNxt Receives iCAT Certification for X45H2",
-        summary: "The X45H2 successfully completed rigorous performance and safety testing at the International Centre for Automotive Technology (iCAT), receiving certification for all three variants — 20 HP, 35 HP, and 45 HP."
-      },
-      {
-        date: "2022",
+        date: "4/9/2024",
         tag: "Funding",
-        title: "AutoNxt Raises Seed Funding to Scale Manufacturing",
-        summary: "AutoNxt secured seed funding to accelerate manufacturing scale-up and expand its R&D capabilities in electric powertrains, autonomous systems, and IoT-based farm management solutions."
+        title: "AutoNxt Automation secures Pre-Series A funding led by Saama",
+        summary: "AutoNxt is set to launch India's first electric tractor with self-driving options, designed for commercial use in various sectors.",
+        author: "Online Bureau",
+        readTime: "2 min read",
+        externalUrl: "https://auto.economictimes.indiatimes.com/news/automotive/autonxt-automation-secures-pre-series-a-funding-led-by-saama/109165048"
       },
       {
-        date: "2021",
-        tag: "Partnership",
-        title: "AutoNxt Partners with BAIF Development Research Foundation",
-        summary: "AutoNxt joined hands with BAIF Development Research Foundation to co-develop sustainable electric farming solutions for India's rural agricultural communities, combining technology with deep grassroots field expertise."
+        date: "4/10/2024",
+        tag: "Funding",
+        title: "AutoNxt Automation To Introduce India's First Self-Driving Electric Tractor, Secures Pre-Series A Funding",
+        summary: "AutoNxt Automation has successfully concluded its Pre-Series A funding round led by Saama, gearing up to introduce India's first electric tractor with self-driving capabilities.",
+        author: "Suneha Mishra",
+        readTime: "4 min read",
+        externalUrl: "https://tractornews.in/news/autonxt-automation-to-introduce-india-s-first-self-driving-electric-tractor-secures-pre-series-a-funding/"
       },
       {
-        date: "2020",
-        tag: "Recognition",
-        title: "AutoNxt Recognized by National Innovation Foundation",
-        summary: "The National Innovation Foundation (NIA) recognised AutoNxt among India's most promising deep-tech agri-startups, validating the company's approach to sustainable agriculture through electric and autonomous solutions."
+        date: "4/9/2024",
+        tag: "Funding",
+        title: "AutoNxt Automation Secures Pre-Series A Funding From Saama",
+        summary: "AutoNxt Automation secures significant funding to accelerate development of India's first self-driving electric tractor for commercial applications.",
+        author: "Tractor Junction",
+        readTime: "3 min read",
+        externalUrl: "https://www.tractorjunction.com/tractor-news/autonxt-automation-secures-pre-series-a-funding-from-saama/"
+      },
+      {
+        date: "4/9/2024",
+        tag: "Funding",
+        title: "AutoNxt Secures Pre-Series A Funding for Electric Autonomous Tractor Development",
+        summary: "AutoNxt Automation secures Pre-Series A funding to advance development of electric autonomous tractors for commercial and agricultural applications.",
+        author: "Mercom India",
+        readTime: "3 min read",
+        externalUrl: "https://www.mercomindia.com/autonxt-pre-series-a-funding"
+      },
+      {
+        date: "4/10/2024",
+        tag: "Innovation",
+        title: "AutoNxt's Game-Changing Electric Tractor Set to Transform Farming and Industry in India",
+        summary: "AutoNxt's revolutionary electric tractor with self-driving capabilities is set to transform farming and industrial operations across India.",
+        author: "India Buzz News",
+        readTime: "4 min read",
+        externalUrl: "https://indiabuzznews.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/"
+      },
+      {
+        date: "4/10/2024",
+        tag: "Agriculture",
+        title: "Revolutionizing Indian Agriculture: AutoNxt's Electric Tractors Bring Intelligence, Sustainability and Profitability to Farmers",
+        summary: "AutoNxt's electric tractors are revolutionizing Indian agriculture by bringing intelligence, sustainability and profitability to farmers across the country.",
+        author: "First India",
+        readTime: "5 min read",
+        externalUrl: "https://firstindia.co.in/news/press-releases/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers"
+      },
+      {
+        date: "4/9/2024",
+        tag: "Funding",
+        title: "AutoNxt Automation Secures Pre-Series A Funding for Electric Autonomous Tractor",
+        summary: "AutoNxt Automation secures Pre-Series A funding to advance development of electric autonomous tractors for sustainable farming solutions.",
+        author: "EV Reporter",
+        readTime: "3 min read",
+        externalUrl: "https://evreporter.com/autonxt-automation-secures-pre-series-a-funding-for-electric-autonomous-tractor/"
       }
     ]
   }

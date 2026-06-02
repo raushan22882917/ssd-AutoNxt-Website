@@ -88,18 +88,12 @@ function closeAllForms(setters: {
   setters.setShowBookingForm(false);
 }
 
-function getCallFormPrompt(lang: string): string {
-  if (lang === "hi") {
-    return `कृपया नीचे फॉर्म भरें, **भाषा** चुनें, और **Submit** दबाएँ। **${CALL_NOW_DELAY_SECONDS} सेकंड** बाद हम आपकी चुनी भाषा में कॉल करेंगे।`;
-  }
-  return `Fill in the form below, choose your **language**, then tap **Submit**. We'll call you in **${CALL_NOW_DELAY_SECONDS} seconds** in that language.`;
+function getCallFormPrompt(t: any): string {
+  return t.chat.callPromptNow;
 }
 
-function getScheduledCallPrompt(lang: string): string {
-  if (lang === "hi") {
-    return "कृपया फॉर्म भरें और तारीख/समय चुनें। हम निर्धारित समय पर कॉल करेंगे — तुरंत कॉल नहीं होगी।";
-  }
-  return "Fill in the form and pick a date & time. We'll call at your scheduled slot — no immediate call.";
+function getScheduledCallPrompt(t: any): string {
+  return t.chat.callPromptScheduled;
 }
 
 function callQueuedMessage(phone: string, lang: string): string {
@@ -633,10 +627,7 @@ export default function StaticChatBot() {
       ...prev,
       {
         role: "assistant",
-        text:
-          userLanguage === "hi"
-            ? "Google Meet पर सेल्स टीम से मिलने के लिए फॉर्म भरें।"
-            : "Schedule a **Google Meet** with our sales team using the form below.",
+        text: t.chat.meetingOpenMessage,
       },
     ]);
   };
@@ -654,7 +645,7 @@ export default function StaticChatBot() {
       ...prev,
       {
         role: "assistant",
-        text: mode === "scheduled" ? getScheduledCallPrompt(userLanguage) : getCallFormPrompt(userLanguage),
+        text: mode === "scheduled" ? getScheduledCallPrompt(t) : getCallFormPrompt(t),
       },
     ]);
   };
@@ -912,11 +903,7 @@ export default function StaticChatBot() {
   const openBookingForm = () => {
     closeAllForms({ setShowCallForm, setShowMeetingForm, setShowBookingForm });
     setShowBookingForm(true);
-    const formHint =
-      userLanguage === "hi"
-        ? "कृपया नीचे बुकिंग फॉर्म भरें — हम आपका विवरण सेव करेंगे, सेल्स टीम को ईमेल करेंगे, और पुष्टि ID भेजेंगे।"
-        : "Please fill the booking form below — we will save your details, email our sales team, and send you a confirmation reference.";
-    setMessages((prev) => [...prev, { role: "assistant", text: formHint }]);
+    setMessages((prev) => [...prev, { role: "assistant", text: t.chat.bookingOpenMessage }]);
   };
 
   const handleClearSession = () => {
@@ -1140,7 +1127,7 @@ export default function StaticChatBot() {
 
             {showCallForm && (
               <div className="border-t border-gray-200 bg-gray-50 px-4 py-3 space-y-2 max-h-[260px] overflow-y-auto">
-                <p className="text-xs font-semibold text-gray-800 uppercase tracking-wide">Phone support</p>
+                <p className="text-xs font-semibold text-gray-800 uppercase tracking-wide">{t.chat.callSupport}</p>
                 <div className="flex gap-2">
                   <button type="button" onClick={() => setCallForm((f) => ({ ...f, schedule_mode: "now" }))} className={`flex-1 py-1.5 rounded-lg text-xs font-medium ${callForm.schedule_mode === "now" ? "bg-red-600 text-white" : "border border-gray-200"}`}>{t.bookPage.contactInfo.call}</button>
                   <button type="button" onClick={() => setCallForm((f) => ({ ...f, schedule_mode: "scheduled" }))} className={`flex-1 py-1.5 rounded-lg text-xs font-medium ${callForm.schedule_mode === "scheduled" ? "bg-red-600 text-white" : "border border-gray-200"}`}>{t.bookPage.cta.tag}</button>
@@ -1166,11 +1153,11 @@ export default function StaticChatBot() {
                   ))}
                 </select>
                 <p className="text-[10px] text-gray-500 leading-snug">
-                  AI will call you and speak in the language you select above.
+                  {t.chat.callDescription}
                 </p>
                 <select value={callForm.request_type} onChange={(e) => setCallForm((f) => ({ ...f, request_type: e.target.value as "sales" | "support" }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs bg-white">
-                  <option value="support">Technical support</option>
-                  <option value="sales">Sales / demo</option>
+                  <option value="support">{t.chat.callTypeSupport}</option>
+                  <option value="sales">{t.chat.callTypeSales}</option>
                 </select>
                 {callForm.schedule_mode === "scheduled" && (
                   <div className="grid grid-cols-2 gap-2">
@@ -1178,9 +1165,9 @@ export default function StaticChatBot() {
                     <input type="time" value={callForm.preferred_time} onChange={(e) => setCallForm((f) => ({ ...f, preferred_time: e.target.value }))} className="px-2.5 py-1.5 rounded-lg border text-xs" />
                   </div>
                 )}
-                <textarea placeholder="What do you need help with?" value={callForm.message} onChange={(e) => setCallForm((f) => ({ ...f, message: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs min-h-[48px]" />
+                <textarea placeholder={t.bookPage.form.help} value={callForm.message} onChange={(e) => setCallForm((f) => ({ ...f, message: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs min-h-[48px]" />
                 <div className="flex gap-2">
-                  <button type="button" onClick={submitCallForm} disabled={loading || callCountdown !== null} className="flex-1 py-2 rounded-lg bg-red-600 text-white text-xs font-semibold disabled:opacity-50">{callForm.schedule_mode === "now" ? "Submit & call in 10s" : "Schedule call"}</button>
+                  <button type="button" onClick={submitCallForm} disabled={loading || callCountdown !== null} className="flex-1 py-2 rounded-lg bg-red-600 text-white text-xs font-semibold disabled:opacity-50">{callForm.schedule_mode === "now" ? t.bookPage.form.submitCall : t.bookPage.form.scheduleCall}</button>
                   <button type="button" onClick={() => setShowCallForm(false)} className="px-3 py-2 rounded-lg border text-xs">{t.common.cancel}</button>
                 </div>
               </div>
@@ -1190,7 +1177,7 @@ export default function StaticChatBot() {
             {showMeetingForm && (
               <div className="border-t border-gray-200 bg-blue-50/50 px-4 py-3 space-y-2 max-h-[280px] overflow-y-auto">
                 <p className="text-xs font-semibold text-blue-900 uppercase tracking-wide">
-                  Schedule Google Meet — sales team
+                  {t.chat.meetingHeading}
                 </p>
                 <input
                   type="text"
@@ -1225,7 +1212,7 @@ export default function StaticChatBot() {
                 >
                   {INDIAN_CALL_LANGUAGES.map((l) => (
                     <option key={l.code} value={l.code}>
-                      Meeting language: {l.native}
+                      {t.chat.meetingLanguageLabel} {l.native}
                     </option>
                   ))}
                 </select>
@@ -1242,13 +1229,13 @@ export default function StaticChatBot() {
                 </select>
                 <input
                   type="text"
-                  placeholder="City"
+                  placeholder={t.bookPage.form.city}
                   value={meetingForm.city}
                   onChange={(e) => setMeetingForm((f) => ({ ...f, city: e.target.value }))}
                   className="w-full px-2.5 py-1.5 rounded-lg border text-xs"
                 />
                 <p className="text-[10px] text-blue-800">
-                  Sales meetings: Mon–Sat 10:00 AM – 5:00 PM IST. If your slot is busy, the next free slot is booked automatically.
+                  {t.chat.salesMeetingInfo}
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   <input
@@ -1269,7 +1256,7 @@ export default function StaticChatBot() {
                   />
                 </div>
                 <textarea
-                  placeholder="What would you like to discuss? *"
+                  placeholder={`${t.bookPage.form.topic} *`}
                   value={meetingForm.topic}
                   onChange={(e) => setMeetingForm((f) => ({ ...f, topic: e.target.value }))}
                   className="w-full px-2.5 py-1.5 rounded-lg border text-xs min-h-[48px]"
@@ -1281,7 +1268,7 @@ export default function StaticChatBot() {
                     disabled={loading}
                     className="flex-1 py-2 rounded-lg bg-blue-700 text-white text-xs font-semibold disabled:opacity-50"
                   >
-                    Schedule meeting
+                    {t.chat.scheduleMeeting}
                   </button>
                   <button
                     type="button"
@@ -1297,7 +1284,7 @@ export default function StaticChatBot() {
             {showBookingForm && (
               <div className="border-t border-red-100 bg-red-50/40 px-4 py-3 space-y-2 max-h-[240px] overflow-y-auto">
                 <p className="text-xs font-semibold text-red-700 uppercase tracking-wide">
-                  Book demo / schedule call
+                  {t.chat.bookingHeader}
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   <input
@@ -1320,7 +1307,7 @@ export default function StaticChatBot() {
                   />
                   <input
                     type="tel"
-                    placeholder="Phone *"
+                    placeholder={`${t.bookPage.form.phone} *`}
                     value={bookingForm.customer_phone}
                     onChange={(e) =>
                       setBookingForm((f) => ({ ...f, customer_phone: e.target.value }))
@@ -1342,7 +1329,7 @@ export default function StaticChatBot() {
                   </select>
                   <input
                     type="text"
-                    placeholder="City *"
+                    placeholder={`${t.bookPage.form.city} *`}
                     value={bookingForm.city}
                     onChange={(e) => setBookingForm((f) => ({ ...f, city: e.target.value }))}
                     className="col-span-2 px-2.5 py-1.5 rounded-lg border border-gray-200 text-xs"
