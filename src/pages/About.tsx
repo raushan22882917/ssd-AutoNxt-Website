@@ -30,8 +30,10 @@ const swadeepImg   = "/images/team/swadeep.jpg";
 const facilityGarage = "/images/facility/garage-entry.jpg";
 const facilityLeft   = "/images/facility/left-wall.jpg";
 const facilityRight  = "/images/facility/right-wall.jpg";
+
 // Event photos used as field strip
 const fieldImg1 = "/images/events/event-1.jpg";
+
 const fieldImg2 = "/images/events/event-2.jpg";
 const fieldImg3 = "/images/events/event-3.jpg";
 const fieldImg4 = "/images/events/event-4.jpg";
@@ -103,6 +105,7 @@ export default function About() {
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+
             {/* Left text */}
             <div className="pb-16">
               <motion.div
@@ -155,12 +158,13 @@ export default function About() {
               <div className="grid grid-cols-3 gap-2 h-[420px]">
                 <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
                   <img src={facilityGarage} alt="AutoNxt Facility" className="w-full h-full object-cover" loading="eager" decoding="async" />
+
                 </div>
                 <div className="rounded-tr-2xl overflow-hidden">
-                  <img src={fieldImg1} alt="AutoNxt in the field" className="w-full h-full object-cover" loading="eager" decoding="async" />
+                  <img src={fieldImg1} alt="AutoNxt in the field" className="w-full h-full object-cover" loading="eager" decoding="async" fetchPriority = "low"/>
                 </div>
                 <div className="overflow-hidden">
-                  <img src={fieldImg2} alt="AutoNxt tractor" className="w-full h-full object-cover" loading="eager" decoding="async" />
+                  <img src={fieldImg2} alt="AutoNxt tractor" className="w-full h-full object-cover" loading="eager" decoding="async" fetchPriority = "low" />
                 </div>
               </div>
               {/* Fade bottom */}
@@ -315,7 +319,11 @@ export default function About() {
               <motion.div
                 key={i}
                 className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-2xl transition-all duration-300"
-                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.05 }}
+                transition={{ duration: 0.3}}
+                // transition={{ delay: i * 0.1 }}
                 data-testid={`team-featured-${i}`}
               >
                 {/* Portrait photo — tall */}
@@ -363,7 +371,9 @@ export default function About() {
             {TEAM.filter(m => !m.featured).map((member, i) => (
               <motion.div
                 key={i}
-                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+                
+                // className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all duration-300 will-change-transform"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 4) * 0.06 }}
                 data-testid={`team-member-${i}`}
               >
