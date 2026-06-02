@@ -276,7 +276,7 @@ export const en = {
     callDescription: "Enter your number. Our agent will call you instantly during business hours or at your preferred time.",
     callTypeSupport: "Technical Support",
     callTypeSales: "Sales & Dealership",
-    meetingHeading: "SCHEDULE A GOOGLE MEET",
+    meetingHeading: "SCHEDULE A ZOOM MEET",
     meetingLanguageLabel: "Preferred Language:",
     salesMeetingInfo: "Meetings are conducted via Google Meet with a product specialist (10 AM - 5 PM).",
     scheduleMeeting: "Confirm Meeting Schedule",
@@ -1629,7 +1629,7 @@ export const en = {
         summary: "AutoNxt's revolutionary electric tractor with self-driving capabilities is set to transform farming and industrial operations across India.",
         author: "India Buzz News",
         readTime: "4 min read",
-        externalUrl: "https://indiabuzznews.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/"
+        externalUrl: "https://www.ahmedabadmirror.com/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/81891265.html"
       },
       {
         date: "4/10/2024",

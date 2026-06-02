@@ -100,14 +100,15 @@ export default function EvBlog() {
   const STATS = t.evBlogPage.stats;
   const localizedArticles = t.evBlogPage.articles || [];
 
-  const externalUrls = [
-    "https://www.theautomonitor.com/the-rise-of-eco-friendly-tractors-in-indias-push-for-green-growth/",
-    "https://emobilityplus.com/2025/11/17/opinion-bridging-sustainability-and-productivity-with-electric-tractor-technology/",
-    "https://republicnewsindia.com/how-electric-tractors-are-powering-a-sustainable-revolution-in-indian-agriculture/",
-    "https://www.thehindubusinessline.com/economy/agri-business/farming-without-fumes-why-electric-tractors-are-the-future-of-indian-agriculture/article70202273.ece",
-    "https://www.autonxt.in",
-    "https://www.autonxt.in"
-  ];
+  const evBlogPosts = localizedArticles.map((article: any, i: number) => ({
+    id: i + 1,
+    title: article.title,
+    summary: article.summary,
+    date: article.date,
+    readTime: article.readTime,
+    cat: article.cat,
+    externalUrl: article.externalUrl || "https://www.autonxt.in"
+  }));
 
   const icons = [BatteryCharging, Globe, Zap, Cpu, BatteryCharging, Globe];
   const accents = [
@@ -117,16 +118,6 @@ export default function EvBlog() {
     "bg-cyan-50 text-cyan-700 dark:bg-cyan-950/30 dark:text-cyan-400",
     "bg-sky-50 text-sky-700 dark:bg-sky-950/30 dark:text-sky-400",
   ];
-
-  const evBlogPosts = localizedArticles.map((article: any, i: number) => ({
-    id: i + 1,
-    title: article.title,
-    summary: article.summary,
-    date: article.date,
-    readTime: article.readTime,
-    cat: article.cat,
-    externalUrl: externalUrls[i] || "https://www.autonxt.in"
-  }));
 
   const categories = ["all", ...Array.from(new Set(evBlogPosts.map((p: any) => p.cat)))];
 

@@ -37,17 +37,6 @@ export default function News() {
 
   const localizedNews = t.newsPage.news || [];
 
-  const externalUrls = [
-    "https://www.cmv360.com/tractors/news/autonxt-automation-launching-india-first-self-driving-electric-tractor",
-    "https://auto.economictimes.indiatimes.com/news/automotive/autonxt-automation-secures-pre-series-a-funding-led-by-saama/109165048",
-    "https://tractornews.in/news/autonxt-automation-to-introduce-india-s-first-self-driving-electric-tractor-secures-pre-series-a-funding/",
-    "https://www.tractorjunction.com/tractor-news/autonxt-automation-secures-pre-series-a-funding-from-saama/",
-    "https://www.mercomindia.com/autonxt-pre-series-a-funding",
-    "https://indiabuzznews.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/",
-    "https://firstindia.co.in/news/press-releases/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers",
-    "https://evreporter.com/autonxt-automation-secures-pre-series-a-funding-for-electric-autonomous-tractor/"
-  ];
-
   const newsPosts = localizedNews.map((post: any, i: number) => {
     return {
       id: i + 1,
@@ -59,7 +48,7 @@ export default function News() {
       author: post.author || "AutoNxt Team",
       views: 750 + i * 150,
       image: `/News/News_daily/${(i % 8) + 1}.png`,
-      externalUrl: post.externalUrl || externalUrls[i] || "https://www.autonxt.in",
+      externalUrl: post.externalUrl || "https://www.autonxt.in",
       featured: i < 2, // The first 2 items are featured!
       tags: [post.tag, "AutoNxt", "Electric Tractor", "Innovation"]
     };
@@ -135,7 +124,7 @@ export default function News() {
               >
                 {[
                   { icon: FileText, label: t.newsPage.storiesLabel, value: `${newsPosts.length}` },
-                  { icon: Globe, label: t.newsPage.coverageLabel, value: `${new Set(externalUrls.map(u => { try { return new URL(u).hostname.replace('www.', '') } catch { return u } })).size}` },
+                  { icon: Globe, label: t.newsPage.coverageLabel, value: `${new Set(newsPosts.map((p: any) => { try { return new URL(p.externalUrl).hostname.replace('www.', '') } catch { return p.externalUrl } })).size}` },
                   { icon: Award, label: t.newsPage.milestonesLabel, value: `${categories.length - 1}` },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-3 group">

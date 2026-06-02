@@ -273,7 +273,7 @@ export const hi: typeof en = {
     callDescription: "अपना नंबर दर्ज करें। हमारे एजेंट व्यावसायिक घंटों के दौरान या आपके पसंदीदा समय पर तुरंत कॉल करेंगे।",
     callTypeSupport: "तकनीकी सहायता",
     callTypeSales: "बिक्री और डीलरशिप",
-    meetingHeading: "गूगल मीट शेड्यूल करें",
+    meetingHeading: "ज़ूम मीटिंग शेड्यूल करें",
     meetingLanguageLabel: "पसंदीदा भाषा:",
     salesMeetingInfo: "मीटिंग उत्पाद विशेषज्ञ के साथ गूगल मीट के माध्यम से आयोजित की जाती हैं (सुबह 10 बजे - शाम 5 बजे)।",
     scheduleMeeting: "मीटिंग शेड्यूल की पुष्टि करें",
@@ -1614,7 +1614,7 @@ export const hi: typeof en = {
         summary: "सेल्फ-ड्राइविंग क्षमताओं के साथ ऑटोनेक्स्ट का क्रांतिकारी इलेक्ट्रिक ट्रैक्टर पूरे भारत में कृषि और औद्योगिक संचालन को बदलने के लिए तैयार है।",
         author: "इंडिया बज़ न्यूज़",
         readTime: "4 मिनट पढ़ें",
-        externalUrl: "https://indiabuzznews.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/"
+        externalUrl: "https://www.ahmedabadmirror.com/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/81891265.html"
       },
       {
         date: "4/10/2024",
