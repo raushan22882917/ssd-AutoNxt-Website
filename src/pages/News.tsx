@@ -127,9 +127,9 @@ export default function News() {
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: FileText, label: t.newsPage.storiesLabel, value: t.newsPage.storiesValue },
-                  { icon: Globe, label: t.newsPage.coverageLabel, value: t.newsPage.coverageValue },
-                  { icon: Award, label: t.newsPage.milestonesLabel, value: t.newsPage.milestonesValue },
+                  { icon: FileText, label: t.newsPage.storiesLabel, value: `${newsPosts.length}` },
+                  { icon: Globe, label: t.newsPage.coverageLabel, value: `${new Set(externalUrls.map(u => { try { return new URL(u).hostname.replace('www.', '') } catch { return u } })).size}` },
+                  { icon: Award, label: t.newsPage.milestonesLabel, value: `${categories.length - 1}` },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-3 group">
                     <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/40 transition-colors">

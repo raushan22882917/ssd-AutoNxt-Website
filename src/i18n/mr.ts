@@ -273,7 +273,7 @@ export const mr: typeof en = {
     callDescription: "तुमचा नंबर टाका. आमचे प्रतिनिधी व्यावसायिक वेळेत किंवा तुमच्या सोयीस्कर वेळेत त्वरित कॉल करतील.",
     callTypeSupport: "तांत्रिक सहाय्य",
     callTypeSales: "विक्री आणि डीलरशिप",
-    meetingHeading: "गूगल मीट शेड्युल करा",
+    meetingHeading: "ZOOM मीट शेड्युल करा",
     meetingLanguageLabel: "पसंदगीची भाषा:",
     salesMeetingInfo: "मीटिंग उत्पादन तज्ज्ञांसोबत गूगल मीटद्वारे घेतल्या जातात (सकाळी १० - संध्याकाळी ५).",
     scheduleMeeting: "मीटिंग शेड्युल निश्चित करा",
@@ -1440,12 +1440,12 @@ export const mr: typeof en = {
     ]
   },
   blogPage: {
-    postsLabel: "Posts",
+    postsLabel: "लेख",
     postsValue: "20+",
-    authorsLabel: "Authors",
+    authorsLabel: "लेखक",
     authorsValue: "6",
-    topicsLabel: "Topics",
-            posts: [
+    topicsLabel: "विषय",
+    posts: [
       {
         tag: "तंत्रज्ञान",
         title: "भारतीय शेतीत क्रांती: ऑटोनेक्स्टचे इलेक्ट्रिक ट्रॅक्टर शेतकऱ्यांसाठी बुद्धिमत्ता, शाश्वतता आणि नफा आणत आहेत",
@@ -1515,14 +1515,14 @@ export const mr: typeof en = {
     ]
   },
   evBlogPage: {
-    marketCagrLabel: "Market CAGR",
+    marketCagrLabel: "बाजार CAGR",
     marketCagrValue: "38%",
-    marketSizeLabel: "Market Size",
+    marketSizeLabel: "बाजार आकार",
     marketSizeValue: "₹4K Cr",
-    directCo2Label: "Direct CO₂",
+    directCo2Label: "थेट CO₂",
     directCo2Value: "Zero",
     categories: ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"],
-        articles: [
+    articles: [
       {
         cat: "शाश्वतता",
         title: "हरित वाढीच्या भारताच्या प्रयत्नांमध्ये इको-फ्रेंडली ट्रॅक्टरचा उदय",
@@ -1569,14 +1569,14 @@ export const mr: typeof en = {
     ]
   },
   newsPage: {
-    storiesLabel: "Stories",
+    storiesLabel: "कथा",
     storiesValue: "50+",
-    coverageLabel: "Coverage",
+    coverageLabel: "प्रकाशक",
     coverageValue: "National",
-    milestonesLabel: "Milestones",
+    milestonesLabel: "श्रेणी",
     milestonesValue: "6 Key",
     readMore: "Read More",
-            news: [
+    news: [
       {
         date: "4/10/2024",
         tag: "उत्पादन लाँच",

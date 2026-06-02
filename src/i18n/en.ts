@@ -1571,9 +1571,9 @@ export const en = {
   newsPage: {
     storiesLabel: "Stories",
     storiesValue: "50+",
-    coverageLabel: "Coverage",
+    coverageLabel: "Publishers",
     coverageValue: "National",
-    milestonesLabel: "Milestones",
+    milestonesLabel: "Categories",
     milestonesValue: "6 Key",
     readMore: "Read More",
     news: [

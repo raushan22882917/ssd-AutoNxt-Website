@@ -117,9 +117,9 @@ export default function Blog() {
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: BookOpen, label: t.blogPage.postsLabel, value: t.blogPage.postsValue },
-                  { icon: Users, label: t.blogPage.authorsLabel, value: t.blogPage.authorsValue },
-                  { icon: Tag, label: t.blogPage.topicsLabel, value: "5" },
+                  { icon: BookOpen, label: t.blogPage.postsLabel, value: `${ARTICLES.length}` },
+                  { icon: Users, label: t.blogPage.authorsLabel, value: `${new Set(ARTICLES.map((p: any) => p.author)).size}` },
+                  { icon: Tag, label: t.blogPage.topicsLabel, value: `${categories.length - 1}` },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">

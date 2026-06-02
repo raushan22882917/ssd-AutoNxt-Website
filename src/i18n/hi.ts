@@ -1425,12 +1425,12 @@ export const hi: typeof en = {
     ]
   },
   blogPage: {
-    postsLabel: "Posts",
+    postsLabel: "लेख",
     postsValue: "20+",
-    authorsLabel: "Authors",
+    authorsLabel: "लेखक",
     authorsValue: "6",
-    topicsLabel: "Topics",
-            posts: [
+    topicsLabel: "विषय",
+    posts: [
       {
         tag: "तकनीक",
         title: "भारतीय कृषि में क्रांति: ऑटोनेक्स्ट के इलेक्ट्रिक ट्रैक्टर किसानों के लिए बुद्धिमत्ता, स्थिरता और लाभप्रदता ला रहे हैं",
@@ -1500,14 +1500,14 @@ export const hi: typeof en = {
     ]
   },
   evBlogPage: {
-    marketCagrLabel: "Market CAGR",
+    marketCagrLabel: "बाज़ार CAGR",
     marketCagrValue: "38%",
-    marketSizeLabel: "Market Size",
+    marketSizeLabel: "बाज़ार का आकार",
     marketSizeValue: "₹4K Cr",
-    directCo2Label: "Direct CO₂",
+    directCo2Label: "प्रत्यक्ष CO₂",
     directCo2Value: "Zero",
     categories: ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"],
-        articles: [
+    articles: [
       {
         cat: "स्थिरता",
         title: "हरित विकास के लिए भारत के प्रयास में पर्यावरण के अनुकूल ट्रैक्टरों का उदय",
@@ -1554,14 +1554,14 @@ export const hi: typeof en = {
     ]
   },
   newsPage: {
-    storiesLabel: "Stories",
+    storiesLabel: "कहानियां",
     storiesValue: "50+",
-    coverageLabel: "Coverage",
+    coverageLabel: "प्रकाशक",
     coverageValue: "National",
-    milestonesLabel: "Milestones",
+    milestonesLabel: "श्रेणियां",
     milestonesValue: "6 Key",
     readMore: "Read More",
-            news: [
+    news: [
       {
         date: "4/10/2024",
         tag: "उत्पाद लॉन्च",

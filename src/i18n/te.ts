@@ -1472,11 +1472,11 @@ export const te: typeof en = {
     ]
   },
   blogPage: {
-    postsLabel: "Posts",
+    postsLabel: "పోస్ట్‌లు",
     postsValue: "20+",
-    authorsLabel: "Authors",
+    authorsLabel: "రచయితలు",
     authorsValue: "6",
-    topicsLabel: "Topics",
+    topicsLabel: "అంశాలు",
             posts: [
       {
         tag: "సాంకేతికత",
@@ -1547,11 +1547,11 @@ export const te: typeof en = {
     ]
   },
   evBlogPage: {
-    marketCagrLabel: "Market CAGR",
+    marketCagrLabel: "మార్కెట్ CAGR",
     marketCagrValue: "38%",
-    marketSizeLabel: "Market Size",
+    marketSizeLabel: "మార్కెట్ పరిమాణం",
     marketSizeValue: "₹4K Cr",
-    directCo2Label: "Direct CO₂",
+    directCo2Label: "ప్రత్యక్ష CO₂",
     directCo2Value: "Zero",
     categories: ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"],
         articles: [
@@ -1601,11 +1601,11 @@ export const te: typeof en = {
     ]
   },
   newsPage: {
-    storiesLabel: "Stories",
+    storiesLabel: "కథనాలు",
     storiesValue: "50+",
-    coverageLabel: "Coverage",
+    coverageLabel: "ప్రచురణకర్తలు",
     coverageValue: "National",
-    milestonesLabel: "Milestones",
+    milestonesLabel: "వర్గాలు",
     milestonesValue: "6 Key",
     readMore: "Read More",
             news: [
