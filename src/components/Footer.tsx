@@ -7,7 +7,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-surface-dark text-white">
-      <div className="container mx-auto px-4 md:px-8 py-14">
+      <div className="container mx-auto px-4 md:px-8 pt-14 pb-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
           {/* Brand */}
@@ -85,7 +85,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
+        <div className="border-t border-white/10 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
           <p>{t.common.copyright}</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-white transition-colors">{t.common.privacyPolicy}</Link>

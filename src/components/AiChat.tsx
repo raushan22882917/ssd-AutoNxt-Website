@@ -639,7 +639,6 @@ export default function StaticChatBot() {
       setMeetingForm(emptyMeetingForm(f.language));
       await pushReportToSales("meeting_done", {
         meet_link: zoomUrl,
-        zoom_link: zoomUrl,
         meeting_id: result.meetingId,
       });
     } catch {

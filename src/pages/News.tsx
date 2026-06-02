@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { 
-  ArrowRight, Calendar, ExternalLink, Tag, FileText, Globe, Award, Search, Filter, Clock, Eye, User
+  ArrowRight, Calendar, ExternalLink, Tag, FileText, Globe, Award, Search, Clock, Eye, User, Sparkles
 } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 
@@ -61,77 +61,83 @@ export default function News() {
   const categories = ["all", ...Array.from(new Set(newsPosts.map((p: any) => p.cat)))];
 
   const accents = [
-    "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400",
-    "bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400",
-    "bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400",
-    "bg-purple-50 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400"
+    "bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400 border-red-200",
+    "bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400 border-blue-200",
+    "bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 border-amber-200",
+    "bg-purple-50 text-purple-700 dark:bg-purple-950/30 dark:text-purple-400 border-purple-200",
+    "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border-emerald-200",
   ];
 
-  const ARTICLES = newsPosts.map((article, i) => ({
+  const ARTICLES = newsPosts.map((article: any, i: number) => ({
     ...article,
     accent: accents[i % accents.length]
   }));
 
-  const filteredPosts = ARTICLES.filter(post => {
+  const filteredPosts = ARTICLES.filter((post: any) => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+                         post.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     
     const matchesCategory = selectedCategory === "all" || post.cat.toLowerCase() === selectedCategory.toLowerCase();
     return matchesSearch && matchesCategory;
   });
 
-  const featuredPosts = filteredPosts.filter(post => post.featured);
-  const regularPosts = filteredPosts.filter(post => !post.featured);
+  const featuredPosts = filteredPosts.filter((post: any) => post.featured);
+  const regularPosts = filteredPosts.filter((post: any) => !post.featured);
+  
+  const isFilteringOrSearching = searchTerm !== "" || selectedCategory !== "all";
 
   return (
-    <div className="w-full min-h-screen bg-background pb-16">
+    <div className="w-full min-h-screen bg-background">
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
-        <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
-          style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(0,72%,45%,0.15),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,hsl(214,65%,40%,0.1),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "30px 30px" }} />
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
             {/* Left: text */}
             <div className="pb-16">
               <motion.div
-                className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
+                className="inline-flex items-center gap-2 bg-primary/20 border border-primary/40 rounded-full px-5 py-2 mb-6 backdrop-blur-md"
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <Sparkles className="w-4 h-4 text-primary animate-pulse" />
                 <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.news.tag}</span>
               </motion.div>
               <motion.h1
-                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
+                className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight"
                 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
               >
-                {t.news.title} <span className="text-primary">{t.news.titleHighlight}</span>
+                {t.news.title} <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-500 to-amber-500">
+                  {t.news.titleHighlight}
+                </span>
               </motion.h1>
               <motion.p
-                className="text-white/55 text-lg max-w-lg leading-relaxed mb-10"
+                className="text-white/60 text-lg md:text-xl max-w-lg leading-relaxed mb-10"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
               >
                 {t.news.desc}
               </motion.p>
               <motion.div
-                className="flex flex-wrap gap-6"
+                className="flex flex-wrap gap-8"
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: FileText, label: t.newsPage.storiesLabel, value: "50+" },
+                  { icon: FileText, label: t.newsPage.storiesLabel, value: t.newsPage.storiesValue },
                   { icon: Globe, label: t.newsPage.coverageLabel, value: t.newsPage.coverageValue },
                   { icon: Award, label: t.newsPage.milestonesLabel, value: t.newsPage.milestonesValue },
                 ].map((f, i) => (
-                  <div key={i} className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
-                      <f.icon className="w-4 h-4 text-white/60" />
+                  <div key={i} className="flex items-center gap-3 group">
+                    <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/40 transition-colors">
+                      <f.icon className="w-5 h-5 text-white/70 group-hover:text-primary transition-colors" />
                     </div>
                     <div>
                       <p className="text-white/40 text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
-                      <p className="text-white font-bold text-sm">{f.value}</p>
+                      <p className="text-white font-bold text-base group-hover:text-primary-50 transition-colors">{f.value}</p>
                     </div>
                   </div>
                 ))}
@@ -142,68 +148,77 @@ export default function News() {
               className="relative pb-0 hidden lg:block"
               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
             >
-              <div className="grid grid-cols-3 gap-2 h-[420px]">
-                <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
+              <div className="grid grid-cols-3 gap-3 h-[450px]">
+                <div className="col-span-2 row-span-2 rounded-tl-3xl overflow-hidden relative group">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity z-10" />
                   <img
                     src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80"
                     alt="AutoNxt press event"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="eager" decoding="async"
                   />
+                  <div className="absolute bottom-6 left-6 z-20">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                      <span className="text-white/80 text-xs font-bold uppercase tracking-wider">Live Coverage</span>
+                    </div>
+                    <h3 className="text-white font-bold text-xl leading-tight">Press & Media</h3>
+                  </div>
                 </div>
-                <div className="rounded-tr-2xl overflow-hidden">
+                <div className="rounded-tr-3xl overflow-hidden relative group">
                   <img
                     src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=500&q=80"
                     alt="Media coverage"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="eager" decoding="async"
                   />
                 </div>
-                <div className="overflow-hidden">
+                <div className="overflow-hidden relative group">
                   <img
                     src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=500&q=80"
                     alt="News headlines"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="eager" decoding="async"
                   />
                 </div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none z-30" />
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* ── SEARCH & FILTER SECTION ── */}
-      <section className="py-8 bg-muted/20 border-y border-border">
-        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+      <section className="py-8 bg-muted/10 border-y border-border relative z-20 shadow-sm">
+        <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
             {/* Search Input */}
-            <div className="relative flex-1 w-full max-w-md">
-              <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            <div className="relative w-full lg:w-[350px] shrink-0">
+              <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-primary w-5 h-5" />
               <input
                 type="text"
                 placeholder={t.news.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm text-foreground placeholder-muted-foreground"
+                className="w-full pl-14 pr-6 py-3.5 bg-background border-2 border-primary/20 hover:border-primary/40 focus:border-primary rounded-full outline-none transition-all text-base text-foreground placeholder-muted-foreground shadow-md font-medium"
               />
             </div>
 
-            {/* Category Dropdown */}
-            <div className="flex items-center gap-2 w-full md:w-auto justify-end">
-              <Filter className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-3.5 py-2.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm text-foreground cursor-pointer"
-              >
-                {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category === "all" ? t.news.allCategories : category}
-                  </option>
-                ))}
-              </select>
+            {/* Horizontal Filter Pills */}
+            <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0 hide-scrollbar">
+              {categories.map((category) => (
+                <button
+                  key={category as string}
+                  onClick={() => setSelectedCategory(category as string)}
+                  className={`whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                    selectedCategory === category
+                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-105"
+                      : "bg-background border border-border text-foreground hover:bg-primary/10 hover:border-primary/30 hover:text-primary hover:scale-105"
+                  }`}
+                >
+                  {category === "all" ? t.news.allCategories : (category as string)}
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -211,19 +226,119 @@ export default function News() {
 
       {/* ── FEATURED STORIES ── */}
       {featuredPosts.length > 0 && (
-        <section className="py-16 bg-background">
-          <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-8">{t.news.featured}</p>
+        <section className="py-20 bg-background relative">
+          <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+            <div className="flex items-center gap-3 mb-10">
+              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-primary" />
+              </div>
+              <h2 className="text-2xl font-display font-bold">{t.news.featured}</h2>
+            </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {featuredPosts.map((post, i) => (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              {featuredPosts.map((post: any, i: number) => (
                 <motion.article
                   key={post.id}
-                  className="bg-card border border-border rounded-2xl hover:border-primary/45 hover:shadow-lg transition-all group flex flex-col overflow-hidden"
-                  initial={{ opacity: 0, y: 20 }}
+                  className="bg-card border border-border/50 rounded-3xl hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 group flex flex-col overflow-hidden relative"
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: (i % 2) * 0.07 }}
+                  transition={{ delay: (i % 2) * 0.1, duration: 0.6 }}
+                >
+                  {/* Card Image Container */}
+                  <div 
+                    className="relative h-72 w-full overflow-hidden cursor-pointer"
+                    onClick={() => handleReadArticle(post.externalUrl)}
+                    title="Click to read full article"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                    <img
+                      src={getImageSrc(post)}
+                      alt={post.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      onError={() => handleImageError(post.id)}
+                    />
+                    
+                    {/* Category tag */}
+                    <div className="absolute top-5 left-5 z-20" onClick={(e) => e.stopPropagation()}>
+                      <span className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full shadow-lg backdrop-blur-md ${post.accent}`}>
+                        {post.cat}
+                      </span>
+                    </div>
+
+                    {/* Date/Time overlay */}
+                    <div className="absolute bottom-5 left-5 z-20 flex gap-4 text-white/90 text-sm font-medium">
+                      <span className="flex items-center gap-1.5 backdrop-blur-md bg-black/30 px-3 py-1.5 rounded-lg"><Calendar className="w-4 h-4" />{post.date}</span>
+                      <span className="flex items-center gap-1.5 backdrop-blur-md bg-black/30 px-3 py-1.5 rounded-lg"><Clock className="w-4 h-4" />{post.readTime}</span>
+                    </div>
+
+                    {/* Top Right External Link Icon */}
+                    <div className="absolute top-5 right-5 z-20">
+                      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-2.5 transition-transform group-hover:scale-110 group-hover:bg-primary group-hover:border-primary">
+                        <ExternalLink className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-8 flex flex-col flex-1 bg-gradient-to-b from-transparent to-muted/10">
+                    <h3 
+                      className="font-display text-2xl font-bold text-foreground mb-4 hover:text-primary transition-colors cursor-pointer leading-tight line-clamp-2"
+                      onClick={() => handleReadArticle(post.externalUrl)}
+                    >
+                      {post.title}
+                    </h3>
+                    
+                    <p className="text-muted-foreground text-base leading-relaxed mb-6 flex-1 line-clamp-3">
+                      {post.summary}
+                    </p>
+
+                    <div className="flex flex-wrap items-center justify-between pt-5 border-t border-border/50 gap-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                          <User className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Author</p>
+                          <p className="text-sm font-bold">{post.author}</p>
+                        </div>
+                      </div>
+                      
+                      <Button 
+                        variant="ghost" 
+                        className="group/btn hover:bg-primary/10 hover:text-primary"
+                        onClick={() => handleReadArticle(post.externalUrl)}
+                      >
+                        Read Article <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── REGULAR POSTS GRID ── */}
+      <section className="py-16 bg-muted/5 border-t border-border/50">
+        <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+          <div className="mb-10">
+            <h2 className="text-xl font-display font-bold text-foreground">
+              {isFilteringOrSearching ? `Search Results (${filteredPosts.length})` : "Latest Updates"}
+            </h2>
+          </div>
+          
+          {regularPosts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {regularPosts.map((post: any, i: number) => (
+                <motion.article
+                  key={post.id}
+                  className="bg-card border border-border/60 rounded-3xl hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 group flex flex-col overflow-hidden"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: (i % 3) * 0.1, duration: 0.5 }}
                 >
                   {/* Card Image Container */}
                   <div 
@@ -234,177 +349,123 @@ export default function News() {
                     <img
                       src={getImageSrc(post)}
                       alt={post.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       onError={() => handleImageError(post.id)}
                     />
                     
                     {/* Category tag */}
-                    <div className="absolute top-3 left-3" onClick={(e) => e.stopPropagation()}>
-                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${post.accent}`}>
+                    <div className="absolute top-4 left-4" onClick={(e) => e.stopPropagation()}>
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md backdrop-blur-md ${post.accent}`}>
                         {post.cat}
                       </span>
                     </div>
 
-                    {/* Top Right External Link Icon */}
-                    <div className="absolute top-3 right-3">
-                      <div className="bg-black/60 backdrop-blur-sm rounded-full p-1.5 transition-transform group-hover:scale-110">
+                    {/* External Link Icon */}
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-primary backdrop-blur-md rounded-full p-2 shadow-lg">
                         <ExternalLink className="w-3.5 h-3.5 text-white" />
-                      </div>
-                    </div>
-
-                    {/* Center "Read Article" Button on Hover */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/95 text-black px-4 py-2 rounded-xl text-xs font-semibold shadow-md tracking-wider">
-                        Read Article
                       </div>
                     </div>
                   </div>
 
                   {/* Card Content */}
                   <div className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center gap-4 mb-3 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />{post.date}</span>
-                      <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
+                    <div className="flex items-center gap-4 mb-4 text-xs font-medium text-muted-foreground">
+                      <span className="flex items-center gap-1.5 text-primary/80"><Calendar className="w-3.5 h-3.5" />{post.date}</span>
+                      <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
                     </div>
                     
                     <h3 
-                      className="font-bold text-foreground text-base leading-snug mb-3 hover:text-primary transition-colors cursor-pointer line-clamp-2"
+                      className="font-bold text-foreground text-lg leading-snug mb-3 hover:text-primary transition-colors cursor-pointer line-clamp-2"
                       onClick={() => handleReadArticle(post.externalUrl)}
                     >
                       {post.title}
                     </h3>
                     
-                    <p className="text-muted-foreground text-xs leading-relaxed mb-4 flex-1 line-clamp-3">
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-1 line-clamp-3">
                       {post.summary}
                     </p>
 
-                    <div className="flex items-center justify-between pt-3 border-t border-border text-muted-foreground text-[10px]">
-                      <span className="flex items-center gap-1"><User className="w-3.5 h-3.5" />{post.author}</span>
-                      <span className="flex items-center gap-1"><Eye className="w-3.5 h-3.5" />{post.views} views</span>
-                    </div>
-
-                    <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-border/40">
-                      {post.tags.slice(0, 3).map((tag, idx) => (
-                        <span key={idx} className="flex items-center gap-1 bg-muted text-muted-foreground px-2 py-0.5 rounded text-[9px] font-medium">
-                          <Tag className="w-2.5 h-2.5" />
-                          {tag}
-                        </span>
-                      ))}
+                    <div className="flex items-center justify-between pt-4 border-t border-border/50 text-muted-foreground text-xs font-medium">
+                      <span className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-muted flex items-center justify-center">
+                          <User className="w-3 h-3 text-muted-foreground" />
+                        </div>
+                        {post.author}
+                      </span>
+                      <span className="flex items-center gap-1.5 bg-muted/50 px-2.5 py-1 rounded-md">
+                        <Eye className="w-3.5 h-3.5" /> {post.views}
+                      </span>
                     </div>
                   </div>
                 </motion.article>
               ))}
             </div>
-          </div>
-        </section>
-      )}
-
-      {/* ── REGULAR STORIES (ALL ARTICLES) ── */}
-      {regularPosts.length > 0 && (
-        <section className="py-16 bg-muted/30 border-t border-border">
-          <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-8">{t.news.allNews}</p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {regularPosts.map((post, i) => (
-                <motion.div
-                  key={post.id}
-                  className="bg-card border border-border rounded-2xl hover:border-primary/45 hover:shadow-lg transition-all group flex flex-col overflow-hidden"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: (i % 3) * 0.07 }}
-                >
-                  {/* Card Image Container */}
-                  <div 
-                    className="relative h-48 w-full overflow-hidden cursor-pointer"
-                    onClick={() => handleReadArticle(post.externalUrl)}
-                    title="Click to read full article"
-                  >
-                    <img
-                      src={getImageSrc(post)}
-                      alt={post.title}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      onError={() => handleImageError(post.id)}
-                    />
-                    
-                    {/* Category tag */}
-                    <div className="absolute top-3 left-3" onClick={(e) => e.stopPropagation()}>
-                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${post.accent}`}>
-                        {post.cat}
-                      </span>
-                    </div>
-
-                    {/* Top Right External Link Icon */}
-                    <div className="absolute top-3 right-3">
-                      <div className="bg-black/60 backdrop-blur-sm rounded-full p-1.5 transition-transform group-hover:scale-110">
-                        <ExternalLink className="w-3.5 h-3.5 text-white" />
-                      </div>
-                    </div>
-
-                    {/* Center "Read Article" Button on Hover */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/95 text-black px-4 py-2 rounded-xl text-xs font-semibold shadow-md tracking-wider">
-                        {t.news.readArticle}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Card Content */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <div className="flex items-center gap-3 mb-2 text-[10px] text-muted-foreground">
-                      <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{post.date}</span>
-                      <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{post.readTime}</span>
-                    </div>
-                    
-                    <h3 
-                      className="font-bold text-foreground text-sm leading-snug mb-2 hover:text-primary transition-colors cursor-pointer line-clamp-2"
-                      onClick={() => handleReadArticle(post.externalUrl)}
-                    >
-                      {post.title}
-                    </h3>
-                    <p className="text-muted-foreground text-xs leading-relaxed mb-4 line-clamp-3">
-                      {post.summary}
-                    </p>
-
-                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/80 text-muted-foreground text-[10px]">
-                      <span className="flex items-center gap-1"><User className="w-3 h-3" />{post.author}</span>
-                      <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{post.views} views</span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Empty State */}
-      {filteredPosts.length === 0 && (
-        <section className="py-16">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-md mx-auto">
-              <Search className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-2 text-gray-300">{t.news.noArticlesFound}</h3>
-              <p className="text-gray-400">
-                {t.news.noArticlesDesc}
+          ) : (
+            <motion.div 
+              className="text-center py-20 max-w-md mx-auto bg-card rounded-3xl border border-border border-dashed shadow-sm"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            >
+              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-muted-foreground/60" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-foreground">No articles found</h3>
+              <p className="text-sm text-muted-foreground">
+                Try adjusting your search query or category filter.
               </p>
-            </div>
-          </div>
-        </section>
-      )}
+            </motion.div>
+          )}
+        </div>
+      </section>
 
-      {/* ── PRESS CONTACT CTA ── */}
-      <section className="py-16 bg-primary border-t border-border">
-        <div className="container mx-auto px-4 md:px-8 max-w-2xl text-center">
-          <FileText className="w-8 h-8 text-white mx-auto mb-4" />
-          <h2 className="font-display text-3xl font-bold text-white mb-3">{t.news.ctaTitle}</h2>
-          <p className="text-white/80 mb-6">{t.news.ctaDesc}</p>
-          <a href="mailto:info@autonxt.in?subject=Media Enquiry">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold px-8">
-              {t.news.contactPress} <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-          </a>
+      <section className="py-24 relative overflow-hidden bg-gradient-to-r from-orange-600 to-red-900">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[150%] bg-white/10 transform rotate-12 blur-3xl"></div>
+          <div className="absolute top-[20%] -left-[10%] w-[30%] h-[100%] bg-black/10 transform -rotate-12 blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        </div>
+
+        <div className="container mx-auto px-4 text-center relative z-10 max-w-3xl">
+          <motion.div 
+            initial={{ scale: 0.8, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="w-20 h-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl"
+          >
+            <Globe className="w-10 h-10 text-white" />
+          </motion.div>
+          
+          <motion.h2 
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="font-display text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight"
+          >
+            Press & Media Inquiries
+          </motion.h2>
+          
+          <motion.p 
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-white/90 mb-10 max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed"
+          >
+            For press releases, high-res images, and media interviews, please contact our PR team.
+          </motion.p>
+          
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <a href="mailto:press@autonxt.in">
+              <Button size="lg" className="bg-white text-orange-700 hover:bg-orange-50 font-bold px-10 py-7 rounded-full shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)] hover:-translate-y-1 transition-all text-lg group">
+                Contact PR Team 
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </a>
+          </motion.div>
         </div>
       </section>
     </div>
