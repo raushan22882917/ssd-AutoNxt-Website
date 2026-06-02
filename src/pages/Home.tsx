@@ -1,10 +1,25 @@
-import FaqSection from "@/components/home/FaqSection";
-import SoftwareShowcase from "@/components/home/SoftwareShowcase";
-import TechShowcase from "@/components/home/TechShowcase";
+// import FaqSection from "@/components/home/FaqSection";
+// import SoftwareShowcase from "@/components/home/SoftwareShowcase";
+// import TechShowcase from "@/components/home/TechShowcase";
+import SectionSkeleton from "@/components/home/SectionSkeleton";
+import LazyRender from "@/components/home/LazyRender";
 
 import { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
+
+const TechShowcase = lazy(
+  () => import("@/components/home/TechShowcase")
+);
+
+const SoftwareShowcase = lazy(
+  () => import("@/components/home/SoftwareShowcase")
+);
+
+const FaqSection = lazy(
+  () => import("@/components/home/FaqSection")
+);
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
@@ -531,7 +546,11 @@ export default function Home() {
       {/* ── TECH SHOWCASE: Battery + Motor ── */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
-          <TechShowcase />
+          <LazyRender minHeight="1200px">
+              <Suspense fallback={<SectionSkeleton />}>
+                <TechShowcase />
+              </Suspense>
+          </LazyRender>
         </div>
       </section>
 
@@ -641,7 +660,11 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <SoftwareShowcase />
+          <LazyRender minHeight="1200px">
+            <Suspense fallback={<SectionSkeleton />}>
+              <SoftwareShowcase />
+            </Suspense>
+          </LazyRender>
         </div>
       </section>
 
@@ -775,7 +798,11 @@ export default function Home() {
       </section> */}
 
       {/* ── FAQ ── */}
-      <FaqSection />
+      <LazyRender minHeight="1200px">
+        <Suspense fallback={<SectionSkeleton />}>
+          <FaqSection />
+        </Suspense>
+      </LazyRender>
 
       {/* ── CTA ── */}
       <section className="py-24 bg-surface-dark text-white relative overflow-hidden">
