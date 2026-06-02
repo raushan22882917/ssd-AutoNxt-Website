@@ -1485,17 +1485,6 @@ export const hi: typeof en = {
         summary: "ऑटोनेक्स्ट ऑटोमेशन के अभिनव दृष्टिकोण का विस्तृत कंपनी प्रोफाइल और विश्लेषण। ऑटोनेक्स्ट ने खुद को कृषि नवाचार में एक नेता के रूप में स्थापित किया है, जो अत्याधुनिक तकनीक के साथ पर्यावरणीय स्थिरता को जोड़ता है।",
         externalUrl: "https://tracxn.com/d/companies/autonxt-automation/__ZSsZ4cr50wm63YgF4zOMI1CcYVW2V43yS-5Lojtdze0",
         featured: false
-      },
-      {
-        tag: "तकनीक",
-        title: "ऑटोनेक्स्ट के इलेक्ट्रिक ट्रैक्टरों के पीछे की तकनीक: AI, IoT और टेलीमैटिक्स एकीकरण",
-        author: "टेक इनोवेशन टीम",
-        date: "अगस्त 2024",
-        readTime: "11 मिनट पढ़ें",
-        image: "/images/blog/technology-behind-autonxt.webp",
-        summary: "ऑटोनेक्स्ट के इलेक्ट्रिक ट्रैक्टरों को शक्ति प्रदान करने वाले उन्नत प्रौद्योगिकी स्टैक में गहराई से उतरें — जिसमें स्वायत्त संचालन के लिए कृत्रिम बुद्धिमत्ता, वास्तविक समय की निगरानी के लिए IoT सेंसर, और रिमोट डायग्नोस्टिक्स और फ्लीट प्रबंधन के लिए टेलीमैटिक्स शामिल हैं।",
-        externalUrl: "https://theindiawire.com/india/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers/",
-        featured: false
       }
     ]
   },
@@ -1612,7 +1601,7 @@ export const hi: typeof en = {
         tag: "नवाचार",
         title: "ऑटोनेक्स्ट का गेम-चेंजिंग इलेक्ट्रिक ट्रैक्टर भारत में कृषि और उद्योग को बदलने के लिए तैयार",
         summary: "सेल्फ-ड्राइविंग क्षमताओं के साथ ऑटोनेक्स्ट का क्रांतिकारी इलेक्ट्रिक ट्रैक्टर पूरे भारत में कृषि और औद्योगिक संचालन को बदलने के लिए तैयार है।",
-        author: "इंडिया बज़ न्यूज़",
+        author: "अहमदाबाद मिरर",
         readTime: "4 मिनट पढ़ें",
         externalUrl: "https://www.ahmedabadmirror.com/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/81891265.html"
       },

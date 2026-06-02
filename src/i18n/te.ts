@@ -1532,17 +1532,6 @@ export const te: typeof en = {
         summary: "స్థిరమైన వ్యవసాయానికి ఆటోనెక్స్ట్ ఆటోమేషన్ యొక్క వినూత్న విధానం యొక్క వివరణాత్మక కంపెనీ ప్రొఫైల్ మరియు విశ్లేషణ.",
         externalUrl: "https://tracxn.com/d/companies/autonxt-automation/__ZSsZ4cr50wm63YgF4zOMI1CcYVW2V43yS-5Lojtdze0",
         featured: false
-      },
-      {
-        tag: "సాంకేతికత",
-        title: "ఆటోనెక్స్ట్ యొక్క ఎలక్ట్రిక్ ట్రాక్టర్ల వెనుక ఉన్న సాంకేతికత: AI, IoT మరియు టెలిమాటిక్స్ ఇంటిగ్రేషన్",
-        author: "టెక్ ఇన్నోవేషన్ టీమ్",
-        date: "ఆగస్టు 2024",
-        readTime: "11 నిమిషాల పఠనం",
-        image: "/images/blog/technology-behind-autonxt.webp",
-        summary: "ఆటోనెక్స్ట్ యొక్క ఎలక్ట్రిక్ ట్రాక్టర్లకు శక్తినిచ్చే అధునాతన సాంకేతిక ప్యాక్‌లోకి లోతైన పరిశీలన — అటానమస్ ఆపరేషన్స్ కోసం AI, రియల్-టైమ్ పర్యవేక్షణ కోసం IoT సెన్సార్లు.",
-        externalUrl: "https://theindiawire.com/india/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers/",
-        featured: false
       }
     ]
   },

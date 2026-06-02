@@ -1500,17 +1500,6 @@ export const en = {
         summary: "Detailed company profile and analysis of AutoNxt Automation's innovative approach to sustainable agriculture. AutoNxt has established itself as a leader in agricultural innovation, combining environmental sustainability with cutting-edge technology.",
         externalUrl: "https://tracxn.com/d/companies/autonxt-automation/__ZSsZ4cr50wm63YgF4zOMI1CcYVW2V43yS-5Lojtdze0",
         featured: false
-      },
-      {
-        tag: "Technology",
-        title: "The Technology Behind AutoNxt's Electric Tractors: AI, IoT, and Telematics Integration",
-        author: "Tech Innovation Team",
-        date: "August 2024",
-        readTime: "11 min read",
-        image: "/images/blog/technology-behind-autonxt.webp",
-        summary: "Deep dive into the advanced technology stack powering AutoNxt's electric tractors — including artificial intelligence for autonomous operations, IoT sensors for real-time monitoring, and telematics for remote diagnostics and fleet management.",
-        externalUrl: "https://theindiawire.com/india/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers/",
-        featured: false
       }
     ]
   },
@@ -1627,7 +1616,7 @@ export const en = {
         tag: "Innovation",
         title: "AutoNxt's Game-Changing Electric Tractor Set to Transform Farming and Industry in India",
         summary: "AutoNxt's revolutionary electric tractor with self-driving capabilities is set to transform farming and industrial operations across India.",
-        author: "India Buzz News",
+        author: "Ahmedabad Mirror",
         readTime: "4 min read",
         externalUrl: "https://www.ahmedabadmirror.com/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/81891265.html"
       },
