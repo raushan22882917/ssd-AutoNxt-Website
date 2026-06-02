@@ -1594,10 +1594,10 @@ export const te: typeof en = {
     ],
     authorRoleLabel: "Publication",
     stats: [
-      { value: "38%", label: "Market CAGR 2024–27" },
-      { value: "₹4,000 Cr", label: "India EV Tractor TAM by 2027" },
-      { value: "70%", label: "Lower running costs vs diesel" },
-      { value: "0", label: "Direct CO₂ emissions" }
+      { value: "38%", label: "మార్కెట్ CAGR 2024–27" },
+      { value: "₹4,000 కోట్లు", label: "2027 నాటికి భారతదేశం EV ట్రాక్టర్ TAM" },
+      { value: "70%", label: "డీజిల్ కంటే తక్కువ రన్నింగ్ ఖర్చులు" },
+      { value: "0", label: "ప్రత్యక్ష CO₂ ఉద్గారాలు" }
     ]
   },
   newsPage: {
