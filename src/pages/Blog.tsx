@@ -178,7 +178,7 @@ export default function Blog() {
               <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <input
                 type="text"
-                placeholder="Search articles..."
+                placeholder={t.blog.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm text-foreground placeholder-muted-foreground"
@@ -195,7 +195,7 @@ export default function Blog() {
               >
                 {categories.map((category) => (
                   <option key={category} value={category}>
-                    {category === "all" ? "All Categories" : category}
+                    {category === "all" ? t.blog.allCategories : category}
                   </option>
                 ))}
               </select>
@@ -246,7 +246,7 @@ export default function Blog() {
                 {/* Center "Read Article" Button on Hover */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/95 text-black px-5 py-2.5 rounded-xl text-xs font-semibold shadow-md tracking-wider">
-                    Read Article
+                    {t.blog.readArticle}
                   </div>
                 </div>
               </div>
@@ -364,9 +364,9 @@ export default function Blog() {
           ) : (
             <div className="text-center py-16 max-w-md mx-auto">
               <Search className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
-              <h3 className="text-lg font-bold mb-1 text-foreground">No articles found</h3>
+              <h3 className="text-lg font-bold mb-1 text-foreground">{t.blog.noArticlesFound}</h3>
               <p className="text-sm text-muted-foreground">
-                Try adjusting your search query or choosing another category filter.
+                {t.blog.noArticlesDesc}
               </p>
             </div>
           )}
