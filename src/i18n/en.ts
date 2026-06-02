@@ -315,6 +315,11 @@ export const en = {
     ctaTitle: "Media Enquiries",
     ctaDesc: "For press kits, interviews, and partnership announcements, reach out to the AutoNxt communications team.",
     contactPress: "Contact Press Team",
+    searchPlaceholder: "Search news...",
+    allCategories: "All Categories",
+    readArticle: "Read Article",
+    noArticlesFound: "No articles found",
+    noArticlesDesc: "Try adjusting your search query or choosing another category filter.",
   },
   // Blog
   blog: {
@@ -327,6 +332,11 @@ export const en = {
     readFull: "Read Full Post",
     writeFor: "Want to write for AutoNxt?",
     writeDesc: "We collaborate with farmers, engineers, and agri-tech experts to share real stories from the field.",
+    searchPlaceholder: "Search articles...",
+    allCategories: "All Categories",
+    readArticle: "Read Article",
+    noArticlesFound: "No articles found",
+    noArticlesDesc: "Try adjusting your search query or choosing another category filter.",
   },
   // EV Blog
   evBlog: {
@@ -336,6 +346,11 @@ export const en = {
     desc: "Deep technical insights, market analysis, policy breakdowns, and future forecasts on electric vehicles in Indian and global agriculture.",
     ctaTitle: "Stay Charged on EV News",
     ctaDesc: "Get the latest insights on electric agriculture, battery technology, and policy updates delivered to your inbox.",
+    searchPlaceholder: "Search articles...",
+    allCategories: "All Categories",
+    readArticle: "Read Article",
+    noArticlesFound: "No articles found",
+    noArticlesDesc: "Try adjusting your search query or choosing another category filter.",
   },
   productPage: {
     badge: "Electric Lineup 2025",
@@ -1430,59 +1445,85 @@ export const en = {
     topicsLabel: "Topics",
     posts: [
       {
-        tag: "Sustainability",
-        title: "How India's Farmers Are Leading the Electric Revolution",
-        author: "Kaustubh Dhonde",
-        date: "April 2025",
+        tag: "Technology",
+        title: "Revolutionizing Indian Agriculture: AutoNxt's Electric Tractors Bring Intelligence, Sustainability, and Profitability to Farmers",
+        author: "The India Wire Network",
+        date: "August 2025",
+        readTime: "4 min read",
+        summary: "In an exclusive interview with Kaustabh Dhonde, Founder and CEO of AutoNxt Automation, and Pankaj Goyal, Co-founder and COO, share how their company is pioneering the electric tractor revolution in India — from cutting farmers' diesel dependence to integrating AI, IoT, and telematics for smarter operations.",
+        externalUrl: "https://theindiawire.com/india/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers/",
+        featured: true
+      },
+      {
+        tag: "Startup",
+        title: "Mumbai Startup AutoNxt Pioneers Autonomous Vehicles In India, Starting With An Electric Tractor",
+        author: "CrowdforThink Editorial Team",
+        date: "March 2025",
+        readTime: "7 min read",
+        summary: "AutoNxt's self-reliant tractor is ideal for farm operations including tilling, pest control, ploughing and sowing. Founded in 2016, AutoNxt envisions a tractor-sharing platform to reach greater farmers and make its tractor more affordable.",
+        externalUrl: "http://crowdforthink.com/blogs/mumbai-startup-autonxt-pioneers-autonomous-vehicles-in-india-starting-with-an-electric-tractor",
+        featured: true
+      },
+      {
+        tag: "Innovation",
+        title: "AutoNxt's Game-Changing Electric Tractor Set to Transform Farming and Industry in India",
+        author: "India Post Daily",
+        date: "January 2025",
+        readTime: "5 min read",
+        summary: "AutoNxt Automation is revolutionizing Indian agriculture with its innovative electric tractors that combine sustainability with advanced technology, providing farmers with cost-effective and environmentally friendly alternatives to traditional diesel tractors.",
+        externalUrl: "https://indiapostdaily.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/",
+        featured: false
+      },
+      {
+        tag: "Autonomous Technology",
+        title: "Building India's First Ever Self-Driving Tractor",
+        author: "Insiders Talk",
+        date: "December 2024",
         readTime: "6 min read",
-        summary: "India has over 140 million farming households. If even 10% switch to electric tractors over the next decade, the carbon savings would be equivalent to removing millions of cars from Indian roads. Here's why the shift is already happening."
-     ,
-        externalUrl: "http://crowdforthink.com/blogs/mumbai-startup-autonxt-pioneers-autonomous-vehicles-in-india-starting-with-an-electric-tractor" },
+        summary: "AutoNxt is at the forefront of developing autonomous farming technology, creating India's first self-driving tractor. The development offers farmers increased efficiency, reduced labor costs, and improved precision in farming operations.",
+        externalUrl: "https://insiderstalk.in/building-indias-first-ever-self-driving-tractor/",
+        featured: false
+      },
+      {
+        tag: "Future Technology",
+        title: "Future of Farming: India's First Self-Driving Tractor",
+        author: "Tractor Junction",
+        date: "November 2024",
+        readTime: "8 min read",
+        summary: "AutoNxt Automation is pioneering the future of farming with India's first autonomous electric tractor, combining cutting-edge technology with sustainable agriculture and offering unprecedented control and efficiency.",
+        externalUrl: "https://www.tractorjunction.com/tractor-news/future-of-farming-india-first-self-driving-tractor/",
+        featured: false
+      },
+      {
+        tag: "Agricultural Technology",
+        title: "AutoNxt Tractor: Revolutionizing Agriculture with Electric and Autonomous Technology",
+        author: "Tractor Guru",
+        date: "October 2024",
+        readTime: "9 min read",
+        summary: "Comprehensive coverage of AutoNxt's innovative tractor solutions — electric tractors, autonomous driving capabilities, and smart farming solutions that address the evolving needs of modern agriculture in India and beyond.",
+        externalUrl: "https://tractorguru.in/blog/category/autonxt-tractor/",
+        featured: false
+      },
+      {
+        tag: "Company Profile",
+        title: "AutoNxt Automation: Pioneering Electric and Autonomous Agricultural Solutions",
+        author: "Tracxn Research Team",
+        date: "September 2024",
+        readTime: "7 min read",
+        summary: "Detailed company profile and analysis of AutoNxt Automation's innovative approach to sustainable agriculture. AutoNxt has established itself as a leader in agricultural innovation, combining environmental sustainability with cutting-edge technology.",
+        externalUrl: "https://tracxn.com/d/companies/autonxt-automation/__ZSsZ4cr50wm63YgF4zOMI1CcYVW2V43yS-5Lojtdze0",
+        featured: false
+      },
       {
         tag: "Technology",
-        title: "From Diesel to Electric: What the Transition Looks Like on a Real Farm",
-        author: "Pankaj Goyal",
-        date: "March 2025",
-        readTime: "8 min read",
-        summary: "Raju Patil farms 12 acres in Nashik. Last season was his first full season with the AutoNxt X45H2. We followed him from sowing to harvest to understand what the shift from diesel really means on the ground — in cost, in effort, and in confidence."
-     ,
-        externalUrl: "http://crowdforthink.com/blogs/mumbai-startup-autonxt-pioneers-autonomous-vehicles-in-india-starting-with-an-electric-tractor" },
-      {
-        tag: "Engineering",
-        title: "Why We Chose Lithium Iron Phosphate (LFP) Over NMC for the X45H2",
-        author: "Sudipto Deb",
-        date: "February 2025",
-        readTime: "5 min read",
-        summary: "Battery chemistry is the heart of any electric vehicle. When designing the X45H2, we faced a critical choice between NMC and LFP. This post explains why LFP was the right choice for Indian farming conditions — and what it means for safety, longevity, and cost."
-     ,
-        externalUrl: "https://indiapostdaily.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/" },
-      {
-        tag: "Policy",
-        title: "FAME-III and What It Means for Electric Tractors in India",
-        author: "Avinash Singh",
-        date: "January 2025",
-        readTime: "7 min read",
-        summary: "The Government of India's FAME-III scheme is set to expand incentives to electric agricultural equipment. We break down what the policy means, how farmers can benefit, and how AutoNxt is working with policymakers to accelerate adoption."
-     ,
-        externalUrl: "https://insiderstalk.in/building-indias-first-ever-self-driving-tractor/" },
-      {
-        tag: "Agri-Tech",
-        title: "Precision Farming Meets Electric Power: AutoNxt's Vision for Smart Agriculture",
-        author: "Dr. Dharmateja Adapa",
-        date: "December 2024",
-        readTime: "9 min read",
-        summary: "The future of Indian agriculture is not just electric — it's autonomous. Integrating GPS-guided operations, IoT sensors, and AI-driven crop management with the X45H2 platform opens up possibilities that diesel machines could never deliver."
-     ,
-        externalUrl: "https://www.tractorjunction.com/tractor-news/future-of-farming-india-first-self-driving-tractor/" },
-      {
-        tag: "Business",
-        title: "The Total Cost of Ownership: Electric vs Diesel Tractor Over 5 Years",
-        author: "Maneesh Dubey",
-        date: "November 2024",
-        readTime: "6 min read",
-        summary: "Farmers ask us one question more than any other: 'Is it worth the higher upfront cost?' We ran the full numbers on 5-year TCO across fuel, maintenance, servicing, and productivity — the results speak for themselves."
-     ,
-        externalUrl: "https://tractorguru.in/blog/category/autonxt-tractor/" }
+        title: "The Technology Behind AutoNxt's Electric Tractors: AI, IoT, and Telematics Integration",
+        author: "Tech Innovation Team",
+        date: "August 2024",
+        readTime: "11 min read",
+        summary: "Deep dive into the advanced technology stack powering AutoNxt's electric tractors — including artificial intelligence for autonomous operations, IoT sensors for real-time monitoring, and telematics for remote diagnostics and fleet management.",
+        externalUrl: "https://theindiawire.com/india/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers/",
+        featured: false
+      }
     ]
   },
   evBlogPage: {
@@ -1493,48 +1534,43 @@ export const en = {
     categories: ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"],
     articles: [
       {
-        cat: "Battery Tech",
-        title: "Solid-State Batteries: What They Mean for Electric Tractors by 2030",
-        date: "April 2025",
-        readTime: "7 min",
-        summary: "Solid-state batteries promise 2x the energy density of today's LFP cells, near-zero degradation over 10+ years, and complete elimination of fire risk. Here's how that technology roadmap intersects with agricultural EV design challenges."
-      },
-      {
-        cat: "Policy & Incentives",
-        title: "How India's PM-KUSUM and FAME Schemes Are Powering Agricultural EV Adoption",
-        date: "March 2025",
-        readTime: "6 min",
-        summary: "India's subsidy architecture for agricultural EVs is evolving rapidly. PM-KUSUM provides solar charging infrastructure while FAME-III targets agri-EV acquisition cost parity. We map out every available incentive for Indian farmers going electric."
-      },
-      {
-        cat: "Market Trends",
-        title: "Electric Tractor Market in India: ₹4,000 Cr Opportunity by 2027",
-        date: "February 2025",
-        readTime: "5 min",
-        summary: "India's electric tractor market is expected to grow at 38% CAGR through 2027, driven by rising diesel prices, government policy, and increasing farmer awareness. AutoNxt is positioned at the leading edge of this transformation."
-      },
-      {
-        cat: "Future Tech",
-        title: "Level 4 Autonomy in Agriculture: AutoNxt's Roadmap to Driverless Farming",
+        cat: "Sustainability",
+        title: "The Rise of Eco-Friendly Tractors in India's Push for Green Growth",
         date: "January 2025",
-        readTime: "9 min",
-        summary: "While the automotive world targets level 4 autonomy for roads, we are targeting fields. The constraints are different — GPS precision, soil variability, implement compatibility. This is our engineering roadmap to fully autonomous electric tractors."
-      },
-      {
-        cat: "Battery Tech",
-        title: "Fast Charging for Farms: How AutoNxt Is Building India's Agri-EV Charging Grid",
-        date: "December 2024",
         readTime: "6 min",
-        summary: "Urban EV charging is solved. Rural agricultural charging is not. AutoNxt is pioneering a solar-powered mobile charging network designed for Indian farms, from 5-acre holdings to 500-acre industrial operations."
+        summary: "India is witnessing a significant transformation in its agricultural sector with the emergence of eco-friendly electric tractors, aligning with the nation's ambitious green growth initiatives and its commitment to sustainable development and carbon neutrality.",
+        externalUrl: "https://www.theautomonitor.com/the-rise-of-eco-friendly-tractors-in-indias-push-for-green-growth/",
+        featured: true
       },
       {
-        cat: "Market Trends",
-        title: "Why Indian Electric Tractors Are Winning Export Markets in Africa and Southeast Asia",
-        date: "November 2024",
+        cat: "Innovation",
+        title: "Bridging Sustainability and Productivity with Electric Tractor Technology",
+        date: "November 2025",
         readTime: "7 min",
-        summary: "The same challenges that shaped AutoNxt for India — rough terrain, variable power supply, extreme heat, cost sensitivity — make AutoNxt tractors ideal for emerging agricultural markets globally. An overview of export demand signals."
+        summary: "Electric tractor technology is revolutionizing agriculture by combining environmental sustainability with enhanced productivity, offering farmers a viable path to more efficient and profitable farming operations — proving that environmental responsibility and operational efficiency can go hand in hand.",
+        externalUrl: "https://emobilityplus.com/2025/11/17/opinion-bridging-sustainability-and-productivity-with-electric-tractor-technology/",
+        featured: true
+      },
+      {
+        cat: "Revolution",
+        title: "How Electric Tractors Are Powering a Sustainable Revolution in Indian Agriculture",
+        date: "January 2025",
+        readTime: "5 min",
+        summary: "Electric tractors are driving a sustainable agricultural revolution across India, empowering farmers with clean, efficient, and cost-effective alternatives to traditional diesel-powered machinery and addressing both environmental and economic challenges.",
+        externalUrl: "https://republicnewsindia.com/how-electric-tractors-are-powering-a-sustainable-revolution-in-indian-agriculture/",
+        featured: false
+      },
+      {
+        cat: "Future Technology",
+        title: "Farming Without Fumes: Why Electric Tractors Are the Future of Indian Agriculture",
+        date: "February 2025",
+        readTime: "8 min",
+        summary: "Electric tractors represent the future of Indian agriculture, eliminating harmful emissions while delivering superior performance and reducing operational costs for farmers nationwide — a clean, efficient path forward for the farming community.",
+        externalUrl: "https://www.thehindubusinessline.com/economy/agri-business/farming-without-fumes-why-electric-tractors-are-the-future-of-indian-agriculture/article70202273.ece",
+        featured: false
       }
     ],
+    authorRoleLabel: "Publication",
     stats: [
       { value: "38%", label: "Market CAGR 2024–27" },
       { value: "₹4,000 Cr", label: "India EV Tractor TAM by 2027" },

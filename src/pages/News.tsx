@@ -183,7 +183,7 @@ export default function News() {
               <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <input
                 type="text"
-                placeholder="Search news..."
+                placeholder={t.news.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 bg-background border border-border rounded-xl focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all text-sm text-foreground placeholder-muted-foreground"
@@ -200,7 +200,7 @@ export default function News() {
               >
                 {categories.map((category) => (
                   <option key={category} value={category}>
-                    {category === "all" ? "All Categories" : category}
+                    {category === "all" ? t.news.allCategories : category}
                   </option>
                 ))}
               </select>
@@ -345,7 +345,7 @@ export default function News() {
                     {/* Center "Read Article" Button on Hover */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/95 text-black px-4 py-2 rounded-xl text-xs font-semibold shadow-md tracking-wider">
-                        Read Article
+                        {t.news.readArticle}
                       </div>
                     </div>
                   </div>
@@ -385,9 +385,9 @@ export default function News() {
           <div className="container mx-auto px-4 text-center">
             <div className="max-w-md mx-auto">
               <Search className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-2 text-gray-300">No news articles found</h3>
+              <h3 className="text-2xl font-bold mb-2 text-gray-300">{t.news.noArticlesFound}</h3>
               <p className="text-gray-400">
-                Try adjusting your search query or choosing another category filter.
+                {t.news.noArticlesDesc}
               </p>
             </div>
           </div>
