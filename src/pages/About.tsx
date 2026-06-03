@@ -10,7 +10,6 @@ import {
 import { useLang } from "@/contexts/LanguageContext"
 
 
-
 // Team
 const kaustubhImg   = "/images/team/kaustubh.png"
 const pankajImg     = "/images/team/pankaj.jpg"
@@ -42,8 +41,8 @@ const facilityRight  = "/images/facility/right-wall.jpg"
 // Events
 const fieldImg1 = "/images/events/event-1.jpg"
 const fieldImg2 = "/images/events/event-2.jpg"
-const fieldImg3 = "/images/events/event-3.jpg"
-const fieldImg4 = "/images/events/event-4.jpg"
+const fieldImg3 = "/images/events/AutoNxt-Launch-3.jpg"
+const fieldImg4 = "/images/events/a4dfa761e10a3f20a4dfa761e10a3f20autonextelectractor2023.png"
 const fieldImg5 = "/images/events/event-5.jpg"
 const fieldImg6 = "/images/events/event-6.jpg"
 const fieldImg7 = "/images/events/event-7.jpg"
