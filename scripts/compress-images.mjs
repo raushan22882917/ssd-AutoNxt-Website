@@ -2,12 +2,10 @@
 import sharp from "sharp"
 import { readdirSync, existsSync, statSync } from "fs"
 import { join, extname, basename } from "path"
+import { fileURLToPath } from "node:url"
 
-// Resolve public/images relative to this script regardless of cwd
-const ROOT = new URL("../public/images", import.meta.url).pathname.replace(
-  /^\/([A-Z]:)/,
-  "$1"
-)
+// Resolve public/images relative to this script (handles spaces in path)
+const ROOT = fileURLToPath(new URL("../public/images", import.meta.url))
 
 sharp.cache(false)
 const MAX_PIXELS = 1_200_000_000

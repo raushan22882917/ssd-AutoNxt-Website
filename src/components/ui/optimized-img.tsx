@@ -2,10 +2,6 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-
-// OptimizedImg
-
-
 type FetchPriority = "high" | "low" | "auto"
 
 export interface OptimizedImgProps
@@ -22,29 +18,39 @@ export interface OptimizedImgProps
 }
 
 const OptimizedImg = React.forwardRef<HTMLImageElement, OptimizedImgProps>(
-  ({ src, alt, fetchpriority, className, ...rest }, ref) => {
-    // Derive WebP sibling path: /images/team/foo.jpg → /images/team/foo.webp
+  ({ src, alt, fetchpriority, className, onError, ...rest }, ref) => {
     const webpSrc = src.replace(/\.(jpe?g|png)$/i, ".webp")
+    const [activeSrc, setActiveSrc] = React.useState(webpSrc)
+    const triedFallback = React.useRef(false)
 
-    // Forward fetchpriority via cast — React doesn't type it on img yet
+    React.useEffect(() => {
+      triedFallback.current = false
+      setActiveSrc(webpSrc)
+    }, [webpSrc])
+
     const imgProps = {
       ...rest,
       ...(fetchpriority ? { fetchpriority } : {}),
     } as React.ImgHTMLAttributes<HTMLImageElement>
 
+    const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+      if (!triedFallback.current && activeSrc !== src) {
+        triedFallback.current = true
+        setActiveSrc(src)
+        return
+      }
+      onError?.(e)
+    }
+
     return (
-      <picture>
-        {/* Modern browsers: serve the compressed WebP */}
-        <source srcSet={webpSrc} type="image/webp" />
-        {/* Fallback: original format for browsers without WebP support */}
-        <img
-          ref={ref}
-          src={src}
-          alt={alt}
-          className={cn(className)}
-          {...imgProps}
-        />
-      </picture>
+      <img
+        ref={ref}
+        src={activeSrc}
+        alt={alt}
+        className={cn(className)}
+        onError={handleError}
+        {...imgProps}
+      />
     )
   }
 )
