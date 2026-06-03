@@ -20,8 +20,8 @@ const garageImg  = "/images/facility/garage-entry.jpg";
 const wallImg    = "/images/facility/left-wall.jpg";
 const ev1 = "/images/events/event-1.jpg";
 const ev2 = "/images/events/event-2.jpg";
-const ev3 = "/images/events/event-3.jpg";
-const ev4 = "/images/events/event-4.jpg";
+const ev3 = "/images/events/AutoNxt-Launch-3.jpg";
+const ev4 = "/images/events/a4dfa761e10a3f20a4dfa761e10a3f20autonextelectractor2023.png";
 const ev5 = "/images/events/event-5.jpg";
 
 const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
@@ -114,7 +114,7 @@ export default function Product() {
       type: t.productPage.implementLabel,
       badge: t.productPage.implementsList.bucket.badge,
       status: availableNowLabel,
-      image: "/images/implement/bucket.png",
+      image: "/images/implement/bucket-removebg-preview.png",
       description: t.productPage.implementsList.bucket.desc,
     },
     {
@@ -123,7 +123,7 @@ export default function Product() {
       type: t.productPage.implementLabel,
       badge: t.productPage.implementsList.catcher.badge,
       status: availableNowLabel,
-      image: "/images/implement/cacher.png",
+      image: "/images/implement/cacher-removebg-preview.png",
       description: t.productPage.implementsList.catcher.desc,
     },
     {
@@ -132,7 +132,7 @@ export default function Product() {
       type: t.productPage.implementLabel,
       badge: t.productPage.implementsList.loader.badge,
       status: availableNowLabel,
-      image: "/images/implement/loader.png",
+      image: "/images/implement/loader-removebg-preview.png",
       description: t.productPage.implementsList.loader.desc,
     },
   ];
@@ -158,30 +158,30 @@ export default function Product() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.07),transparent_50%)] pointer-events-none" />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-8 items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-8 items-center">
 
-            <div className="pb-16 pt-8">
+            <div className="py-12">
               <motion.div
-                className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
+                className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-4"
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                 <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.productPage.badge}</span>
               </motion.div>
               <motion.h1
-                className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-5 leading-[1.04]"
+                className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-[1.04]"
                 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
               >
                 {t.productPage.title}<br /><span className="text-primary">{t.productPage.titleHighlight}</span>
               </motion.h1>
               <motion.p
-                className="text-white/50 text-lg max-w-md leading-relaxed mb-10"
+                className="text-white/50 text-lg max-w-md leading-relaxed mb-6"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
               >
                 {t.productPage.desc}
               </motion.p>
               <motion.div
-                className="flex flex-wrap gap-5"
+                className="flex flex-wrap gap-3"
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
@@ -205,7 +205,7 @@ export default function Product() {
               className="relative pb-0 hidden lg:block"
               initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <div className="relative h-[640px]">
+              <div className="relative h-[480px]">
                 <Suspense fallback={
                   <div className="flex items-center justify-center h-full">
                     <img src={tractor1} alt="AutoNxt X45H2" className="w-full max-w-md object-contain drop-shadow-[0_20px_60px_rgba(168,0,0,0.3)]" width={500} height={380} />
@@ -220,20 +220,20 @@ export default function Product() {
                   />
                 </Suspense>
                 <motion.div
-                  className="absolute top-16 left-0 bg-white/[0.07] backdrop-blur-md border border-white/[0.12] rounded-2xl px-5 py-3 z-10"
+                  className="absolute top-8 left-0 bg-white/[0.07] backdrop-blur-md border border-white/[0.12] rounded-2xl px-5 py-3 z-10"
                   animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <p className="text-white/50 text-[9px] uppercase tracking-widest font-medium">{t.productPage.flagshipModel}</p>
                   <p className="text-white font-bold text-sm mt-0.5">X45H2 — 45HP</p>
                 </motion.div>
                 <motion.div
-                  className="absolute top-36 right-4 bg-primary/10 backdrop-blur-md border border-primary/30 rounded-2xl px-4 py-2.5 z-10"
+                  className="absolute top-28 right-4 bg-primary/10 backdrop-blur-md border border-primary/30 rounded-2xl px-4 py-2.5 z-10"
                   animate={{ y: [0, 6, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                 >
                   <p className="text-primary text-[9px] uppercase tracking-widest font-medium">{t.productPage.zeroEmissions}</p>
                   <p className="text-white font-bold text-sm mt-0.5">{t.productPage.electric100}</p>
                 </motion.div>
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-zinc-950 to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-zinc-950 to-transparent pointer-events-none" />
               </div>
             </motion.div>
           </div>
@@ -296,16 +296,23 @@ export default function Product() {
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.1, duration: 0.5 }}
                     >
-                      <BackgroundGradient className="rounded-[20px] overflow-hidden">
-                        <div className={`bg-gradient-to-br ${tractor.cardGrad} rounded-[18px] overflow-hidden`}>
+                      <div className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+
+                        {/* Top accent bar — matches Home page lineup cards */}
+                        <div className={`h-1 w-full bg-gradient-to-r ${tractor.badgeGrad}`} />
 
                           {/* Image / 3D area */}
                           <div
-                            className="relative flex items-center justify-center pt-8 pb-4 px-6 min-h-[192px]"
+                            className="relative flex items-center justify-center pt-8 pb-4 px-6 min-h-[192px] bg-muted/30"
                             style={{ background: `radial-gradient(ellipse at 50% 100%, ${tractor.glowColor}, transparent 70%)` }}
                           >
                             <span className={`absolute top-4 left-4 z-10 text-[10px] font-bold text-white px-2.5 py-1 rounded-full bg-gradient-to-r ${tractor.badgeGrad} shadow-sm`}>
                               {tractor.badge}
+                            </span>
+                            {/* Available Now badge */}
+                            <span className="absolute top-4 right-4 z-10 flex items-center gap-1.5 text-[9px] font-bold text-white bg-emerald-500 rounded-full px-2.5 py-1 shadow-sm shadow-emerald-500/30">
+                              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                              {tractor.status}
                             </span>
 
                             {/* 3D toggle button */}
@@ -313,8 +320,8 @@ export default function Product() {
                               onClick={() => toggle3D(tractor.slug)}
                               className={`absolute top-4 right-4 z-10 flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full border transition-all ${
                                 show3D[tractor.slug]
-                                  ? "bg-white/20 border-white/40 text-white"
-                                  : "bg-white/[0.07] border-white/20 text-white/60 hover:text-white hover:bg-white/15"
+                                  ? "bg-primary/20 border-primary/40 text-primary"
+                                  : "bg-muted border-border text-muted-foreground hover:text-foreground hover:bg-muted/80"
                               }`}
                             >
                               {show3D[tractor.slug]
@@ -341,7 +348,7 @@ export default function Product() {
                                 alt={tractor.fullName}
                                 loading="lazy"
                                 decoding="async"
-                                className="h-44 w-full object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.5)] hover:scale-105 transition-transform duration-500"
+                                className="h-44 w-full object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500"
                                 width={320} height={176}
                               />
                             )}
@@ -351,17 +358,17 @@ export default function Product() {
                           <div className="px-6 pb-6 space-y-4">
                             <div>
                               <p className={`text-[10px] font-bold ${tractor.accentColor} uppercase tracking-widest mb-1`}>{tractor.type}</p>
-                              <h3 className="font-display text-xl font-bold text-white">{tractor.fullName}</h3>
-                              <p className="text-white/50 text-xs mt-1.5 leading-relaxed line-clamp-2">{tractor.description}</p>
+                              <h3 className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">{tractor.fullName}</h3>
+                              <p className="text-muted-foreground text-xs mt-1.5 leading-relaxed line-clamp-2">{tractor.description}</p>
                             </div>
 
                             <div className="grid grid-cols-2 gap-2">
                               {tractor.specs.map((s, si) => (
-                                <div key={si} className="bg-white/[0.06] border border-white/[0.08] rounded-xl p-2.5 flex items-center gap-2">
+                                <div key={si} className="bg-muted/50 border border-border/60 rounded-xl p-2.5 flex items-center gap-2">
                                   <s.icon className={`w-3 h-3 ${tractor.accentColor} shrink-0`} />
                                   <div>
-                                    <p className="text-white/40 text-[8px] uppercase tracking-wide font-medium leading-none">{s.label}</p>
-                                    <p className="text-white font-bold text-[11px] mt-0.5 leading-none">{s.value}</p>
+                                    <p className="text-muted-foreground text-[8px] uppercase tracking-wide font-medium leading-none">{s.label}</p>
+                                    <p className="text-foreground font-bold text-[11px] mt-0.5 leading-none">{s.value}</p>
                                   </div>
                                 </div>
                               ))}
@@ -369,7 +376,7 @@ export default function Product() {
 
                             <div className="flex gap-2 pt-1">
                               <Link href={`/product/${tractor.slug}`} className="flex-1">
-                                <Button size="sm" className="w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold h-9">
+                                <Button size="sm" variant="outline" className="w-full group-hover:border-primary group-hover:text-primary text-xs font-semibold h-9">
                                   {t.productPage.viewDetails} <ArrowRight className="ml-1 w-3 h-3" />
                                 </Button>
                               </Link>
@@ -381,7 +388,6 @@ export default function Product() {
                             </div>
                           </div>
                         </div>
-                      </BackgroundGradient>
                     </motion.div>
                   ))}
                 </div>
@@ -408,28 +414,37 @@ export default function Product() {
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.08 }}
                     >
-                      <div className="relative h-44 overflow-hidden">
+                      {/* Top accent bar */}
+                      <div className="h-1 w-full bg-primary" />
+
+                      {/* Image area — object-contain on muted bg, matches tractor cards */}
+                      <div className="relative bg-muted/30 flex items-center justify-center px-8 pt-8 pb-4 overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-muted/60 to-transparent pointer-events-none" />
                         <img
                           src={a.image}
                           alt={a.name}
                           loading="lazy"
                           decoding="async"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          width={400} height={176}
+                          className="h-44 object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500 relative z-10"
+                          width={320} height={176}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                        <span className="absolute bottom-3 left-3 text-[9px] font-bold text-white px-2 py-0.5 rounded-full bg-primary/80">{a.badge}</span>
-                        <span className="absolute top-3 right-3 flex items-center gap-1 text-[9px] font-semibold text-emerald-400 bg-black/40 backdrop-blur-sm rounded-full px-2 py-0.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        {/* Badge */}
+                        <span className="absolute top-4 left-4 z-10 text-[10px] font-bold text-white px-2.5 py-1 rounded-full bg-primary/80 shadow-sm">
+                          {a.badge}
+                        </span>
+                        {/* Available Now */}
+                        <span className="absolute top-4 right-4 z-10 flex items-center gap-1.5 text-[9px] font-bold text-white bg-emerald-500 rounded-full px-2.5 py-1 shadow-sm shadow-emerald-500/30">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                           {a.status}
                         </span>
                       </div>
+
                       <div className="p-5">
                         <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{a.type}</p>
-                        <h3 className="font-display text-base font-bold text-foreground mb-2">{a.name}</h3>
+                        <h3 className="font-display text-base font-bold text-foreground group-hover:text-primary transition-colors mb-2">{a.name}</h3>
                         <p className="text-muted-foreground text-xs leading-relaxed mb-4 line-clamp-2">{a.description}</p>
                         <Link href={`/product/attachment/${a.slug}`}>
-                          <Button size="sm" variant="outline" className="w-full border-primary/30 text-primary hover:bg-primary hover:text-white text-xs h-8 font-semibold">
+                          <Button size="sm" variant="outline" className="w-full group-hover:border-primary group-hover:text-primary text-xs h-8 font-semibold">
                             {t.productPage.viewDetails} <ArrowRight className="ml-1 w-3 h-3" />
                           </Button>
                         </Link>
@@ -472,8 +487,8 @@ export default function Product() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <div className="shrink-0 w-28 h-28 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center p-4 group-hover:border-primary/30 transition-colors">
-                  <img src={tech.img} alt={tech.title} loading="lazy" decoding="async" className="w-full h-full object-contain" width={80} height={80} />
+                <div className="shrink-0 w-40 h-40 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center p-4 group-hover:border-primary/30 transition-colors">
+                  <img src={tech.img} alt={tech.title} loading="lazy" decoding="async" className="w-full h-full object-contain" width={128} height={128} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">

@@ -348,11 +348,11 @@ export const en = {
     availableNow: "Available Now",
     implementLabel: "Implement",
     filterTabs: {
-      all: "All Products",
-      tractors: "Tractors",
-      attachments: "Implements"
-    },
-    chargingTime: "3–6 hrs",
+  all: "All Products",
+  tractors: "Tractors",
+  attachments: "Implements"
+},
+chargingTime: "3–6 hrs",
     modelsCount: "3 Tractors",
     viewDetails: "View Details",
     book: "Book",
@@ -370,7 +370,7 @@ export const en = {
     coreTech: "Core Technology",
     builtDifferent: "Built Different.",
     fieldBannerTag: "June 2025 · Handover Ceremony",
-    fieldBannerTitle: "Tractors in the Field.",
+    fieldBannerTitle: "Events",
     readyToPower: "Ready to Power the Fields?",
     experienceTag: "Experience AutoNxt",
     features: {
