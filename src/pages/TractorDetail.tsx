@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 import {
   ArrowRight, ArrowLeft, CheckCircle2, Zap, BatteryCharging,
   Gauge, Shield, Wifi, Clock, Weight, Wrench, Thermometer, Settings, Activity
@@ -47,6 +48,7 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={tractor.name} description={tractor.desc} />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">

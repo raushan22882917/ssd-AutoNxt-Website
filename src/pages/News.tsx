@@ -1,10 +1,11 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight, Calendar, ExternalLink, Tag, FileText, Globe, Award, Search, Clock, Eye, User, Sparkles
 } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 export default function News() {
   const { t } = useLang();
@@ -85,6 +86,7 @@ export default function News() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.news} description="Read latest press releases, news articles, media mentions, and official updates from AutoNxt Automation." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-20 md:pt-28 pb-0">

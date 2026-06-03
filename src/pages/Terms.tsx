@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
 import { FileText, ArrowLeft } from "lucide-react";
+import SEO from "@/components/SEO";
 
 export default function Terms() {
   const { t } = useLang();
@@ -10,6 +11,7 @@ export default function Terms() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title="Terms of Service" description="AutoNxt Automation Terms and Conditions of use." />
 
       {/* ── HEADER ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16">

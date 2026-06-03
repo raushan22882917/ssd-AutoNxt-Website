@@ -6,6 +6,7 @@ import {
   Search, ExternalLink, Zap, Tag, X
 } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 // Simple hash → color for avatar
 function authorColor(name: string) {
@@ -101,6 +102,7 @@ export default function Blog() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.blog} description="Read our agricultural blog featuring stories from the field, crop guides, and tips for modern, sustainable farming." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-20 md:pt-28 pb-0">

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { X, ZoomIn, Images, PlayCircle, ExternalLink, ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 // Organized public image paths
 const tractor1   = "/images/products/x45h2.webp";
@@ -121,6 +122,7 @@ export default function Gallery() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.gallery} description="Browse images and videos of AutoNxt electric tractors at work in agriculture, fields, and industrial operations." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">

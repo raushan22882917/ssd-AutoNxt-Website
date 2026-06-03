@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 import {
   ArrowRight, ArrowLeft, CheckCircle2, Leaf, Building2, Hammer,
   Shield, PlaneTakeoff, Factory, Zap, BatteryCharging, Clock,
@@ -61,6 +62,7 @@ export default function IndustryDetail({ params }: { params: { slug: string } })
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={industry.name} description={industry.desc} />
 
       {/* ── HEADER ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16">

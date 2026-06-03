@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -6,6 +6,7 @@ import {
   TrendingUp, Leaf, IndianRupee, Search, ExternalLink, X, BookOpen, Tag
 } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 // Animated counter hook
 function useCountUp(target: string, duration = 1800) {
@@ -54,7 +55,7 @@ function AnimatedStat({ value, label }: { value: string; label: string }) {
       <div className="font-display text-3xl md:text-4xl font-black text-foreground group-hover:text-primary transition-colors tabular-nums">
         {display}
       </div>
-      <div className="text-muted-foreground text-[10px] md:text-xs mt-2 uppercase tracking-[0.2em] font-medium">
+      <div className="text-foreground/75 text-[10px] md:text-xs mt-2 uppercase tracking-[0.2em] font-medium">
         {label}
       </div>
     </div>
@@ -147,6 +148,7 @@ export default function EvBlog() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.evBlog} description="Explore technical insights, battery innovations, motor technology, and trends in electric vehicle infrastructure." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-20 md:pt-28 pb-0">
@@ -364,7 +366,7 @@ export default function EvBlog() {
                       }`}
                   >
                     {category === "all" ? t.evBlog.allCategories : (category as string)}
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-muted text-muted-foreground"
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-muted text-foreground/70"
                       }`}>
                       {count}
                     </span>
@@ -382,9 +384,9 @@ export default function EvBlog() {
           {/* Section header */}
           <div className="flex items-center gap-4 mb-10">
             <span className="font-display text-5xl font-black text-primary/10 leading-none select-none">01</span>
-            <p className="text-xs font-bold text-primary uppercase tracking-widest">
+            <h2 className="text-xs font-bold text-primary uppercase tracking-widest">
               {filteredPosts.length} Article{filteredPosts.length !== 1 ? "s" : ""}
-            </p>
+            </h2>
           </div>
 
           {isTransitioning ? (

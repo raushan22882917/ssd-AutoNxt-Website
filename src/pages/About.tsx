@@ -1,4 +1,4 @@
-﻿import * as React from "react"
+import * as React from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { OptimizedImg } from "@/components/ui/optimized-img"
@@ -8,6 +8,7 @@ import {
   Leaf, MapPin, Calendar,
 } from "lucide-react"
 import { useLang } from "@/contexts/LanguageContext"
+import SEO from "@/components/SEO"
 
 
 // Team
@@ -104,6 +105,7 @@ export default function About() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.about} description={t.aboutPage?.desc || "Learn more about AutoNxt Automation, our mission, vision, and the founders pioneering electric mobility in India."} />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16">
