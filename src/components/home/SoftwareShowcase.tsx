@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 
@@ -10,11 +10,12 @@ import {
   Monitor,
   Smartphone,
 } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
-const dashboardMain    = "/images/app/dashboard-main.png";
-const dashboardService = "/images/app/dashboard-service.png";
-const appScreen1       = "/images/app/app-screen-1.png";
-const appScreen2       = "/images/app/app-screen-2.png";
+const dashboardMain    = "/images/app/dashboard-main.webp";
+const dashboardService = "/images/app/dashboard-service.webp";
+const appScreen1       = "/images/app/app-screen-1.webp";
+const appScreen2       = "/images/app/app-screen-2.webp";
 
 
 /* ── Mobile screen auto-carousel ── */
@@ -55,55 +56,58 @@ function MobileScreenCarousel({ screens }: { screens: string[] }) {
   );
 }
 
-/* ── Software Showcase: tabs left, device right ── */
-const softwareTabs = [
+/* ── STATIC CONFIG FOR SOFTWARE SHOWCASE TABS ── */
+const STATIC_SOFTWARE_TABS = [
   {
     id: "web",
-    label: "Web App",
     icon: Monitor,
     accent: "text-secondary",
     accentBg: "bg-secondary",
     accentBorder: "border-secondary",
-    subtitle: "Web Platform",
-    title: "NXT-Fleet Dashboard",
-    desc: "A powerful browser-based fleet management platform. Monitor every tractor in real time, track battery health, and manage multiple farms from a single dashboard.",
-    features: ["Real-time GPS fleet tracking", "Battery & diagnostics monitoring", "Fleet analytics & performance reports", "Multi-farm management portal"],
-    cta: { label: "Request Access", href: "/book", variant: "outline" as const },
+    ctaHref: "/book",
+    ctaVariant: "outline" as const,
     device: "desktop",
   },
   {
     id: "mobile",
-    label: "Mobile App",
     icon: Smartphone,
     accent: "text-primary",
     accentBg: "bg-primary",
     accentBorder: "border-primary",
-    subtitle: "iOS & Android",
-    title: "AutoNxt Service App",
-    desc: "Book service, track technicians live, and manage your tractor's complete service history — all from your phone. Available on iOS and Android.",
-    features: ["Book & schedule service appointments", "Live technician location tracking", "Complete service history & records", "Spare parts ordering & delivery"],
-    cta: { label: "Download App", href: "#", variant: "default" as const },
+    ctaHref: "#",
+    ctaVariant: "default" as const,
     device: "mobile",
   },
   {
     id: "tablet",
-    label: "Tablet",
     icon: Monitor,
     accent: "text-accent",
     accentBg: "bg-accent",
     accentBorder: "border-accent",
-    subtitle: "Analytics Dashboard",
-    title: "NXT-Fleet Analytics",
-    desc: "Deep fleet analytics on a tablet-optimised interface. Track performance trends, battery cycles, and operational efficiency across your entire fleet — in the field or at the office.",
-    features: ["Fleet-wide performance analytics", "Battery health & cycle tracking", "Operational efficiency reports", "Multi-user access control"],
-    cta: { label: "Request Access", href: "/book", variant: "outline" as const },
+    ctaHref: "/book",
+    ctaVariant: "outline" as const,
     device: "tablet",
   },
 ];
 
 function SoftwareShowcase() {
+  const { t } = useLang();
   const [active, setActive] = useState(0);
-  const tab = softwareTabs[active];
+
+  const softwareTabs = t.home.softwareTabs.map((tab, i) => {
+    const staticConfig = STATIC_SOFTWARE_TABS[i] || STATIC_SOFTWARE_TABS[0];
+    return {
+      ...staticConfig,
+      label: tab.label,
+      subtitle: tab.subtitle,
+      title: tab.title,
+      desc: tab.desc,
+      features: tab.features,
+      ctaLabel: tab.cta,
+    };
+  });
+
+  const tab = softwareTabs[active] || softwareTabs[0];
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
@@ -159,14 +163,14 @@ function SoftwareShowcase() {
               ))}
             </ul>
 
-            <Link href={tab.cta.href}>
+            <Link href={tab.ctaHref}>
               <Button
-                variant={tab.cta.variant}
-                className={tab.cta.variant === "outline"
+                variant={tab.ctaVariant}
+                className={tab.ctaVariant === "outline"
                   ? `${tab.accentBorder} ${tab.accent} hover:${tab.accentBg} hover:text-white font-semibold gap-2`
                   : "bg-primary text-white hover:bg-primary/90 font-semibold gap-2"}
               >
-                {tab.cta.label} <ArrowRight className="w-4 h-4" />
+                {tab.ctaLabel} <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
           </motion.div>
@@ -211,7 +215,7 @@ function SoftwareShowcase() {
                   </div>
                   <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm border border-white/10 rounded-full px-2.5 py-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-white/80 text-[10px] font-semibold tracking-wide">LIVE</span>
+                    <span className="text-white/80 text-[10px] font-semibold tracking-wide">{t.home.liveTag}</span>
                   </div>
                 </div>
               </div>
@@ -229,7 +233,7 @@ function SoftwareShowcase() {
                       <div className="w-1 h-1 rounded-full bg-white/40" />
                     </div>
                   </div>
-                  <MobileScreenCarousel screens={[appScreen1, appScreen2, "/images/app/app-screen-3.png", "/images/app/app-screen-4.png", "/images/app/app-screen-5.png", "/images/app/app-screen-6.png"]} />
+                  <MobileScreenCarousel screens={[appScreen1, appScreen2, "/images/app/app-screen-3.webp", "/images/app/app-screen-4.webp", "/images/app/app-screen-5.webp", "/images/app/app-screen-6.webp"]} />
                   <div className="bg-[#0d1117] py-2 flex justify-center">
                     <div className="w-16 h-1 rounded-full bg-white/30" />
                   </div>
@@ -264,7 +268,7 @@ function SoftwareShowcase() {
                       <div className="flex items-center gap-2">
                         <div className="flex items-center gap-1">
                           <div className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
-                          <span className="text-emerald-400 text-[9px] font-bold">LIVE</span>
+                          <span className="text-emerald-400 text-[9px] font-bold">{t.home.liveTag}</span>
                         </div>
                         <div className="w-3 h-1.5 rounded-sm bg-white/40" />
                       </div>

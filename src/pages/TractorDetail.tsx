@@ -8,8 +8,8 @@ import {
   Gauge, Shield, Wifi, Clock, Weight, Wrench, Thermometer, Settings, Activity
 } from "lucide-react";
 
-const batteryImg = "/images/product-battery.png";
-const motorImg = "/images/product-autonomous.png";
+const batteryImg = "/images/product-battery.webp";
+const motorImg = "/images/product-autonomous.webp";
 
 const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
 
@@ -41,7 +41,7 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
     ...tractorFromT,
     specs,
     features,
-    image: "/3dmodel/x45.glb",
+    image: slug === "x25h2" ? "/images/products/x25h2.webp" : "/images/products/x45h2.webp",
     glbSrc: "/3dmodel/x45.glb"
   };
 
@@ -96,7 +96,15 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
               <Suspense fallback={
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl scale-150 pointer-events-none" />
-                  <img src={tractor.image} alt={tractor.name} className="relative h-64 md:h-80 object-contain drop-shadow-2xl" loading="eager" decoding="async" />
+                  <img
+                    src={tractor.image}
+                    alt={tractor.name}
+                    width={800}
+                    height={566}
+                    className="relative h-64 md:h-80 object-contain drop-shadow-2xl"
+                    loading="eager"
+                    decoding="async"
+                  />
                 </div>
               }>
                 <TractorViewer3D

@@ -6,21 +6,21 @@ import { X, ZoomIn, Images, PlayCircle, ExternalLink, ChevronLeft, ChevronRight,
 import { useLang } from "@/contexts/LanguageContext";
 
 // Organized public image paths
-const tractor1   = "/images/products/x45h2.png";
-const tractor2   = "/images/products/x25h2.png";
-const trailerImg = "/images/facility/left-wall.jpg";
-const fieldImg   = "/images/facility/right-wall.jpg";
-const batteryImg = "/images/products/battery.png";
-const motorImg   = "/images/products/motor.png";
-const logoImg    = "/images/products/logo.png";
+const tractor1   = "/images/products/x45h2.webp";
+const tractor2   = "/images/products/x25h2.webp";
+const trailerImg = "/images/facility/left-wall.webp";
+const fieldImg   = "/images/facility/right-wall.webp";
+const batteryImg = "/images/products/battery.webp";
+const motorImg   = "/images/products/motor.webp";
+const logoImg    = "/images/products/logo.webp";
 
-const event1 = "/images/events/event-1.jpg";
-const event2 = "/images/events/event-2.jpg";
-const event3 = "/images/events/event-3.jpg";
-const event4 = "/images/events/event-4.jpg";
-const event5 = "/images/events/event-5.jpg";
-const event6 = "/images/events/event-6.jpg";
-const event7 = "/images/events/event-7.jpg";
+const event1 = "/images/events/event-1.webp";
+const event2 = "/images/events/event-2.webp";
+const event3 = "/images/events/event-3.webp";
+const event4 = "/images/events/event-4.webp";
+const event5 = "/images/events/event-5.webp";
+const event6 = "/images/events/event-6.webp";
+const event7 = "/images/events/event-7.webp";
 
 type Tab = "photos" | "videos" | "events";
 
@@ -100,6 +100,8 @@ export default function Gallery() {
           <img
             src={photo.src}
             alt={photo.alt}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 rounded-2xl" />
@@ -134,7 +136,7 @@ export default function Gallery() {
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                <span className="text-primary text-xs font-bold uppercase tracking-widest">AutoNxt Gallery</span>
+                <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.gallery.galleryBadge}</span>
               </motion.div>
               <motion.h1
                 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
@@ -317,6 +319,8 @@ export default function Gallery() {
                         <img
                           src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
                           alt={video.title}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           onError={(e) => {
                             (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
@@ -329,7 +333,7 @@ export default function Gallery() {
                           </div>
                         </div>
                         <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs font-mono px-2 py-0.5 rounded flex items-center gap-1">
-                          <PlayCircle className="w-3 h-3" /> YouTube
+                          <PlayCircle className="w-3 h-3" /> {t.gallery.youtubeTag}
                         </div>
                       </div>
                     )}
@@ -364,7 +368,7 @@ export default function Gallery() {
                   </div>
                   <h3 className="font-display text-2xl font-bold text-white mb-2">{t.gallery.moreOnYouTube}</h3>
                   <p className="text-white/60 text-sm mb-6 max-w-md mx-auto">
-                    Subscribe to the AutoNxt YouTube channel for product videos, farm demos, industry applications, and company updates.
+                    {t.gallery.youtubeDesc}
                   </p>
                   <a
                     href="https://www.youtube.com/@autonxtautomation8368"

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,7 +32,7 @@ export default function News() {
     if (imageErrors[post.id]) {
       return "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80";
     }
-    return post.image || "/unnamed.jpg";
+    return post.image || "/unnamed.webp";
   };
 
   const localizedNews = t.newsPage.news || [];
@@ -338,7 +338,7 @@ export default function News() {
                           <User className="w-4 h-4" />
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Author</p>
+                          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{t.news.authorLabel}</p>
                           <p className="text-sm font-bold">{post.author}</p>
                         </div>
                       </div>
@@ -348,7 +348,7 @@ export default function News() {
                         className="group/btn hover:bg-primary/10 hover:text-primary"
                         onClick={() => handleReadArticle(post.externalUrl)}
                       >
-                        Read Article <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                        {t.news.readArticle} <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                       </Button>
                     </div>
                   </div>
@@ -479,9 +479,9 @@ export default function News() {
               <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
                 <Search className="w-8 h-8 text-muted-foreground/60" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-foreground">No articles found</h3>
+              <h3 className="text-xl font-bold mb-2 text-foreground">{t.news.noArticlesFound}</h3>
               <p className="text-sm text-muted-foreground">
-                Try adjusting your search query or category filter.
+                {t.news.noArticlesDesc}
               </p>
             </motion.div>
           )}
@@ -512,7 +512,7 @@ export default function News() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="font-display text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight"
           >
-            Press & Media Inquiries
+            {t.news.pressInquiries}
           </motion.h2>
 
           <motion.p
@@ -521,7 +521,7 @@ export default function News() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-white/90 mb-8 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed"
           >
-            For press releases, high-res images, and media interviews, please contact our PR team.
+            {t.news.pressDesc}
           </motion.p>
 
           <motion.div
@@ -531,7 +531,7 @@ export default function News() {
           >
             <a href="mailto:press@autonxt.in">
               <Button size="lg" className="bg-white text-red-700 hover:bg-red-50 font-bold px-10 py-6 rounded-full shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)] hover:-translate-y-1 transition-all text-base group">
-                Contact PR Team
+                {t.news.contactPr}
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </a>

@@ -1,4 +1,4 @@
-export const en = {
+﻿export const en = {
   // Navbar
   nav: {
     home: "Home",
@@ -203,7 +203,7 @@ export const en = {
     precisionTag: "Technology",
     precisionTitle: "Precision Engineering.",
     precisionDesc: "Every component engineered for maximum efficiency, safety, and performance in Indian field conditions.",
-    featureImage: "/image-en.png",
+    featureImage: "/image-en.webp",
     featureImageAlt: "Precision Engineering",
     industryTag: "Industrial Solutions",
     industryHeading: "EV Tractor of Choice for Industry.",
@@ -222,6 +222,36 @@ export const en = {
     ],
     readyToElectric: "Ready to Go Electric?",
     readyToElectricDesc: "Join 5,000+ Indian farmers who have switched to Autonxt. Reserve your tractor today.",
+    liveTag: "LIVE",
+    visitingPass: {
+      connectTag: "Visit & Connect",
+      titlePre: "Get a ",
+      titleHighlight: "Visiting Pass",
+      titlePost: " or App",
+      showroom: "Factory & Showroom",
+      bookPass: "Book a Visiting Pass",
+      visitorPass: "VISITOR PASS",
+      hinjewadi: "Hinjewadi Phase 2, Pune",
+      namePlaceholder: "Your Full Name",
+      generatePass: "Generate Visiting Pass",
+      nameLabel: "Name",
+      dateLabel: "Date",
+      purposeLabel: "Purpose",
+      blankVal: "— — —"
+    },
+    mobileApp: {
+      tag: "Mobile Application",
+      titlePre: "AutoNxt",
+      titleHighlight: "on Your Phone",
+      desc: "Book service, track your tractor, manage fleet operations, and stay updated with alerts — all from your pocket.",
+      alert: "Real-time alerts & notifications",
+      gps: "Live tractor GPS tracking",
+      history: "Service booking & history",
+      appStore: "App Store",
+      googlePlay: "Google Play",
+      downloadOn: "Download on the",
+      getItOn: "Get it on",
+    }
   },
   // Gallery
   gallery: {
@@ -240,6 +270,9 @@ export const en = {
     scheduleDemo: "Schedule a Demo",
     seeInPerson: "Want to see it in person?",
     seeInPersonDesc: "Schedule a live demo at your farm or our nearest experience centre.",
+    galleryBadge: "AutoNxt Gallery",
+    youtubeTag: "YouTube",
+    youtubeDesc: "Subscribe to the AutoNxt YouTube channel for product videos, farm demos, industry applications, and company updates.",
   },
   // About
   about: {
@@ -299,6 +332,8 @@ export const en = {
     motors: "NXT-Drive Motors",
     slogan: "India's electric tractor pioneer. Powering the fields of tomorrow, built for Indian farmers today.",
     cancel: "Cancel",
+    loadingModel: "Loading 3D model...",
+    dragToRotate: "↺ drag to rotate",
   },
   // Book
   book: {
@@ -321,6 +356,10 @@ export const en = {
     readArticle: "Read Article",
     noArticlesFound: "No articles found",
     noArticlesDesc: "Try adjusting your search query or choosing another category filter.",
+    authorLabel: "Author",
+    pressInquiries: "Press & Media Inquiries",
+    pressDesc: "For press releases, high-res images, and media interviews, please contact our PR team.",
+    contactPr: "Contact PR Team",
   },
   // Blog
   blog: {
@@ -338,6 +377,10 @@ export const en = {
     readArticle: "Read Article",
     noArticlesFound: "No articles found",
     noArticlesDesc: "Try adjusting your search query or choosing another category filter.",
+    editorsPick: "Editor's Pick",
+    newBadge: "New",
+    readAction: "Read",
+    authorLabel: "Author",
   },
   // EV Blog
   evBlog: {
@@ -352,6 +395,7 @@ export const en = {
     readArticle: "Read Article",
     noArticlesFound: "No articles found",
     noArticlesDesc: "Try adjusting your search query or choosing another category filter.",
+    evRevolution: "EV Revolution",
   },
   productPage: {
     badge: "Electric Lineup 2025",
@@ -685,7 +729,7 @@ chargingTime: "3–6 hrs",
         desc: "Revolutionise biomass collection, processing, and transportation with zero emissions and low operating costs for a greener future.",
         detail: "AutoNxt Electric Tractors redefine efficiency in biomass operations. Designed for biomass collection, processing, and transportation, our tractors deliver reliability and sustainability in every cycle.",
         bg: "bg-lime-700",
-        img: "/images/industry/biomass.png",
+        img: "/images/industry/biomass.webp",
       },
       {
         title: "Cement Manufacturing",
@@ -694,7 +738,7 @@ chargingTime: "3–6 hrs",
         desc: "Optimise material handling, transportation, and site maintenance in cement plants — reducing downtime and enhancing productivity.",
         detail: "Experience the power of AutoNxt Electric Tractors in cement manufacturing. Our tractors optimise material handling, transportation, and site maintenance with zero emissions and advanced features.",
         bg: "bg-orange-700",
-        img: "/images/industry/cement.png",
+        img: "/images/industry/cement.webp",
       },
       {
         title: "Construction Industry",
@@ -703,7 +747,7 @@ chargingTime: "3–6 hrs",
         desc: "Unmatched versatility and power for site preparation, material handling, and equipment transportation — greener construction ahead.",
         detail: "AutoNxt Electric Tractors are the future of construction. With unmatched versatility and power, they excel in site preparation, material handling, and equipment transportation.",
         bg: "bg-yellow-700",
-        img: "/images/industry/construction.png",
+        img: "/images/industry/construction.webp",
       },
       {
         title: "Defence",
@@ -712,7 +756,7 @@ chargingTime: "3–6 hrs",
         desc: "Superior performance and rugged durability for military logistics, base maintenance, and all-terrain operations with remote operation options.",
         detail: "AutoNxt Electric Tractors offer superior performance and rugged durability for defence applications. From logistics support to base maintenance, they excel in the most demanding military environments.",
         bg: "bg-slate-700",
-        img: "/images/industry/defence.png",
+        img: "/images/industry/defence.webp",
       },
       {
         title: "Airport Operations",
@@ -721,7 +765,7 @@ chargingTime: "3–6 hrs",
         desc: "From baggage handling to runway maintenance — zero-emission, autonomous-ready tractors for smoother, greener airport operations.",
         detail: "AutoNxt Electric Tractors redefine airport operations. From baggage handling to runway maintenance, our tractors offer zero emissions and advanced autonomous navigation features.",
         bg: "bg-sky-700",
-        img: "/images/industry/airport.png",
+        img: "/images/industry/airport.webp",
       },
       {
         title: "Metal Manufacturing",
@@ -730,12 +774,12 @@ chargingTime: "3–6 hrs",
         desc: "From material handling to logistics, our tractors streamline metal manufacturing operations while minimising environmental impact.",
         detail: "AutoNxt Electric Tractors redefine efficiency in metal manufacturing. From material handling to logistics, our tractors streamline operations while minimising environmental impact.",
         bg: "bg-slate-600",
-        img: "/images/industry/metal.png",
+        img: "/images/industry/metal.webp",
       },
     ],
     tractors: [
       {
-        img: "/images/products/x45h2.png",
+        img: "/images/products/x45h2.webp",
         name: "AutoNxt X45H2",
         slug: "x45h2",
         hp: "45HP",
@@ -752,7 +796,7 @@ chargingTime: "3–6 hrs",
         tagColor: "bg-emerald-500",
       },
       {
-        img: "/images/products/x25h2.png",
+        img: "/images/products/x25h2.webp",
         name: "AutoNxt X25H2",
         slug: "x25h2",
         hp: "25HP",
@@ -769,7 +813,7 @@ chargingTime: "3–6 hrs",
         tagColor: "bg-accent",
       },
       {
-        img: "/images/products/x45h2.png",
+        img: "/images/products/x45h2.webp",
         name: "AutoNxt X60H2",
         slug: "x60h2",
         hp: "60HP",
@@ -822,7 +866,7 @@ chargingTime: "3–6 hrs",
         tagline: "Zero-Emission Biomass Collection & Processing",
         desc: "India generates over 500 million tonnes of agricultural biomass annually. AutoNxt electric tractors are purpose-engineered for the unique demands of biomass collection, baling, transportation, and processing — delivering higher uptime, lower per-tonne cost, and zero exhaust emissions inside storage and processing facilities.",
         bg: "bg-lime-700",
-        image: "/images/industry/biomass.png",
+        image: "/images/industry/biomass.webp",
         applications: [
           {
             title: "Biomass Haulage",
@@ -852,8 +896,8 @@ chargingTime: "3–6 hrs",
         challenges: "Biomass operations run long shifts, often inside sheds where diesel fumes create serious air quality and fire risks. High fuel costs erode margins, and unplanned maintenance during harvest season disrupts the entire supply chain.",
         solution: "AutoNxt X45H2 delivers 45HP of instant electric torque with zero exhaust emissions, making it safe inside biomass processing facilities. With 8+ hours of runtime and a 4-hour charge cycle, facilities can run two shifts with a single tractor using overnight charging.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "Primary choice for biomass haulage and baling", slug: "x45h2" },
-          { name: "AutoNxt X25H2", hp: "25 HP", img: "/images/product-autonomous.png", note: "Ideal for small to medium biomass collection operations", slug: "x25h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Primary choice for biomass haulage and baling", slug: "x45h2" },
+          { name: "AutoNxt X25H2", hp: "25 HP", img: "/images/product-autonomous.webp", note: "Ideal for small to medium biomass collection operations", slug: "x25h2" },
         ],
       },
       cement: {
@@ -862,7 +906,7 @@ chargingTime: "3–6 hrs",
         tagline: "Cleaner, Quieter Cement Plant Operations",
         desc: "Cement plants are dust-heavy, noise-intensive, and fuel-dependent environments. AutoNxt electric tractors transform internal logistics — from raw material handling to clinker transportation — reducing operational emissions and dramatically cutting fuel costs at scale.",
         bg: "bg-orange-700",
-        image: "/images/industry/cement.png",
+        image: "/images/industry/cement.webp",
         applications: [
           {
             title: "Raw Material Logistics",
@@ -884,7 +928,7 @@ chargingTime: "3–6 hrs",
         challenges: "Cement plants consume thousands of litres of diesel per month in internal logistics alone. High ambient temperatures cause diesel engines to overheat. Emissions regulations are tightening, and plants need to demonstrate ESG progress to investors.",
         solution: "AutoNxt electric tractors generate no exhaust and run cooler in high-ambient environments. With modular battery architecture, battery packs can be serviced without taking the entire tractor offline, minimising disruption to 24/7 plant operations.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "Recommended for clinker transport and heavy haulage", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Recommended for clinker transport and heavy haulage", slug: "x45h2" },
         ],
       },
       construction: {
@@ -893,7 +937,7 @@ chargingTime: "3–6 hrs",
         tagline: "Sustainable Power for India's Building Boom",
         desc: "India's construction sector adds millions of square metres of floor space every year. AutoNxt electric tractors bring zero-emission, high-torque performance to site preparation, material transport, and equipment positioning — reducing a site's carbon footprint while cutting fuel costs.",
         bg: "bg-yellow-700",
-        image: "/images/industry/construction.png",
+        image: "/images/industry/construction.webp",
         applications: [
           {
             title: "Material Haulage",
@@ -910,7 +954,7 @@ chargingTime: "3–6 hrs",
         challenges: "Construction sites face increasing regulatory pressure on diesel emissions, particularly near urban residential zones. Fuel logistics are complex and theft-prone. Diesel engines struggle with dusty air filters and temperature extremes on exposed sites.",
         solution: "AutoNxt X45H2's sealed electric drivetrain is unaffected by dust ingress. It requires no fuel delivery and the battery can be charged overnight from the site's temporary power supply or a portable solar charging unit.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "Primary choice for construction site haulage and earth prep", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Primary choice for construction site haulage and earth prep", slug: "x45h2" },
         ],
       },
       defence: {
@@ -919,7 +963,7 @@ chargingTime: "3–6 hrs",
         tagline: "Silent. Rugged. Mission-Ready.",
         desc: "Defence and paramilitary operations demand equipment that is reliable under pressure, operable in austere environments, and increasingly — low acoustic and thermal signature. AutoNxt electric tractors are engineered for base logistics, airfield support, and all-terrain utility with remote operation capability on the roadmap.",
         bg: "bg-slate-700",
-        image: "/images/industry/defence.png",
+        image: "/images/industry/defence.webp",
         applications: [
           {
             title: "Base Logistics",
@@ -936,7 +980,7 @@ chargingTime: "3–6 hrs",
         challenges: "Defence logistics require equipment that can operate quietly, in diverse terrain, without complex fuel logistics. Diesel generators and tractors create acoustic and thermal signatures that compromise operational security.",
         solution: "AutoNxt's electric powertraint operations are silent and generate no thermal signature, making it ideal for base perimeter operations. The modular battery pack can be charged via a field generator or vehicle-mounted solar system.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "Primary recommendation for defence base logistics", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Primary recommendation for defence base logistics", slug: "x45h2" },
         ],
       },
       airport: {
@@ -945,7 +989,7 @@ chargingTime: "3–6 hrs",
         tagline: "Greener Ground Operations for Indian Airports",
         desc: "Airports are under intense pressure to reduce ground-level emissions. AutoNxt electric tractors are ideal for airside baggage handling, runway maintenance, cargo movement, and perimeter operations — replacing diesel vehicles that contribute to poor air quality in sensitive terminal environments.",
         bg: "bg-sky-700",
-        image: "/images/industry/airport.png",
+        image: "/images/industry/airport.webp",
         applications: [
           {
             title: "Baggage & Cargo Towing",
@@ -962,7 +1006,7 @@ chargingTime: "3–6 hrs",
         challenges: "Airports face strict DGCA and ICAO guidelines on ground-level emissions. Diesel ground vehicles near fuel farms create fire risks. Noise from diesel equipment disrupts ATC and passenger communications in terminal-adjacent areas.",
         solution: "AutoNxt's zero-emission, near-silent electric tractors are ideal for airside environments. They can be charged overnight in ground equipment hangars and monitored via AutoNxt's telematics platform, which can integrate with airport AODB systems.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "Recommended for baggage towing and runway maintenance", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Recommended for baggage towing and runway maintenance", slug: "x45h2" },
         ],
       },
       metal: {
@@ -971,7 +1015,7 @@ chargingTime: "3–6 hrs",
         tagline: "Heavy-Duty Electric Logistics for Metal Plants",
         desc: "Metal manufacturing facilities — from steel mills to aluminium smelters and metal fabrication plants — require intensive internal logistics. AutoNxt electric tractors handle heavy material haulage with high sustained torque, while eliminating diesel exhaust fumes in enclosed factory environments where worker health is paramount.",
         bg: "bg-slate-600",
-        image: "/images/industry/metal.png",
+        image: "/images/industry/metal.webp",
         applications: [
           {
             title: "Coil & Sheet Haulage",
@@ -988,7 +1032,7 @@ chargingTime: "3–6 hrs",
         challenges: "Metal plants face intense heat, dust, and strict air quality requirements. Diesel exhaust represents a severe occupational health risk in enclosed spaces. Extreme temperatures can also degrade standard mechanical drivetrains.",
         solution: "AutoNxt X45H2's sealed electric powertrain is immune to dust ingress and generates no exhaust. In high-ambient-temperature metal plant environments, the liquid-cooled battery pack maintains optimal temperature without the overheating issues that plague diesel engines.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "Primary choice for metal plant haulage and logistics", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Primary choice for metal plant haulage and logistics", slug: "x45h2" },
         ],
       },
     }
@@ -1501,16 +1545,38 @@ chargingTime: "3–6 hrs",
         summary: "Detailed company profile and analysis of AutoNxt Automation's innovative approach to sustainable agriculture. AutoNxt has established itself as a leader in agricultural innovation, combining environmental sustainability with cutting-edge technology.",
         externalUrl: "https://tracxn.com/d/companies/autonxt-automation/__ZSsZ4cr50wm63YgF4zOMI1CcYVW2V43yS-5Lojtdze0",
         featured: false
+      },
+      {
+        tag: "Company Profile",
+        title: "Kaustubh Dhonde: Story of AutoNxt Automation, Pioneering Electric and Autonomous Agricultural Solutions",
+        author: "SugerMint",
+        date: "May 2024",
+        readTime: "5 min read",
+        image: "/images/blog/kaustubh-dhonde-story.webp",
+        summary: "An inspiring interview with Kaustubh Dhonde, Founder & CEO of AutoNxt Automation, sharing his personal motivations, the challenges of starting an EV brand in India, and the development of the country's first autonomous electric tractor.",
+        externalUrl: "https://sugermint.com/kaustubh-dhonde/",
+        featured: false
+      },
+      {
+        tag: "Industry News",
+        title: "AutoNxt Automation To Launch An Electric - Self Driving Tractor",
+        author: "BW Online Bureau",
+        date: "August 2022",
+        readTime: "3 min read",
+        image: "/images/blog/autonxt-bw-autoworld.webp",
+        summary: "Electric tractor venture startup AutoNxt Automation is set to launch its 20HP, 35HP, and 45HP electric tractor variants in the market, introducing production-ready high-torque electric powertrains and preparing autonomous driving features.",
+        externalUrl: "https://bwautoworld.com/article/autonxt-automation-to-launch-an-electric-self-driving-tractor-442543",
+        featured: false
       }
     ]
   },
   evBlogPage: {
-    marketCagrLabel: "Market CAGR",
-    marketCagrValue: "38%",
-    marketSizeLabel: "Market Size",
-    marketSizeValue: "₹4K Cr",
-    directCo2Label: "Direct CO₂",
-    directCo2Value: "Zero",
+    articlesLabel: "Articles",
+    articlesValue: "7 Tech Guides",
+    topicsLabel: "Key Focus",
+    topicsValue: "5 Categories",
+    avgReadLabel: "Avg Read",
+    avgReadValue: "6 Minutes",
     categories: ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"],
     articles: [
       {
@@ -1518,6 +1584,7 @@ chargingTime: "3–6 hrs",
         title: "The Rise of Eco-Friendly Tractors in India's Push for Green Growth",
         date: "January 2025",
         readTime: "6 min",
+        image: "/images/blog/future-of-farming.webp",
         summary: "India is witnessing a significant transformation in its agricultural sector with the emergence of eco-friendly electric tractors, aligning with the nation's ambitious green growth initiatives and its commitment to sustainable development and carbon neutrality.",
         externalUrl: "https://www.theautomonitor.com/the-rise-of-eco-friendly-tractors-in-indias-push-for-green-growth/",
         featured: true
@@ -1527,6 +1594,7 @@ chargingTime: "3–6 hrs",
         title: "Bridging Sustainability and Productivity with Electric Tractor Technology",
         date: "November 2025",
         readTime: "7 min",
+        image: "/images/blog/bridging-sustainability.webp",
         summary: "Electric tractor technology is revolutionizing agriculture by combining environmental sustainability with enhanced productivity, offering farmers a viable path to more efficient and profitable farming operations — proving that environmental responsibility and operational efficiency can go hand in hand.",
         externalUrl: "https://emobilityplus.com/2025/11/17/opinion-bridging-sustainability-and-productivity-with-electric-tractor-technology/",
         featured: true
@@ -1536,6 +1604,7 @@ chargingTime: "3–6 hrs",
         title: "How Electric Tractors Are Powering a Sustainable Revolution in Indian Agriculture",
         date: "January 2025",
         readTime: "5 min",
+        image: "/images/blog/sustainable-revolution.webp",
         summary: "Electric tractors are driving a sustainable agricultural revolution across India, empowering farmers with clean, efficient, and cost-effective alternatives to traditional diesel-powered machinery and addressing both environmental and economic challenges.",
         externalUrl: "https://republicnewsindia.com/how-electric-tractors-are-powering-a-sustainable-revolution-in-indian-agriculture/",
         featured: false
@@ -1545,8 +1614,39 @@ chargingTime: "3–6 hrs",
         title: "Farming Without Fumes: Why Electric Tractors Are the Future of Indian Agriculture",
         date: "February 2025",
         readTime: "8 min",
+        image: "/images/blog/farming-without-fumes.webp",
         summary: "Electric tractors represent the future of Indian agriculture, eliminating harmful emissions while delivering superior performance and reducing operational costs for farmers nationwide — a clean, efficient path forward for the farming community.",
         externalUrl: "https://www.thehindubusinessline.com/economy/agri-business/farming-without-fumes-why-electric-tractors-are-the-future-of-indian-agriculture/article70202273.ece",
+        featured: false
+      },
+      {
+        cat: "Battery Tech",
+        title: "Innovative Battery Technologies Powering the Next Generation of Electric Tractors",
+        date: "July 2024",
+        readTime: "6 min",
+        image: "/images/blog/innovative-battery-tech.webp",
+        summary: "Explores how electric tractors are emerging as a pivotal solution in sustainable agriculture, driven by innovative battery technologies, modular systems, and hydrogen fuel cells.",
+        externalUrl: "https://www.theautomonitor.com/innovative-battery-technologies-powering-the-next-generation-of-electric-tractors/",
+        featured: false
+      },
+      {
+        cat: "Policy & Incentives",
+        title: "Government Policies and Subsidies Driving the Adoption of Electric Tractors",
+        date: "January 2025",
+        readTime: "6 min",
+        image: "/images/blog/government-policies.webp",
+        summary: "Discusses how supportive government policies, subsidies, and global sustainability initiatives are driving the transition of the agricultural sector toward eco-friendly electric tractors.",
+        externalUrl: "https://www.theautomonitor.com/government-policies-and-subsidies-driving-the-adoption-of-electric-tractors/",
+        featured: false
+      },
+      {
+        cat: "Market Trends",
+        title: "Why 2026 Could Be the Turning Point for Electric Tractors in Indian Agriculture",
+        date: "January 2026",
+        readTime: "4 min",
+        image: "/images/blog/why-2026-turning-point.webp",
+        summary: "Highlights how upcoming policy shifts, battery cost reductions, and technical improvements could make 2026 a milestone year for electric tractor adoption in India.",
+        externalUrl: "https://www.theautomonitor.com/why-2026-could-be-the-turning-point-for-electric-tractors-in-indian-agriculture/",
         featured: false
       }
     ],
@@ -1638,6 +1738,15 @@ chargingTime: "3–6 hrs",
         author: "EV Reporter",
         readTime: "3 min read",
         externalUrl: "https://evreporter.com/autonxt-automation-secures-pre-series-a-funding-for-electric-autonomous-tractor/"
+      },
+      {
+        date: "5/15/2024",
+        tag: "Milestone",
+        title: "AutoNxt Automation’s Electric Tractor Officially Registered at Thane RTO",
+        summary: "AutoNxt Automation achieves a historic milestone as its 45HP electric tractor receives its first official commercial RTO vehicle registration in Thane, Maharashtra.",
+        author: "SugerMint",
+        readTime: "3 min read",
+        externalUrl: "https://sugermint.com/autonxt-automation-electric-tractor/"
       }
     ]
   }

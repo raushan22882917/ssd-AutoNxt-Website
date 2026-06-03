@@ -1,4 +1,4 @@
-import { en } from "./en";
+﻿import { en } from "./en";
 
 export const hi: typeof en = {
   nav: {
@@ -203,7 +203,7 @@ export const hi: typeof en = {
     precisionTag: "तकनीक",
     precisionTitle: "सटीक इंजीनियरिंग।",
     precisionDesc: "हर पुर्जा भारतीय खेत की परिस्थितियों में अधिकतम दक्षता, सुरक्षा और प्रदर्शन के लिए इंजीनियर किया गया है।",
-    featureImage: "/image-hi.png",
+    featureImage: "/image-hi.webp",
     featureImageAlt: "सटीक इंजीनियरिंग",
     industryTag: "औद्योगिक समाधान",
     industryHeading: "उद्योग के लिए पसंद का ईवी ट्रैक्टर।",
@@ -222,6 +222,36 @@ export const hi: typeof en = {
     ],
     readyToElectric: "इलेक्ट्रिक जाने के लिए तैयार?",
     readyToElectricDesc: "5,000+ भारतीय किसानों में शामिल हों जो ऑटोनेक्स्ट में आ गए हैं। आज ही अपना ट्रैक्टर बुक करें।",
+    liveTag: "लाइव",
+    visitingPass: {
+      connectTag: "विजिट और कनेक्ट",
+      titlePre: "एक ",
+      titleHighlight: "विजिटिंग पास",
+      titlePost: " या ऐप प्राप्त करें",
+      showroom: "फैक्ट्री और शोरूम",
+      bookPass: "विजिटिंग पास बुक करें",
+      visitorPass: "विजिटर पास",
+      hinjewadi: "हिंजेवाड़ी फेज 2, पुणे",
+      namePlaceholder: "आपका पूरा नाम",
+      generatePass: "विजिटिंग पास जेनरेट करें",
+      nameLabel: "नाम",
+      dateLabel: "तारीख",
+      purposeLabel: "उद्देश्य",
+      blankVal: "— — —"
+    },
+    mobileApp: {
+      tag: "मोबाइल एप्लीकेशन",
+      titlePre: "ऑटोनेक्स्ट ",
+      titleHighlight: "आपके फोन पर",
+      desc: "सेवा बुक करें, अपने ट्रैक्टर को ट्रैक करें, बेड़े के संचालन का प्रबंधन करें और अलर्ट के साथ अपडेट रहें — सब कुछ अपनी जेब से।",
+      alert: "वास्तविक समय अलर्ट और सूचनाएं",
+      gps: "लाइव ट्रैक्टर जीपीएस ट्रैकिंग",
+      history: "सेवा बुकिंग और इतिहास",
+      appStore: "ऐप स्टोर",
+      googlePlay: "गूगल प्ले",
+      downloadOn: "डाउनलोड करें",
+      getItOn: "प्राप्त करें",
+    }
   },
   gallery: {
     title: "ऑटोनेक्स्ट को",
@@ -239,6 +269,9 @@ export const hi: typeof en = {
     scheduleDemo: "डेमो शेड्यूल करें",
     seeInPerson: "इसे व्यक्तिगत रूप से देखना चाहते हैं?",
     seeInPersonDesc: "अपने खेत पर या हमारे निकटतम अनुभव केंद्र पर लाइव डेमो शेड्यूल करें।",
+    galleryBadge: "ऑटोनेक्स्ट गैलरी",
+    youtubeTag: "YouTube",
+    youtubeDesc: "उत्पाद वीडियो, फार्म डेमो, उद्योग अनुप्रयोगों और कंपनी अपडेट के लिए ऑटोनेक्स्ट YouTube चैनल को सब्सक्राइब करें।",
   },
   about: {
     tag: "ऑटोनेक्स्ट के बारे में",
@@ -296,6 +329,8 @@ export const hi: typeof en = {
     motors: "NXT-ड्राइव मोटर्स",
     slogan: "भारत का इलेक्ट्रिक ट्रैक्टर प्रर्वतक। कल के खेतों को सशक्त बनाना, आज के भारतीय किसानों के लिए निर्मित।",
     cancel: "रद्द करें",
+    loadingModel: "3D मॉडल लोड हो रहा है...",
+    dragToRotate: "↺ घुमाने के लिए ड्रैग करें",
   },
   book: {
     title: "डेमो बुक करें",
@@ -316,6 +351,10 @@ export const hi: typeof en = {
     readArticle: "लेख पढ़ें",
     noArticlesFound: "कोई लेख नहीं मिला",
     noArticlesDesc: "अपनी खोज बदलें या दूसरी श्रेणी चुनें।",
+    authorLabel: "लेखक",
+    pressInquiries: "प्रेस और मीडिया पूछताछ",
+    pressDesc: "प्रेस विज्ञप्ति, उच्च-रिज़ॉल्यूशन छवियों और मीडिया साक्षात्कारों के लिए, कृपया हमारी पीआर टीम से संपर्क करें।",
+    contactPr: "पीआर टीम से संपर्क करें",
   },
   blog: {
     tag: "ऑटोनेक्स्ट ब्लॉग",
@@ -332,6 +371,10 @@ export const hi: typeof en = {
     readArticle: "लेख पढ़ें",
     noArticlesFound: "कोई लेख नहीं मिला",
     noArticlesDesc: "अपनी खोज बदलें या दूसरी श्रेणी चुनें।",
+    editorsPick: "संपादक की पसंद",
+    newBadge: "नया",
+    readAction: "पढ़ें",
+    authorLabel: "लेखक",
   },
   evBlog: {
     tag: "ईवी ज्ञान केंद्र",
@@ -345,6 +388,7 @@ export const hi: typeof en = {
     readArticle: "लेख पढ़ें",
     noArticlesFound: "कोई लेख नहीं मिला",
     noArticlesDesc: "अपनी खोज बदलें या दूसरी श्रेणी चुनें।",
+    evRevolution: "ईवी क्रांति",
   },
   productPage: {
     badge: "इलेक्ट्रिक लाइनअप 2025",
@@ -676,7 +720,7 @@ export const hi: typeof en = {
         desc: "शून्य उत्सर्जन और कम परिचालन लागत के साथ बायोमास संग्रह, प्रसंस्करण और परिवहन में क्रांति लाकर एक हरित भविष्य का निर्माण करें।",
         detail: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर बायोमास संचालन में दक्षता को फिर से परिभाषित करते हैं। बायोमास संग्रह, प्रसंस्करण और परिवहन के लिए डिज़ाइन किए गए हमारे ट्रैक्टर हर चक्र में विश्वसनीयता और स्थिरता प्रदान करते हैं।",
         bg: "bg-lime-700",
-        img: "/images/industry/biomass.png",
+        img: "/images/industry/biomass.webp",
       },
       {
         title: "सीमेंट निर्माण",
@@ -685,7 +729,7 @@ export const hi: typeof en = {
         desc: "सीमेंट संयंत्रों में सामग्री प्रबंधन, परिवहन और साइट रखरखाव को अनुकूलित करें — डाउनटाइम को कम करें और उत्पादकता बढ़ाएं।",
         detail: "सीमेंट निर्माण में ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टरों की शक्ति का अनुभव करें। हमारे ट्रैक्टर शून्य उत्सर्जन और उन्नत सुविधाओं के साथ सामग्री प्रबंधन, परिवहन और साइट रखरखाव को अनुकूलित करते हैं।",
         bg: "bg-orange-700",
-        img: "/images/industry/cement.png",
+        img: "/images/industry/cement.webp",
       },
       {
         title: "निर्माण उद्योग",
@@ -694,7 +738,7 @@ export const hi: typeof en = {
         desc: "साइट की तैयारी, सामग्री प्रबंधन और उपकरण परिवहन के लिए बेजोड़ बहुमुखी प्रतिभा और शक्ति — हरित निर्माण का मार्ग प्रशस्त करें।",
         detail: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर निर्माण का भविष्य हैं। बेजोड़ बहुमुखी प्रतिभा और शक्ति के साथ, वे साइट की तैयारी, सामग्री प्रबंधन और उपकरण परिवहन में उत्कृष्ट प्रदर्शन करते हैं।",
         bg: "bg-yellow-700",
-        img: "/images/industry/construction.png",
+        img: "/images/industry/construction.webp",
       },
       {
         title: "रक्षा क्षेत्र",
@@ -703,7 +747,7 @@ export const hi: typeof en = {
         desc: "सैन्य रसद, बेस रखरखाव और ऑल-टेरेन संचालन के लिए उत्कृष्ट प्रदर्शन और मजबूत स्थायित्व, रिमोट ऑपरेशन के विकल्पों के साथ।",
         detail: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर रक्षा अनुप्रयोगों के लिए उत्कृष्ट प्रदर्शन और मजबूत स्थायित्व प्रदान करते हैं। लॉजिस्टिक्स समर्थन से लेकर बेस रखरखाव तक, वे सबसे कठिन सैन्य वातावरण में उत्कृष्ट प्रदर्शन करते हैं।",
         bg: "bg-slate-700",
-        img: "/images/industry/defence.png",
+        img: "/images/industry/defence.webp",
       },
       {
         title: "हवाई अड्डा संचालन",
@@ -712,7 +756,7 @@ export const hi: typeof en = {
         desc: "सामान संभालने से लेकर रनवे के रखरखाव तक — सुगम और पर्यावरण-आनुकूल हवाई अड्डा संचालन के लिए शून्य-उत्सर्जन, स्वायत्त-तैयार ट्रैक्टर।",
         detail: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर हवाई अड्डे के संचालन को फिर से परिभाषित करते हैं। सामान संभालने से लेकर रनवे रखरखाव तक, हमारे ट्रैक्टर शून्य उत्सर्जन और उन्नत स्वायत्त नेविगेशन सुविधाएँ प्रदान करते हैं।",
         bg: "bg-sky-700",
-        img: "/images/industry/airport.png",
+        img: "/images/industry/airport.webp",
       },
       {
         title: "धातु निर्माण",
@@ -721,12 +765,12 @@ export const hi: typeof en = {
         desc: "सामग्री प्रबंधन से लेकर रसद तक, हमारे ट्रैक्टर पर्यावरण पर प्रभाव को कम करते हुए धातु निर्माण कार्यों को सुव्यवस्थित करते हैं।",
         detail: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर धातु निर्माण में दक्षता को फिर से परिभाषित करते हैं। सामग्री प्रबंधन से लेकर रसद तक, हमारे ट्रैक्टर पर्यावरणीय प्रभाव को कम करते हुए संचालन को सुव्यवस्थित करते हैं।",
         bg: "bg-slate-600",
-        img: "/images/industry/metal.png",
+        img: "/images/industry/metal.webp",
       },
     ],
     tractors: [
       {
-        img: "/images/products/x45h2.png",
+        img: "/images/products/x45h2.webp",
         name: "AutoNxt X45H2",
         slug: "x45h2",
         hp: "45HP",
@@ -743,7 +787,7 @@ export const hi: typeof en = {
         tagColor: "bg-emerald-500",
       },
       {
-        img: "/images/products/x25h2.png",
+        img: "/images/products/x25h2.webp",
         name: "AutoNxt X25H2",
         slug: "x25h2",
         hp: "25HP",
@@ -760,7 +804,7 @@ export const hi: typeof en = {
         tagColor: "bg-accent",
       },
       {
-        img: "/images/products/x45h2.png",
+        img: "/images/products/x45h2.webp",
         name: "AutoNxt X60H2",
         slug: "x60h2",
         hp: "60HP",
@@ -812,7 +856,7 @@ export const hi: typeof en = {
         tagline: "शून्य-उत्सर्जन बायोमास संग्रह और प्रसंस्करण",
         desc: "भारत सालाना 50 करोड़ टन से अधिक कृषि बायोमास उत्पन्न करता है। ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर बायोमास संग्रह, बेलिंग, परिवहन और प्रसंस्करण की विशिष्ट मांगों के लिए इंजीनियर किए गए हैं — जो भंडारण और प्रसंस्करण सुविधाओं के अंदर उच्च अपटाइम, कम प्रति-टन लागत और शून्य निकास उत्सर्जन प्रदान करते हैं।",
         bg: "bg-lime-700",
-        image: "/images/industry/biomass.png",
+        image: "/images/industry/biomass.webp",
         applications: [
           {
             title: "बायोमास ढुलाई",
@@ -842,8 +886,8 @@ export const hi: typeof en = {
         challenges: "बायोमास संचालन लंबी पालियों में चलता है, अक्सर उन शेडों के अंदर जहां डीजल का धुआं हवा की गुणवत्ता और आग के गंभीर जोखिम पैदा करता है। उच्च ईंधन लागत मार्जिन को कम करती है, और कटाई के मौसम में अनियोजित रखरखाव पूरी आपूर्ति श्रृंखला को बाधित करता है।",
         solution: "ऑटोनेक्स्ट X45H2 शून्य निकास उत्सर्जन के साथ 45HP का तत्काल इलेक्ट्रिक टॉर्क प्रदान करता है, जिससे यह बायोमास प्रसंस्करण सुविधाओं के अंदर सुरक्षित हो जाता है। 8+ घंटे के रनटाइम and 4 घंटे के चार्ज चक्र के साथ, सुविधाएं रात की चार्जिंग का उपयोग करके एक ही ट्रैक्टर के साथ दो शिफ्ट चला सकती हैं।",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "बायोमास ढुलाई और बेलिंग के लिए प्राथमिक विकल्प", slug: "x45h2" },
-          { name: "AutoNxt X25H2", hp: "25 HP", img: "/images/product-autonomous.png", note: "छोटे से मध्यम बायोमास संग्रह कार्यों के लिए आदर्श", slug: "x25h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "बायोमास ढुलाई और बेलिंग के लिए प्राथमिक विकल्प", slug: "x45h2" },
+          { name: "AutoNxt X25H2", hp: "25 HP", img: "/images/product-autonomous.webp", note: "छोटे से मध्यम बायोमास संग्रह कार्यों के लिए आदर्श", slug: "x25h2" },
         ],
       },
       cement: {
@@ -852,7 +896,7 @@ export const hi: typeof en = {
         tagline: "स्वच्छ, शांत सीमेंट संयंत्र संचालन",
         desc: "सीमेंट संयंत्र धूल-भारी, शोर-गहन और ईंधन-निर्भर वातावरण हैं। ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर आंतरिक रसद को बदलते हैं — कच्चे माल के प्रबंधन से लेकर क्लिंकर परिवहन तक — परिचालन उत्सर्जन को कम करते हैं और नाटकीय रूप से परिचालन लागत को कम करते हैं।",
         bg: "bg-orange-700",
-        image: "/images/industry/cement.png",
+        image: "/images/industry/cement.webp",
         applications: [
           {
             title: "कच्चा माल रसद",
@@ -874,7 +918,7 @@ export const hi: typeof en = {
         challenges: "सीमेंट संयंत्र केवल आंतरिक रसद में प्रति माह हजारों लीटर डीजल की खपत करते हैं। उच्च परिवेश तापमान डीजल इंजनों को गर्म करने का कारण बनता है। उत्सर्जन नियम कड़े हो रहे हैं।",
         solution: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर कोई निकास उत्पन्न नहीं करते हैं और उच्च-परिवेश वातावरण में ठंडे चलते हैं। मॉड्यूलर बैटरी आर्किटेक्चर के साथ, पूरे ट्रैक्टर को ऑफलाइन लिए बिना बैटरी पैक की सर्विस की जा सकती है।",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "क्लिंकर परिवहन और भारी ढुलाई के लिए अनुशंसित", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "क्लिंकर परिवहन और भारी ढुलाई के लिए अनुशंसित", slug: "x45h2" },
         ],
       },
       construction: {
@@ -883,7 +927,7 @@ export const hi: typeof en = {
         tagline: "भारत के बिल्डिंग बूम के लिए सतत शक्ति",
         desc: "भारत का निर्माण क्षेत्र हर साल लाखों वर्ग मीटर का निर्माण करता है। ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर साइट की तैयारी, सामग्री परिवहन और उपकरण स्थिति के लिए शून्य-उत्सर्जन, उच्च-टॉर्क प्रदर्शन लाते हैं।",
         bg: "bg-yellow-700",
-        image: "/images/industry/construction.png",
+        image: "/images/industry/construction.webp",
         applications: [
           {
             title: "सामग्री ढुलाई",
@@ -900,7 +944,7 @@ export const hi: typeof en = {
         challenges: "निर्माण स्थलों को विशेष रूप से शहरी आवासीय क्षेत्रों के पास डीजल उत्सर्जन पर बढ़ते नियामक दबाव का सामना करना पड़ता है। ईंधन रसद जटिल है।",
         solution: "ऑटोनेक्स्ट X45H2 का सीलबंद इलेक्ट्रिक ड्राइवट्रेन धूल के प्रवेश से अप्रभावित रहता है। इसे किसी ईंधन वितरण की आवश्यकता नहीं होती है और बैटरी को साइट की अस्थायी बिजली आपूर्ति से चार्ज किया जा सकता है।",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "निर्माण स्थल ढुलाई और मिट्टी की तैयारी के लिए प्राथमिक विकल्प", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "निर्माण स्थल ढुलाई और मिट्टी की तैयारी के लिए प्राथमिक विकल्प", slug: "x45h2" },
         ],
       },
       defence: {
@@ -909,7 +953,7 @@ export const hi: typeof en = {
         tagline: "शांत। मजबूत। मिशन के लिए तैयार।",
         desc: "रक्षा और अर्धसैनिक संचालन ऐसे उपकरणों की मांग करते हैं जो दबाव में विश्वसनीय हों, और कम ध्वनिक और थर्मल हस्ताक्षर वाले हों। ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर बेस लॉजिस्टिक्स, एयरफील्ड सपोर्ट और ऑल-टेरेन उपयोगिता के लिए इंजीनियर किए गए हैं।",
         bg: "bg-slate-700",
-        image: "/images/industry/defence.png",
+        image: "/images/industry/defence.webp",
         applications: [
           {
             title: "बेस्स लॉजिस्टिक्स",
@@ -926,7 +970,7 @@ export const hi: typeof en = {
         challenges: "रक्षा रसद को ऐसे उपकरणों की आवश्यकता होती है जो जटिल ईंधन रसद के बिना, विविध इलाकों में चुपचाप काम कर सकें।",
         solution: "ऑटोनेक्स्ट का इलेक्ट्रिक पावरट्रेन मूक संचालन करता है और कोई थर्मल हस्ताक्षर नहीं बनाता है, जो बेस परिधि संचालन के लिए आदर्श है। बैटरी को सौर ऊर्जा से भी चार्ज किया जा सकता है।",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "रक्षा बेस लॉजिस्टिक्स के लिए प्राथमिक सिफारिश", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "रक्षा बेस लॉजिस्टिक्स के लिए प्राथमिक सिफारिश", slug: "x45h2" },
         ],
       },
       airport: {
@@ -935,7 +979,7 @@ export const hi: typeof en = {
         tagline: "भारतीय हवाई अड्डों के लिए हरित भू-संचालन",
         desc: "हवाई अड्डों पर जमीनी स्तर के उत्सर्जन को कम करने का तीव्र दबाव है। ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर सामान संभालने, रनवे के रखरखाव, कार्गो आंदोलन और परिधि संचालन के लिए आदर्श हैं।",
         bg: "bg-sky-700",
-        image: "/images/industry/airport.png",
+        image: "/images/industry/airport.webp",
         applications: [
           {
             title: "सामान और कार्गो ढुलाई",
@@ -952,7 +996,7 @@ export const hi: typeof en = {
         challenges: "हवाई अड्डों को जमीनी स्तर के उत्सर्जन पर सख्त नियमों का सामना करना पड़ता है। ईंधन डिपो के पास डीजल वाहन आग का खतरा पैदा करते हैं।",
         solution: "ऑटोनेक्स्ट के शून्य-उत्सर्जन, शांत इलेक्ट्रिक ट्रैक्टर हवाई अड्डे के संवेदनशील वातावरण के लिए आदर्श हैं। उन्हें रात में चार्ज किया जा सकता है और क्लाउड से ट्रैक किया जा सकता है।",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "सामान ढुलाई और रनवे रखरखाव के लिए अनुशंसित", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "सामान ढुलाई और रनवे रखरखाव के लिए अनुशंसित", slug: "x45h2" },
         ],
       },
       metal: {
@@ -961,7 +1005,7 @@ export const hi: typeof en = {
         tagline: "धातु संयंत्रों के लिए भारी-ड्यूटी इलेक्ट्रिक रसद",
         desc: "धातु निर्माण सुविधाओं को गहन आंतरिक रसद की आवश्यकता होती है। ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर उच्च टॉर्क के साथ भारी सामग्री ढुलाई का प्रबंधन करते हैं, जबकि बंद कारखाने के वातावरण में डीजल के धुएं को समाप्त करते हैं।",
         bg: "bg-slate-600",
-        image: "/images/industry/metal.png",
+        image: "/images/industry/metal.webp",
         applications: [
           {
             title: "कॉइल और शीट ढुलाई",
@@ -978,7 +1022,7 @@ export const hi: typeof en = {
         challenges: "धातु संयंत्रों को अत्यधिक गर्मी, धूल और सख्त हवा की गुणवत्ता आवश्यकताओं का सामना करना पड़ता है। डीजल का धुआं स्वास्थ्य के लिए गंभीर खतरा पैदा करता है।",
         solution: "ऑटोनेक्स्ट X45H2 का सीलबंद इलेक्ट्रिक पावरट्रेन धूल के प्रवेश से सुरक्षित है। लिक्विड-कूल्ड बैटरी पैक ओवरहीटिंग की समस्याओं के बिना इष्टतम तापमान बनाए रखता है।",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.png", note: "धातु संयंत्र ढुलाई और रसद के लिए प्राथमिक विकल्प", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "धातु संयंत्र ढुलाई और रसद के लिए प्राथमिक विकल्प", slug: "x45h2" },
         ],
       },
     }
@@ -1486,16 +1530,38 @@ export const hi: typeof en = {
         summary: "ऑटोनेक्स्ट ऑटोमेशन के अभिनव दृष्टिकोण का विस्तृत कंपनी प्रोफाइल और विश्लेषण। ऑटोनेक्स्ट ने खुद को कृषि नवाचार में एक नेता के रूप में स्थापित किया है, जो अत्याधुनिक तकनीक के साथ पर्यावरणीय स्थिरता को जोड़ता है।",
         externalUrl: "https://tracxn.com/d/companies/autonxt-automation/__ZSsZ4cr50wm63YgF4zOMI1CcYVW2V43yS-5Lojtdze0",
         featured: false
+      },
+      {
+        tag: "कंपनी प्रोफाइल",
+        title: "कौस्तुभ धोंडे: ऑटोनेक्स्ट ऑटोमेशन की कहानी, इलेक्ट्रिक और स्वायत्त कृषि समाधानों का नेतृत्व",
+        author: "शुगरमिंट",
+        date: "मई 2024",
+        readTime: "5 मिनट पढ़ें",
+        image: "/images/blog/kaustubh-dhonde-story.webp",
+        summary: "ऑटोनेक्स्ट ऑटोमेशन के संस्थापक और सीईओ कौस्तुभ धोंडे के साथ एक प्रेरणादायक साक्षात्कार, जिसमें उन्होंने अपनी व्यक्तिगत प्रेरणाओं, भारत में एक ईवी ब्रांड शुरू करने की चुनौतियों और देश के पहले स्वायत्त इलेक्ट्रिक ट्रैक्टर के विकास को साझा किया।",
+        externalUrl: "https://sugermint.com/kaustubh-dhonde/",
+        featured: false
+      },
+      {
+        tag: "उद्योग समाचार",
+        title: "ऑटोनेक्स्ट ऑटोमेशन एक इलेक्ट्रिक - सेल्फ ड्राइविंग ट्रैक्टर लॉन्च करने के लिए तैयार",
+        author: "BW ऑनलाइन ब्यूरो",
+        date: "अगस्त 2022",
+        readTime: "3 मिनट पढ़ें",
+        image: "/images/blog/autonxt-bw-autoworld.webp",
+        summary: "इलेक्ट्रिक ट्रैक्टर स्टार्टअप ऑटोनेक्स्ट ऑटोमेशन बाजार में अपने 20HP, 35HP और 45HP इलेक्ट्रिक ट्रैक्टर वेरिएंट लॉन्च करने के लिए तैयार है, जिसमें उत्पादन के लिए तैयार हाई-टॉर्क इलेक्ट्रिक पावरट्रेन और स्वायत्त ड्राइविंग सुविधाएं शामिल हैं।",
+        externalUrl: "https://bwautoworld.com/article/autonxt-automation-to-launch-an-electric-self-driving-tractor-442543",
+        featured: false
       }
     ]
   },
   evBlogPage: {
-    marketCagrLabel: "बाज़ार CAGR",
-    marketCagrValue: "38%",
-    marketSizeLabel: "बाज़ार का आकार",
-    marketSizeValue: "₹4K Cr",
-    directCo2Label: "प्रत्यक्ष CO₂",
-    directCo2Value: "Zero",
+    articlesLabel: "लेख",
+    articlesValue: "7 तकनीकी गाइड",
+    topicsLabel: "मुख्य फोकस",
+    topicsValue: "5 श्रेणियां",
+    avgReadLabel: "औसत पठन",
+    avgReadValue: "6 मिनट",
     categories: ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"],
     articles: [
       {
@@ -1503,6 +1569,7 @@ export const hi: typeof en = {
         title: "हरित विकास के लिए भारत के प्रयास में पर्यावरण के अनुकूल ट्रैक्टरों का उदय",
         date: "जनवरी 2025",
         readTime: "6 मिनट",
+        image: "/images/blog/future-of-farming.webp",
         summary: "पर्यावरण के अनुकूल इलेक्ट्रिक ट्रैक्टरों के उद्भव के साथ भारत अपने कृषि क्षेत्र में एक महत्वपूर्ण परिवर्तन देख रहा है, जो देश की महत्वाकांक्षी हरित विकास पहलों और सतत विकास और कार्बन तटस्थता के प्रति अपनी प्रतिबद्धता के साथ जुड़ रहा है।",
         externalUrl: "https://www.theautomonitor.com/the-rise-of-eco-friendly-tractors-in-indias-push-for-green-growth/",
         featured: true
@@ -1512,6 +1579,7 @@ export const hi: typeof en = {
         title: "इलेक्ट्रिक ट्रैक्टर तकनीक के साथ स्थिरता और उत्पादकता को जोड़ना",
         date: "नवंबर 2025",
         readTime: "7 मिनट",
+        image: "/images/blog/bridging-sustainability.webp",
         summary: "इलेक्ट्रिक ट्रैक्टर तकनीक बढ़ी हुई उत्पादकता के साथ पर्यावरणीय स्थिरता को जोड़कर कृषि में क्रांति ला रही है, किसानों को अधिक कुशल और लाभदायक कृषि संचालन के लिए एक व्यवहार्य मार्ग प्रदान कर रही है — यह साबित करते हुए कि पर्यावरणीय जिम्मेदारी और परिचालन दक्षता साथ-साथ चल सकती है।",
         externalUrl: "https://emobilityplus.com/2025/11/17/opinion-bridging-sustainability-and-productivity-with-electric-tractor-technology/",
         featured: true
@@ -1521,6 +1589,7 @@ export const hi: typeof en = {
         title: "इलेक्ट्रिक ट्रैक्टर भारतीय कृषि में सतत क्रांति को कैसे शक्ति प्रदान कर रहे हैं",
         date: "जनवरी 2025",
         readTime: "5 मिनट",
+        image: "/images/blog/sustainable-revolution.webp",
         summary: "इलेक्ट्रिक ट्रैक्टर पूरे भारत में एक सतत कृषि क्रांति को चला रहे हैं, किसानों को पारंपरिक डीजल-संचालित मशीनरी के लिए स्वच्छ, कुशल और लागत प्रभावी विकल्पों के साथ सशक्त बना रहे हैं और पर्यावरण और आर्थिक दोनों चुनौतियों का समाधान कर रहे हैं।",
         externalUrl: "https://republicnewsindia.com/how-electric-tractors-are-powering-a-sustainable-revolution-in-indian-agriculture/",
         featured: false
@@ -1530,8 +1599,39 @@ export const hi: typeof en = {
         title: "धुएं के बिना खेती: इलेक्ट्रिक ट्रैक्टर भारतीय कृषि का भविष्य क्यों हैं",
         date: "फरवरी 2025",
         readTime: "8 मिनट",
+        image: "/images/blog/farming-without-fumes.webp",
         summary: "इलेक्ट्रिक ट्रैक्टर भारतीय कृषि के भविष्य का प्रतिनिधित्व करते हैं, हानिकारक उत्सर्जन को समाप्त करते हुए बेहतर प्रदर्शन प्रदान करते हैं और देश भर में किसानों के लिए परिचालन लागत को कम करते हैं — कृषक समुदाय के लिए आगे का एक स्वच्छ, कुशल मार्ग।",
         externalUrl: "https://www.thehindubusinessline.com/economy/agri-business/farming-without-fumes-why-electric-tractors-are-the-future-of-indian-agriculture/article70202273.ece",
+        featured: false
+      },
+      {
+        cat: "बैटरी तकनीक",
+        title: "इलेक्ट्रिक ट्रैक्टरों की अगली पीढ़ी को शक्ति प्रदान करने वाली अभिनव बैटरी तकनीकें",
+        date: "जुलाई 2024",
+        readTime: "6 मिनट",
+        image: "/images/blog/innovative-battery-tech.webp",
+        summary: "खोज करता है कि कैसे इलेक्ट्रिक ट्रैक्टर टिकाऊ कृषि में एक महत्वपूर्ण समाधान के रूप में उभर रहे हैं, जो अभिनव बैटरी तकनीकों, मॉड्यूलर प्रणालियों और हाइड्रोजन ईंधन कोशिकाओं द्वारा संचालित हैं।",
+        externalUrl: "https://www.theautomonitor.com/innovative-battery-technologies-powering-the-next-generation-of-electric-tractors/",
+        featured: false
+      },
+      {
+        cat: "नीति और प्रोत्साहन",
+        title: "सरकारी नीतियां और सब्सिडी इलेक्ट्रिक ट्रैक्टरों को अपनाने को बढ़ावा दे रही हैं",
+        date: "जनवरी 2025",
+        readTime: "6 मिनट",
+        image: "/images/blog/government-policies.webp",
+        summary: "चर्चा करता है कि कैसे सहायक सरकारी नीतियां, सब्सिडी और वैश्विक स्थिरता पहल कृषि क्षेत्र को पर्यावरण के अनुकूल इलेक्ट्रिक ट्रैक्टरों की ओर ले जा रही हैं।",
+        externalUrl: "https://www.theautomonitor.com/government-policies-and-subsidies-driving-the-adoption-of-electric-tractors/",
+        featured: false
+      },
+      {
+        cat: "बाजार के रुझान",
+        title: "क्यों 2026 भारतीय कृषि में इलेक्ट्रिक ट्रैक्टरों के लिए टर्निंग पॉइंट हो सकता है",
+        date: "जनवरी 2026",
+        readTime: "4 मिनट",
+        image: "/images/blog/why-2026-turning-point.webp",
+        summary: "दर्शाता है कि कैसे आगामी नीतिगत बदलाव, बैटरी लागत में कमी और तकनीकी सुधार 2026 को भारत में इलेक्ट्रिक ट्रैक्टर अपनाने के लिए एक मील का पत्थर बना सकते हैं।",
+        externalUrl: "https://www.theautomonitor.com/why-2026-could-be-the-turning-point-for-electric-tractors-in-indian-agriculture/",
         featured: false
       }
     ],
@@ -1623,6 +1723,15 @@ export const hi: typeof en = {
         author: "ईवी रिपोर्टर",
         readTime: "3 मिनट पढ़ें",
         externalUrl: "https://evreporter.com/autonxt-automation-secures-pre-series-a-funding-for-electric-autonomous-tractor/"
+      },
+      {
+        date: "5/15/2024",
+        tag: "मील का पत्थर",
+        title: "ऑटोनेक्स्ट ऑटोमेशन का इलेक्ट्रिक ट्रैक्टर आधिकारिक तौर पर ठाणे आरटीओ में पंजीकृत",
+        summary: "ऑटोनेक्स्ट ऑटोमेशन ने एक ऐतिहासिक मील का पत्थर हासिल किया क्योंकि उसके 45HP इलेक्ट्रिक ट्रैक्टर को ठाणे, महाराष्ट्र में अपना पहला आधिकारिक वाणिज्यिक आरटीओ वाहन पंजीकरण प्राप्त हुआ।",
+        author: "शुगरमिंट",
+        readTime: "3 मिनट पढ़ें",
+        externalUrl: "https://sugermint.com/autonxt-automation-electric-tractor/"
       }
     ]
   }

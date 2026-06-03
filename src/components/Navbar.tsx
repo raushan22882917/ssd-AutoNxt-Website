@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-const logoImg = "/small-logo-black.png";
+const logoImg = "/small-logo-black-sm.webp";
 
 const LANGUAGES: { code: Lang; label: string; native: string; flag: string }[] = [
   { code: "en", label: "English", native: "English", flag: "🇮🇳" },
@@ -55,7 +55,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group" data-testid="link-home-logo">
-          <img src={logoImg} alt="Autonxt Logo" className="w-9 h-9 object-contain" />
+          <img src={logoImg} alt="Autonxt Logo" width={36} height={36} className="w-9 h-9 object-contain" />
           <div className="flex flex-col leading-tight">
             <span className="font-display font-bold text-lg tracking-widest uppercase text-foreground">
               Auto<span className="text-primary">nxt</span>
@@ -164,6 +164,8 @@ export default function Navbar() {
             variant="ghost"
             size="icon"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
             data-testid="btn-mobile-menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -207,6 +209,8 @@ export default function Navbar() {
                 <button
                   key={l.code}
                   onClick={() => setLang(l.code)}
+                  aria-label={`Switch language to ${l.label}`}
+                  aria-pressed={lang === l.code}
                   className={cn(
                     "px-2.5 py-1 rounded-lg text-xs font-bold transition-colors",
                     lang === l.code

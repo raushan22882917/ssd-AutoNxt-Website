@@ -10,19 +10,19 @@ import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
 
 // Organized public image paths
-const tractor1   = "/images/products/x45h2.png";
-const tractor2   = "/images/products/x25h2.png";
-const tractor3   = "/images/products/h55c2.png";
-const batteryImg = "/images/products/battery.png";
-const motorImg   = "/images/products/motor.png";
-const fieldImg   = "/images/facility/right-wall.jpg";
-const garageImg  = "/images/facility/garage-entry.jpg";
-const wallImg    = "/images/facility/left-wall.jpg";
-const ev1 = "/images/events/event-1.jpg";
-const ev2 = "/images/events/event-2.jpg";
-const ev3 = "/images/events/AutoNxt-Launch-3.jpg";
-const ev4 = "/images/events/a4dfa761e10a3f20a4dfa761e10a3f20autonextelectractor2023.png";
-const ev5 = "/images/events/event-5.jpg";
+const tractor1   = "/images/products/x45h2.webp";
+const tractor2   = "/images/products/x25h2.webp";
+const tractor3   = "/images/products/h55c2.webp";
+const batteryImg = "/images/products/battery.webp";
+const motorImg   = "/images/products/motor.webp";
+const fieldImg   = "/images/facility/right-wall.webp";
+const garageImg  = "/images/facility/garage-entry.webp";
+const wallImg    = "/images/facility/left-wall.webp";
+const ev1 = "/images/events/event-1.webp";
+const ev2 = "/images/events/event-2.webp";
+const ev3 = "/images/events/AutoNxt-Launch-3.webp";
+const ev4 = "/images/events/a4dfa761e10a3f20a4dfa761e10a3f20autonextelectractor2023.webp";
+const ev5 = "/images/events/event-5.webp";
 
 const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
 
@@ -51,7 +51,7 @@ export default function Product() {
       badgeGrad: "from-primary to-red-700",
       status: availableNowLabel,
       image: tractor1,
-      glb: "/tractor-model.glb",
+      glb: "/3dmodel/x45.glb",
       description: t.productPage.tractorsList.x45h2.desc,
       specs: [
         { icon: Zap,             label: t.productPage.specs.power,    value: "32 kW"    },
@@ -72,7 +72,7 @@ export default function Product() {
       badgeGrad: "from-accent to-blue-700",
       status: availableNowLabel,
       image: tractor2,
-      glb: "/tractor-model-2.glb",
+      glb: "/3dmodel/x45.glb",
       description: t.productPage.tractorsList.x25h2.desc,
       specs: [
         { icon: Zap,             label: t.productPage.specs.power,    value: "45 kW"    },
@@ -93,7 +93,7 @@ export default function Product() {
       badgeGrad: "from-emerald-700 to-green-800",
       status: availableNowLabel,
       image: tractor3,
-      glb: "/hitem3d-1.glb",
+      glb: "/3dmodel/x45.glb",
       description: t.productPage.tractorsList.h55c2.desc,
       specs: [
         { icon: Zap,             label: t.productPage.specs.power,    value: "45 kW"               },
@@ -114,7 +114,7 @@ export default function Product() {
       type: t.productPage.implementLabel,
       badge: t.productPage.implementsList.bucket.badge,
       status: availableNowLabel,
-      image: "/images/implement/bucket-removebg-preview.png",
+      image: "/images/implement/bucket-removebg-preview.webp",
       description: t.productPage.implementsList.bucket.desc,
     },
     {
@@ -123,7 +123,7 @@ export default function Product() {
       type: t.productPage.implementLabel,
       badge: t.productPage.implementsList.catcher.badge,
       status: availableNowLabel,
-      image: "/images/implement/cacher-removebg-preview.png",
+      image: "/images/implement/cacher-removebg-preview.webp",
       description: t.productPage.implementsList.catcher.desc,
     },
     {
@@ -132,7 +132,7 @@ export default function Product() {
       type: t.productPage.implementLabel,
       badge: t.productPage.implementsList.loader.badge,
       status: availableNowLabel,
-      image: "/images/implement/loader-removebg-preview.png",
+      image: "/images/implement/loader-removebg-preview.webp",
       description: t.productPage.implementsList.loader.desc,
     },
   ];
@@ -212,7 +212,7 @@ export default function Product() {
                   </div>
                 }>
                   <TractorViewer3D
-                    src="/hitem3d-1.glb"
+                    src="/3dmodel/x45.glb"
                     fallbackSrc={tractor1}
                     className="w-full h-full"
                     rotate

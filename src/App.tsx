@@ -7,8 +7,9 @@ import { LanguageProvider } from "@/contexts/LanguageProvider";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import AiChat from "@/components/AiChat";
 import PageLoader from "@/components/PageLoader";
+
+const AiChat = lazy(() => import("@/components/AiChat"));
 
 const Home          = lazy(() => import("@/pages/Home"));
 const Product       = lazy(() => import("@/pages/Product"));
@@ -42,8 +43,8 @@ function Router() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <Navbar />
-      <main className="flex-1 w-full">
-        <Suspense fallback={<PageSkeleton />}>
+      <Suspense fallback={<PageSkeleton />}>
+        <main className="flex-1 w-full">
           <Switch>
             <Route path="/" component={Home} />
             <Route path="/product" component={Product} />
@@ -63,9 +64,9 @@ function Router() {
             <Route path="/terms" component={Terms} />
             <Route component={NotFound} />
           </Switch>
-        </Suspense>
-      </main>
-      <Footer />
+        </main>
+        <Footer />
+      </Suspense>
     </div>
   );
 }
@@ -80,7 +81,7 @@ function App() {
             <Router />
           </WouterRouter>
           <Toaster />
-          <AiChat />
+          <Suspense fallback={null}><AiChat /></Suspense>
         </TooltipProvider>
       </QueryClientProvider>
     </LanguageProvider>
