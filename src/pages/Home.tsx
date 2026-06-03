@@ -29,6 +29,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 import { ArrowRight, ChevronRight, Zap, BatteryCharging, ShieldCheck, Activity, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf, Smartphone, CheckCircle, Monitor, MapPin, Bell, Wrench, Package, Ticket, CalendarDays, QrCode, User, IndianRupee, TrendingUp } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
+import { OptimizedImg } from "@/components/ui/optimized-img";
 
 
 // Organized public image paths
@@ -307,7 +308,7 @@ export default function Home() {
                 >
                   {/* Logo box */}
                   <div className={`${meta.size} rounded-lg ${meta.logoBg} flex items-center justify-center flex-shrink-0 overflow-hidden p-1.5`}>
-                    <img
+                    <OptimizedImg
                       src={meta.img}
                       alt={partnerName}
                       className="h-full w-full object-contain"
@@ -374,7 +375,7 @@ export default function Home() {
                 {/* Image area */}
                 <div className="relative bg-muted/30 flex items-center justify-center px-8 pt-8 pb-4 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-muted/60 to-transparent pointer-events-none" />
-                  <img
+                  <OptimizedImg
                     src={p.img}
                     alt={p.name}
                     className="h-44 object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500 relative z-10"
@@ -457,7 +458,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
           >
-            <img
+            <OptimizedImg
               src={t.home.featureImage}
               alt={t.home.featureImageAlt}
               className="w-full h-auto object-cover"
@@ -497,7 +498,7 @@ export default function Home() {
                     <Card className={`bg-card border border-border ${styleMeta.border} hover:shadow-xl transition-all duration-300 h-full overflow-hidden cursor-pointer`}>
                       {/* Photo header */}
                       <div className="relative h-44 overflow-hidden">
-                        <img
+                        <OptimizedImg
                           src={sol.img}
                           alt={sol.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
@@ -554,7 +555,7 @@ export default function Home() {
 
       {/* ── FIELD PHOTO BANNER ── */}
       <section className="relative h-[420px] overflow-hidden">
-        <img src={fieldImg} alt="Autonxt in the Fields of India" className="w-full h-full object-cover object-center" />
+        <OptimizedImg src={fieldImg} alt="Autonxt in the Fields of India" className="w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto px-4 md:px-8 max-w-xl">

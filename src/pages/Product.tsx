@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
+import { OptimizedImg } from "@/components/ui/optimized-img";
 
 // Organized public image paths
 const tractor1   = "/images/products/x45h2.png";
@@ -208,7 +209,7 @@ export default function Product() {
               <div className="relative h-[480px]">
                 <Suspense fallback={
                   <div className="flex items-center justify-center h-full">
-                    <img src={tractor1} alt="AutoNxt X45H2" className="w-full max-w-md object-contain drop-shadow-[0_20px_60px_rgba(168,0,0,0.3)]" width={500} height={380} />
+                    <OptimizedImg src={tractor1} alt="AutoNxt X45H2" className="w-full max-w-md object-contain drop-shadow-[0_20px_60px_rgba(168,0,0,0.3)]" width={500} height={380} />
                   </div>
                 }>
                   <TractorViewer3D
@@ -332,7 +333,7 @@ export default function Product() {
 
                             {show3D[tractor.slug] ? (
                               <Suspense fallback={
-                                <img src={tractor.image} alt={tractor.fullName} className="h-44 w-full object-contain" width={320} height={176} />
+                                <OptimizedImg src={tractor.image} alt={tractor.fullName} className="h-44 w-full object-contain" width={320} height={176} />
                               }>
                                 <TractorViewer3D
                                   src={tractor.glb}
@@ -343,7 +344,7 @@ export default function Product() {
                                 />
                               </Suspense>
                             ) : (
-                              <img
+                              <OptimizedImg
                                 src={tractor.image}
                                 alt={tractor.fullName}
                                 loading="lazy"
@@ -420,7 +421,7 @@ export default function Product() {
                       {/* Image area — object-contain on muted bg, matches tractor cards */}
                       <div className="relative bg-muted/30 flex items-center justify-center px-8 pt-8 pb-4 overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-muted/60 to-transparent pointer-events-none" />
-                        <img
+                        <OptimizedImg
                           src={a.image}
                           alt={a.name}
                           loading="lazy"
@@ -488,7 +489,7 @@ export default function Product() {
                 transition={{ delay: i * 0.1 }}
               >
                 <div className="shrink-0 w-40 h-40 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center p-4 group-hover:border-primary/30 transition-colors">
-                  <img src={tech.img} alt={tech.title} loading="lazy" decoding="async" className="w-full h-full object-contain" width={128} height={128} />
+                  <OptimizedImg src={tech.img} alt={tech.title} loading="lazy" decoding="async" className="w-full h-full object-contain" width={128} height={128} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
@@ -542,7 +543,7 @@ export default function Product() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.07 }}
             >
-              <img
+              <OptimizedImg
                 src={img}
                 alt={`AutoNxt Event ${i + 1}`}
                 loading="lazy"
@@ -591,7 +592,7 @@ export default function Product() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        <img
+        <OptimizedImg
           src={fieldImg}
           alt="AutoNxt in the Field"
           loading="lazy"

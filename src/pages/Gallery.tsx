@@ -6,6 +6,7 @@ import { Images, PlayCircle, CalendarDays } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 import MediaLightbox, { MediaItem } from "@/components/MediaLightbox";
 import { buildItems } from "@/components/mediaHelpers";
+import { OptimizedImg } from "@/components/ui/optimized-img";
 
 // Organized public image paths
 const tractor1   = "/images/products/x45h2.png";
@@ -89,13 +90,13 @@ export default function Gallery() {
             >
               <div className="grid grid-cols-3 grid-rows-2 gap-2 h-full min-h-[420px]">
                 <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
-                  <img src={event6} alt="AutoNxt launch event" className="w-full h-full object-cover" />
+                  <OptimizedImg src={event6} alt="AutoNxt launch event" className="w-full h-full object-cover" />
                 </div>
                 <div className="rounded-tr-2xl overflow-hidden">
-                  <img src={event1} alt="AutoNxt field" className="w-full h-full object-cover" />
+                  <OptimizedImg src={event1} alt="AutoNxt field" className="w-full h-full object-cover" />
                 </div>
                 <div className="overflow-hidden">
-                  <img src={event3} alt="AutoNxt ceremony" className="w-full h-full object-cover" />
+                  <OptimizedImg src={event3} alt="AutoNxt ceremony" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
@@ -146,7 +147,7 @@ export default function Gallery() {
                 transition={{ duration: 0.3 }}
                 data-testid={`tab-${id}`}
               >
-                <img
+                <OptimizedImg
                   src={img}
                   alt={label}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
