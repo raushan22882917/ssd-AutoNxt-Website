@@ -225,6 +225,7 @@ export const en = {
   },
   // Gallery
   gallery: {
+    sectionHeading: "Browse Gallery Categories",
     title: "See AutoNxt in",
     titleHighlight: "Action.",
     desc: "Explore our full photo gallery, event coverage, and real-world videos of AutoNxt electric tractors across farms, industries, and events.",
