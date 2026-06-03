@@ -273,7 +273,7 @@ export const hi: typeof en = {
     callDescription: "अपना नंबर दर्ज करें। हमारे एजेंट व्यावसायिक घंटों के दौरान या आपके पसंदीदा समय पर तुरंत कॉल करेंगे।",
     callTypeSupport: "तकनीकी सहायता",
     callTypeSales: "बिक्री और डीलरशिप",
-    meetingHeading: "गूगल मीट शेड्यूल करें",
+    meetingHeading: "ज़ूम मीटिंग शेड्यूल करें",
     meetingLanguageLabel: "पसंदीदा भाषा:",
     salesMeetingInfo: "मीटिंग उत्पाद विशेषज्ञ के साथ गूगल मीट के माध्यम से आयोजित की जाती हैं (सुबह 10 बजे - शाम 5 बजे)।",
     scheduleMeeting: "मीटिंग शेड्यूल की पुष्टि करें",
@@ -1425,12 +1425,12 @@ export const hi: typeof en = {
     ]
   },
   blogPage: {
-    postsLabel: "Posts",
+    postsLabel: "लेख",
     postsValue: "20+",
-    authorsLabel: "Authors",
+    authorsLabel: "लेखक",
     authorsValue: "6",
-    topicsLabel: "Topics",
-            posts: [
+    topicsLabel: "विषय",
+    posts: [
       {
         tag: "तकनीक",
         title: "भारतीय कृषि में क्रांति: ऑटोनेक्स्ट के इलेक्ट्रिक ट्रैक्टर किसानों के लिए बुद्धिमत्ता, स्थिरता और लाभप्रदता ला रहे हैं",
@@ -1485,29 +1485,18 @@ export const hi: typeof en = {
         summary: "ऑटोनेक्स्ट ऑटोमेशन के अभिनव दृष्टिकोण का विस्तृत कंपनी प्रोफाइल और विश्लेषण। ऑटोनेक्स्ट ने खुद को कृषि नवाचार में एक नेता के रूप में स्थापित किया है, जो अत्याधुनिक तकनीक के साथ पर्यावरणीय स्थिरता को जोड़ता है।",
         externalUrl: "https://tracxn.com/d/companies/autonxt-automation/__ZSsZ4cr50wm63YgF4zOMI1CcYVW2V43yS-5Lojtdze0",
         featured: false
-      },
-      {
-        tag: "तकनीक",
-        title: "ऑटोनेक्स्ट के इलेक्ट्रिक ट्रैक्टरों के पीछे की तकनीक: AI, IoT और टेलीमैटिक्स एकीकरण",
-        author: "टेक इनोवेशन टीम",
-        date: "अगस्त 2024",
-        readTime: "11 मिनट पढ़ें",
-        image: "/images/blog/technology-behind-autonxt.webp",
-        summary: "ऑटोनेक्स्ट के इलेक्ट्रिक ट्रैक्टरों को शक्ति प्रदान करने वाले उन्नत प्रौद्योगिकी स्टैक में गहराई से उतरें — जिसमें स्वायत्त संचालन के लिए कृत्रिम बुद्धिमत्ता, वास्तविक समय की निगरानी के लिए IoT सेंसर, और रिमोट डायग्नोस्टिक्स और फ्लीट प्रबंधन के लिए टेलीमैटिक्स शामिल हैं।",
-        externalUrl: "https://theindiawire.com/india/revolutionizing-indian-agriculture-autonxts-electric-tractors-bring-intelligence-sustainability-and-profitability-to-farmers/",
-        featured: false
       }
     ]
   },
   evBlogPage: {
-    marketCagrLabel: "Market CAGR",
+    marketCagrLabel: "बाज़ार CAGR",
     marketCagrValue: "38%",
-    marketSizeLabel: "Market Size",
+    marketSizeLabel: "बाज़ार का आकार",
     marketSizeValue: "₹4K Cr",
-    directCo2Label: "Direct CO₂",
+    directCo2Label: "प्रत्यक्ष CO₂",
     directCo2Value: "Zero",
     categories: ["All", "Battery Tech", "Policy & Incentives", "Market Trends", "Future Tech"],
-        articles: [
+    articles: [
       {
         cat: "स्थिरता",
         title: "हरित विकास के लिए भारत के प्रयास में पर्यावरण के अनुकूल ट्रैक्टरों का उदय",
@@ -1547,21 +1536,21 @@ export const hi: typeof en = {
     ],
     authorRoleLabel: "Publication",
     stats: [
-      { value: "38%", label: "Market CAGR 2024–27" },
-      { value: "₹4,000 Cr", label: "India EV Tractor TAM by 2027" },
-      { value: "70%", label: "Lower running costs vs diesel" },
-      { value: "0", label: "Direct CO₂ emissions" }
+      { value: "38%", label: "बाज़ार CAGR 2024–27" },
+      { value: "₹4,000 करोड़", label: "2027 तक भारत EV ट्रैक्टर TAM" },
+      { value: "70%", label: "डीजल की तुलना में कम परिचालन लागत" },
+      { value: "0", label: "प्रत्यक्ष CO₂ उत्सर्जन" }
     ]
   },
   newsPage: {
-    storiesLabel: "Stories",
+    storiesLabel: "कहानियां",
     storiesValue: "50+",
-    coverageLabel: "Coverage",
+    coverageLabel: "प्रकाशक",
     coverageValue: "National",
-    milestonesLabel: "Milestones",
+    milestonesLabel: "श्रेणियां",
     milestonesValue: "6 Key",
     readMore: "Read More",
-            news: [
+    news: [
       {
         date: "4/10/2024",
         tag: "उत्पाद लॉन्च",
@@ -1612,9 +1601,9 @@ export const hi: typeof en = {
         tag: "नवाचार",
         title: "ऑटोनेक्स्ट का गेम-चेंजिंग इलेक्ट्रिक ट्रैक्टर भारत में कृषि और उद्योग को बदलने के लिए तैयार",
         summary: "सेल्फ-ड्राइविंग क्षमताओं के साथ ऑटोनेक्स्ट का क्रांतिकारी इलेक्ट्रिक ट्रैक्टर पूरे भारत में कृषि और औद्योगिक संचालन को बदलने के लिए तैयार है।",
-        author: "इंडिया बज़ न्यूज़",
+        author: "अहमदाबाद मिरर",
         readTime: "4 मिनट पढ़ें",
-        externalUrl: "https://indiabuzznews.co.in/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/"
+        externalUrl: "https://www.ahmedabadmirror.com/autonxts-game-changing-electric-tractor-set-to-transform-farming-and-industry-in-india/81891265.html"
       },
       {
         date: "4/10/2024",

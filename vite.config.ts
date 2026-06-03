@@ -35,9 +35,6 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true,
-    allowedHosts: [
-      ".ngrok-free.app"
-    ],
     proxy: {
       "/api/n8n-form-callback": {
         target: "https://autonxt.app.n8n.cloud",
