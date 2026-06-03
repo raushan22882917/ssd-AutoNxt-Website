@@ -159,6 +159,7 @@ export const en = {
       "Noida International Airport",
       "Jaywant Sugars Ltd.",
       "Reliance New Energy",
+      "Thermax",
     ],
     lineupTag: "Our Lineup",
     lineupTitle: "Built for Every Field.",
