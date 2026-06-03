@@ -255,6 +255,7 @@
   },
   // Gallery
   gallery: {
+    sectionHeading: "Browse Gallery Categories",
     title: "See AutoNxt in",
     titleHighlight: "Action.",
     desc: "Explore our full photo gallery, event coverage, and real-world videos of AutoNxt electric tractors across farms, industries, and events.",
@@ -1417,7 +1418,6 @@ chargingTime: "3–6 hrs",
       { name: "Aswanth Mulupuri", role: "Robotics & Automation Engineer", bio: "Specialist in automation, developing advanced control systems for autonomous tractor operation." },
       { name: "Ajinkya Delvi", role: "Power Train Engineer", bio: "Works on power train systems, optimizing performance and efficiency." },
       { name: "Khushpreet Singh", role: "Testing & Validation Engineer", bio: "Responsible for rigorous testing and validation, guaranteeing the reliability and safety of our products." },
-      { name: "Avinash Singh", role: "Business Development Manager", bio: "Focused on identifying new opportunities and fostering relationships to accelerate company expansion." },
       { name: "Maneesh Dubey", role: "Business Development Manager", bio: "Drives business growth by building strategic partnerships and expanding AutoNxt's market presence." },
       { name: "Swapnesh Jahagirdar", role: "Business Development Manager", bio: "Focused on identifying new opportunities and fostering relationships to accelerate company expansion." },
       { name: "Harender Chauhan", role: "Service Manager", bio: "Ensures top-notch service and support for all customers and partners." },

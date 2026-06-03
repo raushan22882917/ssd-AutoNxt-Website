@@ -71,7 +71,7 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               className={cn(
-                "px-3 py-2 rounded-md text-sm font-medium transition-colors hover:text-primary",
+                "px-3 h-12 flex items-center rounded-md text-sm font-medium transition-colors hover:text-primary",
                 location === link.href ? "text-primary font-semibold" : "text-foreground/70"
               )}
               data-testid={`link-nav-${link.href.replace("/", "") || "home"}`}
@@ -80,7 +80,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link href="/book" data-testid="link-nav-book">
-            <Button className={cn("ml-3 bg-primary text-white hover:bg-primary/90 font-semibold tracking-wide", location === "/book" && "opacity-90")}>
+            <Button className={cn("ml-3 bg-primary text-white hover:bg-primary/90 font-semibold tracking-wide h-12 px-6", location === "/book" && "opacity-90")}>
               {t.nav.bookNow}
             </Button>
           </Link>
@@ -91,7 +91,7 @@ export default function Navbar() {
           {/* Resources dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-foreground/70 hover:text-primary gap-1 text-sm" data-testid="btn-resources">
+              <Button variant="ghost" size="sm" className="text-foreground/70 hover:text-primary gap-1 text-sm h-12 px-3" data-testid="btn-resources">
                 {t.nav.resources} <ChevronDown className="w-3.5 h-3.5" />
               </Button>
             </DropdownMenuTrigger>
@@ -129,7 +129,7 @@ export default function Navbar() {
           {/* Language switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-foreground/70 hover:text-primary gap-1.5 text-sm border-l border-border ml-1 pl-3 rounded-none" data-testid="btn-language">
+              <Button variant="ghost" size="sm" className="text-foreground/70 hover:text-primary gap-1.5 text-sm border-l border-border ml-1 pl-3 h-12 rounded-none" data-testid="btn-language">
                 <span className="text-base">{currentLang.flag}</span>
                 <span className="font-semibold text-xs tracking-wider">{currentLang.code.toUpperCase()}</span>
                 <ChevronDown className="w-3 h-3" />

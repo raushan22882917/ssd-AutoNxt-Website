@@ -11,6 +11,7 @@ sharp.cache(false)
 const MAX_PIXELS = 1_200_000_000
 
 const DIRS = [
+  { dir: ROOT,                   maxWidth: 900  },
   { dir: join(ROOT, "team"),     maxWidth: 600  },
   { dir: join(ROOT, "facility"), maxWidth: 1200 },
   { dir: join(ROOT, "events"),   maxWidth: 900  },
@@ -33,10 +34,14 @@ for (const { dir, maxWidth } of DIRS) {
     const outputName = basename(file, ext) + ".webp"
     const outputPath = join(dir, outputName)
 
-    // Idempotent — skip if the WebP already exists
+    // Idempotent — skip if the WebP already exists and is newer than the source image
     if (existsSync(outputPath)) {
-      console.log(`  ⏭  Already exists, skipping: ${outputName}`)
-      continue
+      const inputMtime = statSync(inputPath).mtimeMs
+      const outputMtime = statSync(outputPath).mtimeMs
+      if (outputMtime > inputMtime) {
+        console.log(`  ⏭  Already exists and is up to date, skipping: ${outputName}`)
+        continue
+      }
     }
 
     try {

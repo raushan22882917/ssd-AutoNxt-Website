@@ -9,6 +9,7 @@ import {
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
 import SEO from "@/components/SEO";
+import { OptimizedImg } from "@/components/ui/optimized-img";
 
 // Organized public image paths
 const tractor1   = "/images/products/x45h2.webp";
@@ -187,7 +188,7 @@ export default function Product() {
       <SEO title={t.nav.product} description={t.productPage.desc} />
 
       {/* ── HERO ── */}
-      <section className="bg-zinc-950 relative overflow-hidden pt-24 pb-0">
+      <section className="bg-zinc-950 relative overflow-hidden pt-24 pb-0 lg:h-[87.5vh] flex items-center">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_60%,hsl(0,72%,40%,0.10),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.07),transparent_50%)] pointer-events-none" />
@@ -257,7 +258,7 @@ export default function Product() {
                   </Suspense>
                 ) : (
                   <div className="flex items-center justify-center h-full">
-                    <img src={tractor1} alt="AutoNxt X45H2" className="w-full max-w-md object-contain drop-shadow-[0_20px_60px_rgba(168,0,0,0.3)]" width={800} height={566} />
+                    <OptimizedImg src={tractor1} alt="AutoNxt X45H2" className="w-full max-w-md object-contain drop-shadow-[0_20px_60px_rgba(168,0,0,0.3)]" width={800} height={566} />
                   </div>
                 )}
                 <motion.div
@@ -373,7 +374,7 @@ export default function Product() {
 
                             {show3D[tractor.slug] ? (
                               <Suspense fallback={
-                                <img src={tractor.image} alt={tractor.fullName} className="h-44 w-full object-contain" width={800} height={566} />
+                                <OptimizedImg src={tractor.image} alt={tractor.fullName} className="h-44 w-full object-contain" width={800} height={566} />
                               }>
                                 <TractorViewer3D
                                   src={tractor.glb}
@@ -384,7 +385,7 @@ export default function Product() {
                                 />
                               </Suspense>
                             ) : (
-                              <img
+                              <OptimizedImg
                                 src={tractor.image}
                                 alt={tractor.fullName}
                                 loading="lazy"
@@ -461,7 +462,7 @@ export default function Product() {
                       {/* Image area — object-contain on muted bg, matches tractor cards */}
                       <div className="relative bg-muted/30 flex items-center justify-center px-8 pt-8 pb-4 overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-muted/60 to-transparent pointer-events-none" />
-                        <img
+                        <OptimizedImg
                           src={a.image}
                           alt={a.name}
                           loading="lazy"
@@ -529,7 +530,7 @@ export default function Product() {
                 transition={{ delay: i * 0.1 }}
               >
                 <div className="shrink-0 w-40 h-40 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center p-4 group-hover:border-primary/30 transition-colors">
-                  <img src={tech.img} alt={tech.title} loading="lazy" decoding="async" className="w-full h-full object-contain" width={tech.w} height={tech.h} />
+                  <OptimizedImg src={tech.img} alt={tech.title} loading="lazy" decoding="async" className="w-full h-full object-contain" width={tech.w} height={tech.h} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
@@ -589,7 +590,7 @@ export default function Product() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.07 }}
             >
-              <img
+              <OptimizedImg
                 src={item.img}
                 alt={`AutoNxt Event ${i + 1}`}
                 loading="lazy"
@@ -639,7 +640,7 @@ export default function Product() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        <img
+        <OptimizedImg
           src={fieldImg}
           alt="AutoNxt in the Field"
           loading="lazy"

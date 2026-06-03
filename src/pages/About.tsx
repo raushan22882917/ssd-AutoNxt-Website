@@ -64,11 +64,10 @@ export default function About() {
     { name: teamFromT[8].name,  role: teamFromT[8].role,  img: saiImg,        bio: teamFromT[8].bio,  objectPosition: "top"                       },
     { name: teamFromT[9].name,  role: teamFromT[9].role,  img: ajinkyaImg,    bio: teamFromT[9].bio,  objectPosition: "top"                       },
     { name: teamFromT[10].name, role: teamFromT[10].role, img: khushpreetImg, bio: teamFromT[10].bio, objectPosition: "top"                       },
-    { name: teamFromT[11].name, role: teamFromT[11].role, img: shantanuImg,   bio: teamFromT[11].bio, objectPosition: "top"                       },
-    { name: teamFromT[12].name, role: teamFromT[12].role, img: manishImg,     bio: teamFromT[12].bio, objectPosition: "top"                       },
-    { name: teamFromT[13].name, role: teamFromT[13].role, img: swapneshImg,   bio: teamFromT[13].bio, objectPosition: "100% 20%"                  },
-    { name: teamFromT[14].name, role: teamFromT[14].role, img: harendar,      bio: teamFromT[14].bio, objectPosition: "top"                       },
-    { name: teamFromT[15].name, role: teamFromT[15].role, img: rajinder,      bio: teamFromT[15].bio, objectPosition: "top"                       },
+    { name: teamFromT[11].name, role: teamFromT[11].role, img: manishImg,     bio: teamFromT[11].bio, objectPosition: "top"                       },
+    { name: teamFromT[12].name, role: teamFromT[12].role, img: swapneshImg,   bio: teamFromT[12].bio, objectPosition: "100% 20%"                  },
+    { name: teamFromT[13].name, role: teamFromT[13].role, img: harendar,      bio: teamFromT[13].bio, objectPosition: "top"                       },
+    { name: teamFromT[14].name, role: teamFromT[14].role, img: rajinder,      bio: teamFromT[14].bio, objectPosition: "top"                       },
   ]
 
   const advisorsFromT = t.aboutPage.advisors
