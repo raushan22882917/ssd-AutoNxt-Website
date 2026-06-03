@@ -33,7 +33,7 @@ export default function Contribution() {
     <div className="w-full min-h-screen bg-background">
 
       {/* ── HERO ── */}
-      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
+      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0 lg:h-[87.5vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(134,72%,30%,0.10),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.025] pointer-events-none"

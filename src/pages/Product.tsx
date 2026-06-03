@@ -152,7 +152,7 @@ export default function Product() {
     <div className="w-full min-h-screen bg-background">
 
       {/* ── HERO ── */}
-      <section className="bg-zinc-950 relative overflow-hidden pt-24 pb-0">
+      <section className="bg-zinc-950 relative overflow-hidden pt-24 pb-0 lg:h-[87.5vh] flex items-center">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_60%,hsl(0,72%,40%,0.10),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.07),transparent_50%)] pointer-events-none" />

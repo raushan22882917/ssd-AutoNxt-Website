@@ -33,33 +33,35 @@ export default function Gallery() {
     <div className="w-full min-h-screen bg-background">
 
       {/* ── HERO ── */}
-      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
+      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16 lg:h-[87.5vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
           style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-            <div className="pb-16">
-              <motion.div
-                className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
-                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                <span className="text-primary text-xs font-bold uppercase tracking-widest">AutoNxt Gallery</span>
-              </motion.div>
-              <motion.h1
-                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
-                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
-              >
-                {t.gallery.title} <span className="text-primary">{t.gallery.titleHighlight}</span>
-              </motion.h1>
-              <motion.p
-                className="text-white/55 text-lg max-w-lg leading-relaxed mb-10"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
-              >
-                {t.gallery.desc}
-              </motion.p>
+        <div className="container mx-auto px-4 md:px-8 relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch h-full">
+            <div className="h-full flex flex-col justify-between">
+              <div>
+                <motion.div
+                  className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
+                  initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  <span className="text-primary text-xs font-bold uppercase tracking-widest">AutoNxt Gallery</span>
+                </motion.div>
+                <motion.h1
+                  className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
+                  initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
+                >
+                  {t.gallery.title} <span className="text-primary">{t.gallery.titleHighlight}</span>
+                </motion.h1>
+                <motion.p
+                  className="text-white/55 text-lg max-w-lg leading-relaxed mb-10"
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
+                >
+                  {t.gallery.desc}
+                </motion.p>
+              </div>
               <motion.div
                 className="flex flex-wrap gap-6"
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
@@ -82,10 +84,10 @@ export default function Gallery() {
               </motion.div>
             </div>
             <motion.div
-              className="relative pb-0 hidden lg:block"
+              className="relative pb-0 hidden lg:block h-full"
               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
             >
-              <div className="grid grid-cols-3 gap-2 h-[420px]">
+              <div className="grid grid-cols-3 grid-rows-2 gap-2 h-full min-h-[420px]">
                 <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
                   <img src={event6} alt="AutoNxt launch event" className="w-full h-full object-cover" />
                 </div>
