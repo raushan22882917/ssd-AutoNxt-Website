@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
 import { Shield, ArrowLeft } from "lucide-react";
+import SEO from "@/components/SEO";
 
 export default function Privacy() {
   const { t } = useLang();
@@ -10,6 +11,7 @@ export default function Privacy() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title="Privacy Policy" description="AutoNxt Automation Privacy Policy and data protection terms." />
 
       {/* ── HEADER ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16">

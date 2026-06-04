@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 import {
   ArrowRight,
@@ -92,6 +93,7 @@ export default function AttachmentDetail({
 
   return (
     <div className="w-full min-h-screen bg-white overflow-hidden">
+      <SEO title={att.name} description={att.desc} />
 
       {/* HERO SECTION */}
       <section className="relative overflow-hidden bg-black pt-28 pb-20">

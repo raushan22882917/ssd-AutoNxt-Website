@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
 import { ArrowRight, MapPin, Clock, Briefcase, Zap, Users, Rocket, Heart } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const DEPT_COLORS: Record<string, string> = {
   Engineering: "bg-blue-50 text-blue-700 border border-blue-200",
@@ -24,6 +25,7 @@ export default function Careers() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.resources + " - Careers"} description="Join the revolution at AutoNxt Automation. Explore career opportunities in building smart electric mobility and sustainable agriculture technology." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">

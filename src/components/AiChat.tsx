@@ -40,7 +40,7 @@ import {
 } from "@/lib/chatIntents";
 import { getSessionClock } from "@/lib/relativeDate";
 
-const logoImg = "/small-logo-white.png";
+const logoImg = "/small-logo-white-sm.webp";
 const N8N_WEBHOOK_URL = "https://autonxt.app.n8n.cloud/webhook/1b0b4ec9-24d5-40e0-aced-f9d107f81a86/chat";
 const WELCOME_MESSAGE = `👋 AutoNxt AI में आपका स्वागत है / Welcome to AutoNxt AI
 

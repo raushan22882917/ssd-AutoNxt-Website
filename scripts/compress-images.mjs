@@ -11,6 +11,7 @@ sharp.cache(false)
 const MAX_PIXELS = 1_200_000_000
 
 const DIRS = [
+  { dir: ROOT,                   maxWidth: 900  },
   { dir: join(ROOT, "team"),     maxWidth: 600  },
   { dir: join(ROOT, "facility"), maxWidth: 1200 },
   { dir: join(ROOT, "events"),   maxWidth: 900  },

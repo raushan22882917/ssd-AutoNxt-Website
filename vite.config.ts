@@ -10,10 +10,12 @@ export default defineConfig({
     tailwindcss(),
     // Auto-compresses all images at production build time
     ViteImageOptimizer({
-      jpg:  { quality: 80 },
-      jpeg: { quality: 80 },
-      png:  { quality: 80 },
-      webp: { quality: 82 },
+      jpg:  { quality: 72 },
+      jpeg: { quality: 72 },
+      png:  { quality: 72 },
+      webp: { quality: 78, effort: 4 },
+      avif: { quality: 62, effort: 5 },
+      // SVG: skip (svgo not installed; SVGs are vector and already tiny)
     }),
   ],
   resolve: {
@@ -28,6 +30,8 @@ export default defineConfig({
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
     chunkSizeWarningLimit: 1000,
+    target: "esnext",
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks: {

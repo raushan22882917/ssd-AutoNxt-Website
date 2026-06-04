@@ -1,21 +1,22 @@
 import { MediaItem } from "./MediaLightbox";
 
 // Organized public image paths matching the current Gallery page
-const tractor1   = "/images/products/x45h2.png";
-const tractor2   = "/images/products/x25h2.png";
-const trailerImg = "/images/facility/left-wall.jpg";
-const fieldImg   = "/images/facility/right-wall.jpg";
-const batteryImg = "/images/products/battery.png";
-const motorImg   = "/images/products/motor.png";
-const logoImg    = "/images/products/logo.png";
+const tractor1   = "/images/products/x45h2.webp";
+const tractor2   = "/images/products/x25h2.webp";
+const trailerImg = "/images/facility/left-wall.webp";
+const fieldImg   = "/images/facility/right-wall.webp";
+const batteryImg = "/images/products/battery.webp";
+const motorImg   = "/images/products/motor.webp";
+const logoImg    = "/images/products/logo.webp";
 
-const event1 = "/images/events/event-1.jpg";
-const event2 = "/images/events/event-2.jpg";
-const event3 = "/images/events/event-3.jpg";
-const event4 = "/images/events/event-4.jpg";
-const event5 = "/images/events/event-5.jpg";
-const event6 = "/images/events/event-6.jpg";
-const event7 = "/images/events/event-7.jpg";
+const event1 = "/images/events/event-1.webp";
+const event2 = "/images/events/event-2.webp";
+const event3 = "/images/events/event-3.webp";
+const event4 = "/images/events/event-4.webp";
+const event5 = "/images/events/event-5.webp";
+const event6 = "/images/events/event-6.webp";
+const event7 = "/images/events/event-7.webp";
+
 
 export const photoAssets = [
   fieldImg,

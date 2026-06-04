@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
 import { Leaf, Wind, Sun, TreePine, ArrowRight, Award, Handshake, Target } from "lucide-react";
+import SEO from "@/components/SEO";
 
 export default function Contribution() {
   const { t, lang } = useLang();
@@ -31,6 +32,7 @@ export default function Contribution() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.contribution} description="Discover the ESG impact, carbon footprint reduction, and environmental contributions of AutoNxt electric tractors." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0 lg:h-[87.5vh] flex items-center">
@@ -195,26 +197,32 @@ export default function Contribution() {
             </div>
           </div>
 
-          {/* CTA */}
+        </div>
+      </div>
+
+      {/* ── CTA ── */}
+      <section className="py-20 bg-primary text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(0,72%,30%,0.5),transparent_65%)] pointer-events-none" />
+        <div className="container mx-auto px-4 md:px-8 text-center relative z-10 max-w-2xl">
           <motion.div
-            className="rounded-3xl bg-primary/5 border border-primary/20 p-10 md:p-16 text-center"
-            initial={{ opacity: 0, y: 40 }}
+            className="max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4">{texts.joinMovement}</h2>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-8">
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">{texts.joinMovement}</h2>
+            <p className="text-white/80 text-lg max-w-xl mx-auto mb-8">
               {texts.joinDesc}
             </p>
             <Link href="/book">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 h-14 px-10 text-lg">
-                {texts.partnerBtn} <ArrowRight className="ml-2 w-5 h-5" />
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold h-12 px-8">
+                {texts.partnerBtn} <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
           </motion.div>
-
         </div>
-      </div>
+      </section>
+
     </div>
   );
 }

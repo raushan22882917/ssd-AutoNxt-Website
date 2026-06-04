@@ -1,5 +1,8 @@
 import { createContext, useContext } from "react";
-import { translations, type Lang, type Translations } from "@/i18n/translations";
+import { en } from "@/i18n/en";
+import type { Lang } from "@/i18n/translations";
+
+export type Translations = typeof en;
 
 type LanguageContextType = {
   lang: Lang;
@@ -10,7 +13,7 @@ type LanguageContextType = {
 export const LanguageContext = createContext<LanguageContextType>({
   lang: "en",
   setLang: () => null,
-  t: translations.en,
+  t: en,
 });
 
 export const useLang = () => useContext(LanguageContext);

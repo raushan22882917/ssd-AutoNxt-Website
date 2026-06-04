@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { submitBooking } from "../api/bookings";
 import { useLang } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 export default function ContactPage() {
   const { t } = useLang();
@@ -116,6 +117,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">
+      <SEO title={t.nav.bookNow} description="Book a test drive or pre-book your AutoNxt electric tractor. Join the switch to sustainable, smart agriculture today." />
       {/* HERO SECTION */}
       <section className="relative overflow-hidden bg-black pt-28 pb-20">
         

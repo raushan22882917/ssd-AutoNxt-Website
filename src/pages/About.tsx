@@ -8,43 +8,45 @@ import {
   Leaf, MapPin, Calendar,
 } from "lucide-react"
 import { useLang } from "@/contexts/LanguageContext"
+import SEO from "@/components/SEO"
 
 
 // Team
-const kaustubhImg   = "/images/team/kaustubh.png"
-const pankajImg     = "/images/team/pankaj.jpg"
-const harikishan    = "/images/team/harikishan.jpg"
-const sudiptoImg    = "/images/team/sudipto.jpg"
-const vamsiImg      = "/images/team/vamsi.png"
-const dharmateja    = "/images/team/dharmateja.jpg"
-const tejashImg     = "/images/team/tejash.jpg"
-const siddhantImg   = "/images/team/siddhant.jpg"
-const saiImg        = "/images/team/sai.jpg"
-const ajinkyaImg    = "/images/team/ajinkya.jpg"
-const khushpreetImg = "/images/team/khushpreet.jpg"
-const manishImg     = "/images/team/manish.png"
-const swapneshImg   = "/images/team/swapnesh.jpg"
-const harendar      = "/images/team/harendar.jpg"
-const rajinder      = "/images/team/rajinder.jpg"
+const kaustubhImg   = "/images/team/kaustubh.webp"
+const pankajImg     = "/images/team/pankaj.webp"
+const harikishan    = "/images/team/harikishan.webp"
+const sudiptoImg    = "/images/team/sudipto.webp"
+const vamsiImg      = "/images/team/vamsi.webp"
+const dharmateja    = "/images/team/dharmateja.webp"
+const tejashImg     = "/images/team/tejash.webp"
+const siddhantImg   = "/images/team/siddhant.webp"
+const saiImg        = "/images/team/sai.webp"
+const ajinkyaImg    = "/images/team/ajinkya.webp"
+const khushpreetImg = "/images/team/khushpreet.webp"
+const shantanuImg   = "/images/team/shantanu.webp"
+const manishImg     = "/images/team/manish.webp"
+const swapneshImg   = "/images/team/swapnesh.webp"
+const harendar      = "/images/team/harendar.webp"
+const rajinder      = "/images/team/rajinder.webp"
 
 // Advisors
-const ivRao      = "/images/team/iv-rao.jpg"
-const ashishImg  = "/images/team/ashish.jpg"
-const swadeepImg = "/images/team/swadeep.jpg"
+const ivRao      = "/images/team/iv-rao.webp"
+const ashishImg  = "/images/team/ashish.webp"
+const swadeepImg = "/images/team/swadeep.webp"
 
 // Facility — garage-entry is the LCP image (6.7 MB → ~120 KB WebP)
-const facilityGarage = "/images/facility/garage-entry.jpg"
-const facilityLeft   = "/images/facility/left-wall.jpg"
-const facilityRight  = "/images/facility/right-wall.jpg"
+const facilityGarage = "/images/facility/garage-entry.webp"
+const facilityLeft   = "/images/facility/left-wall.webp"
+const facilityRight  = "/images/facility/right-wall.webp"
 
 // Events
-const fieldImg1 = "/images/events/event-1.jpg"
-const fieldImg2 = "/images/events/event-2.jpg"
-const fieldImg3 = "/images/events/AutoNxt-Launch-3.jpg"
-const fieldImg4 = "/images/events/a4dfa761e10a3f20a4dfa761e10a3f20autonextelectractor2023.png"
-const fieldImg5 = "/images/events/event-5.jpg"
-const fieldImg6 = "/images/events/event-6.jpg"
-const fieldImg7 = "/images/events/event-7.jpg"
+const fieldImg1 = "/images/events/event-1.webp"
+const fieldImg2 = "/images/events/event-2.webp"
+const fieldImg3 = "/images/events/AutoNxt-Launch-3.webp"
+const fieldImg4 = "/images/events/a4dfa761e10a3f20a4dfa761e10a3f20autonextelectractor2023.webp"
+const fieldImg5 = "/images/events/event-5.webp"
+const fieldImg6 = "/images/events/event-6.webp"
+const fieldImg7 = "/images/events/event-7.webp"
 
 export default function About() {
   const { t } = useLang()
@@ -102,6 +104,7 @@ export default function About() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.about} description={t.aboutPage?.desc || "Learn more about AutoNxt Automation, our mission, vision, and the founders pioneering electric mobility in India."} />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16">

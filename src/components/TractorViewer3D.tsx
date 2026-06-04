@@ -3,19 +3,20 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Environment, ContactShadows, Bounds, useBounds } from "@react-three/drei";
 import type { Group } from "three";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLang } from "@/contexts/LanguageContext";
 
-const defaultTractor = "/images/product-ev-platform.png";
+const defaultTractor = "/images/product-ev-platform.webp";
 
 /* ── Wire Draco decoder into useGLTF's loader once at module level ── */
 useGLTF.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
 
 /* ── Static placeholder images per model path (first-ever load only) ── */
 const MODEL_PLACEHOLDER: Record<string, string> = {
-  "/3dmodel/hero.glb":    "/images/3dtractorplaceholder.png",
+  "/3dmodel/hero.glb":    "/images/3dtractorplaceholder.webp",
   "/3dmodel/battery.glb": "/images/batteryimage.avif",
   "/3dmodel/motor.glb":   "/images/motorimage.avif",
-  "/3dmodel/x45.glb":     "/images/products/x45h2.png",
-  "/3dmodel/bucket.glb":  "/images/implement/bucket.png",
+  "/3dmodel/x45.glb":     "/images/products/x45h2.webp",
+  "/3dmodel/bucket.glb":  "/images/implement/bucket.webp",
 };
 
 /* ── sessionStorage key for a captured screenshot ── */
@@ -119,6 +120,7 @@ function FallbackImage({ src, className = "" }: { src?: string; className?: stri
 
 /* ── Placeholder shown while the 3D model is loading ── */
 function ModelPlaceholder({ src, className = "" }: { src?: string; className?: string }) {
+  const { t } = useLang();
   const isCaptured = src?.startsWith("data:");   // cached screenshot → show crisp, no pulse
 
   return (
@@ -126,7 +128,7 @@ function ModelPlaceholder({ src, className = "" }: { src?: string; className?: s
       {src ? (
         <motion.img
           src={src}
-          alt="Loading 3D model…"
+          alt={t.common.loadingModel}
           className="w-full h-full object-contain drop-shadow-xl"
           style={{ opacity: isCaptured ? 1 : undefined }}
           animate={isCaptured ? undefined : { opacity: [0.45, 0.75, 0.45] }}
@@ -137,7 +139,7 @@ function ModelPlaceholder({ src, className = "" }: { src?: string; className?: s
       )}
       {!isCaptured && (
         <span className="absolute bottom-3 left-0 right-0 text-center text-[10px] text-muted-foreground/50 font-medium select-none">
-          Loading 3D model…
+          {t.common.loadingModel}
         </span>
       )}
     </div>
@@ -153,7 +155,7 @@ function ModelReady({ onReady }: { onReady: () => void }) {
 /* ── Exported component ── */
 export default function TractorViewer3D({
   className = "",
-  src = "/tractor-model.glb",
+  src = "/3dmodel/hero.glb",
   rotate = true,
   showHint = false,
   fallbackSrc,
@@ -164,6 +166,7 @@ export default function TractorViewer3D({
   showHint?: boolean;
   fallbackSrc?: string;
 }) {
+  const { t } = useLang();
   const [webglOk, setWebglOk]     = useState<boolean | null>(null);
   const [modelReady, setModelReady] = useState(false);
 
@@ -261,7 +264,7 @@ export default function TractorViewer3D({
             className="absolute bottom-2 right-3 z-20 text-[10px] text-muted-foreground/50 font-medium select-none pointer-events-none"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}
           >
-            ↺ drag to rotate
+            {t.common.dragToRotate}
           </motion.p>
         )}
       </div>
@@ -269,9 +272,13 @@ export default function TractorViewer3D({
   );
 }
 
-/* ── Preload all Draco-compressed models at module init ── */
-useGLTF.preload("/3dmodel/hero.glb");
-useGLTF.preload("/3dmodel/battery.glb");
-useGLTF.preload("/3dmodel/motor.glb");
-useGLTF.preload("/3dmodel/x45.glb");
-useGLTF.preload("/3dmodel/bucket.glb");
+/* ── Preload only the hero model, after browser is idle ── */
+/* Other models (battery, motor, x45, bucket) load on-demand when their section renders */
+if (typeof window !== "undefined") {
+  const preloadHero = () => useGLTF.preload("/3dmodel/hero.glb");
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(preloadHero, { timeout: 3000 });
+  } else {
+    setTimeout(preloadHero, 2000);
+  }
+}

@@ -2,17 +2,18 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Images, PlayCircle, CalendarDays } from "lucide-react";
+import { Images, PlayCircle, CalendarDays, ExternalLink } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 import MediaLightbox, { MediaItem } from "@/components/MediaLightbox";
 import { buildItems } from "@/components/mediaHelpers";
 import { OptimizedImg } from "@/components/ui/optimized-img";
+import SEO from "@/components/SEO";
 
 // Organized public image paths
-const tractor1   = "/images/products/x45h2.png";
-const event1     = "/images/events/event-1.jpg";
-const event3     = "/images/events/event-3.jpg";
-const event6     = "/images/events/event-6.jpg";
+const tractor1   = "/images/products/x45h2.webp";
+const event1     = "/images/events/event-1.webp";
+const event3     = "/images/events/event-3.webp";
+const event6     = "/images/events/event-6.webp";
 
 export default function Gallery() {
   const { t } = useLang();
@@ -30,8 +31,10 @@ export default function Gallery() {
     setLightboxOpen(true);
   };
 
+
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.gallery} description="Browse images and videos of AutoNxt electric tractors at work in agriculture, fields, and industrial operations." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16 lg:h-[87.5vh] flex items-center">
@@ -48,20 +51,14 @@ export default function Gallery() {
                   initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                  <span className="text-primary text-xs font-bold uppercase tracking-widest">AutoNxt Gallery</span>
+                  <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.gallery.galleryBadge || "AutoNxt Gallery"}</span>
                 </motion.div>
-                <motion.h1
-                  className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
-                  initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
-                >
+                <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]">
                   {t.gallery.title} <span className="text-primary">{t.gallery.titleHighlight}</span>
-                </motion.h1>
-                <motion.p
-                  className="text-white/55 text-lg max-w-lg leading-relaxed mb-10"
-                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
-                >
+                </h1>
+                <p className="text-white/70 text-lg max-w-lg leading-relaxed mb-10">
                   {t.gallery.desc}
-                </motion.p>
+                </p>
               </div>
               <motion.div
                 className="flex flex-wrap gap-6"
@@ -77,7 +74,7 @@ export default function Gallery() {
                       <f.icon className="w-4 h-4 text-white/60" />
                     </div>
                     <div>
-                      <p className="text-white/40 text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
+                      <p className="text-white/60 text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
                       <p className="text-white font-bold text-sm">{f.value}</p>
                     </div>
                   </div>
@@ -90,13 +87,13 @@ export default function Gallery() {
             >
               <div className="grid grid-cols-3 grid-rows-2 gap-2 h-full min-h-[420px]">
                 <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
-                  <OptimizedImg src={event6} alt="AutoNxt launch event" className="w-full h-full object-cover" />
+                  <OptimizedImg src={event6} alt="AutoNxt launch event" className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div className="rounded-tr-2xl overflow-hidden">
-                  <OptimizedImg src={event1} alt="AutoNxt field" className="w-full h-full object-cover" />
+                  <OptimizedImg src={event1} alt="AutoNxt field" className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div className="overflow-hidden">
-                  <OptimizedImg src={event3} alt="AutoNxt ceremony" className="w-full h-full object-cover" />
+                  <OptimizedImg src={event3} alt="AutoNxt ceremony" className="w-full h-full object-cover" loading="lazy" />
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
@@ -123,7 +120,7 @@ export default function Gallery() {
               {
                 id: "videos" as const,
                 label: t.gallery.videos,
-                img: "https://img.youtube.com/vi/3PVEHTybb_o/maxresdefault.jpg",
+                img: "/images/gallery-videos.webp",
                 className: "w-full md:w-[28%] h-[220px] md:h-[300px]",
               },
               {
@@ -142,8 +139,8 @@ export default function Gallery() {
               <motion.div
                 key={id}
                 onClick={() => handleOpen(id)}
-                className={`relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 group border-2 border-border hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5 scale-100 hover:scale-[1.02] ${className} hover:z-10`}
-                whileHover={{ y: -4 }}
+                className={`relative rounded-3xl overflow-hidden cursor-pointer transition-[border-color,box-shadow] duration-300 group border-2 border-border hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5 ${className} hover:z-10`}
+                whileHover={{ y: -4, scale: 1.02 }}
                 transition={{ duration: 0.3 }}
                 data-testid={`tab-${id}`}
               >
@@ -151,7 +148,7 @@ export default function Gallery() {
                   src={img}
                   alt={label}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  loading="lazy"
+                  loading={id === "videos" ? "eager" : "lazy"}
                 />
                 
                 {/* Gradient Overlay */}
@@ -169,6 +166,34 @@ export default function Gallery() {
               </motion.div>
             ))}
           </div>
+
+          {/* YouTube channel link */}
+          <motion.div
+            className="mt-16 max-w-4xl mx-auto bg-surface-dark rounded-3xl p-8 text-center relative overflow-hidden border border-white/5"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_120%,hsl(0,72%,40%,0.15),transparent_50%)] pointer-events-none" />
+            <div className="relative z-10">
+              <div className="w-14 h-14 bg-[#FF0000] rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_4px_20px_rgba(255,0,0,0.3)]">
+                <PlayCircle className="w-7 h-7 text-white fill-white" />
+              </div>
+              <h3 className="font-display text-2xl font-bold text-white mb-2">{t.gallery.moreOnYouTube}</h3>
+              <p className="text-white/60 text-sm mb-6 max-w-md mx-auto">
+                {t.gallery.youtubeDesc}
+              </p>
+              <a
+                href="https://www.youtube.com/@autonxtautomation8368"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="bg-[#FF0000] hover:bg-[#cc0000] text-white font-semibold px-8" size="lg">
+                  {t.gallery.viewAllVideos} <ExternalLink className="ml-2 w-4 h-4" />
+                </Button>
+              </a>
+            </div>
+          </motion.div>
 
           {/* CTA */}
           <motion.div

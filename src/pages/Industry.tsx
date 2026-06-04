@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 import {
   ArrowRight, Zap, BatteryCharging, Activity,
   Factory, Building2, Hammer, Shield, PlaneTakeoff, Leaf,
@@ -30,6 +31,7 @@ export default function Industry() {
 
   return (
     <div className="w-full min-h-screen">
+      <SEO title={t.nav.industry} description="Explore AutoNxt electric utility vehicles across different sectors: agriculture, construction, airports, biomass, metal, and defense." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0 lg:h-[87.5vh] flex items-center">
@@ -171,9 +173,9 @@ export default function Industry() {
                     <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{ind.title}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed flex-1">{ind.detail}</p>
                     <div className="mt-5 pt-4 border-t border-border">
-                      <Link href={`/industry/${ind.slug}`}>
+                      <Link href={`/industry/${ind.slug}`} aria-label={`${texts.learnMore} about ${ind.title}`}>
                         <button className="inline-flex items-center text-sm font-semibold text-primary hover:gap-2 gap-1 transition-all">
-                          {texts.learnMore} <ChevronRight className="w-4 h-4" />
+                          {texts.learnMore} <span className="sr-only"> about {ind.title}</span> <ChevronRight className="w-4 h-4" />
                         </button>
                       </Link>
                     </div>

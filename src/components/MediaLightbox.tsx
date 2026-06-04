@@ -130,7 +130,7 @@ export default function MediaLightbox({ items, initialIndex = 0, onClose }: Medi
         </div>
         <button
           onClick={onClose}
-          className="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition-all cursor-pointer"
+          className="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-all cursor-pointer"
           aria-label="Close Lightbox"
         >
           <X className="w-6 h-6" />
