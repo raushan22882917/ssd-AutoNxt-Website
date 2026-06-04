@@ -1,4 +1,4 @@
-﻿export const en = {
+export const en = {
   // Navbar
   nav: {
     home: "Home",
@@ -469,8 +469,8 @@ chargingTime: "3–6 hrs",
     implementsList: {
       bucket: {
         badge: "Heavy Duty",
-        name: "18 Ft Graber Bucket",
-        desc: "Heavy-duty 18 feet graber bucket for efficient material handling and excavation operations."
+        name: "18 Ft Grabber Bucket",
+        desc: "Heavy-duty 18 feet grabber bucket for efficient material handling and excavation operations."
       },
       catcher: {
         badge: "Precision",
@@ -1306,11 +1306,11 @@ chargingTime: "3–6 hrs",
     },
     attachments: {
       bucket: {
-        name: "18 Ft s Bucket",
+        name: "18 Ft Grabber Bucket",
         type: "Heavy Duty Implement",
         badge: "Heavy Duty",
         tagline: "Maximum Digging Power for Any Terrain",
-        desc: "The AutoNxt 18 Ft Graber Bucket is engineered for heavy-duty excavation and material handling with seamless AutoNxt integration.",
+        desc: "The AutoNxt 18 Ft Grabber Bucket is engineered for heavy-duty excavation and material handling with seamless AutoNxt integration.",
         specs: {
           width: "18 Feet",
           capacity: "0.8m³",

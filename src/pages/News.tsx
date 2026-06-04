@@ -48,7 +48,7 @@ export default function News() {
       cat: post.tag,
       author: post.author || "AutoNxt Team",
       views: 750 + i * 150,
-      image: `/News/News_daily/${(i % 8) + 1}.png`,
+      image: `/News/News_daily/${(i % 8) + 1}.webp`,
       externalUrl: post.externalUrl || "https://www.autonxt.in",
       featured: i < 2, // The first 2 items are featured!
       tags: [post.tag, "AutoNxt", "Electric Tractor", "Innovation"]

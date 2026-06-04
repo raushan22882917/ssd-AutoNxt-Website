@@ -77,7 +77,7 @@ const PRODUCTS_META = [
   },
   {
     img: tractor2,
-    tagColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    tagColor: "bg-emerald-100/90 text-emerald-900 border-emerald-300",
     accentBar: "bg-emerald-500",
     specs: [
       { icon: Zap },
@@ -228,16 +228,16 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
             >
-              <Link href="/product">
-                <Button size="lg" className="h-13 px-8 text-base bg-primary text-white hover:bg-primary/90 font-semibold shadow-md" data-testid="btn-explore-products">
+              <Button asChild size="lg" className="h-13 px-8 text-base bg-primary text-white hover:bg-primary/90 font-semibold shadow-md">
+                <Link href="/product" data-testid="btn-explore-products">
                   {t.home.exploreProducts} <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/book">
-                <Button size="lg" variant="outline" className="h-13 px-8 text-base border-accent text-accent hover:bg-accent hover:text-white font-semibold" data-testid="btn-book-now-hero">
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="h-13 px-8 text-base border-accent text-accent hover:bg-accent hover:text-white font-semibold">
+                <Link href="/book" data-testid="btn-book-now-hero">
                   {t.home.bookNow}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </motion.div>
           </div>
 
@@ -292,14 +292,14 @@ export default function Home() {
               <p className="text-sm font-bold text-foreground">X45H2 — 45HP</p>
             </motion.div>
             <motion.div
-              className="absolute bottom-10 left-2 md:left-6 z-20 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 shadow-md"
+              className="absolute bottom-10 left-2 md:left-6 z-20 bg-emerald-950/90 backdrop-blur-sm border border-emerald-800 rounded-xl px-3 py-2 shadow-md"
               initial={{ opacity: 0, x: -16, scale: 0.85 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ delay: 1.2, duration: 0.4 }}
               whileHover={{ scale: 1.07, x: 3, transition: { duration: 0.2 } }}
             >
-              <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-wider">Zero Emissions</p>
-              <p className="text-xs font-semibold text-emerald-700">100% Electric</p>
+              <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Zero Emissions</p>
+              <p className="text-xs font-semibold text-emerald-100">100% Electric</p>
             </motion.div>
             <motion.div
               className="absolute top-[45%] left-0 md:left-2 z-20 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-3 py-2 shadow-md"
@@ -328,7 +328,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <h3 className="font-display text-3xl md:text-4xl font-bold text-primary mb-1">{stat.value}</h3>
+                <p className="font-display text-3xl md:text-4xl font-bold text-primary mb-1">{stat.value}</p>
                 <p className="text-sm font-semibold text-foreground mb-0.5">{stat.label}</p>
                 <p className="text-xs text-muted-foreground leading-snug">{stat.sub}</p>
               </motion.div>
@@ -407,11 +407,11 @@ export default function Home() {
                 {t.home.lineupTitle}
               </motion.h2>
             </div>
-            <Link href="/product">
-              <Button variant="outline" className="mt-4 md:mt-0">
+            <Button asChild variant="outline" className="mt-4 md:mt-0">
+              <Link href="/product">
                 {t.home.viewAllModels} <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           {/* Product cards */}
@@ -468,11 +468,11 @@ export default function Home() {
                     })}
                   </div>
 
-                  <Link href="/product">
-                    <Button size="sm" variant="outline" className="w-full mt-1 group-hover:border-primary group-hover:text-primary transition-colors">
+                  <Button asChild size="sm" variant="outline" className="w-full mt-1 group-hover:border-primary group-hover:text-primary transition-colors">
+                    <Link href="/product">
                       {t.home.viewDetails} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               </motion.div>
             ))}
@@ -825,16 +825,16 @@ export default function Home() {
               {t.home.readyToElectricDesc}
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/book">
-                <Button size="lg" className="h-13 px-10 text-base bg-primary text-white hover:bg-primary/90 font-semibold" data-testid="btn-cta-book">
+              <Button asChild size="lg" className="h-13 px-10 text-base bg-primary text-white hover:bg-primary/90 font-semibold">
+                <Link href="/book" data-testid="btn-cta-book">
                   {t.home.bookNow}
-                </Button>
-              </Link>
-              <Link href="/about">
-                <Button size="lg" variant="outline" className="h-13 px-10 text-base border-white/30 text-white hover:bg-white/10 font-semibold" data-testid="btn-cta-story">
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="h-13 px-10 text-base border-white/30 text-white hover:bg-white/10 font-semibold">
+                <Link href="/about" data-testid="btn-cta-story">
                   {t.home.ourStory}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </div>

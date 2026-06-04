@@ -39,9 +39,11 @@ export default function IndustryDetail({ params }: { params: { slug: string } })
       <div className="min-h-screen w-full flex items-center justify-center bg-background">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-foreground mb-4">{texts.industryNotFound}</h2>
-          <Link href="/industry">
-            <Button>{texts.backToIndustries}</Button>
-          </Link>
+          <Button asChild>
+            <Link href="/industry">
+              {texts.backToIndustries}
+            </Link>
+          </Button>
         </div>
       </div>
     );
@@ -62,7 +64,7 @@ export default function IndustryDetail({ params }: { params: { slug: string } })
 
   return (
     <div className="w-full min-h-screen bg-background">
-      <SEO title={industry.name} description={industry.desc} />
+      <SEO title={industry.title} description={industry.desc} />
 
       {/* ── HEADER ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16">
@@ -212,9 +214,11 @@ export default function IndustryDetail({ params }: { params: { slug: string } })
                     <span className="bg-foreground text-background text-[10px] font-bold px-2 py-0.5 rounded">{model.hp}</span>
                   </div>
                   <p className="text-muted-foreground text-xs leading-relaxed mb-4">{model.note}</p>
-                  <Link href={`/product/${model.slug}`}>
-                    <Button size="sm" className="w-full">{texts.viewFullSpecs}</Button>
-                  </Link>
+                  <Button asChild size="sm" className="w-full">
+                    <Link href={`/product/${model.slug}`}>
+                      {texts.viewFullSpecs}
+                    </Link>
+                  </Button>
                 </div>
               </motion.div>
             ))}
@@ -233,11 +237,11 @@ export default function IndustryDetail({ params }: { params: { slug: string } })
             <p className="text-white/70 text-base mb-8">
               {texts.ctaDesc}
             </p>
-            <Link href="/book">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold h-12 px-8">
+            <Button asChild size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold h-12 px-8">
+              <Link href="/book">
                 {texts.bookConsultation} <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </section>

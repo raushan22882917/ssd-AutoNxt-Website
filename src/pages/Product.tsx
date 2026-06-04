@@ -12,14 +12,14 @@ import SEO from "@/components/SEO";
 import { OptimizedImg } from "@/components/ui/optimized-img";
 
 // Organized public image paths
-const tractor1   = "/images/products/x45h2.webp";
-const tractor2   = "/images/products/x25h2.webp";
-const tractor3   = "/images/3dtractorplaceholder.webp";
+const tractor1 = "/images/products/x45h2.webp";
+const tractor2 = "/images/products/x25h2.webp";
+const tractor3 = "/images/3dtractorplaceholder.webp";
 const batteryImg = "/images/products/battery.webp";
-const motorImg   = "/images/products/motor.webp";
-const fieldImg   = "/images/facility/right-wall.webp";
-const garageImg  = "/images/facility/garage-entry.webp";
-const wallImg    = "/images/facility/left-wall.webp";
+const motorImg = "/images/products/motor.webp";
+const fieldImg = "/images/facility/right-wall.webp";
+const garageImg = "/images/facility/garage-entry.webp";
+const wallImg = "/images/facility/left-wall.webp";
 const ev1 = "/images/events/event-1.webp";
 const ev2 = "/images/events/event-2.webp";
 const ev3 = "/images/events/AutoNxt-Launch-3.webp";
@@ -75,7 +75,7 @@ export default function Product() {
     });
   };
 
-  const showTractors    = filter === "all" || filter === "tractors";
+  const showTractors = filter === "all" || filter === "tractors";
   const showAttachments = filter === "all" || filter === "attachments";
 
   const availableNowLabel = t.productPage.availableNow;
@@ -93,10 +93,10 @@ export default function Product() {
       glb: "/3dmodel/x45.glb",
       description: t.productPage.tractorsList.x45h2.desc,
       specs: [
-        { icon: Zap,             label: t.productPage.specs.power,    value: "32 kW"    },
-        { icon: BatteryCharging, label: t.productPage.specs.battery,  value: "38.4 kWh" },
-        { icon: Activity,        label: t.productPage.specs.runtime,  value: "8–10 hrs" },
-        { icon: Clock,           label: t.productPage.specs.charging, value: "4–6 hrs"  },
+        { icon: Zap, label: t.productPage.specs.power, value: "32 kW" },
+        { icon: BatteryCharging, label: t.productPage.specs.battery, value: "38.4 kWh" },
+        { icon: Activity, label: t.productPage.specs.runtime, value: "8–10 hrs" },
+        { icon: Clock, label: t.productPage.specs.charging, value: "4–6 hrs" },
       ],
       cardGrad: "from-zinc-950 via-red-950/30 to-zinc-950",
       accentColor: "text-red-400",
@@ -114,10 +114,10 @@ export default function Product() {
       glb: "/3dmodel/x45.glb",
       description: t.productPage.tractorsList.x25h2.desc,
       specs: [
-        { icon: Zap,             label: t.productPage.specs.power,    value: "45 kW"    },
-        { icon: BatteryCharging, label: t.productPage.specs.battery,  value: "38.4 kWh" },
-        { icon: Activity,        label: t.productPage.specs.runtime,  value: "6–8 hrs"  },
-        { icon: Clock,           label: t.productPage.specs.charging, value: "3–4 hrs"  },
+        { icon: Zap, label: t.productPage.specs.power, value: "45 kW" },
+        { icon: BatteryCharging, label: t.productPage.specs.battery, value: "38.4 kWh" },
+        { icon: Activity, label: t.productPage.specs.runtime, value: "6–8 hrs" },
+        { icon: Clock, label: t.productPage.specs.charging, value: "3–4 hrs" },
       ],
       cardGrad: "from-zinc-950 via-blue-950/30 to-zinc-950",
       accentColor: "text-blue-400",
@@ -135,10 +135,10 @@ export default function Product() {
       glb: "/3dmodel/x45.glb",
       description: t.productPage.tractorsList.h55c2.desc,
       specs: [
-        { icon: Zap,             label: t.productPage.specs.power,    value: "45 kW"               },
-        { icon: BatteryCharging, label: t.productPage.specs.battery,  value: "66 kWh Liquid-Cool"  },
-        { icon: Activity,        label: t.productPage.specs.runtime,  value: "10–12 hrs"           },
-        { icon: Clock,           label: t.productPage.specs.charging, value: "1.5 / 7 hrs"         },
+        { icon: Zap, label: t.productPage.specs.power, value: "45 kW" },
+        { icon: BatteryCharging, label: t.productPage.specs.battery, value: "66 kWh Liquid-Cool" },
+        { icon: Activity, label: t.productPage.specs.runtime, value: "10–12 hrs" },
+        { icon: Clock, label: t.productPage.specs.charging, value: "1.5 / 7 hrs" },
       ],
       cardGrad: "from-zinc-950 via-emerald-950/30 to-zinc-950",
       accentColor: "text-emerald-400",
@@ -162,7 +162,7 @@ export default function Product() {
       type: t.productPage.implementLabel,
       badge: t.productPage.implementsList.catcher.badge,
       status: availableNowLabel,
-      image: "/images/implement/cacher-removebg-preview.webp",
+      image: "/images/implement/catcher.webp",
       description: t.productPage.implementsList.catcher.desc,
     },
     {
@@ -177,14 +177,14 @@ export default function Product() {
   ];
 
   const techSpecs = [
-    { img: batteryImg, title: t.productPage.techSpecsList.battery.title,  icon: Battery, desc: t.productPage.techSpecsList.battery.desc, stat: t.productPage.techSpecsList.battery.stat, statLabel: t.productPage.techSpecsList.battery.statLabel, w: 800, h: 695 },
-    { img: motorImg,   title: t.productPage.techSpecsList.motor.title,    icon: Zap,     desc: t.productPage.techSpecsList.motor.desc, stat: t.productPage.techSpecsList.motor.stat, statLabel: t.productPage.techSpecsList.motor.statLabel, w: 500, h: 386 },
+    { img: batteryImg, title: t.productPage.techSpecsList.battery.title, icon: Battery, desc: t.productPage.techSpecsList.battery.desc, stat: t.productPage.techSpecsList.battery.stat, statLabel: t.productPage.techSpecsList.battery.statLabel, w: 800, h: 695 },
+    { img: motorImg, title: t.productPage.techSpecsList.motor.title, icon: Zap, desc: t.productPage.techSpecsList.motor.desc, stat: t.productPage.techSpecsList.motor.stat, statLabel: t.productPage.techSpecsList.motor.statLabel, w: 500, h: 386 },
   ];
 
   const FILTER_TABS: { id: Category; label: string }[] = [
-    { id: "all",         label: t.productPage.filterTabs.all  },
-    { id: "tractors",    label: t.productPage.filterTabs.tractors      },
-    { id: "attachments", label: t.productPage.filterTabs.attachments    },
+    { id: "all", label: t.productPage.filterTabs.all },
+    { id: "tractors", label: t.productPage.filterTabs.tractors },
+    { id: "attachments", label: t.productPage.filterTabs.attachments },
   ];
 
   return (
@@ -225,9 +225,9 @@ export default function Product() {
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: Zap,     label: t.productPage.hpRange, value: "25–60 HP"   },
-                  { icon: Battery, label: t.productPage.charge,   value: t.productPage.chargingTime },
-                  { icon: Gauge,   label: t.productPage.models,   value: t.productPage.modelsCount },
+                  { icon: Zap, label: t.productPage.hpRange, value: "25–60 HP" },
+                  { icon: Battery, label: t.productPage.charge, value: t.productPage.chargingTime },
+                  { icon: Gauge, label: t.productPage.models, value: t.productPage.modelsCount },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-2.5 bg-white/[0.05] border border-white/[0.08] rounded-xl px-4 py-2.5">
                     <f.icon className="w-4 h-4 text-primary" />
@@ -318,11 +318,10 @@ export default function Product() {
               <button
                 key={tab.id}
                 onClick={() => setFilter(tab.id)}
-                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
-                  filter === tab.id
-                    ? "bg-primary text-white shadow-lg shadow-primary/25"
-                    : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
-                }`}
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${filter === tab.id
+                  ? "bg-primary text-white shadow-lg shadow-primary/25"
+                  : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
+                  }`}
               >
                 {tab.label}
               </button>
@@ -347,93 +346,92 @@ export default function Product() {
                         {/* Top accent bar — matches Home page lineup cards */}
                         <div className={`h-1 w-full bg-gradient-to-r ${tractor.badgeGrad}`} />
 
-                          {/* Image / 3D area */}
-                          <div
-                            className="relative flex items-center justify-center pt-8 pb-4 px-6 min-h-[192px] bg-muted/30"
-                            style={{ background: `radial-gradient(ellipse at 50% 100%, ${tractor.glowColor}, transparent 70%)` }}
-                          >
-                            <span className={`absolute top-4 left-4 z-10 text-[10px] font-bold text-white px-2.5 py-1 rounded-full bg-gradient-to-r ${tractor.badgeGrad} shadow-sm`}>
-                              {tractor.badge}
-                            </span>
-                            {/* Available Now badge */}
-                            <span className="absolute top-4 right-4 z-10 flex items-center gap-1.5 text-[9px] font-bold text-white bg-emerald-500 rounded-full px-2.5 py-1 shadow-sm shadow-emerald-500/30">
-                              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                              {tractor.status}
-                            </span>
+                        {/* Image / 3D area */}
+                        <div
+                          className="relative flex items-center justify-center pt-8 pb-4 px-6 min-h-[192px] bg-muted/30"
+                          style={{ background: `radial-gradient(ellipse at 50% 100%, ${tractor.glowColor}, transparent 70%)` }}
+                        >
+                          <span className={`absolute top-4 left-4 z-10 text-[10px] font-bold text-white px-2.5 py-1 rounded-full bg-gradient-to-r ${tractor.badgeGrad} shadow-sm`}>
+                            {tractor.badge}
+                          </span>
+                          {/* Available Now badge */}
+                          <span className="absolute top-4 right-4 z-10 flex items-center gap-1.5 text-[9px] font-bold text-white bg-emerald-500 rounded-full px-2.5 py-1 shadow-sm shadow-emerald-500/30">
+                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                            {tractor.status}
+                          </span>
 
-                            {/* 3D toggle button */}
-                            <button
-                              onClick={() => toggle3D(tractor.slug)}
-                              className={`absolute bottom-4 right-4 z-10 flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full border transition-all ${
-                                show3D[tractor.slug]
-                                  ? "bg-primary/20 border-primary/40 text-primary"
-                                  : "bg-muted border-border text-muted-foreground hover:text-foreground hover:bg-muted/80"
+                          {/* 3D toggle button */}
+                          <button
+                            onClick={() => toggle3D(tractor.slug)}
+                            className={`absolute bottom-4 right-4 z-10 flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full border transition-all ${show3D[tractor.slug]
+                              ? "bg-primary/20 border-primary/40 text-primary"
+                              : "bg-muted border-border text-muted-foreground hover:text-foreground hover:bg-muted/80"
                               }`}
-                            >
-                              {show3D[tractor.slug]
-                                ? <><ImageOff className="w-2.5 h-2.5" /> 2D</>
-                                : <><Box className="w-2.5 h-2.5" /> 3D</>
-                              }
-                            </button>
+                          >
+                            {show3D[tractor.slug]
+                              ? <><ImageOff className="w-2.5 h-2.5" /> 2D</>
+                              : <><Box className="w-2.5 h-2.5" /> 3D</>
+                            }
+                          </button>
 
-                            {show3D[tractor.slug] ? (
-                              <Suspense fallback={
-                                <OptimizedImg src={tractor.image} alt={tractor.fullName} className="h-44 w-full object-contain" width={800} height={566} />
-                              }>
-                                <TractorViewer3D
-                                  src={tractor.glb}
-                                  fallbackSrc={tractor.image}
-                                  className="w-full h-44"
-                                  rotate
-                                  showHint
-                                />
-                              </Suspense>
-                            ) : (
-                              <OptimizedImg
-                                src={tractor.image}
-                                alt={tractor.fullName}
-                                loading="lazy"
-                                decoding="async"
-                                className="h-44 w-full object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500"
-                                width={800} height={566}
+                          {show3D[tractor.slug] ? (
+                            <Suspense fallback={
+                              <OptimizedImg src={tractor.image} alt={tractor.fullName} className="h-44 w-full object-contain" width={800} height={566} />
+                            }>
+                              <TractorViewer3D
+                                src={tractor.glb}
+                                fallbackSrc={tractor.image}
+                                className="w-full h-44"
+                                rotate
+                                showHint
                               />
-                            )}
+                            </Suspense>
+                          ) : (
+                            <OptimizedImg
+                              src={tractor.image}
+                              alt={tractor.fullName}
+                              loading="lazy"
+                              decoding="async"
+                              className="h-44 w-full object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500"
+                              width={800} height={566}
+                            />
+                          )}
+                        </div>
+
+                        {/* Content */}
+                        <div className="px-6 pb-6 space-y-4">
+                          <div>
+                            <p className={`text-[10px] font-bold ${tractor.accentColor} uppercase tracking-widest mb-1`}>{tractor.type}</p>
+                            <h3 className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">{tractor.fullName}</h3>
+                            <p className="text-muted-foreground text-xs mt-1.5 leading-relaxed line-clamp-2">{tractor.description}</p>
                           </div>
 
-                          {/* Content */}
-                          <div className="px-6 pb-6 space-y-4">
-                            <div>
-                              <p className={`text-[10px] font-bold ${tractor.accentColor} uppercase tracking-widest mb-1`}>{tractor.type}</p>
-                              <h3 className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">{tractor.fullName}</h3>
-                              <p className="text-muted-foreground text-xs mt-1.5 leading-relaxed line-clamp-2">{tractor.description}</p>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-2">
-                              {tractor.specs.map((s, si) => (
-                                <div key={si} className="bg-muted/50 border border-border/60 rounded-xl p-2.5 flex items-center gap-2">
-                                  <s.icon className={`w-3 h-3 ${tractor.accentColor} shrink-0`} />
-                                  <div>
-                                    <p className="text-muted-foreground text-[8px] uppercase tracking-wide font-medium leading-none">{s.label}</p>
-                                    <p className="text-foreground font-bold text-[11px] mt-0.5 leading-none">{s.value}</p>
-                                  </div>
+                          <div className="grid grid-cols-2 gap-2">
+                            {tractor.specs.map((s, si) => (
+                              <div key={si} className="bg-muted/50 border border-border/60 rounded-xl p-2.5 flex items-center gap-2">
+                                <s.icon className={`w-3 h-3 ${tractor.accentColor} shrink-0`} />
+                                <div>
+                                  <p className="text-muted-foreground text-[8px] uppercase tracking-wide font-medium leading-none">{s.label}</p>
+                                  <p className="text-foreground font-bold text-[11px] mt-0.5 leading-none">{s.value}</p>
                                 </div>
-                              ))}
-                            </div>
+                              </div>
+                            ))}
+                          </div>
 
-                            <div className="flex gap-2 pt-1">
-                              <Link href={`/product/${tractor.slug}`} className="flex-1">
-                                <Button size="sm" variant="outline" className="w-full group-hover:border-primary group-hover:text-primary text-xs font-semibold h-9">
-                                  {t.productPage.viewDetails} <ArrowRight className="ml-1 w-3 h-3" />
-                                </Button>
+                          <div className="flex gap-2 pt-1">
+                            <Button asChild size="sm" variant="outline" className="w-full group-hover:border-primary group-hover:text-primary text-xs font-semibold h-9 flex-1">
+                              <Link href={`/product/${tractor.slug}`}>
+                                {t.productPage.viewDetails} <ArrowRight className="ml-1 w-3 h-3" />
                               </Link>
+                            </Button>
+                            <Button asChild size="sm" className="bg-primary hover:bg-primary/90 text-white text-xs font-semibold h-9 px-4">
                               <Link href="/book">
-                                <Button size="sm" className="bg-primary hover:bg-primary/90 text-white text-xs font-semibold h-9 px-4">
-                                  {t.productPage.book}
-                                </Button>
+                                {t.productPage.book}
                               </Link>
-                            </div>
+                            </Button>
                           </div>
                         </div>
+                      </div>
                     </motion.div>
                   ))}
                 </div>
@@ -489,11 +487,11 @@ export default function Product() {
                         <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{a.type}</p>
                         <h3 className="font-display text-base font-bold text-foreground group-hover:text-primary transition-colors mb-2">{a.name}</h3>
                         <p className="text-muted-foreground text-xs leading-relaxed mb-4 line-clamp-2">{a.description}</p>
-                        <Link href={`/product/attachment/${a.slug}`}>
-                          <Button size="sm" variant="outline" className="w-full group-hover:border-primary group-hover:text-primary text-xs h-8 font-semibold">
+                        <Button asChild size="sm" variant="outline" className="w-full group-hover:border-primary group-hover:text-primary text-xs h-8 font-semibold">
+                          <Link href={`/product/attachment/${a.slug}`}>
                             {t.productPage.viewDetails} <ArrowRight className="ml-1 w-3 h-3" />
-                          </Button>
-                        </Link>
+                          </Link>
+                        </Button>
                       </div>
                     </motion.div>
                   ))}
@@ -571,11 +569,11 @@ export default function Product() {
                 {t.productPage.fieldBannerTitle}
               </motion.h2>
             </div>
-            <Link href="/gallery">
-              <Button variant="outline" size="sm" className="border-border text-muted-foreground hover:border-primary hover:text-primary text-xs">
+            <Button asChild variant="outline" size="sm" className="border-border text-muted-foreground hover:border-primary hover:text-primary text-xs">
+              <Link href="/gallery">
                 {t.productPage.viewGallery} <ArrowRight className="ml-1 w-3 h-3" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
         <div className="flex gap-4 overflow-x-auto px-4 md:px-8 pb-4 scrollbar-none">
@@ -613,10 +611,10 @@ export default function Product() {
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { icon: CheckCircle2, title: t.productPage.features.zeroEmissions,   desc: t.productPage.features.zeroEmissionsDesc          },
-              { icon: Zap,          title: t.productPage.features.instantTorque,   desc: t.productPage.features.instantTorqueDesc    },
-              { icon: Battery,      title: t.productPage.features.solar, desc: t.productPage.features.solarDesc },
-              { icon: Gauge,        title: t.productPage.features.warranty,  desc: t.productPage.features.warrantyDesc   },
+              { icon: CheckCircle2, title: t.productPage.features.zeroEmissions, desc: t.productPage.features.zeroEmissionsDesc },
+              { icon: Zap, title: t.productPage.features.instantTorque, desc: t.productPage.features.instantTorqueDesc },
+              { icon: Battery, title: t.productPage.features.solar, desc: t.productPage.features.solarDesc },
+              { icon: Gauge, title: t.productPage.features.warranty, desc: t.productPage.features.warrantyDesc },
             ].map((feat, i) => (
               <motion.div
                 key={i}
@@ -660,16 +658,16 @@ export default function Product() {
               {t.productPage.readyToPower}
             </h2>
             <div className="flex gap-3 flex-wrap">
-              <Link href="/book">
-                <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold shadow-lg shadow-primary/25">
+              <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold shadow-lg shadow-primary/25">
+                <Link href="/book">
                   {t.productPage.scheduleTestDrive} <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/industry">
-                <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 font-semibold">
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 font-semibold">
+                <Link href="/industry">
                   {t.productPage.seeIndustries}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

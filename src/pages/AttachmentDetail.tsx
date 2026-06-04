@@ -43,11 +43,11 @@ export default function AttachmentDetail({
             {t.attachmentDetailPage.productNotFound}
           </h1>
 
-          <Link href="/product">
-            <Button>
+          <Button asChild>
+            <Link href="/product">
               {t.attachmentDetailPage.backToProducts}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
     );
@@ -79,9 +79,17 @@ export default function AttachmentDetail({
     icon: featureIcons[idx] || Shield,
   }));
 
+  const IMPLEMENT_ASSETS: Record<string, { glb?: string; image: string }> = {
+    bucket: { glb: "/3dmodel/bucket.glb", image: "/images/implement/bucket-removebg-preview.webp" },
+    catcher: { image: "/images/implement/catcher.webp" },
+    loader: { image: "/images/implement/loader-removebg-preview.webp" },
+  };
+
+  const assets = IMPLEMENT_ASSETS[slug as "bucket" | "catcher" | "loader"] || IMPLEMENT_ASSETS.bucket;
+
   const att = {
     ...attachmentData,
-    heroImage: "/3dmodel/bucket.glb",
+    heroImage: assets.glb ?? "",
     compatibility: [
       "AutoNxt X45H2",
       "AutoNxt H55C2",
@@ -200,21 +208,21 @@ export default function AttachmentDetail({
 
               {/* Buttons */}
               <div className="flex flex-wrap gap-4">
-                <Link href="/book">
-                  <Button className="bg-red-600 hover:bg-red-700 text-white h-12 px-7 rounded-xl">
+                <Button asChild className="bg-red-600 hover:bg-red-700 text-white h-12 px-7 rounded-xl">
+                  <Link href="/book">
                     {t.attachmentDetailPage.quoteBtn}
                     <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
 
-                <Link href="/book">
-                  <Button
-                    variant="outline"
-                    className="border-white/20 bg-white/5 text-white hover:bg-white/10 h-12 px-7 rounded-xl"
-                  >
+                <Button asChild
+                  variant="outline"
+                  className="border-white/20 bg-white/5 text-white hover:bg-white/10 h-12 px-7 rounded-xl"
+                >
+                  <Link href="/book">
                     {t.attachmentDetailPage.bookBtn}
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </motion.div>
 
@@ -228,38 +236,49 @@ export default function AttachmentDetail({
               {/* Glow */}
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(239,68,68,0.18),transparent_60%)] pointer-events-none z-0" />
 
-              {/* 3D MODEL */}
-              <div className="relative z-10 w-full h-full flex items-center justify-center">
-                <Suspense
-                  fallback={
-                    <div className="w-full h-full flex items-center justify-center text-white/60">
-                      {t.attachmentDetailPage.loadingModel}
-                    </div>
-                  }
-                >
-                  <TractorViewer3D
-                    className="w-full h-full"
-                    src={att.heroImage}
-                    rotate={true}
+              {/* 3D MODEL or Static Image */}
+              <div className="relative z-10 w-full h-full flex items-center justify-center p-8">
+                {assets.glb ? (
+                  <Suspense
+                    fallback={
+                      <div className="w-full h-full flex items-center justify-center text-white/60">
+                        {t.attachmentDetailPage.loadingModel}
+                      </div>
+                    }
+                  >
+                    <TractorViewer3D
+                      className="w-full h-full"
+                      src={assets.glb}
+                      fallbackSrc={assets.image}
+                      rotate={true}
+                    />
+                  </Suspense>
+                ) : (
+                  <img
+                    src={assets.image}
+                    alt={att.name}
+                    className="max-h-[85%] max-w-[85%] object-contain drop-shadow-[0_20px_50px_rgba(239,68,68,0.3)] hover:scale-105 transition-transform duration-500"
                   />
-                </Suspense>
+                )}
               </div>
 
               {/* Bottom Fade */}
               <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black to-transparent pointer-events-none z-20" />
 
               {/* Floating Card */}
-              <div className="absolute top-5 right-5 z-30">
-                <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl px-4 py-3">
-                  <p className="text-white/40 text-[10px] uppercase tracking-widest mb-1">
-                    {t.attachmentDetailPage.preview3D}
-                  </p>
+              {assets.glb && (
+                <div className="absolute top-5 right-5 z-30">
+                  <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl px-4 py-3">
+                    <p className="text-white/40 text-[10px] uppercase tracking-widest mb-1">
+                      {t.attachmentDetailPage.preview3D}
+                    </p>
 
-                  <h4 className="text-white font-semibold text-sm">
-                    {t.attachmentDetailPage.interactiveModel}
-                  </h4>
+                    <h4 className="text-white font-semibold text-sm">
+                      {t.attachmentDetailPage.interactiveModel}
+                    </h4>
+                  </div>
                 </div>
-              </div>
+              )}
             </motion.div>
           </div>
         </div>

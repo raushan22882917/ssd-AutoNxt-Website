@@ -8,8 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "compress-images": "node scripts/compress-images.mjs",
-    "postinstall": "node scripts/compress-images.mjs"
+    "compress-images": "node scripts/convert-to-webp.mjs",
+    "postinstall": "node scripts/convert-to-webp.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.1052.0",

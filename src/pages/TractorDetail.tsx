@@ -79,16 +79,16 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
               <p className="text-primary font-semibold text-lg mb-5">{tractor.tagline}</p>
               <p className="text-white/55 text-base leading-relaxed mb-8 max-w-lg">{tractor.desc}</p>
               <div className="flex gap-3">
-                <Link href="/book">
-                  <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold h-12 px-7">
+                <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold h-12 px-7">
+                  <Link href="/book">
                     {tractor.status === "available" ? texts.reserveNow : texts.registerInterest} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
-                <Link href="/book">
-                  <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 h-12 px-7">
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 h-12 px-7">
+                  <Link href="/book">
                     {texts.bookTestDrive}
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </motion.div>
             <motion.div
@@ -306,11 +306,11 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
               {tractor.status === "available" ? texts.ctaDescAvailable : texts.ctaDescUpcoming}
             </p>
             <div className="flex justify-center gap-4">
-              <Link href="/book">
-                <Button size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold h-12 px-8">
+              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold h-12 px-8">
+                <Link href="/book">
                   {tractor.status === "available" ? texts.reserveNow : texts.registerInterest} <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </div>

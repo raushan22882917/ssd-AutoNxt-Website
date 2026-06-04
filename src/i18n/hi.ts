@@ -1,4 +1,4 @@
-﻿import { en } from "./en";
+import { en } from "./en";
 
 export const hi: typeof en = {
   nav: {
@@ -462,8 +462,8 @@ export const hi: typeof en = {
     implementsList: {
       bucket: {
         badge: "भारी कार्य",
-        name: "18 फीट ग्रेबर बकेट",
-        desc: "कुशल सामग्री प्रबंधन और उत्खनन कार्यों के लिए हैवी-ड्यूटी 18 फीट ग्रेबर बकेट।"
+        name: "18 फीट ग्रैबर बकेट",
+        desc: "कुशल सामग्री प्रबंधन और उत्खनन कार्यों के लिए हैवी-ड्यूटी 18 फीट ग्रैबर बकेट।"
       },
       catcher: {
         badge: "सटीकता",
