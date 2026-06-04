@@ -147,10 +147,10 @@ export const en = {
       },
     ],
     stats: [
-      { label: "Orders Placed", value: "250+", sub: "Tractors delivered across industries" },
+      { label: "Orders Placed", value: "270+", sub: "Tractors delivered across industries" },
       { label: "Happy Industry", value: "8", sub: "Industries trusting our solutions" },
-      { label: "Trees Saved", value: "47,135", sub: "Global CO₂ reduction across all tractors" },
-      { label: "Cost Saved", value: "₹3.16Cr", sub: "Operational cost reduction" },
+      { label: "Trees Saved", value: "70,650+", sub: "Global CO₂ reduction across all tractors" },
+      { label: "Cost Saved", value: "₹4.76Cr", sub: "Operational cost reduction" },
     ],
     trustedBy: "Trusted by India's Leading Organisations",
     partners: [
@@ -408,11 +408,11 @@ export const en = {
     availableNow: "Available Now",
     implementLabel: "Implement",
     filterTabs: {
-  all: "All Products",
-  tractors: "Tractors",
-  attachments: "Implements"
-},
-chargingTime: "3–6 hrs",
+      all: "All Products",
+      tractors: "Tractors",
+      attachments: "Implements"
+    },
+    chargingTime: "3–6 hrs",
     modelsCount: "3 Tractors",
     viewDetails: "View Details",
     book: "Book",
