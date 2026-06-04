@@ -274,8 +274,8 @@ export default function Product() {
                 key={tab.id}
                 onClick={() => setFilter(tab.id)}
                 className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${filter === tab.id
-                    ? "bg-primary text-white shadow-lg shadow-primary/25"
-                    : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
+                  ? "bg-primary text-white shadow-lg shadow-primary/25"
+                  : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
                   }`}
               >
                 {tab.label}
@@ -319,8 +319,8 @@ export default function Product() {
                           <button
                             onClick={() => toggle3D(tractor.slug)}
                             className={`absolute top-4 right-4 z-10 flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full border transition-all ${show3D[tractor.slug]
-                                ? "bg-primary/20 border-primary/40 text-primary"
-                                : "bg-muted border-border text-muted-foreground hover:text-foreground hover:bg-muted/80"
+                              ? "bg-primary/20 border-primary/40 text-primary"
+                              : "bg-muted border-border text-muted-foreground hover:text-foreground hover:bg-muted/80"
                               }`}
                           >
                             {show3D[tractor.slug]
@@ -566,7 +566,7 @@ export default function Product() {
           <div className="relative rounded-3xl overflow-hidden border border-primary/15 bg-primary/5 p-6 md:p-8 lg:p-10 shadow-lg z-10">
             {/* Background ambient light red glow */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(0,72%,40%,0.04),transparent_70%)] pointer-events-none" />
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.9fr] gap-8 items-stretch relative z-10">
               {/* Left Column: Image in a box with overlay text and no red tint */}
               <div className="relative rounded-2xl overflow-hidden min-h-[350px] lg:min-h-full border border-primary/20 shadow-md">
@@ -579,7 +579,7 @@ export default function Product() {
                 />
                 {/* Dark gradient mask for readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10 pointer-events-none z-0" />
-                
+
                 {/* Text overlaid on top of the image in a high-visibility color */}
                 <div className="relative z-10 flex flex-col h-full justify-between p-6 gap-6">
                   <div>
