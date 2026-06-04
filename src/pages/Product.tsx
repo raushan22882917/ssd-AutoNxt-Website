@@ -176,6 +176,13 @@ export default function Product() {
     },
   ];
 
+  // Original code: missing 'w' and 'h' properties needed by OptimizedImg on line 531
+  // const techSpecs = [
+  //   { img: batteryImg, title: t.productPage.techSpecsList.battery.title, icon: Battery, desc: t.productPage.techSpecsList.battery.desc, stat: t.productPage.techSpecsList.battery.stat, statLabel: t.productPage.techSpecsList.battery.statLabel },
+  //   { img: motorImg, title: t.productPage.techSpecsList.motor.title, icon: Zap, desc: t.productPage.techSpecsList.motor.desc, stat: t.productPage.techSpecsList.motor.stat, statLabel: t.productPage.techSpecsList.motor.statLabel },
+  // ];
+
+  // Fixed code: added 'w' and 'h' dimensions to support OptimizedImg layout-shift prevention
   const techSpecs = [
     { img: batteryImg, title: t.productPage.techSpecsList.battery.title, icon: Battery, desc: t.productPage.techSpecsList.battery.desc, stat: t.productPage.techSpecsList.battery.stat, statLabel: t.productPage.techSpecsList.battery.statLabel, w: 800, h: 695 },
     { img: motorImg, title: t.productPage.techSpecsList.motor.title, icon: Zap, desc: t.productPage.techSpecsList.motor.desc, stat: t.productPage.techSpecsList.motor.stat, statLabel: t.productPage.techSpecsList.motor.statLabel, w: 500, h: 386 },
@@ -552,7 +559,7 @@ export default function Product() {
       </section>
 
       {/* ── EVENT GALLERY STRIP ── */}
-      <section className="py-16 bg-background overflow-hidden">
+      {/* <section className="py-16 bg-background overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 mb-8">
           <div className="flex items-end justify-between">
             <div>
@@ -604,33 +611,80 @@ export default function Product() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* ── FEATURE HIGHLIGHTS ── */}
       <section className="py-16 bg-muted/20">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { icon: CheckCircle2, title: t.productPage.features.zeroEmissions, desc: t.productPage.features.zeroEmissionsDesc },
-              { icon: Zap, title: t.productPage.features.instantTorque, desc: t.productPage.features.instantTorqueDesc },
-              { icon: Battery, title: t.productPage.features.solar, desc: t.productPage.features.solarDesc },
-              { icon: Gauge, title: t.productPage.features.warranty, desc: t.productPage.features.warrantyDesc },
-            ].map((feat, i) => (
-              <motion.div
-                key={i}
-                className="text-center p-6"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
-              >
-                <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-3">
-                  <feat.icon className="w-5 h-5 text-primary" />
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="font-display text-3xl font-bold text-primary">
+              Key Core Features
+            </h2>
+          </div>
+          {/* Parent Red Background Box containing both the image card and the four feature cards */}
+          <div className="relative rounded-3xl overflow-hidden border border-primary/15 bg-primary/5 p-6 md:p-8 lg:p-10 shadow-lg z-10">
+            {/* Background ambient light red glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(0,72%,40%,0.04),transparent_70%)] pointer-events-none" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.9fr] gap-8 items-stretch relative z-10">
+              {/* Left Column: Image in a box with overlay text and no red tint */}
+              <div className="relative rounded-2xl overflow-hidden min-h-[350px] lg:min-h-full border border-primary/20 shadow-md">
+                {/* Background Image - Clean and opaque */}
+                <OptimizedImg
+                  src={fieldImg}
+                  alt="Core Features Illustration"
+                  className="absolute inset-0 w-full h-full object-cover object-center z-0"
+                  loading="lazy"
+                />
+                {/* Dark gradient mask for readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/10 pointer-events-none z-0" />
+
+                {/* Text overlaid on top of the image in a high-visibility color */}
+                <div className="relative z-10 flex flex-col h-full justify-between p-6 gap-6">
+                  <div>
+                    <div className="inline-flex items-center gap-2 bg-yellow-400/20 border border-yellow-400/30 rounded-full px-3 py-1 mb-4">
+                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse" />
+                      <span className="text-yellow-300 text-[10px] font-bold uppercase tracking-widest">Highlights</span>
+                    </div>
+                  </div>
+                  <div className="text-left mt-auto">
+                    <p className="text-yellow-300 font-display font-bold text-lg md:text-xl leading-tight drop-shadow-md">
+                      Experience the Future of Farming
+                    </p>
+                    <p className="text-white text-xs md:text-sm mt-2 font-medium drop-shadow-sm">
+                      100% Electric & Autonomous Drivetrains
+                    </p>
+                  </div>
                 </div>
-                <p className="font-display font-bold text-foreground text-sm mb-1">{feat.title}</p>
-                <p className="text-muted-foreground text-xs leading-relaxed">{feat.desc}</p>
-              </motion.div>
-            ))}
+              </div>
+
+              {/* Right Column: 4 features inside the same parent red background box */}
+              <div className="flex flex-col justify-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {[
+                    { icon: CheckCircle2, title: t.productPage.features.zeroEmissions, desc: t.productPage.features.zeroEmissionsDesc },
+                    { icon: Zap, title: t.productPage.features.instantTorque, desc: t.productPage.features.instantTorqueDesc },
+                    { icon: Battery, title: t.productPage.features.solar, desc: t.productPage.features.solarDesc },
+                    { icon: Gauge, title: t.productPage.features.warranty, desc: t.productPage.features.warrantyDesc },
+                  ].map((feat, i) => (
+                    <motion.div
+                      key={i}
+                      className="bg-card/60 backdrop-blur-sm border border-border/80 rounded-2xl p-5 hover:border-primary/30 hover:shadow-lg transition-all duration-300 flex flex-col items-start text-left"
+                      initial={{ opacity: 0, y: 16 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.07 }}
+                    >
+                      <div className="w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-3">
+                        <feat.icon className="w-4 h-4 text-primary" />
+                      </div>
+                      <h3 className="font-display font-bold text-foreground text-sm mb-1 leading-snug">{feat.title}</h3>
+                      <p className="text-muted-foreground text-xs leading-relaxed">{feat.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
