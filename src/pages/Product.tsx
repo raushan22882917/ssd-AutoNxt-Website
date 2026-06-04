@@ -12,19 +12,19 @@ import SEO from "@/components/SEO";
 import { OptimizedImg } from "@/components/ui/optimized-img";
 
 // Organized public image paths
-const tractor1 = "/images/products/x45h2.png";
-const tractor2 = "/images/products/x25h2.png";
-const tractor3 = "/images/products/h55c2.png";
-const batteryImg = "/images/products/battery.png";
-const motorImg = "/images/products/motor.png";
-const fieldImg = "/images/facility/right-wall.jpg";
-const garageImg = "/images/facility/garage-entry.jpg";
-const wallImg = "/images/facility/left-wall.jpg";
-const ev1 = "/images/events/event-1.jpg";
-const ev2 = "/images/events/event-2.jpg";
-const ev3 = "/images/events/AutoNxt-Launch-3.jpg";
-const ev4 = "/images/events/a4dfa761e10a3f20a4dfa761e10a3f20autonextelectractor2023.png";
-const ev5 = "/images/events/event-5.jpg";
+const tractor1 = "/images/products/x45h2.webp";
+const tractor2 = "/images/products/x25h2.webp";
+const tractor3 = "/images/3dtractorplaceholder.webp";
+const batteryImg = "/images/products/battery.webp";
+const motorImg = "/images/products/motor.webp";
+const fieldImg = "/images/facility/right-wall.webp";
+const garageImg = "/images/facility/garage-entry.webp";
+const wallImg = "/images/facility/left-wall.webp";
+const ev1 = "/images/events/event-1.webp";
+const ev2 = "/images/events/event-2.webp";
+const ev3 = "/images/events/AutoNxt-Launch-3.webp";
+const ev4 = "/images/events/a4dfa761e10a3f20a4dfa761e10a3f20autonextelectractor2023.webp";
+const ev5 = "/images/events/event-5.webp";
 
 const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
 
@@ -68,8 +68,12 @@ export default function Product() {
     };
   }, [load3D]);
 
-  const toggle3D = (slug: string) =>
-    setShow3D(prev => ({ ...prev, [slug]: !prev[slug] }));
+  const toggle3D = (slug: string) => {
+    setShow3D(prev => {
+      const isCurrentlyActive = !!prev[slug];
+      return { [slug]: !isCurrentlyActive };
+    });
+  };
 
   const showTractors = filter === "all" || filter === "tractors";
   const showAttachments = filter === "all" || filter === "attachments";
@@ -158,7 +162,7 @@ export default function Product() {
       type: t.productPage.implementLabel,
       badge: t.productPage.implementsList.catcher.badge,
       status: availableNowLabel,
-      image: "/images/implement/cacher-removebg-preview.webp",
+      image: "/images/implement/catcher.webp",
       description: t.productPage.implementsList.catcher.desc,
     },
     {
@@ -172,9 +176,16 @@ export default function Product() {
     },
   ];
 
+  // Original code: missing 'w' and 'h' properties needed by OptimizedImg on line 531
+  // const techSpecs = [
+  //   { img: batteryImg, title: t.productPage.techSpecsList.battery.title, icon: Battery, desc: t.productPage.techSpecsList.battery.desc, stat: t.productPage.techSpecsList.battery.stat, statLabel: t.productPage.techSpecsList.battery.statLabel },
+  //   { img: motorImg, title: t.productPage.techSpecsList.motor.title, icon: Zap, desc: t.productPage.techSpecsList.motor.desc, stat: t.productPage.techSpecsList.motor.stat, statLabel: t.productPage.techSpecsList.motor.statLabel },
+  // ];
+
+  // Fixed code: added 'w' and 'h' dimensions to support OptimizedImg layout-shift prevention
   const techSpecs = [
-    { img: batteryImg, title: t.productPage.techSpecsList.battery.title, icon: Battery, desc: t.productPage.techSpecsList.battery.desc, stat: t.productPage.techSpecsList.battery.stat, statLabel: t.productPage.techSpecsList.battery.statLabel },
-    { img: motorImg, title: t.productPage.techSpecsList.motor.title, icon: Zap, desc: t.productPage.techSpecsList.motor.desc, stat: t.productPage.techSpecsList.motor.stat, statLabel: t.productPage.techSpecsList.motor.statLabel },
+    { img: batteryImg, title: t.productPage.techSpecsList.battery.title, icon: Battery, desc: t.productPage.techSpecsList.battery.desc, stat: t.productPage.techSpecsList.battery.stat, statLabel: t.productPage.techSpecsList.battery.statLabel, w: 800, h: 695 },
+    { img: motorImg, title: t.productPage.techSpecsList.motor.title, icon: Zap, desc: t.productPage.techSpecsList.motor.desc, stat: t.productPage.techSpecsList.motor.stat, statLabel: t.productPage.techSpecsList.motor.statLabel, w: 500, h: 386 },
   ];
 
   const FILTER_TABS: { id: Category; label: string }[] = [
@@ -359,7 +370,7 @@ export default function Product() {
                           {/* 3D toggle button */}
                           <button
                             onClick={() => toggle3D(tractor.slug)}
-                            className={`absolute top-4 right-4 z-10 flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full border transition-all ${show3D[tractor.slug]
+                            className={`absolute bottom-4 right-4 z-10 flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full border transition-all ${show3D[tractor.slug]
                               ? "bg-primary/20 border-primary/40 text-primary"
                               : "bg-muted border-border text-muted-foreground hover:text-foreground hover:bg-muted/80"
                               }`}
@@ -372,7 +383,7 @@ export default function Product() {
 
                           {show3D[tractor.slug] ? (
                             <Suspense fallback={
-                              <OptimizedImg src={tractor.image} alt={tractor.fullName} className="h-44 w-full object-contain" width={320} height={176} />
+                              <OptimizedImg src={tractor.image} alt={tractor.fullName} className="h-44 w-full object-contain" width={800} height={566} />
                             }>
                               <TractorViewer3D
                                 src={tractor.glb}
@@ -389,7 +400,7 @@ export default function Product() {
                               loading="lazy"
                               decoding="async"
                               className="h-44 w-full object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500"
-                              width={320} height={176}
+                              width={800} height={566}
                             />
                           )}
                         </div>
@@ -415,16 +426,16 @@ export default function Product() {
                           </div>
 
                           <div className="flex gap-2 pt-1">
-                            <Link href={`/product/${tractor.slug}`} className="flex-1">
-                              <Button size="sm" variant="outline" className="w-full group-hover:border-primary group-hover:text-primary text-xs font-semibold h-9">
+                            <Button asChild size="sm" variant="outline" className="w-full group-hover:border-primary group-hover:text-primary text-xs font-semibold h-9 flex-1">
+                              <Link href={`/product/${tractor.slug}`}>
                                 {t.productPage.viewDetails} <ArrowRight className="ml-1 w-3 h-3" />
-                              </Button>
-                            </Link>
-                            <Link href="/book">
-                              <Button size="sm" className="bg-primary hover:bg-primary/90 text-white text-xs font-semibold h-9 px-4">
+                              </Link>
+                            </Button>
+                            <Button asChild size="sm" className="bg-primary hover:bg-primary/90 text-white text-xs font-semibold h-9 px-4">
+                              <Link href="/book">
                                 {t.productPage.book}
-                              </Button>
-                            </Link>
+                              </Link>
+                            </Button>
                           </div>
                         </div>
                       </div>
@@ -483,11 +494,11 @@ export default function Product() {
                         <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{a.type}</p>
                         <h3 className="font-display text-base font-bold text-foreground group-hover:text-primary transition-colors mb-2">{a.name}</h3>
                         <p className="text-muted-foreground text-xs leading-relaxed mb-4 line-clamp-2">{a.description}</p>
-                        <Link href={`/product/attachment/${a.slug}`}>
-                          <Button size="sm" variant="outline" className="w-full group-hover:border-primary group-hover:text-primary text-xs h-8 font-semibold">
+                        <Button asChild size="sm" variant="outline" className="w-full group-hover:border-primary group-hover:text-primary text-xs h-8 font-semibold">
+                          <Link href={`/product/attachment/${a.slug}`}>
                             {t.productPage.viewDetails} <ArrowRight className="ml-1 w-3 h-3" />
-                          </Button>
-                        </Link>
+                          </Link>
+                        </Button>
                       </div>
                     </motion.div>
                   ))}
@@ -565,11 +576,11 @@ export default function Product() {
                 {t.productPage.fieldBannerTitle}
               </motion.h2>
             </div>
-            <Link href="/gallery">
-              <Button variant="outline" size="sm" className="border-border text-muted-foreground hover:border-primary hover:text-primary text-xs">
+            <Button asChild variant="outline" size="sm" className="border-border text-muted-foreground hover:border-primary hover:text-primary text-xs">
+              <Link href="/gallery">
                 {t.productPage.viewGallery} <ArrowRight className="ml-1 w-3 h-3" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
         <div className="flex gap-4 overflow-x-auto px-4 md:px-8 pb-4 scrollbar-none">
@@ -701,16 +712,16 @@ export default function Product() {
               {t.productPage.readyToPower}
             </h2>
             <div className="flex gap-3 flex-wrap">
-              <Link href="/book">
-                <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold shadow-lg shadow-primary/25">
+              <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold shadow-lg shadow-primary/25">
+                <Link href="/book">
                   {t.productPage.scheduleTestDrive} <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/industry">
-                <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 font-semibold">
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 font-semibold">
+                <Link href="/industry">
                   {t.productPage.seeIndustries}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

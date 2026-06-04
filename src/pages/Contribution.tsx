@@ -214,11 +214,11 @@ export default function Contribution() {
             <p className="text-white/80 text-lg max-w-xl mx-auto mb-8">
               {texts.joinDesc}
             </p>
-            <Link href="/book">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold h-12 px-8">
+            <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold h-12 px-8">
+              <Link href="/book">
                 {texts.partnerBtn} <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </section>

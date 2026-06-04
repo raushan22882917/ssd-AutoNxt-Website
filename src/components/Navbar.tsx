@@ -79,11 +79,11 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Link href="/book" data-testid="link-nav-book">
-            <Button className={cn("ml-3 bg-primary text-white hover:bg-primary/90 font-semibold tracking-wide h-12 px-6", location === "/book" && "opacity-90")}>
+          <Button asChild className={cn("ml-3 bg-primary text-white hover:bg-primary/90 font-semibold tracking-wide h-12 px-6", location === "/book" && "opacity-90")}>
+            <Link href="/book" data-testid="link-nav-book">
               {t.nav.bookNow}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
 
         {/* Right controls */}
@@ -198,9 +198,11 @@ export default function Navbar() {
           <Link href="/ev-blog" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2.5 rounded-md text-base font-medium text-foreground hover:text-primary">
             {t.nav.evBlog}
           </Link>
-          <Link href="/book" onClick={() => setMobileMenuOpen(false)}>
-            <Button className="w-full mt-2 bg-primary text-white hover:bg-primary/90">{t.nav.bookNow}</Button>
-          </Link>
+          <Button asChild className="w-full mt-2 bg-primary text-white hover:bg-primary/90">
+            <Link href="/book" onClick={() => setMobileMenuOpen(false)}>
+              {t.nav.bookNow}
+            </Link>
+          </Button>
 
           {/* Mobile Language switcher */}
           <div className="flex items-center justify-between pt-3 border-t border-border mt-2">

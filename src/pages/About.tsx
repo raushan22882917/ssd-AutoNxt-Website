@@ -43,7 +43,7 @@ const facilityRight  = "/images/facility/right-wall.webp"
 const fieldImg1 = "/images/events/event-1.webp"
 const fieldImg2 = "/images/events/event-2.webp"
 const fieldImg3 = "/images/events/AutoNxt-Launch-3.webp"
-const fieldImg4 = "/images/events/a4dfa761e10a3f20a4dfa761e10a3f20autonextelectractor2023.webp"
+const fieldImg4 = "/images/events/event-launch-2023.webp"
 const fieldImg5 = "/images/events/event-5.webp"
 const fieldImg6 = "/images/events/event-6.webp"
 const fieldImg7 = "/images/events/event-7.webp"
@@ -104,7 +104,7 @@ export default function About() {
 
   return (
     <div className="w-full min-h-screen bg-background">
-      <SEO title={t.nav.about} description={t.aboutPage?.desc || "Learn more about AutoNxt Automation, our mission, vision, and the founders pioneering electric mobility in India."} />
+      <SEO title={t.nav.about} description="Learn more about AutoNxt Automation, our mission, vision, and the founders pioneering electric mobility in India." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16">
@@ -611,24 +611,23 @@ export default function About() {
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">{t.about.ctaTitle}</h2>
             <p className="text-white/75 text-lg mb-10">{t.about.ctaDesc}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/book">
-                <Button
-                  size="lg"
-                  className="bg-white text-primary hover:bg-white/90 font-semibold px-8 h-12"
-                  data-testid="btn-about-cta"
-                >
+              <Button asChild
+                size="lg"
+                className="bg-white text-primary hover:bg-white/90 font-semibold px-8 h-12"
+              >
+                <Link href="/book" data-testid="btn-about-cta">
                   {t.about.bookDemo} <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-              <Link href="/contribution">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/40 text-white hover:bg-white/10 font-semibold px-8 h-12"
-                >
+                </Link>
+              </Button>
+              <Button asChild
+                size="lg"
+                variant="outline"
+                className="border-white/40 text-white hover:bg-white/10 font-semibold px-8 h-12"
+              >
+                <Link href="/contribution">
                   {t.about.ourImpact}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </div>

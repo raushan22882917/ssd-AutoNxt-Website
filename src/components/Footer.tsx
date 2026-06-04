@@ -16,12 +16,12 @@ export default function Footer() {
               <img src={logoImg} alt="Autonxt Logo" width={32} height={32} className="w-8 h-8 object-contain" />
               <div className="flex flex-col leading-tight">
                 <span className="font-display font-bold text-lg tracking-widest uppercase text-white">
-                  Auton<span className="text-primary">xt</span>
+                  Auton<span className="text-red-400">xt</span>
                 </span>
-                <span className="text-[9px] tracking-[0.25em] uppercase text-white/50 font-medium">Automation</span>
+                <span className="text-[9px] tracking-[0.25em] uppercase text-white/80 font-medium">Automation</span>
               </div>
             </div>
-            <p className="text-white/60 text-sm leading-relaxed max-w-xs">
+            <p className="text-white/85 text-sm leading-relaxed max-w-xs">
               {t.common.slogan}
             </p>
             <div className="flex gap-3">
@@ -43,7 +43,7 @@ export default function Footer() {
           {/* Products */}
           <div>
             <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">{t.nav.product}</h3>
-            <ul className="space-y-3 text-sm text-white/60">
+            <ul className="space-y-3 text-sm text-white/80">
               <li><Link href="/product" className="hover:text-primary transition-colors">Autonxt X45H2</Link></li>
               <li><Link href="/product" className="hover:text-primary transition-colors">Autonxt X25H4</Link></li>
               <li><Link href="/product" className="hover:text-primary transition-colors">{t.common.batterySystems}</Link></li>
@@ -55,7 +55,7 @@ export default function Footer() {
           {/* Company */}
           <div>
             <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">{t.nav.about}</h3>
-            <ul className="space-y-3 text-sm text-white/60">
+            <ul className="space-y-3 text-sm text-white/80">
               <li><Link href="/about" className="hover:text-primary transition-colors">{t.nav.about}</Link></li>
               <li><Link href="/industry" className="hover:text-primary transition-colors">{t.nav.industry}</Link></li>
               <li><Link href="/contribution" className="hover:text-primary transition-colors">{t.nav.contribution}</Link></li>
@@ -68,7 +68,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">{t.common.getInTouch}</h3>
-            <ul className="space-y-4 text-sm text-white/60">
+            <ul className="space-y-4 text-sm text-white/80">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                 <span>{t.bookPage.contactInfo.visitVal}</span>
@@ -85,12 +85,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
+        <div className="border-t border-white/10 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/70">
           <p>{t.common.copyright}</p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">{t.common.privacyPolicy}</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">{t.common.termsConditions}</Link>
-            <Link href="/careers" className="hover:text-white transition-colors">{t.common.careers}</Link>
+            <Link href="/privacy" className="text-white/70 hover:text-white transition-colors">{t.common.privacyPolicy}</Link>
+            <Link href="/terms" className="text-white/70 hover:text-white transition-colors">{t.common.termsConditions}</Link>
+            <Link href="/careers" className="text-white/70 hover:text-white transition-colors">{t.common.careers}</Link>
           </div>
           <p>{t.common.madeIn}</p>
         </div>

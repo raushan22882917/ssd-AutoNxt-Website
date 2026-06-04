@@ -204,11 +204,11 @@ export default function Gallery() {
           >
             <h3 className="text-2xl font-display font-bold text-foreground mb-3">{t.gallery.seeInPerson}</h3>
             <p className="text-muted-foreground mb-6">{t.gallery.seeInPersonDesc}</p>
-            <Link href="/book">
-              <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold" data-testid="btn-schedule-viewing">
+            <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold">
+              <Link href="/book" data-testid="btn-schedule-viewing">
                 {t.gallery.scheduleDemo}
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </motion.div>
 
         </div>

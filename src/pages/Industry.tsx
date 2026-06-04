@@ -173,10 +173,8 @@ export default function Industry() {
                     <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{ind.title}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed flex-1">{ind.detail}</p>
                     <div className="mt-5 pt-4 border-t border-border">
-                      <Link href={`/industry/${ind.slug}`} aria-label={`${texts.learnMore} about ${ind.title}`}>
-                        <button className="inline-flex items-center text-sm font-semibold text-primary hover:gap-2 gap-1 transition-all">
-                          {texts.learnMore} <span className="sr-only"> about {ind.title}</span> <ChevronRight className="w-4 h-4" />
-                        </button>
+                      <Link href={`/industry/${ind.slug}`} className="inline-flex items-center text-sm font-semibold text-primary hover:gap-2 gap-1 transition-all" aria-label={`${texts.learnMore} about ${ind.title}`}>
+                        {texts.learnMore} <span className="sr-only"> about {ind.title}</span> <ChevronRight className="w-4 h-4" />
                       </Link>
                     </div>
                   </div>
@@ -268,14 +266,14 @@ export default function Industry() {
                     })}
                   </div>
 
-                  <Link href={`/product/${t.slug}`}>
-                    <Button
-                      size="sm"
-                      className={`w-full transition-all ${t.status === "available" ? "bg-primary text-white hover:bg-primary/90" : "bg-background border border-border text-muted-foreground hover:border-foreground/20 hover:bg-muted/50"}`}
-                    >
+                  <Button asChild
+                    size="sm"
+                    className={`w-full transition-all ${t.status === "available" ? "bg-primary text-white hover:bg-primary/90" : "bg-background border border-border text-muted-foreground hover:border-foreground/20 hover:bg-muted/50"}`}
+                  >
+                    <Link href={`/product/${t.slug}`}>
                       {texts.viewDetails} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
               </motion.div>
             ))}
@@ -296,11 +294,11 @@ export default function Industry() {
             <p className="text-white/70 text-base mb-8">
               {texts.ctaDesc}
             </p>
-            <Link href="/book">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold h-12 px-8">
+            <Button asChild size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold h-12 px-8">
+              <Link href="/book">
                 {texts.talkToUs} <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </section>

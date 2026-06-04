@@ -16,21 +16,21 @@ const MODEL_PLACEHOLDER: Record<string, string> = {
   "/3dmodel/battery.glb": "/images/batteryimage.avif",
   "/3dmodel/motor.glb":   "/images/motorimage.avif",
   "/3dmodel/x45.glb":     "/images/products/x45h2.webp",
-  "/3dmodel/bucket.glb":  "/images/implement/bucket.webp",
+  "/3dmodel/bucket.glb":  "/images/implement/bucket-removebg-preview.webp",
 };
 
 /* ── sessionStorage key for a captured screenshot ── */
-const screenshotKey = (src: string) => `3d-screenshot:${src}`;
+const screenshotKey = (src: string, fallback?: string) => `3d-screenshot:${src}:${fallback || ""}`;
 
 /* ── Read a previously captured screenshot from sessionStorage ── */
-function getCachedScreenshot(src: string): string | null {
-  try { return sessionStorage.getItem(screenshotKey(src)); }
+function getCachedScreenshot(src: string, fallback?: string): string | null {
+  try { return sessionStorage.getItem(screenshotKey(src, fallback)); }
   catch { return null; }
 }
 
 /* ── Save a screenshot to sessionStorage (fire-and-forget) ── */
-function saveCachedScreenshot(src: string, dataUrl: string) {
-  try { sessionStorage.setItem(screenshotKey(src), dataUrl); }
+function saveCachedScreenshot(src: string, fallback: string | undefined, dataUrl: string) {
+  try { sessionStorage.setItem(screenshotKey(src, fallback), dataUrl); }
   catch { /* quota exceeded — silently skip */ }
 }
 
@@ -60,7 +60,7 @@ function FitCamera() {
 }
 
 /* ── Capture one frame from the WebGL canvas and cache it ── */
-function ScreenshotCapture({ src, onCapture }: { src: string; onCapture: (dataUrl: string) => void }) {
+function ScreenshotCapture({ src, fallback, onCapture }: { src: string; fallback?: string; onCapture: (dataUrl: string) => void }) {
   const { gl } = useThree();
   const captured = useRef(false);
 
@@ -73,7 +73,7 @@ function ScreenshotCapture({ src, onCapture }: { src: string; onCapture: (dataUr
     requestAnimationFrame(() => {
       try {
         const dataUrl = gl.domElement.toDataURL("image/png");
-        saveCachedScreenshot(src, dataUrl);
+        saveCachedScreenshot(src, fallback, dataUrl);
         onCapture(dataUrl);
       } catch { /* cross-origin or security error — skip silently */ }
     });
@@ -172,7 +172,7 @@ export default function TractorViewer3D({
 
   // Start with a cached screenshot if one exists, else use the static image
   const [placeholderImg, setPlaceholderImg] = useState<string>(
-    () => getCachedScreenshot(src) ?? fallbackSrc ?? MODEL_PLACEHOLDER[src] ?? defaultTractor
+    () => getCachedScreenshot(src, fallbackSrc) ?? fallbackSrc ?? MODEL_PLACEHOLDER[src] ?? defaultTractor
   );
 
   useEffect(() => { setWebglOk(supportsWebGL()); }, []);
@@ -181,7 +181,7 @@ export default function TractorViewer3D({
   useEffect(() => {
     setModelReady(false);
     setPlaceholderImg(
-      getCachedScreenshot(src) ?? fallbackSrc ?? MODEL_PLACEHOLDER[src] ?? defaultTractor
+      getCachedScreenshot(src, fallbackSrc) ?? fallbackSrc ?? MODEL_PLACEHOLDER[src] ?? defaultTractor
     );
   }, [src, fallbackSrc]);
 
@@ -236,7 +236,7 @@ export default function TractorViewer3D({
             <TractorModel src={src} rotate={rotate} />
             <ModelReady onReady={() => setModelReady(true)} />
             {/* Capture the canvas once after first render and cache in sessionStorage */}
-            <ScreenshotCapture src={src} onCapture={handleCapture} />
+            <ScreenshotCapture src={src} fallback={fallbackSrc} onCapture={handleCapture} />
             <ContactShadows
               position={[0, -1.6, 0]}
               opacity={0.45}
@@ -270,15 +270,4 @@ export default function TractorViewer3D({
       </div>
     </ThreeErrorBoundary>
   );
-}
-
-/* ── Preload only the hero model, after browser is idle ── */
-/* Other models (battery, motor, x45, bucket) load on-demand when their section renders */
-if (typeof window !== "undefined") {
-  const preloadHero = () => useGLTF.preload("/3dmodel/hero.glb");
-  if ("requestIdleCallback" in window) {
-    requestIdleCallback(preloadHero, { timeout: 3000 });
-  } else {
-    setTimeout(preloadHero, 2000);
-  }
 }

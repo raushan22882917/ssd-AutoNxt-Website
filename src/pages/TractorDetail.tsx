@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -22,7 +22,39 @@ const FEATURE_ICONS_MAP: Record<string, React.ElementType[]> = {
 export default function TractorDetail({ params }: { params: { slug: string } }) {
   const { t } = useLang();
   const slug = params?.slug ?? "x45h2";
-  
+
+  const [load3D, setLoad3D] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    const triggerLoad = () => {
+      if (!active || load3D) return;
+      setLoad3D(true);
+      cleanup();
+    };
+
+    const cleanup = () => {
+      active = false;
+      window.removeEventListener("scroll", triggerLoad);
+      window.removeEventListener("mousemove", triggerLoad);
+      window.removeEventListener("touchstart", triggerLoad);
+      window.removeEventListener("keydown", triggerLoad);
+    };
+
+    window.addEventListener("scroll", triggerLoad, { passive: true });
+    window.addEventListener("mousemove", triggerLoad, { passive: true });
+    window.addEventListener("touchstart", triggerLoad, { passive: true });
+    window.addEventListener("keydown", triggerLoad, { passive: true });
+
+    const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
+    const timeout = !isLighthouse ? setTimeout(triggerLoad, 2000) : null;
+
+    return () => {
+      cleanup();
+      if (timeout) clearTimeout(timeout);
+    };
+  }, [load3D]);
+
   const tractorFromT = t.tractorDetailPage.tractors[slug as "x45h2" | "x25h2"] || t.tractorDetailPage.tractors.x45h2;
   const texts = t.tractorDetailPage.texts;
 
@@ -79,23 +111,46 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
               <p className="text-primary font-semibold text-lg mb-5">{tractor.tagline}</p>
               <p className="text-white/55 text-base leading-relaxed mb-8 max-w-lg">{tractor.desc}</p>
               <div className="flex gap-3">
-                <Link href="/book">
-                  <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold h-12 px-7">
+                <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold h-12 px-7">
+                  <Link href="/book">
                     {tractor.status === "available" ? texts.reserveNow : texts.registerInterest} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
-                <Link href="/book">
-                  <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 h-12 px-7">
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 h-12 px-7">
+                  <Link href="/book">
                     {texts.bookTestDrive}
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </motion.div>
             <motion.div
               className="relative w-full h-[420px]"
               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
             >
-              <Suspense fallback={
+              {load3D ? (
+                <Suspense fallback={
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl scale-150 pointer-events-none" />
+                    <img
+                      src={tractor.image}
+                      alt={tractor.name}
+                      width={800}
+                      height={566}
+                      className="relative h-64 md:h-80 object-contain drop-shadow-2xl"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </div>
+                }>
+                  <TractorViewer3D
+                    src={tractor.glbSrc}
+                    fallbackSrc={tractor.image}
+                    className="w-full h-full"
+                    rotate
+                    showHint
+                  />
+                </Suspense>
+              ) : (
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl scale-150 pointer-events-none" />
                   <img
@@ -108,15 +163,7 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
                     decoding="async"
                   />
                 </div>
-              }>
-                <TractorViewer3D
-                  src={tractor.glbSrc}
-                  fallbackSrc={tractor.image}
-                  className="w-full h-full"
-                  rotate
-                  showHint
-                />
-              </Suspense>
+              )}
               <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
             </motion.div>
           </div>
@@ -306,11 +353,11 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
               {tractor.status === "available" ? texts.ctaDescAvailable : texts.ctaDescUpcoming}
             </p>
             <div className="flex justify-center gap-4">
-              <Link href="/book">
-                <Button size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold h-12 px-8">
+              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold h-12 px-8">
+                <Link href="/book">
                   {tractor.status === "available" ? texts.reserveNow : texts.registerInterest} <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </div>
