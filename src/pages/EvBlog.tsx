@@ -3,9 +3,10 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight, Calendar, Clock, Zap, BatteryCharging, Globe, Cpu,
-  TrendingUp, Leaf, IndianRupee, Search, ExternalLink, X
+  TrendingUp, Leaf, IndianRupee, Search, ExternalLink, X, BookOpen, Tag
 } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 // Animated counter hook
 function useCountUp(target: string, duration = 1800) {
@@ -54,7 +55,7 @@ function AnimatedStat({ value, label }: { value: string; label: string }) {
       <div className="font-display text-3xl md:text-4xl font-black text-foreground group-hover:text-primary transition-colors tabular-nums">
         {display}
       </div>
-      <div className="text-muted-foreground text-[10px] md:text-xs mt-2 uppercase tracking-[0.2em] font-medium">
+      <div className="text-foreground/75 text-[10px] md:text-xs mt-2 uppercase tracking-[0.2em] font-medium">
         {label}
       </div>
     </div>
@@ -107,6 +108,7 @@ export default function EvBlog() {
     date: article.date,
     readTime: article.readTime,
     cat: article.cat,
+    image: article.image,
     externalUrl: article.externalUrl || "https://www.autonxt.in"
   }));
 
@@ -146,6 +148,7 @@ export default function EvBlog() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.evBlog} description="Explore technical insights, battery innovations, motor technology, and trends in electric vehicle infrastructure." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-20 md:pt-28 pb-0">
@@ -188,9 +191,9 @@ export default function EvBlog() {
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
-                  { icon: TrendingUp, label: t.evBlogPage.marketCagrLabel, value: t.evBlogPage.marketCagrValue },
-                  { icon: IndianRupee, label: t.evBlogPage.marketSizeLabel, value: t.evBlogPage.marketSizeValue },
-                  { icon: Leaf, label: t.evBlogPage.directCo2Label, value: t.evBlogPage.directCo2Value },
+                  { icon: BookOpen, label: t.evBlogPage.articlesLabel, value: t.evBlogPage.articlesValue },
+                  { icon: Tag, label: t.evBlogPage.topicsLabel, value: t.evBlogPage.topicsValue },
+                  { icon: Clock, label: t.evBlogPage.avgReadLabel, value: t.evBlogPage.avgReadValue },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-2.5 group">
                     <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/30 transition-all duration-300">
@@ -214,32 +217,34 @@ export default function EvBlog() {
                 <div className="col-span-2 row-span-2 rounded-tl-3xl overflow-hidden relative group">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none z-10" />
                   <img
-                    src="https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?w=900&q=80"
+                    src="/images/ev-blog/ev-charging-hero.webp"
                     alt="Electric vehicle charging"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="eager" decoding="async"
+                    loading="eager"
+                    decoding="sync"
+                    fetchPriority="high"
                   />
                   <div className="absolute bottom-6 left-6 z-20">
                     <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-xl">
                       <BatteryCharging className="w-8 h-8 text-white mb-2" />
-                      <div className="text-white font-bold">EV Revolution</div>
+                      <div className="text-white font-bold">{t.evBlog.evRevolution}</div>
                     </div>
                   </div>
                 </div>
                 <div className="rounded-tr-3xl overflow-hidden relative group">
                   <img
-                    src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=500&q=80"
+                    src="/images/ev-blog/solar-farm.webp"
                     alt="Solar energy farm"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="eager" decoding="async"
+                    loading="lazy" decoding="async"
                   />
                 </div>
                 <div className="overflow-hidden relative group">
                   <img
-                    src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=500&q=80"
+                    src="/images/ev-blog/ev-power.webp"
                     alt="Electric power technology"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="eager" decoding="async"
+                    loading="lazy" decoding="async"
                   />
                 </div>
               </div>
@@ -270,7 +275,7 @@ export default function EvBlog() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-xs md:text-sm font-semibold hover:text-primary transition-colors text-foreground"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary/60" aria-hidden="true" />
                   <span>{post.title}</span>
                 </a>
               ))}
@@ -284,7 +289,7 @@ export default function EvBlog() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-xs md:text-sm font-semibold hover:text-primary transition-colors text-foreground"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary/60" aria-hidden="true" />
                   <span>{post.title}</span>
                 </a>
               ))}
@@ -323,20 +328,23 @@ export default function EvBlog() {
           <div className="flex flex-col lg:flex-row gap-5 items-center justify-between">
             {/* Search */}
             <div className="relative w-full lg:w-[380px] shrink-0">
-              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-primary w-4.5 h-4.5" />
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-primary w-4.5 h-4.5" aria-hidden="true" />
               <input
-                type="text"
+                id="ev-blog-search"
+                type="search"
                 placeholder={t.evBlog.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                aria-label="Search EV blog articles"
                 className="w-full pl-14 pr-12 py-3.5 bg-background border-2 border-primary/20 hover:border-primary/40 focus:border-primary rounded-full outline-none transition-all text-base text-foreground placeholder-muted-foreground shadow-md font-medium"
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm("")}
+                  aria-label="Clear search"
                   className="absolute right-4 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-muted flex items-center justify-center hover:bg-primary/10 transition-colors"
                 >
-                  <X className="w-3.5 h-3.5 text-muted-foreground" />
+                  <X className="w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
                 </button>
               )}
             </div>
@@ -350,13 +358,15 @@ export default function EvBlog() {
                   <button
                     key={category as string}
                     onClick={() => setSelectedCategory(category as string)}
+                    aria-pressed={isActive}
+                    aria-label={`Filter by ${category === "all" ? "all categories" : category} (${count} article${count !== 1 ? "s" : ""})`}
                     className={`whitespace-nowrap flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${isActive
                         ? "bg-primary text-white shadow-md shadow-primary/25"
                         : "bg-background border border-border text-foreground hover:bg-primary/10 hover:border-primary/30 hover:text-primary"
                       }`}
                   >
                     {category === "all" ? t.evBlog.allCategories : (category as string)}
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-muted text-muted-foreground"
+                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-muted text-foreground/70"
                       }`}>
                       {count}
                     </span>
@@ -374,9 +384,9 @@ export default function EvBlog() {
           {/* Section header */}
           <div className="flex items-center gap-4 mb-10">
             <span className="font-display text-5xl font-black text-primary/10 leading-none select-none">01</span>
-            <p className="text-xs font-bold text-primary uppercase tracking-widest">
+            <h2 className="text-xs font-bold text-primary uppercase tracking-widest">
               {filteredPosts.length} Article{filteredPosts.length !== 1 ? "s" : ""}
-            </p>
+            </h2>
           </div>
 
           {isTransitioning ? (
@@ -434,19 +444,29 @@ export default function EvBlog() {
                     {/* Top gradient accent line */}
                     <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${post.topAccent} rounded-t-3xl z-10`} />
 
-                    {/* Card gradient image */}
+                    {/* Card cover image/gradient */}
                     <div
                       className="relative h-48 w-full overflow-hidden cursor-pointer"
                       onClick={() => handleReadArticle(post.externalUrl)}
                       title="Click to read full article"
                     >
-                      <div className={`absolute inset-0 w-full h-full ${getGradient(post.id)} group-hover:scale-110 transition-transform duration-700`} />
-                      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 mix-blend-overlay pointer-events-none" />
-
-                      {/* Large center icon */}
-                      <div className="absolute inset-0 flex items-center justify-center opacity-25 group-hover:opacity-40 transition-opacity">
-                        <Icon className="w-20 h-20 text-white" />
-                      </div>
+                      {post.image ? (
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <>
+                          <div className={`absolute inset-0 w-full h-full ${getGradient(post.id)} group-hover:scale-110 transition-transform duration-700`} />
+                          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 mix-blend-overlay pointer-events-none" />
+                          {/* Large center icon */}
+                          <div className="absolute inset-0 flex items-center justify-center opacity-25 group-hover:opacity-40 transition-opacity">
+                            <Icon className="w-20 h-20 text-white" />
+                          </div>
+                        </>
+                      )}
 
                       {/* Category tag */}
                       <div className="absolute top-4 left-4" onClick={(e) => e.stopPropagation()}>
@@ -456,7 +476,7 @@ export default function EvBlog() {
                       </div>
 
                       {/* External link */}
-                      <div className="absolute top-4 right-4">
+                      <div className="absolute top-4 right-4" aria-hidden="true">
                           <div className="bg-black/30 backdrop-blur-md rounded-full p-2 transition-all group-hover:scale-110 group-hover:bg-primary/80">
                             <ExternalLink className="w-3.5 h-3.5 text-white" />
                         </div>
@@ -500,7 +520,7 @@ export default function EvBlog() {
                           onClick={() => handleReadArticle(post.externalUrl)}
                           className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-primary/10 hover:bg-primary text-primary hover:text-white text-sm font-semibold border border-primary/20 hover:border-primary transition-all duration-200 group/cta"
                         >
-                          Read Article
+                          {t.evBlog.readArticle}
                           <ArrowRight className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" />
                         </button>
                       </div>
@@ -525,7 +545,7 @@ export default function EvBlog() {
       </section>
 
       {/* ── NEWSLETTER CTA ── */}
-      <section className="py-14 relative overflow-hidden bg-gradient-to-r from-primary to-blue-800">
+      <section className="py-14 relative overflow-hidden bg-gradient-to-r from-red-700 via-primary to-red-950">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[150%] bg-white/10 transform rotate-12 blur-3xl" />
           <div className="absolute top-[20%] -left-[10%] w-[30%] h-[100%] bg-black/10 transform -rotate-12 blur-3xl" />

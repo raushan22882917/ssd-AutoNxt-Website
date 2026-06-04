@@ -25,10 +25,7 @@ function LazyRender({
           observer.disconnect();
         }
       },
-      {
-        threshold: 0.1,
-        rootMargin: "1000px",
-      }
+      { threshold: 0.1, rootMargin: "300px" },
     );
 
     if (sectionRef.current) {

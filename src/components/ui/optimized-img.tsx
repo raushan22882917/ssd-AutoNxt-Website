@@ -19,7 +19,8 @@ export interface OptimizedImgProps
 
 const OptimizedImg = React.forwardRef<HTMLImageElement, OptimizedImgProps>(
   ({ src, alt, fetchpriority, className, onError, ...rest }, ref) => {
-    const webpSrc = src.replace(/\.(jpe?g|png)$/i, ".webp")
+    const isRemote = src.startsWith("http://") || src.startsWith("https://") || src.startsWith("//")
+    const webpSrc = isRemote ? src : src.replace(/\.(jpe?g|png)$/i, ".webp")
     const [activeSrc, setActiveSrc] = React.useState(webpSrc)
     const triedFallback = React.useRef(false)
 

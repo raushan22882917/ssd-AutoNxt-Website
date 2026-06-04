@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Linkedin, Twitter, Youtube, Instagram, Mail, Phone, MapPin } from "lucide-react";
-const logoImg = "/small-logo-white.png";import { useLang } from "@/contexts/LanguageContext";
+const logoImg = "/small-logo-white-sm.webp";import { useLang } from "@/contexts/LanguageContext";
 
 export default function Footer() {
   const { t } = useLang();
@@ -13,7 +13,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-5">
             <div className="flex items-center gap-2.5">
-              <img src={logoImg} alt="Autonxt Logo" className="w-8 h-8 object-contain" />
+              <img src={logoImg} alt="Autonxt Logo" width={32} height={32} className="w-8 h-8 object-contain" />
               <div className="flex flex-col leading-tight">
                 <span className="font-display font-bold text-lg tracking-widest uppercase text-white">
                   Auton<span className="text-primary">xt</span>
@@ -25,16 +25,16 @@ export default function Footer() {
               {t.common.slogan}
             </p>
             <div className="flex gap-3">
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-0">
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="AutoNxt on X (Twitter)" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-0">
                 <Twitter className="w-3.5 h-3.5 text-white" />
               </a>
-              <a href="https://www.linkedin.com/company/autonxt-automation" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-1">
+              <a href="https://www.linkedin.com/company/autonxt-automation" target="_blank" rel="noopener noreferrer" aria-label="AutoNxt on LinkedIn" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-1">
                 <Linkedin className="w-3.5 h-3.5 text-white" />
               </a>
-              <a href="https://www.youtube.com/@autonxtautomation8368" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-2">
+              <a href="https://www.youtube.com/@autonxtautomation8368" target="_blank" rel="noopener noreferrer" aria-label="AutoNxt on YouTube" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-2">
                 <Youtube className="w-3.5 h-3.5 text-white" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-3">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="AutoNxt on Instagram" className="w-8 h-8 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors" data-testid="link-social-3">
                 <Instagram className="w-3.5 h-3.5 text-white" />
               </a>
             </div>

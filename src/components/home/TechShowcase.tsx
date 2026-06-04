@@ -1,48 +1,42 @@
 import { useState, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLang } from "@/contexts/LanguageContext";
 
 const TractorViewer3D = lazy(
   () => import("@/components/TractorViewer3D")
 );
 
-
-/* ── TECH SHOWCASE TABS ── */
-const techTabs = [
+/* ── STATIC CONFIG FOR TECH SHOWCASE TABS ── */
+const STATIC_TECH_TABS = [
   {
     id: "motor",
-    label: "Motor",
     glb: "/3dmodel/motor.glb",
-    title: "32 kW Electric Motor",
-    subtitle: "High-Efficiency Drive System",
-    desc: "The X45H2 is powered by a high-efficiency 32 kW electric motor designed for maximum torque and precision. It ensures smooth and powerful performance, making it ideal for heavy-duty agricultural tasks.",
-    specs: [
-      { label: "Power Output", value: "32 kW" },
-      { label: "Torque", value: "Max Torque" },
-      { label: "Performance", value: "Precision" },
-      { label: "Application", value: "Heavy-Duty" },
-    ],
     accent: "text-amber-500",
   },
   {
     id: "battery",
-    label: "Battery",
     glb: "/3dmodel/battery.glb",
-    title: "38.4 kWh Battery Pack",
-    subtitle: "High-Capacity Energy System",
-    desc: "Equipped with a 38.4 kWh high-capacity battery, the X45H2 provides 8 hours of continuous operation. Optimized for fast charging and extended lifespan, ensuring reliability in the field.",
-    specs: [
-      { label: "Capacity", value: "38.4 kWh" },
-      { label: "Runtime", value: "8 hrs" },
-      { label: "Charging", value: "Fast Charge" },
-      { label: "Lifespan", value: "Extended" },
-    ],
     accent: "text-blue-500",
   },
 ];
 
 function TechShowcase() {
+  const { t } = useLang();
   const [activeTab, setActiveTab] = useState(0);
-  const tab = techTabs[activeTab];
+
+  const techTabs = t.home.techTabs.map((tab, i) => {
+    const staticConfig = STATIC_TECH_TABS[i] || STATIC_TECH_TABS[0];
+    return {
+      ...staticConfig,
+      label: tab.label,
+      title: tab.title,
+      subtitle: tab.subtitle,
+      desc: tab.desc,
+      specs: tab.specs,
+    };
+  });
+
+  const tab = techTabs[activeTab] || techTabs[0];
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -54,8 +48,12 @@ function TechShowcase() {
         className="space-y-8"
       >
         <div>
-          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Proprietary Technology</p>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">Built from the Ground Up.</h2>
+          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
+            {t.home.techTag}
+          </p>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
+            {t.home.techHeading}
+          </h2>
           
         </div>
 
