@@ -71,8 +71,7 @@ export default function Industry() {
               >
                 {[
                   { icon: Building2, label: texts.industriesLabel, value: "6+" },
-                  { icon: Factory, label: texts.applicationsLabel, value: "50+" },
-                  { icon: Shield, label: texts.certifiedLabel, value: "iCAT" },
+                  { icon: Factory, label: texts.applicationsLabel, value: "250+" },
                 ].map((f, i) => (
                   <div key={i} className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
@@ -92,13 +91,32 @@ export default function Industry() {
             >
               <div className="grid grid-cols-3 gap-2 h-[420px]">
                 <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?w=700&h=500&fit=crop&q=80&auto=format" alt="Biomass operations" className="w-full h-full object-cover" />
+                  <img
+                    src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?w=700&h=500&fit=crop&q=80&auto=format"
+                    alt="Biomass operations"
+                    width={700}
+                    height={500}
+                    fetchPriority="high"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="rounded-tr-2xl overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=250&fit=crop&q=80&auto=format" alt="Cement plant" className="w-full h-full object-cover" />
+                  <img
+                    src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=250&fit=crop&q=80&auto=format"
+                    alt="Cement plant"
+                    width={400}
+                    height={250}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="overflow-hidden">
-                  <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=250&fit=crop&q=80&auto=format" alt="Construction site" className="w-full h-full object-cover" />
+                  <img
+                    src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=250&fit=crop&q=80&auto=format"
+                    alt="Construction site"
+                    width={400}
+                    height={250}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
               <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-surface-dark to-transparent pointer-events-none" />
@@ -155,6 +173,9 @@ export default function Industry() {
                     <img
                       src={ind.img}
                       alt={ind.title}
+                      width={400}
+                      height={250}
+                      loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -240,6 +261,9 @@ export default function Industry() {
                   <img
                     src={t.img}
                     alt={t.name}
+                    width={300}
+                    height={144}
+                    loading="lazy"
                     className="h-36 object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-md"
                   />
                 </div>

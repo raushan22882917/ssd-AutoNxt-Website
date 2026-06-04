@@ -44,6 +44,15 @@ function getEmbedUrl(url: string) {
   return url;
 }
 
+const LOCAL_VIDEO_IDS = [
+  "3PVEHTybb_o",
+  "9Px1KnfeBdY",
+  "kia8cxkaUJc",
+  "u2a1EoXayrk",
+  "UHtiUSmO27I",
+  "Z6107d2ygF0",
+];
+
 // Get thumbnail path for strip
 function getThumbnailUrl(item: MediaItem) {
   if (item.type === "image" || item.type === "event") {
@@ -51,6 +60,9 @@ function getThumbnailUrl(item: MediaItem) {
   }
   const parsed = parseVideoUrl(item.src);
   if (parsed && parsed.type === "youtube") {
+    if (LOCAL_VIDEO_IDS.includes(parsed.id)) {
+      return `/images/videos/${parsed.id}.jpg`;
+    }
     return `https://img.youtube.com/vi/${parsed.id}/mqdefault.jpg`;
   }
   return ""; // Returns empty string for Vimeo to show stylized play icon fallback

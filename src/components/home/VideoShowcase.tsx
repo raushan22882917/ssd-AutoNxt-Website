@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
+import { OptimizedImg } from "@/components/ui/optimized-img";
 
 const VIDEO_IDS = [
   "3PVEHTybb_o",
@@ -63,13 +64,12 @@ function VideoShowcase() {
                 transition={{ delay: (i % 3) * 0.08 }}
               >
                 <div className="relative aspect-video">
-                  <img
-                    src={`https://img.youtube.com/vi/${id}/maxresdefault.jpg`}
+                  <OptimizedImg
+                    src={`/images/videos/${id}.jpg`}
                     alt={title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-                    }}
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">

@@ -43,7 +43,7 @@ const dksmLogo         = "/images/partners/dksm-sm.webp";
 const noidaAirportLogo = "/images/partners/noida-sm.webp";
 const jslLogo          = "/images/partners/jsl-sm.webp";
 const relianceLogo     = "/images/partners/reliance-sm.webp";
-const thermaxLogo      = "/images/partners/thermax.webp";
+const thermaxLogo      = "/images/partners/thermax-sm.webp";
 
 
 
