@@ -172,9 +172,16 @@ export default function Product() {
     },
   ];
 
+  // Original code: missing 'w' and 'h' properties needed by OptimizedImg on line 531
+  // const techSpecs = [
+  //   { img: batteryImg, title: t.productPage.techSpecsList.battery.title, icon: Battery, desc: t.productPage.techSpecsList.battery.desc, stat: t.productPage.techSpecsList.battery.stat, statLabel: t.productPage.techSpecsList.battery.statLabel },
+  //   { img: motorImg, title: t.productPage.techSpecsList.motor.title, icon: Zap, desc: t.productPage.techSpecsList.motor.desc, stat: t.productPage.techSpecsList.motor.stat, statLabel: t.productPage.techSpecsList.motor.statLabel },
+  // ];
+
+  // Fixed code: added 'w' and 'h' dimensions to support OptimizedImg layout-shift prevention
   const techSpecs = [
-    { img: batteryImg, title: t.productPage.techSpecsList.battery.title, icon: Battery, desc: t.productPage.techSpecsList.battery.desc, stat: t.productPage.techSpecsList.battery.stat, statLabel: t.productPage.techSpecsList.battery.statLabel },
-    { img: motorImg, title: t.productPage.techSpecsList.motor.title, icon: Zap, desc: t.productPage.techSpecsList.motor.desc, stat: t.productPage.techSpecsList.motor.stat, statLabel: t.productPage.techSpecsList.motor.statLabel },
+    { img: batteryImg, title: t.productPage.techSpecsList.battery.title, icon: Battery, desc: t.productPage.techSpecsList.battery.desc, stat: t.productPage.techSpecsList.battery.stat, statLabel: t.productPage.techSpecsList.battery.statLabel, w: 500, h: 500 },
+    { img: motorImg, title: t.productPage.techSpecsList.motor.title, icon: Zap, desc: t.productPage.techSpecsList.motor.desc, stat: t.productPage.techSpecsList.motor.stat, statLabel: t.productPage.techSpecsList.motor.statLabel, w: 500, h: 500 },
   ];
 
   const FILTER_TABS: { id: Category; label: string }[] = [
