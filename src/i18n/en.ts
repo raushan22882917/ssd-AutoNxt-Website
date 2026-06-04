@@ -650,7 +650,7 @@ export const en = {
         desc: "The X25H2 brings AutoNxt's zero-emission electric drivetrain to small and medium-scale agriculture. Lighter, more manoeuvrable, and more affordable than the X45H2, it's designed for precision farming, orchard operations, and mixed-crop farms where a compact, highly efficient tractor is the right tool.",
         image: "/3dmodel/x45.glb",
         glbSrc: "/3dmodel/x45.glb",
-        status: "upcoming",
+        status: "available",
         specs: [
           { label: "Motor Power", value: "25 HP (18 kW)" },
           { label: "Battery Capacity", value: "24 kWh LFP" },
@@ -801,8 +801,8 @@ export const en = {
         name: "AutoNxt X25H2",
         slug: "x25h2",
         hp: "25HP",
-        status: "upcoming",
-        statusLabel: "Coming Soon",
+        status: "available",
+        statusLabel: "Available Now",
         desc: "Compact 25HP tractor, ideal for small-scale agriculture and precision farming. Efficient, low-cost, and perfect for small and medium farms.",
         specs: [
           { label: "Motor", value: "18 kW" },
@@ -818,8 +818,8 @@ export const en = {
         name: "AutoNxt X60H2",
         slug: "x60h2",
         hp: "60HP",
-        status: "upcoming",
-        statusLabel: "Coming Soon",
+        status: "available",
+        statusLabel: "Available Now",
         desc: "Heavy-duty 60HP tractor with advanced features for large-scale operations. A perfect balance of maximum power and zero-emission sustainability.",
         specs: [
           { label: "Motor", value: "45 kW" },
@@ -828,7 +828,7 @@ export const en = {
         ],
         accentBg: "bg-primary/5",
         accentBorder: "border-primary/20",
-        tagColor: "bg-amber-500",
+        tagColor: "bg-emerald-500",
       },
     ]
   },
@@ -897,8 +897,8 @@ export const en = {
         challenges: "Biomass operations run long shifts, often inside sheds where diesel fumes create serious air quality and fire risks. High fuel costs erode margins, and unplanned maintenance during harvest season disrupts the entire supply chain.",
         solution: "AutoNxt X45H2 delivers 45HP of instant electric torque with zero exhaust emissions, making it safe inside biomass processing facilities. With 8+ hours of runtime and a 4-hour charge cycle, facilities can run two shifts with a single tractor using overnight charging.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Primary choice for biomass haulage and baling", slug: "x45h2" },
-          { name: "AutoNxt X25H2", hp: "25 HP", img: "/images/product-autonomous.webp", note: "Ideal for small to medium biomass collection operations", slug: "x25h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/products/x45h2.webp", note: "Primary choice for biomass haulage and baling", slug: "x45h2" },
+          { name: "AutoNxt X25H2", hp: "25 HP", img: "/images/products/x25h2.webp", note: "Ideal for small to medium biomass collection operations", slug: "x25h2" },
         ],
       },
       cement: {
@@ -929,7 +929,7 @@ export const en = {
         challenges: "Cement plants consume thousands of litres of diesel per month in internal logistics alone. High ambient temperatures cause diesel engines to overheat. Emissions regulations are tightening, and plants need to demonstrate ESG progress to investors.",
         solution: "AutoNxt electric tractors generate no exhaust and run cooler in high-ambient environments. With modular battery architecture, battery packs can be serviced without taking the entire tractor offline, minimising disruption to 24/7 plant operations.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Recommended for clinker transport and heavy haulage", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/products/x45h2.webp", note: "Recommended for clinker transport and heavy haulage", slug: "x45h2" },
         ],
       },
       construction: {
@@ -955,7 +955,7 @@ export const en = {
         challenges: "Construction sites face increasing regulatory pressure on diesel emissions, particularly near urban residential zones. Fuel logistics are complex and theft-prone. Diesel engines struggle with dusty air filters and temperature extremes on exposed sites.",
         solution: "AutoNxt X45H2's sealed electric drivetrain is unaffected by dust ingress. It requires no fuel delivery and the battery can be charged overnight from the site's temporary power supply or a portable solar charging unit.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Primary choice for construction site haulage and earth prep", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/products/x45h2.webp", note: "Primary choice for construction site haulage and earth prep", slug: "x45h2" },
         ],
       },
       defence: {
@@ -981,7 +981,7 @@ export const en = {
         challenges: "Defence logistics require equipment that can operate quietly, in diverse terrain, without complex fuel logistics. Diesel generators and tractors create acoustic and thermal signatures that compromise operational security.",
         solution: "AutoNxt's electric powertraint operations are silent and generate no thermal signature, making it ideal for base perimeter operations. The modular battery pack can be charged via a field generator or vehicle-mounted solar system.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Primary recommendation for defence base logistics", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/products/x45h2.webp", note: "Primary recommendation for defence base logistics", slug: "x45h2" },
         ],
       },
       airport: {
@@ -1007,7 +1007,7 @@ export const en = {
         challenges: "Airports face strict DGCA and ICAO guidelines on ground-level emissions. Diesel ground vehicles near fuel farms create fire risks. Noise from diesel equipment disrupts ATC and passenger communications in terminal-adjacent areas.",
         solution: "AutoNxt's zero-emission, near-silent electric tractors are ideal for airside environments. They can be charged overnight in ground equipment hangars and monitored via AutoNxt's telematics platform, which can integrate with airport AODB systems.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Recommended for baggage towing and runway maintenance", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/products/x45h2.webp", note: "Recommended for baggage towing and runway maintenance", slug: "x45h2" },
         ],
       },
       metal: {
@@ -1033,7 +1033,7 @@ export const en = {
         challenges: "Metal plants face intense heat, dust, and strict air quality requirements. Diesel exhaust represents a severe occupational health risk in enclosed spaces. Extreme temperatures can also degrade standard mechanical drivetrains.",
         solution: "AutoNxt X45H2's sealed electric powertrain is immune to dust ingress and generates no exhaust. In high-ambient-temperature metal plant environments, the liquid-cooled battery pack maintains optimal temperature without the overheating issues that plague diesel engines.",
         models: [
-          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/product-ev-platform.webp", note: "Primary choice for metal plant haulage and logistics", slug: "x45h2" },
+          { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/products/x45h2.webp", note: "Primary choice for metal plant haulage and logistics", slug: "x45h2" },
         ],
       },
     }

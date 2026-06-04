@@ -7,10 +7,23 @@
  * - Prints a summary of bytes saved
  */
 
-import sharp from "sharp"
 import { readdirSync, existsSync, statSync, mkdirSync } from "fs"
 import { join, extname, basename, dirname } from "path"
 import { fileURLToPath } from "node:url"
+
+if (process.env.VERCEL === "1" || process.env.NETLIFY === "1" || process.env.CI === "true") {
+  console.log("CI/CD environment detected. Skipping image conversion. WebP assets should be committed directly to Git.");
+  process.exit(0);
+}
+
+let sharp;
+try {
+  sharp = (await import("sharp")).default;
+} catch (err) {
+  console.warn("⚠️ Warning: 'sharp' dependency is not installed or could not be loaded.");
+  console.warn("   Skipping WebP image conversion. Ensure WebPs are generated locally.");
+  process.exit(0);
+}
 
 const __dir = fileURLToPath(new URL("..", import.meta.url))
 const PUBLIC = join(__dir, "public")

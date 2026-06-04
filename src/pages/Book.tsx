@@ -9,6 +9,12 @@ import {
   Send,
   Loader2,
   AlertCircle,
+  User,
+  Calendar,
+  MessageSquare,
+  Tag,
+  Copy,
+  Check,
 } from "lucide-react";
 import { submitBooking } from "../api/bookings";
 import { useLang } from "@/contexts/LanguageContext";
@@ -19,6 +25,7 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -31,35 +38,47 @@ export default function ContactPage() {
     location: "",
   });
 
+  const handleCopy = (text: string, index: number, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(text);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 2000);
+  };
+
   const contactInfo = [
     {
       icon: Phone,
       label: t.bookPage.contactInfo.call,
       value: "+91 9067404606",
       href: "tel:+919067404606",
+      copyable: true,
     },
     {
       icon: Mail,
       label: t.bookPage.contactInfo.email,
       value: "sales@autonxt.in",
       href: "mailto:sales@autonxt.in",
+      copyable: true,
     },
     {
       icon: MapPin,
       label: t.bookPage.contactInfo.visit,
       value: t.bookPage.contactInfo.visitVal,
       href: "#",
+      copyable: false,
     },
     {
       icon: Clock,
       label: t.bookPage.contactInfo.hours,
       value: t.bookPage.contactInfo.hoursVal,
       href: "#",
+      copyable: false,
     },
   ];
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -118,162 +137,12 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white overflow-hidden">
       <SEO title={t.nav.bookNow} description="Book a test drive or pre-book your AutoNxt electric tractor. Join the switch to sustainable, smart agriculture today." />
-      {/* HERO SECTION */}
-      <section className="relative overflow-hidden bg-black pt-28 pb-20">
-        
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(239,68,68,0.18),transparent_35%)] pointer-events-none" />
-
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(220,38,38,0.12),transparent_35%)] pointer-events-none" />
-
-        <div
-          className="absolute inset-0 opacity-[0.04] pointer-events-none"
-          style={{
-            backgroundImage:
-              "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
-
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-
-            {/* LEFT CONTENT */}
-            <div>
-              <motion.div
-                className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-full px-4 py-2 mb-6"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-              >
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-
-                <span className="text-red-400 text-xs font-bold uppercase tracking-widest">
-                  {t.bookPage.tag}
-                </span>
-              </motion.div>
-
-              <motion.h1
-                className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                {t.bookPage.title}
-                <span className="text-red-500">
-                  {t.bookPage.titleHighlight}
-                </span>
-              </motion.h1>
-
-              <motion.p
-                className="text-white/65 text-lg leading-relaxed max-w-xl mb-10"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                {t.bookPage.desc}
-              </motion.p>
-
-              {/* STATS */}
-              <motion.div
-                className="flex flex-wrap gap-6"
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                {[
-                  {
-                    icon: Phone,
-                    label: t.bookPage.stats.support,
-                    value: t.bookPage.stats.supportVal,
-                  },
-                  {
-                    icon: MapPin,
-                    label: t.bookPage.stats.locations,
-                    value: t.bookPage.stats.locationsVal,
-                  },
-                  {
-                    icon: Mail,
-                    label: t.bookPage.stats.response,
-                    value: t.bookPage.stats.responseVal,
-                  },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl px-5 py-4"
-                  >
-                    <div className="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center">
-                      <item.icon className="w-5 h-5 text-red-400" />
-                    </div>
-
-                    <div>
-                      <p className="text-white/40 text-[10px] uppercase tracking-widest font-semibold">
-                        {item.label}
-                      </p>
-
-                      <p className="text-white font-bold text-sm">
-                        {item.value}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* RIGHT IMAGE GRID */}
-            <motion.div
-              className="relative hidden lg:block"
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2, duration: 0.7 }}
-            >
-              <div className="grid grid-cols-3 gap-3 h-[520px]">
-
-                {/* Large Image */}
-                <div className="col-span-2 row-span-2 rounded-[30px] overflow-hidden shadow-2xl">
-                  <img
-                    src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=900&q=80"
-                    alt="Autonxt"
-                    className="w-full h-full object-cover hover:scale-105 transition duration-700"
-                  />
-                </div>
-
-                {/* Top Right */}
-                <div className="rounded-[26px] overflow-hidden shadow-xl">
-                  <img
-                    src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80"
-                    alt="Innovation"
-                    className="w-full h-full object-cover hover:scale-105 transition duration-700"
-                  />
-                </div>
-
-                {/* Bottom Right */}
-                <div className="rounded-[26px] overflow-hidden shadow-xl">
-                  <img
-                    src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=600&q=80"
-                    alt="Technology"
-                    className="w-full h-full object-cover hover:scale-105 transition duration-700"
-                  />
-                </div>
-              </div>
-
-              {/* Floating Card */}
-              <div className="absolute -bottom-8 left-10 bg-zinc-900 border border-white/10 shadow-2xl rounded-3xl px-6 py-5 backdrop-blur-xl">
-                <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
-                  Trusted Innovation
-                </p>
-
-                <h4 className="text-white font-bold text-lg">
-                  India’s Next EV Revolution
-                </h4>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* CONTACT SECTION */}
-      <section className="pb-24 px-4">
-        <div className="max-w-7xl mx-auto">
+      <section className="pt-[80px] pb-12 px-4 bg-white relative overflow-hidden min-h-[calc(100vh-72px)] flex items-center justify-center">
+        {/* Subtle dot-matrix engineering pattern */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]" />
+
+        <div className="container mx-auto px-4 md:px-8 relative z-10 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* FORM */}
             <motion.div
@@ -281,9 +150,9 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               className="lg:col-span-2"
             >
-              <div className="rounded-[32px] border border-gray-200 bg-white shadow-xl p-8 md:p-10">
+              <div className="rounded-[32px] border border-gray-100 bg-slate-50/40 p-8 md:p-10 shadow-sm">
                 <div className="flex items-center gap-3 mb-2">
-                  <Mail className="text-red-600 w-6 h-6" />
+                  <Mail className="text-red-600 w-6 h-6 animate-pulse" />
 
                   <h2 className="text-3xl font-bold text-gray-900">
                     {t.bookPage.form.send}
@@ -296,7 +165,7 @@ export default function ContactPage() {
 
                 <form
                   onSubmit={handleSubmit}
-                  className="space-y-5"
+                  className="space-y-4"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <InputField
@@ -305,6 +174,7 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       required
+                      icon={User}
                     />
 
                     <InputField
@@ -314,6 +184,7 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      icon={Mail}
                     />
                   </div>
 
@@ -325,6 +196,7 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleChange}
                       required
+                      icon={Phone}
                     />
 
                     <InputField
@@ -332,16 +204,39 @@ export default function ContactPage() {
                       name="location"
                       value={formData.location}
                       onChange={handleChange}
+                      icon={MapPin}
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <InputField
-                      label={t.bookPage.form.model}
-                      name="tractorModel"
-                      value={formData.tractorModel}
-                      onChange={handleChange}
-                    />
+                    {/* Styled Select Dropdown for Tractor Model */}
+                    <div className="relative flex items-center">
+                      <Tag className="absolute left-4 text-gray-400 peer-focus:text-red-600 transition-colors pointer-events-none w-5 h-5 z-10" />
+                      <select
+                        name="tractorModel"
+                        value={formData.tractorModel}
+                        onChange={handleChange}
+                        className="peer w-full h-14 rounded-2xl border border-gray-200 bg-gray-50 pl-12 pr-10 text-gray-955 outline-none focus:border-red-500 focus:bg-white focus:ring-4 focus:ring-red-500/10 transition-all appearance-none cursor-pointer text-sm"
+                      >
+                        <option value="" disabled hidden></option>
+                        <option value="AutoNxt X45H2">AutoNxt X45H2 (45HP)</option>
+                        <option value="AutoNxt X60H2">AutoNxt X60H2 (60HP)</option>
+                        <option value="AutoNxt X25H2">AutoNxt X25H2 (25HP)</option>
+                        <option value="General Inquiry">General Inquiry / Other</option>
+                      </select>
+                      
+                      <div className="absolute right-4 pointer-events-none text-gray-400">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+
+                      <label className={`absolute text-gray-400 text-sm transition-all bg-white px-1 pointer-events-none ${
+                        formData.tractorModel ? "-top-2.5 text-xs text-red-600 left-5 z-10" : "left-12 top-[17px]"
+                      }`}>
+                        {t.bookPage.form.model}
+                      </label>
+                    </div>
 
                     <InputField
                       label={t.bookPage.form.date}
@@ -349,6 +244,7 @@ export default function ContactPage() {
                       type="date"
                       value={formData.preferredDate}
                       onChange={handleChange}
+                      icon={Calendar}
                     />
                   </div>
 
@@ -358,21 +254,25 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
+                    icon={MessageSquare}
                   />
 
                   {/* MESSAGE */}
-                  <div className="relative">
+                  <div className="relative flex items-start">
+                    <MessageSquare className="absolute left-4 top-4 text-gray-400 peer-focus:text-red-600 transition-colors pointer-events-none w-5 h-5 z-10" />
                     <textarea
                       name="message"
-                      rows={6}
+                      rows={4}
                       placeholder=" "
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      className="peer w-full rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 text-gray-900 outline-none focus:border-red-500 focus:bg-white resize-none transition-all"
+                      className="peer w-full rounded-2xl border border-gray-200 bg-gray-50 pl-12 pr-5 py-4 text-gray-900 outline-none focus:border-red-500 focus:bg-white focus:ring-4 focus:ring-red-500/10 resize-none transition-all text-sm"
                     />
 
-                    <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-red-600 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-not-placeholder-shown:-top-3 peer-not-placeholder-shown:text-xs bg-white px-1">
+                    <label className={`absolute text-gray-400 text-sm transition-all bg-white px-1 pointer-events-none ${
+                      formData.message ? "-top-2.5 text-xs text-red-600 left-5 z-10" : "left-12 top-[15px]"
+                    }`}>
                       {t.bookPage.form.message}
                     </label>
                   </div>
@@ -388,7 +288,7 @@ export default function ContactPage() {
                   {/* SUCCESS MESSAGE */}
                   {success && (
                     <div className="flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-700 text-sm">
-                      <CheckCircle className="w-4 h-4" />
+                      <CheckCircle className="w-4 h-4 animate-bounce" />
                       {t.bookPage.form.success}
                     </div>
                   )}
@@ -397,7 +297,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full h-14 rounded-2xl bg-red-600 text-white font-semibold text-base hover:bg-red-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg"
+                    className="w-full h-14 rounded-2xl bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold text-base hover:from-red-700 hover:to-red-800 transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg cursor-pointer hover:shadow-red-500/10"
                   >
                     {loading ? (
                       <>
@@ -415,60 +315,68 @@ export default function ContactPage() {
               </div>
             </motion.div>
 
-            {/* RIGHT SIDE */}
+             {/* RIGHT SIDE */}
             <motion.div
               initial={{ opacity: 0, x: 25 }}
               animate={{ opacity: 1, x: 0 }}
               className="space-y-6"
             >
               {/* CONTACT CARD */}
-              <div className="rounded-[32px] border border-gray-200 bg-white shadow-xl p-7">
+              <div className="rounded-[32px] border border-gray-200 bg-white shadow-xl p-8 relative overflow-hidden group hover:border-red-500/25 transition duration-300">
+                {/* Subtle top indicator bar */}
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500 to-red-600" />
+                
                 <h3 className="text-2xl font-bold text-gray-900 mb-7">
                   {t.bookPage.contactInfo.title}
                 </h3>
 
                 <div className="space-y-6">
-                  {contactInfo.map((item, index) => (
-                    <a
-                      href={item.href}
-                      key={index}
-                      className="flex items-start gap-4 group"
-                    >
-                      <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center">
-                        <item.icon className="w-5 h-5 text-red-600" />
-                      </div>
+                  {contactInfo.map((item, index) => {
+                    const isCopied = copiedIndex === index;
+                    return (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between group/item w-full"
+                      >
+                        <a
+                          href={item.href}
+                          onClick={(e) => {
+                            if (item.href === "#") e.preventDefault();
+                          }}
+                          className="flex items-start gap-4 group/link flex-1 min-w-0"
+                        >
+                          <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center group-hover/link:bg-red-600 group-hover/link:border-red-600 transition-all duration-300 shadow-sm shrink-0">
+                            <item.icon className="w-5 h-5 text-red-600 group-hover/link:text-white transition-all duration-300" />
+                          </div>
 
-                      <div>
-                        <p className="text-gray-400 text-xs uppercase tracking-widest mb-1">
-                          {item.label}
-                        </p>
+                          <div className="min-w-0">
+                            <p className="text-gray-400 text-xs uppercase tracking-widest mb-0.5">
+                              {item.label}
+                            </p>
 
-                        <p className="text-gray-800 font-medium leading-relaxed group-hover:text-red-600 transition-colors">
-                          {item.value}
-                        </p>
+                            <p className="text-gray-800 font-semibold leading-relaxed group-hover/link:text-red-600 transition-colors break-words text-sm">
+                              {item.value}
+                            </p>
+                          </div>
+                        </a>
+
+                        {item.copyable && (
+                          <button
+                            onClick={(e) => handleCopy(item.value, index, e)}
+                            className="ml-2 p-2 rounded-lg border border-gray-150 bg-gray-50 text-gray-400 hover:text-red-600 hover:bg-red-50 hover:border-red-100 transition-all duration-200 shrink-0 cursor-pointer"
+                            title="Copy to clipboard"
+                          >
+                            {isCopied ? (
+                              <Check className="w-4 h-4 text-green-600" />
+                            ) : (
+                              <Copy className="w-4 h-4" />
+                            )}
+                          </button>
+                        )}
                       </div>
-                    </a>
-                  ))}
+                    );
+                  })}
                 </div>
-              </div>
-
-              {/* CTA CARD */}
-              <div className="rounded-[32px] bg-gradient-to-br from-red-600 to-red-700 p-8 shadow-2xl text-white">
-                <p className="uppercase tracking-[3px] text-xs font-semibold mb-2 text-red-100">
-                  {t.bookPage.cta.tag}
-                </p>
-
-                <h3 className="text-3xl font-bold mb-3">
-                  {t.bookPage.cta.title}
-                </h3>
-
-                <p className="text-red-100 text-sm leading-relaxed mb-6">
-                  {t.bookPage.cta.desc}
-                </p>
-
-                <button className="w-full h-12 rounded-2xl bg-white text-red-600 font-semibold hover:bg-gray-100 transition-all">
-                  {t.bookPage.cta.btn}
-                </button>
               </div>
             </motion.div>
           </div>
@@ -486,18 +394,25 @@ function InputField({
   onChange,
   type = "text",
   required = false,
+  icon: Icon,
 }: {
   label: string;
   name: string;
   value: string;
   type?: string;
   required?: boolean;
+  icon?: React.ComponentType<{ className?: string }>;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
 }) {
   return (
-    <div className="relative">
+    <div className="relative flex items-center w-full">
+      {Icon && (
+        <div className="absolute left-4 text-gray-400 peer-focus:text-red-600 transition-colors pointer-events-none z-10">
+          <Icon className="w-5 h-5" />
+        </div>
+      )}
       <input
         type={type}
         name={name}
@@ -505,10 +420,18 @@ function InputField({
         value={value}
         onChange={onChange}
         required={required}
-        className="peer w-full h-14 rounded-2xl border border-gray-200 bg-gray-50 px-5 text-gray-900 outline-none focus:border-red-500 focus:bg-white transition-all"
+        className={`peer w-full h-14 rounded-2xl border border-gray-200 bg-gray-50 text-gray-900 outline-none focus:border-red-500 focus:bg-white focus:ring-4 focus:ring-red-500/10 transition-all text-sm ${
+          Icon ? "pl-12 pr-5" : "px-5"
+        }`}
       />
 
-      <label className="absolute left-5 top-4 text-gray-400 text-sm transition-all peer-focus:-top-3 peer-focus:text-xs peer-focus:text-red-600 peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-not-placeholder-shown:-top-3 peer-not-placeholder-shown:text-xs bg-white px-1">
+      <label className={`absolute text-gray-400 text-sm transition-all bg-white px-1 pointer-events-none ${
+        (type === "date" || value)
+          ? "-top-2.5 text-xs text-red-600 left-5 z-10"
+          : Icon
+          ? "left-12 top-[17px] peer-focus:-top-2.5 peer-focus:left-5 peer-focus:text-xs peer-focus:text-red-600 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:left-5 peer-not-placeholder-shown:text-xs z-10"
+          : "left-5 top-[17px] peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-red-600 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs z-10"
+      }`}>
         {label}
         {required && <span className="text-red-600 ml-1">*</span>}
       </label>

@@ -67,7 +67,7 @@ export default function IndustryDetail({ params }: { params: { slug: string } })
       <SEO title={industry.title} description={industry.desc} />
 
       {/* ── HEADER ── */}
-      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16">
+      <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16 lg:pb-24">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,hsl(214,65%,32%,0.12),transparent_60%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
           style={{ backgroundImage: "linear-gradient(hsl(0,0%,100%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,100%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
@@ -75,32 +75,51 @@ export default function IndustryDetail({ params }: { params: { slug: string } })
           <Link href="/industry" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors">
             <ArrowLeft className="w-4 h-4" /> {texts.allIndustries}
           </Link>
-          <div className="max-w-3xl">
-            <motion.div
-              className={`inline-flex items-center gap-2 ${industry.bg} bg-opacity-20 border border-white/10 rounded-full px-4 py-1.5 mb-6`}
-              initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-7">
+              <motion.div
+                className={`inline-flex items-center gap-2 ${industry.bg} bg-opacity-20 border border-white/10 rounded-full px-4 py-1.5 mb-6`}
+                initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+              >
+                <industry.icon className="w-3.5 h-3.5 text-primary" />
+                <span className="text-white text-xs font-bold uppercase tracking-widest">{industry.badge}</span>
+              </motion.div>
+              <motion.h1
+                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
+              >
+                {industry.title}
+              </motion.h1>
+              <motion.p
+                className="text-primary font-semibold text-lg mb-6"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.14 }}
+              >
+                {industry.tagline}
+              </motion.p>
+              <motion.p
+                className="text-white/55 text-base md:text-lg leading-relaxed"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
+              >
+                {industry.desc}
+              </motion.p>
+            </div>
+
+            <motion.div 
+              className="lg:col-span-5 relative w-full"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.22, duration: 0.6 }}
             >
-              <industry.icon className="w-3.5 h-3.5 text-primary" />
-              <span className="text-white text-xs font-bold uppercase tracking-widest">{industry.badge}</span>
+              <div className="relative h-[240px] sm:h-[300px] lg:h-[380px] rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+                <img 
+                  src={industry.image} 
+                  alt={industry.title} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              </div>
             </motion.div>
-            <motion.h1
-              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
-              initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
-            >
-              {industry.title}
-            </motion.h1>
-            <motion.p
-              className="text-primary font-semibold text-lg mb-6"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.14 }}
-            >
-              {industry.tagline}
-            </motion.p>
-            <motion.p
-              className="text-white/55 text-base md:text-lg leading-relaxed max-w-2xl"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-            >
-              {industry.desc}
-            </motion.p>
           </div>
         </div>
       </section>
