@@ -271,14 +271,3 @@ export default function TractorViewer3D({
     </ThreeErrorBoundary>
   );
 }
-
-/* ── Preload only the hero model, after browser is idle ── */
-/* Other models (battery, motor, x45, bucket) load on-demand when their section renders */
-if (typeof window !== "undefined") {
-  const preloadHero = () => useGLTF.preload("/3dmodel/hero.glb");
-  if ("requestIdleCallback" in window) {
-    requestIdleCallback(preloadHero, { timeout: 3000 });
-  } else {
-    setTimeout(preloadHero, 2000);
-  }
-}

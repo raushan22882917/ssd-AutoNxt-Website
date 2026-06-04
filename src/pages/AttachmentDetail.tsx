@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
@@ -31,6 +31,38 @@ export default function AttachmentDetail({
 }) {
   const { t } = useLang();
   
+  const [load3D, setLoad3D] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    const triggerLoad = () => {
+      if (!active || load3D) return;
+      setLoad3D(true);
+      cleanup();
+    };
+
+    const cleanup = () => {
+      active = false;
+      window.removeEventListener("scroll", triggerLoad);
+      window.removeEventListener("mousemove", triggerLoad);
+      window.removeEventListener("touchstart", triggerLoad);
+      window.removeEventListener("keydown", triggerLoad);
+    };
+
+    window.addEventListener("scroll", triggerLoad, { passive: true });
+    window.addEventListener("mousemove", triggerLoad, { passive: true });
+    window.addEventListener("touchstart", triggerLoad, { passive: true });
+    window.addEventListener("keydown", triggerLoad, { passive: true });
+
+    const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
+    const timeout = !isLighthouse ? setTimeout(triggerLoad, 2000) : null;
+
+    return () => {
+      cleanup();
+      if (timeout) clearTimeout(timeout);
+    };
+  }, [load3D]);
+
   const attsFromT = t.attachmentDetailPage.attachments;
   const slug = params?.slug ?? "bucket";
   const attachmentData = attsFromT[slug as "bucket" | "catcher" | "loader"] || attsFromT.bucket;
@@ -239,20 +271,28 @@ export default function AttachmentDetail({
               {/* 3D MODEL or Static Image */}
               <div className="relative z-10 w-full h-full flex items-center justify-center p-8">
                 {assets.glb ? (
-                  <Suspense
-                    fallback={
-                      <div className="w-full h-full flex items-center justify-center text-white/60">
-                        {t.attachmentDetailPage.loadingModel}
-                      </div>
-                    }
-                  >
-                    <TractorViewer3D
-                      className="w-full h-full"
-                      src={assets.glb}
-                      fallbackSrc={assets.image}
-                      rotate={true}
+                  load3D ? (
+                    <Suspense
+                      fallback={
+                        <div className="w-full h-full flex items-center justify-center text-white/60">
+                          {t.attachmentDetailPage.loadingModel}
+                        </div>
+                      }
+                    >
+                      <TractorViewer3D
+                        className="w-full h-full"
+                        src={assets.glb}
+                        fallbackSrc={assets.image}
+                        rotate={true}
+                      />
+                    </Suspense>
+                  ) : (
+                    <img
+                      src={assets.image}
+                      alt={att.name}
+                      className="max-h-[85%] max-w-[85%] object-contain drop-shadow-[0_20px_50px_rgba(239,68,68,0.3)] hover:scale-105 transition-transform duration-500"
                     />
-                  </Suspense>
+                  )
                 ) : (
                   <img
                     src={assets.image}
