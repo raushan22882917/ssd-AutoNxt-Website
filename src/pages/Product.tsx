@@ -14,7 +14,7 @@ import { OptimizedImg } from "@/components/ui/optimized-img";
 // Organized public image paths
 const tractor1   = "/images/products/x45h2.webp";
 const tractor2   = "/images/products/x25h2.webp";
-const tractor3   = "/images/products/h55c2.webp";
+const tractor3   = "/images/3dtractorplaceholder.webp";
 const batteryImg = "/images/products/battery.webp";
 const motorImg   = "/images/products/motor.webp";
 const fieldImg   = "/images/facility/right-wall.webp";
@@ -68,8 +68,12 @@ export default function Product() {
     };
   }, [load3D]);
 
-  const toggle3D = (slug: string) =>
-    setShow3D(prev => ({ ...prev, [slug]: !prev[slug] }));
+  const toggle3D = (slug: string) => {
+    setShow3D(prev => {
+      const isCurrentlyActive = !!prev[slug];
+      return { [slug]: !isCurrentlyActive };
+    });
+  };
 
   const showTractors    = filter === "all" || filter === "tractors";
   const showAttachments = filter === "all" || filter === "attachments";
@@ -360,7 +364,7 @@ export default function Product() {
                             {/* 3D toggle button */}
                             <button
                               onClick={() => toggle3D(tractor.slug)}
-                              className={`absolute top-4 right-4 z-10 flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full border transition-all ${
+                              className={`absolute bottom-4 right-4 z-10 flex items-center gap-1 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1.5 rounded-full border transition-all ${
                                 show3D[tractor.slug]
                                   ? "bg-primary/20 border-primary/40 text-primary"
                                   : "bg-muted border-border text-muted-foreground hover:text-foreground hover:bg-muted/80"
