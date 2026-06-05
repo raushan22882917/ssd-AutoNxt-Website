@@ -3,7 +3,6 @@
 // import TechShowcase from "@/components/home/TechShowcase";
 import SectionSkeleton from "@/components/home/SectionSkeleton";
 import LazyRender from "@/components/home/LazyRender";
-import SEO from "@/components/SEO";
 
 import { useState, useEffect, lazy, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,22 +27,21 @@ const VideoShowcase = lazy(
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
-import { ArrowRight, ChevronRight, Zap, BatteryCharging, ShieldCheck, Activity, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf, Smartphone, CheckCircle, Monitor, MapPin, Bell, Wrench, Package, Ticket, CalendarDays, QrCode, User, IndianRupee, TrendingUp, Rotate3d } from "lucide-react";
+import { ArrowRight, ChevronRight, Zap, BatteryCharging, ShieldCheck, Activity, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf, Smartphone, CheckCircle, Monitor, MapPin, Bell, Wrench, Package, Ticket, CalendarDays, QrCode, User, IndianRupee, TrendingUp } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
-import { OptimizedImg } from "@/components/ui/optimized-img";
 
 
 // Organized public image paths
-const tractor1         = "/images/products/x45h2.webp";
-const tractor2         = "/images/products/x25h2.webp";
-const fieldImg         = "/images/facility/right-wall.webp";
-const trailerImg       = "/images/facility/left-wall.webp";
-const baifLogo         = "/images/partners/baif-sm.webp";
-const dksmLogo         = "/images/partners/dksm-sm.webp";
-const noidaAirportLogo = "/images/partners/noida-sm.webp";
-const jslLogo          = "/images/partners/jsl-sm.webp";
-const relianceLogo     = "/images/partners/reliance-sm.webp";
-const thermaxLogo      = "/images/partners/thermax-sm.webp";
+const tractor1         = "/images/products/x45h2.png";
+const tractor2         = "/images/products/x25h2.png";
+const fieldImg         = "/images/facility/right-wall.jpg";
+const trailerImg       = "/images/facility/left-wall.jpg";
+const baifLogo         = "/images/partners/baif-removebg-preview.png";
+const dksmLogo         = "/images/partners/dksm-removebg-preview.png";
+const noidaAirportLogo = "/images/partners/Firefly_Gemini_Flash_change_the_colour_of_text_to_black_present_in_the_refrence_image_313537-removebg-preview.png";
+const jslLogo          = "/images/partners/jsl-removebg-preview.png";
+const relianceLogo     = "/images/partners/reliance-removebg-preview.png";
+const thermaxLogo      = "/images/partners/thermax.png";
 
 
 
@@ -77,7 +75,7 @@ const PRODUCTS_META = [
   },
   {
     img: tractor2,
-    tagColor: "bg-emerald-100/90 text-emerald-900 border-emerald-300",
+    tagColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
     accentBar: "bg-emerald-500",
     specs: [
       { icon: Zap },
@@ -108,40 +106,6 @@ const INDUSTRY_COLORS_MAP: Record<string, { color: string; border: string }> = {
 export default function Home() {
   const { t } = useLang();
 
-  // Defer 3D canvas to keep vendor-three off the critical path, loading automatically on first user interaction or a 2-second timeout
-  const [load3D, setLoad3D] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    const triggerLoad = () => {
-      if (!active || load3D) return;
-      setLoad3D(true);
-      cleanup();
-    };
-
-    const cleanup = () => {
-      active = false;
-      window.removeEventListener("scroll", triggerLoad);
-      window.removeEventListener("mousemove", triggerLoad);
-      window.removeEventListener("touchstart", triggerLoad);
-      window.removeEventListener("keydown", triggerLoad);
-    };
-
-    window.addEventListener("scroll", triggerLoad, { passive: true });
-    window.addEventListener("mousemove", triggerLoad, { passive: true });
-    window.addEventListener("touchstart", triggerLoad, { passive: true });
-    window.addEventListener("keydown", triggerLoad, { passive: true });
-
-    // Fallback safety timeout (2 seconds) - skipped for Lighthouse audits
-    const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
-    const timeout = !isLighthouse ? setTimeout(triggerLoad, 2000) : null;
-
-    return () => {
-      cleanup();
-      if (timeout) clearTimeout(timeout);
-    };
-  }, [load3D]);
-
   const teaserProducts = t.home.products.map((p, i) => ({
     ...p,
     ...PRODUCTS_META[i],
@@ -160,28 +124,29 @@ export default function Home() {
     { img: thermaxLogo,      logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
   ];
 
-
   return (
     <div className="w-full flex flex-col min-h-screen pt-16">
-      <SEO title={t.nav.home} description={t.home.heroDesc} />
 
       {/* ── HERO ── */}
       <section className="relative w-full min-h-[92vh] flex items-center overflow-hidden bg-background">
         {/* Red diagonal accent */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-primary/8 via-transparent to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent to-primary/30" />
-        {/* ── Ambient orbs — pure CSS animations (compositor thread, zero JS cost) ── */}
-        <div
+        {/* ── 3D floating ambient orbs ── */}
+        <motion.div
           className="absolute top-16 right-[18%] w-80 h-80 rounded-full bg-primary/6 blur-3xl pointer-events-none"
-          style={{ animation: "orbFloat1 9s ease-in-out infinite" }}
+          animate={{ y: [0, 32, 0], scale: [1, 1.14, 1] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         />
-        <div
+        <motion.div
           className="absolute bottom-20 left-[4%] w-96 h-96 rounded-full bg-accent/5 blur-3xl pointer-events-none"
-          style={{ animation: "orbFloat2 11s ease-in-out 2s infinite" }}
+          animate={{ y: [0, -24, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
-        <div
+        <motion.div
           className="absolute top-1/2 left-[38%] w-52 h-52 rounded-full bg-primary/4 blur-2xl pointer-events-none"
-          style={{ animation: "orbPulse 7s ease-in-out 1s infinite" }}
+          animate={{ scale: [1, 1.35, 1], opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
         {/* Decorative rings */}
         <div className="absolute top-[18%] right-[5%] w-44 h-44 rounded-full border border-primary/8 pointer-events-none" />
@@ -228,16 +193,16 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
             >
-              <Button asChild size="lg" className="h-13 px-8 text-base bg-primary text-white hover:bg-primary/90 font-semibold shadow-md">
-                <Link href="/product" data-testid="btn-explore-products">
+              <Link href="/product">
+                <Button size="lg" className="h-13 px-8 text-base bg-primary text-white hover:bg-primary/90 font-semibold shadow-md" data-testid="btn-explore-products">
                   {t.home.exploreProducts} <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="h-13 px-8 text-base border-accent text-accent hover:bg-accent hover:text-white font-semibold">
-                <Link href="/book" data-testid="btn-book-now-hero">
+                </Button>
+              </Link>
+              <Link href="/book">
+                <Button size="lg" variant="outline" className="h-13 px-8 text-base border-accent text-accent hover:bg-accent hover:text-white font-semibold" data-testid="btn-book-now-hero">
                   {t.home.bookNow}
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </motion.div>
           </div>
 
@@ -250,35 +215,14 @@ export default function Home() {
           >
             {/* Glow backdrop */}
             <div className="absolute -inset-6 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl blur-3xl pointer-events-none" />
-            {/* 3D Canvas — only mounts after window.load + idle to keep vendor-three off critical path */}
-            {load3D ? (
-              <Suspense fallback={
-                <div className="w-full h-[560px] flex items-center justify-center">
-                  <img
-                    src="/images/3dtractorplaceholder.webp"
-                    alt="AutoNxt X45H2 Electric Tractor"
-                    width={800}
-                    height={566}
-                    className="h-full object-contain drop-shadow-2xl"
-                    fetchPriority="high"
-                  />
-                </div>
-              }>
-                <TractorViewer3D src="/3dmodel/hero.glb" className="w-full h-[560px] relative z-10" showHint={true} />
-              </Suspense>
-            ) : (
-              /* Static placeholder shown during initial paint — this IS the LCP element */
+            {/* 3D Canvas */}
+            <Suspense fallback={
               <div className="w-full h-[560px] flex items-center justify-center">
-                <img
-                  src="/images/3dtractorplaceholder.webp"
-                  alt="AutoNxt X45H2 Electric Tractor"
-                  width={800}
-                  height={566}
-                  className="h-full object-contain drop-shadow-2xl"
-                  fetchPriority="high"
-                />
+                <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
               </div>
-            )}
+            }>
+              <TractorViewer3D src="/3dmodel/hero.glb" className="w-full h-[560px] relative z-10" showHint={true} />
+            </Suspense>
 
             {/* Floating spec badges */}
             <motion.div
@@ -292,14 +236,14 @@ export default function Home() {
               <p className="text-sm font-bold text-foreground">X45H2 — 45HP</p>
             </motion.div>
             <motion.div
-              className="absolute bottom-10 left-2 md:left-6 z-20 bg-emerald-950/90 backdrop-blur-sm border border-emerald-800 rounded-xl px-3 py-2 shadow-md"
+              className="absolute bottom-10 left-2 md:left-6 z-20 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 shadow-md"
               initial={{ opacity: 0, x: -16, scale: 0.85 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ delay: 1.2, duration: 0.4 }}
               whileHover={{ scale: 1.07, x: 3, transition: { duration: 0.2 } }}
             >
-              <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Zero Emissions</p>
-              <p className="text-xs font-semibold text-emerald-100">100% Electric</p>
+              <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-wider">Zero Emissions</p>
+              <p className="text-xs font-semibold text-emerald-700">100% Electric</p>
             </motion.div>
             <motion.div
               className="absolute top-[45%] left-0 md:left-2 z-20 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-3 py-2 shadow-md"
@@ -328,7 +272,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <p className="font-display text-3xl md:text-4xl font-bold text-primary mb-1">{stat.value}</p>
+                <h3 className="font-display text-3xl md:text-4xl font-bold text-primary mb-1">{stat.value}</h3>
                 <p className="text-sm font-semibold text-foreground mb-0.5">{stat.label}</p>
                 <p className="text-xs text-muted-foreground leading-snug">{stat.sub}</p>
               </motion.div>
@@ -363,12 +307,10 @@ export default function Home() {
                 >
                   {/* Logo box */}
                   <div className={`${meta.size} rounded-lg ${meta.logoBg} flex items-center justify-center flex-shrink-0 overflow-hidden p-1.5`}>
-                    <OptimizedImg
+                    <img
                       src={meta.img}
                       alt={partnerName}
                       className="h-full w-full object-contain"
-                      loading="lazy"
-                      decoding="async"
                       style={meta.blend ? { mixBlendMode: "multiply" } : undefined}
                     />
                   </div>
@@ -407,11 +349,11 @@ export default function Home() {
                 {t.home.lineupTitle}
               </motion.h2>
             </div>
-            <Button asChild variant="outline" className="mt-4 md:mt-0">
-              <Link href="/product">
+            <Link href="/product">
+              <Button variant="outline" className="mt-4 md:mt-0">
                 {t.home.viewAllModels} <ChevronRight className="w-4 h-4 ml-1" />
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
 
           {/* Product cards */}
@@ -432,13 +374,9 @@ export default function Home() {
                 {/* Image area */}
                 <div className="relative bg-muted/30 flex items-center justify-center px-8 pt-8 pb-4 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-muted/60 to-transparent pointer-events-none" />
-                  <OptimizedImg
+                  <img
                     src={p.img}
                     alt={p.name}
-                    width={800}
-                    height={566}
-                    loading="lazy"
-                    decoding="async"
                     className="h-44 object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500 relative z-10"
                   />
                   {/* Tag badge */}
@@ -468,11 +406,11 @@ export default function Home() {
                     })}
                   </div>
 
-                  <Button asChild size="sm" variant="outline" className="w-full mt-1 group-hover:border-primary group-hover:text-primary transition-colors">
-                    <Link href="/product">
+                  <Link href="/product">
+                    <Button size="sm" variant="outline" className="w-full mt-1 group-hover:border-primary group-hover:text-primary transition-colors">
                       {t.home.viewDetails} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
                 </div>
               </motion.div>
             ))}
@@ -519,13 +457,9 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
           >
-            <OptimizedImg
+            <img
               src={t.home.featureImage}
               alt={t.home.featureImageAlt}
-              width={1536}
-              height={1024}
-              loading="lazy"
-              decoding="async"
               className="w-full h-auto object-cover"
             />
           </motion.div>
@@ -563,11 +497,9 @@ export default function Home() {
                     <Card className={`bg-card border border-border ${styleMeta.border} hover:shadow-xl transition-all duration-300 h-full overflow-hidden cursor-pointer`}>
                       {/* Photo header */}
                       <div className="relative h-44 overflow-hidden">
-                        <OptimizedImg
+                        <img
                           src={sol.img}
                           alt={sol.title}
-                          loading="lazy"
-                          decoding="async"
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -622,7 +554,7 @@ export default function Home() {
 
       {/* ── FIELD PHOTO BANNER ── */}
       <section className="relative h-[420px] overflow-hidden">
-        <OptimizedImg src={fieldImg} alt="Autonxt in the Fields of India" className="w-full h-full object-cover object-center" />
+        <img src={fieldImg} alt="Autonxt in the Fields of India" className="w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto px-4 md:px-8 max-w-xl">
@@ -678,9 +610,9 @@ export default function Home() {
       {/* <section className="py-24 bg-muted/20">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center mb-14">
-            <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>{t.home.visitingPass.connectTag}</motion.p>
+            <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>Visit & Connect</motion.p>
             <motion.h2 className="font-display text-4xl md:text-5xl font-bold text-foreground" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              {t.home.visitingPass.titlePre}<span className="text-primary">{t.home.visitingPass.titleHighlight}</span>{t.home.visitingPass.titlePost}
+              Get a <span className="text-primary">Visiting Pass</span> or App
             </motion.h2>
           </div>
 
@@ -698,8 +630,8 @@ export default function Home() {
                   <Ticket className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <p className="text-[11px] text-muted-foreground font-semibold uppercase tracking-widest">{t.home.visitingPass.showroom}</p>
-                  <h3 className="font-display font-bold text-foreground text-xl">{t.home.visitingPass.bookPass}</h3>
+                  <p className="text-[11px] text-muted-foreground font-semibold uppercase tracking-widest">Factory & Showroom</p>
+                  <h3 className="font-display font-bold text-foreground text-xl">Book a Visiting Pass</h3>
                 </div>
               </div>
 
@@ -709,15 +641,15 @@ export default function Home() {
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="text-white/40 text-[9px] uppercase tracking-widest font-bold mb-0.5">AutoNxt Automation</p>
-                    <p className="text-white font-display font-bold text-base">{t.home.visitingPass.visitorPass}</p>
-                    <p className="text-white/50 text-xs mt-1">{t.home.visitingPass.hinjewadi}</p>
+                    <p className="text-white font-display font-bold text-base">VISITOR PASS</p>
+                    <p className="text-white/50 text-xs mt-1">Hinjewadi Phase 2, Pune</p>
                   </div>
                   <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center border border-primary/20">
                     <Ticket className="w-5 h-5 text-primary" />
                   </div>
                 </div>
                 <div className="mt-4 grid grid-cols-3 gap-2 border-t border-white/10 pt-3">
-                  {[{ l: t.home.visitingPass.nameLabel, v: t.home.visitingPass.blankVal }, { l: t.home.visitingPass.dateLabel, v: t.home.visitingPass.blankVal }, { l: t.home.visitingPass.purposeLabel, v: t.home.visitingPass.blankVal }].map((f, i) => (
+                  {[{ l: "Name", v: "— — —" }, { l: "Date", v: "— — —" }, { l: "Purpose", v: "— — —" }].map((f, i) => (
                     <div key={i}>
                       <p className="text-white/30 text-[8px] uppercase tracking-wider">{f.l}</p>
                       <p className="text-white/60 text-[10px] font-mono">{f.v}</p>
@@ -732,7 +664,7 @@ export default function Home() {
                     <User className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
-                      placeholder={t.home.visitingPass.namePlaceholder}
+                      placeholder="Your Full Name"
                       className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-border bg-muted/30 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -746,7 +678,7 @@ export default function Home() {
                 </div>
                 <Link href="/book">
                   <Button className="w-full bg-primary text-white hover:bg-primary/90 font-semibold gap-2">
-                    <Ticket className="w-4 h-4" /> {t.home.visitingPass.generatePass}
+                    <Ticket className="w-4 h-4" /> Generate Visiting Pass
                   </Button>
                 </Link>
               </div>
@@ -764,14 +696,14 @@ export default function Home() {
                 <div className="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 border border-primary/20">
                   <Smartphone className="w-7 h-7 text-primary" />
                 </div>
-                <p className="text-white/50 text-[11px] uppercase tracking-widest font-bold mb-2">{t.home.mobileApp.tag}</p>
-                <h3 className="font-display font-bold text-3xl mb-3">{t.home.mobileApp.titlePre}<br /><span className="text-primary">{t.home.mobileApp.titleHighlight}</span></h3>
+                <p className="text-white/50 text-[11px] uppercase tracking-widest font-bold mb-2">Mobile Application</p>
+                <h3 className="font-display font-bold text-3xl mb-3">AutoNxt<br /><span className="text-primary">on Your Phone</span></h3>
                 <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-xs">
-                  {t.home.mobileApp.desc}
+                  Book service, track your tractor, manage fleet operations, and stay updated with alerts — all from your pocket.
                 </p>
 
                 <div className="space-y-3 mb-8">
-                  {[{ icon: Bell, text: t.home.mobileApp.alert }, { icon: MapPin, text: t.home.mobileApp.gps }, { icon: Wrench, text: t.home.mobileApp.history }].map((item, i) => (
+                  {[{ icon: Bell, text: "Real-time alerts & notifications" }, { icon: MapPin, text: "Live tractor GPS tracking" }, { icon: Wrench, text: "Service booking & history" }].map((item, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center border border-white/10">
                         <item.icon className="w-4 h-4 text-primary" />
@@ -785,15 +717,15 @@ export default function Home() {
                   <a href="#" className="flex items-center gap-3 bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl px-4 py-3 transition-colors group">
                     <svg className="w-6 h-6 text-white shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
                     <div>
-                      <p className="text-white/50 text-[9px] uppercase tracking-wider">{t.home.mobileApp.downloadOn}</p>
-                      <p className="text-white font-semibold text-sm">{t.home.mobileApp.appStore}</p>
+                      <p className="text-white/50 text-[9px] uppercase tracking-wider">Download on the</p>
+                      <p className="text-white font-semibold text-sm">App Store</p>
                     </div>
                   </a>
                   <a href="#" className="flex items-center gap-3 bg-white/10 hover:bg-white/15 border border-white/15 rounded-xl px-4 py-3 transition-colors group">
                     <svg className="w-6 h-6 text-white shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.22.98.15l12.87-7.43-2.76-2.76-11.09 10.04zm-1.9-20.1a1.98 1.98 0 0 0-.28 1.04v18.6c0 .37.1.7.28 1.04l.06.06 10.42-10.42v-.24L1.34 3.6l-.06.06zm21.37 8.24-2.97-1.71-3.1 3.1 3.1 3.1 3-1.73c.85-.49.85-1.29-.03-1.76zm-19.22 9.72 11.58-11.57-2.76-2.76L1.43 19.6l.08.08.08-.06z"/></svg>
                     <div>
-                      <p className="text-white/50 text-[9px] uppercase tracking-wider">{t.home.mobileApp.getItOn}</p>
-                      <p className="text-white font-semibold text-sm">{t.home.mobileApp.googlePlay}</p>
+                      <p className="text-white/50 text-[9px] uppercase tracking-wider">Get it on</p>
+                      <p className="text-white font-semibold text-sm">Google Play</p>
                     </div>
                   </a>
                 </div>
@@ -820,21 +752,21 @@ export default function Home() {
             viewport={{ once: true }}
             className="max-w-2xl mx-auto"
           >
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">{t.home.readyToElectric}</h2>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">Ready to Go Electric?</h2>
             <p className="text-white/70 text-xl mb-10">
-              {t.home.readyToElectricDesc}
+              Join 5,000+ Indian farmers who have switched to Autonxt. Reserve your tractor today.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button asChild size="lg" className="h-13 px-10 text-base bg-primary text-white hover:bg-primary/90 font-semibold">
-                <Link href="/book" data-testid="btn-cta-book">
-                  {t.home.bookNow}
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="h-13 px-10 text-base border-white/30 text-white hover:bg-white/10 font-semibold">
-                <Link href="/about" data-testid="btn-cta-story">
-                  {t.home.ourStory}
-                </Link>
-              </Button>
+              <Link href="/book">
+                <Button size="lg" className="h-13 px-10 text-base bg-primary text-white hover:bg-primary/90 font-semibold" data-testid="btn-cta-book">
+                  Book Now
+                </Button>
+              </Link>
+              <Link href="/about">
+                <Button size="lg" variant="outline" className="h-13 px-10 text-base border-white/30 text-white hover:bg-white/10 font-semibold" data-testid="btn-cta-story">
+                  Our Story
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>
