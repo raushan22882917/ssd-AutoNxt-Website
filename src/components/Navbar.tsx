@@ -149,7 +149,14 @@ export default function Navbar() {
                 onMouseEnter={() => setHoveredIndex(6)}
               >
                 <span className="relative z-10 flex items-center gap-1">
-                  {t.nav.resources} <ChevronDown className="w-3.5 h-3.5" />
+                  {location === "/news"
+                    ? t.nav.news
+                    : location === "/blog"
+                    ? t.nav.blog
+                    : location === "/ev-blog"
+                    ? t.nav.evBlog
+                    : t.nav.resources}{" "}
+                  <ChevronDown className="w-3.5 h-3.5" />
                 </span>
                 {showUnderlineForIndex(6) && (
                   <motion.div
