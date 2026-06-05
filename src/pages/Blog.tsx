@@ -1,12 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
+import { useResourceFilter } from "@/hooks/use-resource-filter";
+import { CustomSelect } from "@/components/ui/custom-select";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight, Calendar, Clock, User, BookOpen, Users,
-  Search, ExternalLink, Zap, Tag, X
+  Search, ExternalLink, Zap, Tag, X, ChevronDown
 } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 import SEO from "@/components/SEO";
+import { ArticleSlider } from "@/components/ui/article-slider";
 
 // Simple hash → color for avatar
 function authorColor(name: string) {
@@ -36,16 +39,6 @@ const topAccents = [
 export default function Blog() {
   const { t } = useLang();
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  useEffect(() => {
-    setIsTransitioning(true);
-    const timer = setTimeout(() => setIsTransitioning(false), 300);
-    return () => clearTimeout(timer);
-  }, [searchTerm, selectedCategory]);
-
   const handleReadArticle = (url: string) => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
@@ -74,31 +67,32 @@ export default function Blog() {
     isNew: i < 2,
   }));
 
-  const categories = ["all", ...Array.from(new Set(ARTICLES.map((p: any) => p.tag)))];
-
-  // Count per category
-  const categoryCounts = categories.reduce((acc: Record<string, number>, cat) => {
-    acc[cat as string] = cat === "all"
-      ? ARTICLES.length
-      : ARTICLES.filter((p: any) => p.tag === cat).length;
-    return acc;
-  }, {});
-
-  const filteredPosts = ARTICLES.filter((post: any) => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.tag.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" ||
-      post.tag.toLowerCase() === selectedCategory.toLowerCase();
-    return matchesSearch && matchesCategory;
+  const {
+    searchTerm,
+    setSearchTerm,
+    selectedCategory,
+    setSelectedCategory,
+    isTransitioning,
+    categories,
+    categoryCounts,
+    filteredItems: filteredPosts,
+    isFilteringOrSearching,
+  } = useResourceFilter({
+    items: ARTICLES,
+    getCategory: (post: any) => post.tag,
+    searchFields: (post: any) => [post.title, post.summary, post.author, post.tag],
   });
-
-  const isFilteringOrSearching = searchTerm !== "" || selectedCategory !== "all";
   const featuredPost = filteredPosts[0];
   const regularPosts = filteredPosts.slice(1);
+
+  const selectOptions = categories.map((category) => {
+    const count = categoryCounts[category as string] ?? 0;
+    return {
+      value: category as string,
+      label: category === "all" ? `${t.blog.allCategories} (${count})` : `${category as string} (${count})`,
+    };
+  });
+  const [showAll, setShowAll] = useState(false);
 
   return (
     <div className="w-full min-h-screen bg-background">
@@ -243,9 +237,9 @@ export default function Blog() {
       {/* ── SEARCH & FILTER SECTION ── */}
       <section className="py-6 bg-muted/30 border-b border-border">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <div className="flex flex-col lg:flex-row gap-5 items-center justify-between">
+          <div className="flex flex-col md:flex-row gap-5 items-center w-full">
             {/* Search */}
-            <div className="relative w-full lg:w-[380px] shrink-0">
+            <div className="relative w-full flex-1">
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-primary w-4.5 h-4.5" aria-hidden="true" />
               <input
                 id="blog-search"
@@ -267,312 +261,355 @@ export default function Blog() {
               )}
             </div>
 
-            {/* Category pills with counts */}
-            <div className="flex flex-nowrap items-center gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0 hide-scrollbar">
-              {categories.map((category) => {
-                const isActive = selectedCategory === category;
-                const count = categoryCounts[category as string] ?? 0;
-                return (
-                  <button
-                    key={category as string}
-                    onClick={() => setSelectedCategory(category as string)}
-                    aria-pressed={isActive}
-                    aria-label={`Filter by ${category === "all" ? "all categories" : category} (${count} article${count !== 1 ? "s" : ""})`}
-                    className={`whitespace-nowrap flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${isActive
-                        ? "bg-primary text-primary-foreground shadow-md"
-                        : "bg-background border border-border text-foreground hover:bg-primary/10 hover:border-primary/30 hover:text-primary"
-                      }`}
-                  >
-                    {category === "all" ? t.blog.allCategories : (category as string)}
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isActive ? "bg-white/20 text-white" : "bg-muted text-muted-foreground"
-                      }`}>
-                      {count}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+            {/* Categories Dropdown Filter */}
+            <CustomSelect
+              value={selectedCategory}
+              onChange={setSelectedCategory}
+              options={selectOptions}
+              className="w-full md:w-[260px] shrink-0"
+            />
           </div>
         </div>
       </section>
 
-      {/* ── FEATURED POST ── */}
-      {!isFilteringOrSearching && featuredPost && (
-        <section className="pt-10 pb-4 bg-muted/10">
-          <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-            <p className="text-xs font-bold text-primary uppercase tracking-widest mb-6 flex items-center gap-2">
-              <Zap className="w-4 h-4" /> {t.blog.featured}
-            </p>
-
-            <motion.div
-              className="relative bg-card border-2 border-transparent rounded-2xl overflow-hidden group flex flex-col md:flex-row"
-              style={{
-                background: "linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box, linear-gradient(135deg, hsl(var(--primary)/0.5), hsl(214,65%,40%,0.5)) border-box",
-                boxShadow: "0 4px 30px rgba(0,0,0,0.06)"
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 60px rgba(180,30,30,0.14), 0 4px 20px rgba(0,0,0,0.06)";
-                (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 30px rgba(0,0,0,0.06)";
-                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-              }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              {/* "Editor's Pick" pulsing badge */}
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-6 z-30">
-                <div className="flex items-center gap-1.5 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                  {t.blog.editorsPick}
-                </div>
-              </div>
-
-              {/* Featured Cover */}
-              <div
-                className="relative md:w-5/12 h-64 md:h-[360px] overflow-hidden cursor-pointer shrink-0"
-                onClick={() => handleReadArticle(featuredPost.externalUrl)}
-                title="Click to read full article"
-              >
-                {featuredPost.image ? (
-                  <img
-                    src={featuredPost.image}
-                    alt={featuredPost.title}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="eager"
-                  />
-                ) : (
-                  <div className={`absolute inset-0 w-full h-full ${getGradient(featuredPost.id)} group-hover:scale-110 transition-transform duration-700`} />
-                )}
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay pointer-events-none" />
-
-                {/* Category */}
-                <div className="absolute top-4 left-4" onClick={(e) => e.stopPropagation()}>
-                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg backdrop-blur-md bg-white/90 text-black">
-                    {featuredPost.tag}
-                  </span>
+      {/* ── SINGLE ARTICLE SLIDER ── */}
+      <section className="pt-10 pb-6 bg-muted/5">
+        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+          <ArticleSlider
+            items={filteredPosts}
+            noItemsMessage={t.blog.noArticlesFound}
+            noItemsDesc={t.blog.noArticlesDesc}
+            showAll={showAll}
+            setShowAll={setShowAll}
+            renderCard={(post: any) => (
+              <div className="bg-card border border-border rounded-2xl overflow-hidden group flex flex-col md:flex-row shadow-md relative">
+                <div
+                  className="relative md:w-5/12 h-60 md:h-[300px] overflow-hidden cursor-pointer shrink-0"
+                  onClick={() => handleReadArticle(post.externalUrl)}
+                >
+                  {post.image ? (
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="absolute inset-0 w-full h-full object-contain bg-muted/40 group-hover:scale-105 transition-transform duration-700"
+                      loading="eager"
+                    />
+                  ) : (
+                    <div className={`absolute inset-0 w-full h-full ${getGradient(post.id)}`} />
+                  )}
+                  <div className="absolute top-4 left-4">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md backdrop-blur-md bg-white/95 text-black">
+                      {post.tag}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Hover CTA */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 bg-white/95 text-black px-5 py-2.5 rounded-full text-sm font-bold shadow-xl tracking-wider flex items-center gap-2">
-                    {t.blog.readArticle} <ArrowRight className="w-4 h-4" />
+                <div className="p-6 md:p-8 md:w-7/12 flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-3 text-xs text-muted-foreground font-medium">
+                    <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{post.date}</span>
+                    <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
+                  </div>
+                  <h3
+                    className="font-display text-lg md:text-xl font-bold text-foreground mb-3 hover:text-primary transition-colors cursor-pointer leading-tight line-clamp-2"
+                    onClick={() => handleReadArticle(post.externalUrl)}
+                  >
+                    {post.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
+                    {post.summary}
+                  </p>
+                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50 text-muted-foreground text-xs font-medium">
+                    <span className="flex items-center gap-2">
+                      <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${authorColor(post.author)} flex items-center justify-center text-white text-[10px] font-bold shadow-sm`}>
+                        {post.author.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
+                      </div>
+                      <span className="font-medium text-foreground/70">{post.author}</span>
+                    </span>
+                    <button
+                      onClick={() => handleReadArticle(post.externalUrl)}
+                      className="flex items-center gap-1 text-primary hover:text-primary/80 font-semibold transition-colors"
+                    >
+                      Read Article <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
               </div>
+            )}
+          />
+        </div>
+      </section>
 
-              {/* Featured content */}
-              <div className="p-6 md:p-8 md:w-7/12 flex flex-col justify-center bg-card/50 backdrop-blur-xl z-10">
-                <div className="flex flex-wrap gap-3 items-center mb-4 text-xs text-muted-foreground font-medium">
-                  <span className="flex items-center gap-1.5 bg-muted px-2 py-1 rounded-md">
-                    <Calendar className="w-3 h-3" />{featuredPost.date}
-                  </span>
-                  <span className="flex items-center gap-1.5 bg-muted px-2 py-1 rounded-md">
-                    <Clock className="w-3 h-3" />{featuredPost.readTime}
-                  </span>
-                </div>
-
-                <h2
-                  className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3 hover:text-primary transition-colors cursor-pointer leading-tight line-clamp-2"
-                  onClick={() => handleReadArticle(featuredPost.externalUrl)}
-                >
-                  {featuredPost.title}
-                </h2>
-                <p className="text-muted-foreground/90 text-sm md:text-base leading-relaxed mb-6 line-clamp-3">
-                  {featuredPost.summary}
+      {/* ── FEATURED POST & ARTICLES GRID ── */}
+      {showAll && (
+        <>
+          {/* ── FEATURED POST ── */}
+          {!isFilteringOrSearching && featuredPost && (
+            <section className="pt-10 pb-4 bg-muted/10">
+              <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-6 flex items-center gap-2">
+                  <Zap className="w-4 h-4" /> {t.blog.featured}
                 </p>
 
-                {/* Author */}
-                <div className="flex items-center gap-3 mb-6">
-                  <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${authorColor(featuredPost.author)} flex items-center justify-center text-white text-xs font-bold shadow-md`}>
-                    {featuredPost.author.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">{t.blog.authorLabel}</p>
-                    <p className="text-sm font-semibold">{featuredPost.author}</p>
-                  </div>
-                </div>
-
-                <Button
-                  onClick={() => handleReadArticle(featuredPost.externalUrl)}
-                  className="bg-primary text-white hover:bg-primary/90 w-fit rounded-full px-6 py-5 shadow-lg shadow-primary/20 transition-all hover:-translate-y-1"
-                >
-                  {t.blog.readFull} <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      )}
-
-      {/* ── ARTICLES GRID ── */}
-      <section className="pt-4 pb-14 bg-background">
-        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <span className="font-display text-4xl font-black text-primary/10 leading-none select-none">
-                {isFilteringOrSearching ? "—" : "02"}
-              </span>
-              <p className="text-xs font-bold text-primary uppercase tracking-widest">
-                {isFilteringOrSearching ? `${t.blog.allPosts} (${filteredPosts.length})` : t.blog.allPosts}
-              </p>
-            </div>
-          </div>
-
-          {isTransitioning ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((n) => (
-                <div key={n} className="bg-card border border-border/60 rounded-3xl overflow-hidden flex flex-col h-full">
-                  <div className="h-52 bg-muted/60 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
-                  </div>
-                  <div className="p-6 flex flex-col flex-1 space-y-4">
-                    <div className="h-4 bg-muted/60 rounded w-1/3 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
-                    </div>
-                    <div className="space-y-2">
-                      <div className="h-3.5 bg-muted/60 rounded w-full relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
-                      </div>
-                      <div className="h-3.5 bg-muted/60 rounded w-5/6 relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
-                      </div>
-                    </div>
-                    <div className="pt-4 border-t border-border/50 flex justify-between items-center mt-auto">
-                      <div className="h-5 bg-muted/60 rounded w-1/2 relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
-                      </div>
-                      <div className="h-5 bg-muted/60 rounded w-1/4 relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : filteredPosts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {(isFilteringOrSearching ? filteredPosts : regularPosts).map((post: any, i: number) => (
                 <motion.div
-                  key={post.id}
-                  className="bg-card border border-border/60 rounded-3xl transition-all duration-300 group flex flex-col overflow-hidden relative card-lift"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ delay: (i % 3) * 0.08, duration: 0.5, ease: "easeOut" }}
+                  className="relative bg-card border-2 border-transparent rounded-2xl overflow-hidden group flex flex-col md:flex-row"
+                  style={{
+                    background: "linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box, linear-gradient(135deg, hsl(var(--primary)/0.5), hsl(214,65%,40%,0.5)) border-box",
+                    boxShadow: "0 4px 30px rgba(0,0,0,0.06)"
+                  }}
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(180,30,30,0.12)";
-                    (e.currentTarget as HTMLElement).style.borderColor = "hsl(0,72%,50%,0.35)";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 60px rgba(180,30,30,0.14), 0 4px 20px rgba(0,0,0,0.06)";
+                    (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
                   }}
                   onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = "";
-                    (e.currentTarget as HTMLElement).style.borderColor = "";
+                    (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 30px rgba(0,0,0,0.06)";
+                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
                   }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                 >
-                  {/* Top gradient accent line */}
-                  <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${post.accent} rounded-t-3xl z-10`} />
-
-                  {/* "New" badge */}
-                  {post.isNew && (
-                    <div className="absolute top-5 left-4 z-20">
-                      <span className="bg-primary text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-md animate-pulse">
-                        {t.blog.newBadge}
-                      </span>
+                  {/* "Editor's Pick" pulsing badge */}
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-6 z-30">
+                    <div className="flex items-center gap-1.5 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      {t.blog.editorsPick}
                     </div>
-                  )}
+                  </div>
 
-                  {/* Card Cover */}
+                  {/* Featured Cover */}
                   <div
-                    className="relative h-52 w-full overflow-hidden cursor-pointer"
-                    onClick={() => handleReadArticle(post.externalUrl)}
-                    title={t.blog.readArticle}
+                    className="relative md:w-5/12 h-64 md:h-[360px] overflow-hidden cursor-pointer shrink-0"
+                    onClick={() => handleReadArticle(featuredPost.externalUrl)}
+                    title="Click to read full article"
                   >
-                    {post.image ? (
+                    {featuredPost.image ? (
                       <img
-                        src={post.image}
-                        alt={post.title}
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        loading="lazy"
+                        src={featuredPost.image}
+                        alt={featuredPost.title}
+                        className="absolute inset-0 w-full h-full object-contain bg-muted/40 group-hover:scale-105 transition-transform duration-700"
+                        loading="eager"
                       />
                     ) : (
-                      <div className={`absolute inset-0 w-full h-full ${getGradient(post.id)} group-hover:scale-110 transition-transform duration-700`} />
+                      <div className={`absolute inset-0 w-full h-full ${getGradient(featuredPost.id)} group-hover:scale-110 transition-transform duration-700`} />
                     )}
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay pointer-events-none" />
 
-                    {/* Category tag */}
-                    <div className={`absolute ${post.isNew ? "top-4 left-16" : "top-4 left-4"}`} onClick={(e) => e.stopPropagation()}>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md backdrop-blur-md bg-white/95 text-black">
-                        {post.tag}
+                    {/* Category */}
+                    <div className="absolute top-4 left-4" onClick={(e) => e.stopPropagation()}>
+                      <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg backdrop-blur-md bg-white/90 text-black">
+                        {featuredPost.tag}
                       </span>
-                    </div>
-
-                    {/* External link */}
-                    <div className="absolute top-4 right-4">
-                      <div className="bg-black/30 backdrop-blur-md rounded-full p-2 transition-all group-hover:scale-110 group-hover:bg-primary/80">
-                        <ExternalLink className="w-3.5 h-3.5 text-white" />
-                      </div>
                     </div>
 
                     {/* Hover CTA */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                      <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 bg-white/95 text-black px-5 py-2.5 rounded-full text-xs font-bold shadow-lg tracking-wider">
-                        {t.blog.readArticle}
+                      <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 bg-white/95 text-black px-5 py-2.5 rounded-full text-sm font-bold shadow-xl tracking-wider flex items-center gap-2">
+                        {t.blog.readArticle} <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>
                   </div>
 
-                  {/* Card Content */}
-                  <div className="p-6 flex flex-col flex-1 bg-gradient-to-b from-transparent to-muted/10">
-                    <div className="flex items-center gap-3 mb-3 text-[11px] font-medium text-muted-foreground">
-                      <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{post.date}</span>
-                      <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
+                  {/* Featured content */}
+                  <div className="p-6 md:p-8 md:w-7/12 flex flex-col justify-center bg-card/50 backdrop-blur-xl z-10">
+                    <div className="flex flex-wrap gap-3 items-center mb-4 text-xs text-muted-foreground font-medium">
+                      <span className="flex items-center gap-1.5 bg-muted px-2 py-1 rounded-md">
+                        <Calendar className="w-3.5 h-3.5" />{featuredPost.date}
+                      </span>
+                      <span className="flex items-center gap-1.5 bg-muted px-2 py-1 rounded-md">
+                        <Clock className="w-3.5 h-3.5" />{featuredPost.readTime}
+                      </span>
                     </div>
 
-                    <h3
-                      className="font-bold text-foreground text-lg leading-snug mb-3 hover:text-primary transition-colors cursor-pointer line-clamp-2"
-                      onClick={() => handleReadArticle(post.externalUrl)}
+                    <h2
+                      className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3 hover:text-primary transition-colors cursor-pointer leading-tight line-clamp-2"
+                      onClick={() => handleReadArticle(featuredPost.externalUrl)}
                     >
-                      {post.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-5 line-clamp-3 flex-1">
-                      {post.summary}
+                      {featuredPost.title}
+                    </h2>
+                    <p className="text-muted-foreground/90 text-sm md:text-base leading-relaxed mb-6 line-clamp-3">
+                      {featuredPost.summary}
                     </p>
 
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50 text-muted-foreground text-xs font-medium">
-                      <span className="flex items-center gap-2">
-                        {/* Author avatar with initials */}
-                        <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${authorColor(post.author)} flex items-center justify-center text-white text-[10px] font-bold shadow-sm`}>
-                          {post.author.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
-                        </div>
-                        <span className="font-medium text-foreground/70">{post.author}</span>
-                      </span>
-                      <button
-                        onClick={() => handleReadArticle(post.externalUrl)}
-                        className="flex items-center gap-1 text-primary/70 hover:text-primary font-semibold transition-colors"
-                      >
-                        {t.blog.readAction} <ArrowRight className="w-3 h-3" />
-                      </button>
+                    {/* Author */}
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${authorColor(featuredPost.author)} flex items-center justify-center text-white text-[10px] font-bold shadow-md`}>
+                        {featuredPost.author.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
+                      </div>
+                      <div>
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">{t.blog.authorLabel}</p>
+                        <p className="text-sm font-semibold">{featuredPost.author}</p>
+                      </div>
                     </div>
+
+                    <Button
+                      onClick={() => handleReadArticle(featuredPost.externalUrl)}
+                      className="bg-primary text-white hover:bg-primary/90 w-fit rounded-full px-6 py-5 shadow-lg shadow-primary/20 transition-all hover:-translate-y-1"
+                    >
+                      {t.blog.readFull} <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
                   </div>
                 </motion.div>
-              ))}
-            </div>
-          ) : (
-            <motion.div
-              className="text-center py-20 max-w-md mx-auto bg-muted/20 rounded-3xl border border-border border-dashed"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            >
-              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-muted-foreground/60" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-foreground">{t.blog.noArticlesFound}</h3>
-              <p className="text-sm text-muted-foreground">{t.blog.noArticlesDesc}</p>
-            </motion.div>
+            </section>
           )}
-        </div>
-      </section>
+
+          {/* ── ARTICLES GRID ── */}
+          <section className="pt-4 pb-14 bg-background">
+            <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-3">
+                  <span className="font-display text-4xl font-black text-primary/10 leading-none select-none">
+                    {isFilteringOrSearching ? "—" : "02"}
+                  </span>
+                  <p className="text-xs font-bold text-primary uppercase tracking-widest">
+                    {isFilteringOrSearching ? `${t.blog.allPosts} (${filteredPosts.length})` : t.blog.allPosts}
+                  </p>
+                </div>
+              </div>
+
+              {isTransitioning ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {[1, 2, 3].map((n) => (
+                    <div key={n} className="bg-card border border-border/60 rounded-3xl overflow-hidden flex flex-col h-full">
+                      <div className="h-52 bg-muted/60 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
+                      </div>
+                      <div className="p-6 flex flex-col flex-1 space-y-4">
+                        <div className="h-4 bg-muted/60 rounded w-1/3 relative overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
+                        </div>
+                        <div className="space-y-2">
+                          <div className="h-3.5 bg-muted/60 rounded w-full relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
+                          </div>
+                          <div className="h-3.5 bg-muted/60 rounded w-5/6 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
+                          </div>
+                        </div>
+                        <div className="pt-4 border-t border-border/50 flex justify-between items-center mt-auto">
+                          <div className="h-5 bg-muted/60 rounded w-1/2 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
+                          </div>
+                          <div className="h-5 bg-muted/60 rounded w-1/4 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : filteredPosts.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {(isFilteringOrSearching ? filteredPosts : regularPosts).map((post: any, i: number) => (
+                    <motion.div
+                      key={post.id}
+                      className="bg-card border border-border/60 rounded-3xl transition-all duration-300 group flex flex-col overflow-hidden relative card-lift"
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ delay: (i % 3) * 0.08, duration: 0.5, ease: "easeOut" }}
+                      onMouseEnter={e => {
+                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(180,30,30,0.12)";
+                        (e.currentTarget as HTMLElement).style.borderColor = "hsl(0,72%,50%,0.35)";
+                      }}
+                      onMouseLeave={e => {
+                        (e.currentTarget as HTMLElement).style.boxShadow = "";
+                        (e.currentTarget as HTMLElement).style.borderColor = "";
+                      }}
+                    >
+                      {/* Top gradient accent line */}
+                      <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${post.accent} rounded-t-3xl z-10`} />
+
+                      {/* "New" badge */}
+                      {post.isNew && (
+                        <div className="absolute top-5 left-4 z-20">
+                          <span className="bg-primary text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-md animate-pulse">
+                            {t.blog.newBadge}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Card Cover */}
+                      <div
+                        className="relative h-52 w-full overflow-hidden cursor-pointer"
+                        onClick={() => handleReadArticle(post.externalUrl)}
+                        title={t.blog.readArticle}
+                      >
+                        {post.image ? (
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            className="absolute inset-0 w-full h-full object-contain bg-muted/40 group-hover:scale-105 transition-transform duration-700"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className={`absolute inset-0 w-full h-full ${getGradient(post.id)} group-hover:scale-110 transition-transform duration-700`} />
+                        )}
+                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay pointer-events-none" />
+
+                        {/* Category tag */}
+                        <div className={`absolute ${post.isNew ? "top-4 left-16" : "top-4 left-4"}`} onClick={(e) => e.stopPropagation()}>
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md backdrop-blur-md bg-white/95 text-black">
+                            {post.tag}
+                          </span>
+                        </div>
+
+                        {/* External link */}
+                        <div className="absolute top-4 right-4">
+                          <div className="bg-black/30 backdrop-blur-md rounded-full p-2 transition-all group-hover:scale-110 group-hover:bg-primary/80">
+                            <ExternalLink className="w-3.5 h-3.5 text-white" />
+                          </div>
+                        </div>
+
+                        {/* Hover CTA */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 bg-white/95 text-black px-5 py-2.5 rounded-full text-xs font-bold shadow-lg tracking-wider">
+                            {t.blog.readArticle}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="p-6 flex flex-col flex-1 bg-gradient-to-b from-transparent to-muted/10">
+                        <div className="flex items-center gap-3 mb-3 text-[11px] font-medium text-muted-foreground">
+                          <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{post.date}</span>
+                          <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
+                        </div>
+
+                        <h3
+                          className="font-bold text-foreground text-lg leading-snug mb-3 hover:text-primary transition-colors cursor-pointer line-clamp-2"
+                          onClick={() => handleReadArticle(post.externalUrl)}
+                        >
+                          {post.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed mb-5 line-clamp-3 flex-1">
+                          {post.summary}
+                        </p>
+
+                        <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50 text-muted-foreground text-xs font-medium">
+                          <span className="flex items-center gap-2">
+                            {/* Author avatar with initials */}
+                            <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${authorColor(post.author)} flex items-center justify-center text-white text-[10px] font-bold shadow-sm`}>
+                              {post.author.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
+                            </div>
+                            <span className="font-medium text-foreground/70">{post.author}</span>
+                          </span>
+                          <button
+                            onClick={() => handleReadArticle(post.externalUrl)}
+                            className="flex items-center gap-1 text-primary/70 hover:text-primary font-semibold transition-colors"
+                          >
+                            {t.blog.readAction} <ArrowRight className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </section>
+        </>
+      )}
 
       {/* ── CTA ── */}
       <section className="py-14 relative overflow-hidden bg-gradient-to-r from-red-700 via-primary to-red-950">
