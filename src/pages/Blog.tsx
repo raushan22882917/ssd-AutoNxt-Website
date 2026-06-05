@@ -82,8 +82,6 @@ export default function Blog() {
     getCategory: (post: any) => post.tag,
     searchFields: (post: any) => [post.title, post.summary, post.author, post.tag],
   });
-  const featuredPost = filteredPosts[0];
-  const regularPosts = filteredPosts.slice(1);
 
   const selectOptions = categories.map((category) => {
     const count = categoryCounts[category as string] ?? 0;
@@ -164,23 +162,23 @@ export default function Blog() {
               <div className="grid grid-cols-3 gap-2 h-[420px]">
                 <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden relative group">
                   <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-                    style={{ backgroundImage: `url(${featuredPost?.image || "/images/blog/future-of-farming.webp"})` }} />
+                    style={{ backgroundImage: `url(${ARTICLES[0]?.image || "/images/blog/future-of-farming.webp"})` }} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                   <div className="absolute inset-0 flex flex-col justify-end p-6">
                     <BookOpen className="w-10 h-10 text-white/70 mb-3 drop-shadow-lg" />
                     <h3 className="text-white font-bold text-2xl drop-shadow-lg leading-tight">
-                      {featuredPost?.title || "Insights & Updates"}
+                       {ARTICLES[0]?.title || "Insights & Updates"}
                     </h3>
                   </div>
                 </div>
                 <div className="rounded-tr-2xl overflow-hidden relative group">
                   <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-                    style={{ backgroundImage: `url(${regularPosts[0]?.image || "/images/blog/game-changing-electric-tractor.webp"})` }} />
+                    style={{ backgroundImage: `url(${ARTICLES[1]?.image || "/images/blog/game-changing-electric-tractor.webp"})` }} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                 </div>
                 <div className="overflow-hidden relative group">
                   <div className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
-                    style={{ backgroundImage: `url(${regularPosts[1]?.image || "/images/blog/technology-behind-autonxt.webp"})` }} />
+                    style={{ backgroundImage: `url(${ARTICLES[2]?.image || "/images/blog/technology-behind-autonxt.webp"})` }} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                 </div>
               </div>
@@ -339,168 +337,50 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* ── FEATURED POST & ARTICLES GRID ── */}
+      {/* ── ARTICLES GRID ── */}
       {showAll && (
-        <>
-          {/* ── FEATURED POST ── */}
-          {!isFilteringOrSearching && featuredPost && (
-            <section className="pt-10 pb-4 bg-muted/10">
-              <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-6 flex items-center gap-2">
-                  <Zap className="w-4 h-4" /> {t.blog.featured}
-                </p>
+        <section className="pt-4 pb-14 bg-background">
+          <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+            <div className="flex items-center gap-3 mb-8">
+              <p className="text-xs font-bold text-primary uppercase tracking-widest">
+                {`${t.blog.allPosts} (${filteredPosts.length})`}
+              </p>
+            </div>
 
-                <motion.div
-                  className="relative bg-card border-2 border-transparent rounded-2xl overflow-hidden group flex flex-col md:flex-row"
-                  style={{
-                    background: "linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box, linear-gradient(135deg, hsl(var(--primary)/0.5), hsl(214,65%,40%,0.5)) border-box",
-                    boxShadow: "0 4px 30px rgba(0,0,0,0.06)"
-                  }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 60px rgba(180,30,30,0.14), 0 4px 20px rgba(0,0,0,0.06)";
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 30px rgba(0,0,0,0.06)";
-                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                >
-                  {/* "Editor's Pick" pulsing badge */}
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-6 z-30">
-                    <div className="flex items-center gap-1.5 bg-primary text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                      {t.blog.editorsPick}
+            {isTransitioning ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[1, 2, 3].map((n) => (
+                  <div key={n} className="bg-card border border-border/60 rounded-3xl overflow-hidden flex flex-col h-full">
+                    <div className="h-52 bg-muted/60 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
                     </div>
-                  </div>
-
-                  {/* Featured Cover */}
-                  <div
-                    className="relative md:w-5/12 h-64 md:h-[360px] overflow-hidden cursor-pointer shrink-0"
-                    onClick={() => handleReadArticle(featuredPost.externalUrl)}
-                    title="Click to read full article"
-                  >
-                    {featuredPost.image ? (
-                      <img
-                        src={featuredPost.image}
-                        alt={featuredPost.title}
-                        className="absolute inset-0 w-full h-full object-contain bg-muted/40 group-hover:scale-105 transition-transform duration-700"
-                        loading="eager"
-                      />
-                    ) : (
-                      <div className={`absolute inset-0 w-full h-full ${getGradient(featuredPost.id)} group-hover:scale-110 transition-transform duration-700`} />
-                    )}
-                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay pointer-events-none" />
-
-                    {/* Category */}
-                    <div className="absolute top-4 left-4" onClick={(e) => e.stopPropagation()}>
-                      <span className="text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-lg backdrop-blur-md bg-white/90 text-black">
-                        {featuredPost.tag}
-                      </span>
-                    </div>
-
-                    {/* Hover CTA */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                      <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 bg-white/95 text-black px-5 py-2.5 rounded-full text-sm font-bold shadow-xl tracking-wider flex items-center gap-2">
-                        {t.blog.readArticle} <ArrowRight className="w-4 h-4" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Featured content */}
-                  <div className="p-6 md:p-8 md:w-7/12 flex flex-col justify-center bg-card/50 backdrop-blur-xl z-10">
-                    <div className="flex flex-wrap gap-3 items-center mb-4 text-xs text-muted-foreground font-medium">
-                      <span className="flex items-center gap-1.5 bg-muted px-2 py-1 rounded-md">
-                        <Calendar className="w-3.5 h-3.5" />{featuredPost.date}
-                      </span>
-                      <span className="flex items-center gap-1.5 bg-muted px-2 py-1 rounded-md">
-                        <Clock className="w-3.5 h-3.5" />{featuredPost.readTime}
-                      </span>
-                    </div>
-
-                    <h2
-                      className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3 hover:text-primary transition-colors cursor-pointer leading-tight line-clamp-2"
-                      onClick={() => handleReadArticle(featuredPost.externalUrl)}
-                    >
-                      {featuredPost.title}
-                    </h2>
-                    <p className="text-muted-foreground/90 text-sm md:text-base leading-relaxed mb-6 line-clamp-3">
-                      {featuredPost.summary}
-                    </p>
-
-                    {/* Author */}
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${authorColor(featuredPost.author)} flex items-center justify-center text-white text-[10px] font-bold shadow-md`}>
-                        {featuredPost.author.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
-                      </div>
-                      <div>
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">{t.blog.authorLabel}</p>
-                        <p className="text-sm font-semibold">{featuredPost.author}</p>
-                      </div>
-                    </div>
-
-                    <Button
-                      onClick={() => handleReadArticle(featuredPost.externalUrl)}
-                      className="bg-primary text-white hover:bg-primary/90 w-fit rounded-full px-6 py-5 shadow-lg shadow-primary/20 transition-all hover:-translate-y-1"
-                    >
-                      {t.blog.readFull} <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </div>
-                </motion.div>
-              </div>
-            </section>
-          )}
-
-          {/* ── ARTICLES GRID ── */}
-          <section className="pt-4 pb-14 bg-background">
-            <div className="container mx-auto px-4 md:px-8 max-w-5xl">
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                  <span className="font-display text-4xl font-black text-primary/10 leading-none select-none">
-                    {isFilteringOrSearching ? "—" : "02"}
-                  </span>
-                  <p className="text-xs font-bold text-primary uppercase tracking-widest">
-                    {isFilteringOrSearching ? `${t.blog.allPosts} (${filteredPosts.length})` : t.blog.allPosts}
-                  </p>
-                </div>
-              </div>
-
-              {isTransitioning ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {[1, 2, 3].map((n) => (
-                    <div key={n} className="bg-card border border-border/60 rounded-3xl overflow-hidden flex flex-col h-full">
-                      <div className="h-52 bg-muted/60 relative overflow-hidden">
+                    <div className="p-6 flex flex-col flex-1 space-y-4">
+                      <div className="h-4 bg-muted/60 rounded w-1/3 relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
                       </div>
-                      <div className="p-6 flex flex-col flex-1 space-y-4">
-                        <div className="h-4 bg-muted/60 rounded w-1/3 relative overflow-hidden">
+                      <div className="space-y-2">
+                        <div className="h-3.5 bg-muted/60 rounded w-full relative overflow-hidden">
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
                         </div>
-                        <div className="space-y-2">
-                          <div className="h-3.5 bg-muted/60 rounded w-full relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
-                          </div>
-                          <div className="h-3.5 bg-muted/60 rounded w-5/6 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
-                          </div>
+                        <div className="h-3.5 bg-muted/60 rounded w-5/6 relative overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
                         </div>
-                        <div className="pt-4 border-t border-border/50 flex justify-between items-center mt-auto">
-                          <div className="h-5 bg-muted/60 rounded w-1/2 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
-                          </div>
-                          <div className="h-5 bg-muted/60 rounded w-1/4 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
-                          </div>
+                      </div>
+                      <div className="pt-4 border-t border-border/50 flex justify-between items-center mt-auto">
+                        <div className="h-5 bg-muted/60 rounded w-1/2 relative overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
+                        </div>
+                        <div className="h-5 bg-muted/60 rounded w-1/4 relative overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
-              ) : filteredPosts.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {(isFilteringOrSearching ? filteredPosts : regularPosts).map((post: any, i: number) => (
+                  </div>
+                ))}
+              </div>
+            ) : filteredPosts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredPosts.map((post: any, i: number) => (
                     <motion.div
                       key={post.id}
                       className="bg-card border border-border/60 rounded-3xl transition-all duration-300 group flex flex-col overflow-hidden relative card-lift"
@@ -608,7 +488,6 @@ export default function Blog() {
               ) : null}
             </div>
           </section>
-        </>
       )}
 
       {/* ── CTA ── */}

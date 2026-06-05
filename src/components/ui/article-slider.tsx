@@ -2,7 +2,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useArticleSlider } from "@/hooks/use-article-slider";
-import { ReactNode } from "react";
+import { ReactNode, useRef } from "react";
+import { useLang } from "@/contexts/LanguageContext";
 
 interface ArticleSliderProps<T> {
   items: T[];
@@ -21,7 +22,9 @@ export function ArticleSlider<T>({
   showAll,
   setShowAll,
 }: ArticleSliderProps<T>) {
+  const { t } = useLang();
   const { currentIndex, setCurrentIndex, handleNext, handlePrev } = useArticleSlider(items.length);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   if (items.length === 0) {
     return (
@@ -33,8 +36,26 @@ export function ArticleSlider<T>({
     );
   }
 
+  const handleToggleShowAll = () => {
+    const nextShowAll = !showAll;
+    setShowAll(nextShowAll);
+    if (nextShowAll) {
+      // Allow list state rendering to complete, then slide down smoothly
+      setTimeout(() => {
+        if (sliderRef.current) {
+          const rect = sliderRef.current.getBoundingClientRect();
+          const targetY = window.scrollY + rect.bottom;
+          window.scrollTo({
+            top: targetY - 40, // subtract minor padding so that the start of the grid is beautifully aligned
+            behavior: "smooth",
+          });
+        }
+      }, 150);
+    }
+  };
+
   return (
-    <div className="relative">
+    <div ref={sliderRef} className="relative">
       <div className="relative flex items-center justify-between gap-4">
         {/* Arrow Left */}
         {items.length > 1 && (
@@ -92,10 +113,10 @@ export function ArticleSlider<T>({
 
       <div className="flex justify-center mt-8">
         <Button
-          onClick={() => setShowAll(!showAll)}
+          onClick={handleToggleShowAll}
           className="bg-primary text-white hover:bg-primary/90 rounded-full px-8 py-5 shadow-md font-bold transition-all cursor-pointer"
         >
-          {showAll ? "Collapse List" : "Explore All"}
+          {showAll ? t.common.collapseList : t.common.exploreAll}
         </Button>
       </div>
     </div>
