@@ -133,30 +133,32 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white overflow-hidden">
       <SEO title={t.nav.bookNow} description="Book a test drive or pre-book your AutoNxt electric tractor. Join the switch to sustainable, smart agriculture today." />
       {/* CONTACT SECTION */}
-      <section className="pt-[80px] pb-12 px-4 bg-white relative overflow-hidden min-h-[calc(100vh-72px)] flex items-center justify-center">
+      <section className="pt-[76px] pb-8 px-4 bg-white relative overflow-hidden min-h-[calc(100vh-72px)] flex items-center justify-center">
         {/* Subtle dot-matrix engineering pattern */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:16px_16px]" />
 
-        <div className="container mx-auto px-4 md:px-8 relative z-10 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="container mx-auto px-4 md:px-8 relative z-10 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
             {/* FORM */}
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
-              className="lg:col-span-2"
+              className="lg:col-span-2 flex flex-col"
             >
-              <div className="rounded-[32px] border border-gray-100 bg-slate-50/40 p-8 md:p-10 shadow-sm">
-                <div className="flex items-center gap-3 mb-2">
-                  <Mail className="text-red-600 w-6 h-6 animate-pulse" />
+              <div className="rounded-[32px] border border-gray-100 bg-slate-50/40 p-6 md:p-8 shadow-sm flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <Mail className="text-red-600 w-6 h-6 animate-pulse" />
 
-                  <h2 className="text-3xl font-bold text-gray-900">
-                    {t.bookPage.form.send}
-                  </h2>
+                    <h2 className="text-3xl font-bold text-gray-900">
+                      {t.bookPage.form.send}
+                    </h2>
+                  </div>
+
+                  <p className="text-gray-500 mb-8 text-sm">
+                    {t.bookPage.form.desc}
+                  </p>
                 </div>
-
-                <p className="text-gray-500 mb-8 text-sm">
-                  {t.bookPage.form.desc}
-                </p>
 
                 <form
                   onSubmit={handleSubmit}
@@ -282,10 +284,23 @@ export default function ContactPage() {
             <motion.div
               initial={{ opacity: 0, x: 25 }}
               animate={{ opacity: 1, x: 0 }}
-              className="space-y-6"
+              className="flex flex-col h-full justify-between gap-6"
             >
+              {/* Floating Tractor Image (No Circle, 3D Shadowed) */}
+              <div className="relative group/tractor flex flex-col items-center justify-center py-6 w-full">
+                {/* 3D Drop Ground Shadow beneath the wheels */}
+                <div className="absolute bottom-4 w-[70%] h-4 bg-slate-950/20 blur-[6px] rounded-[50%] scale-x-95 scale-y-50 group-hover/tractor:scale-x-90 group-hover/tractor:bg-slate-950/15 group-hover/tractor:blur-[8px] transition-all duration-500 pointer-events-none" />
+
+                {/* Tractor Image with ambient body shadow */}
+                <img
+                  src="/images/products/x45h2.webp"
+                  alt="AutoNxt X45H2 Electric Tractor"
+                  className="w-[85%] max-w-[340px] h-auto object-contain z-10 transform group-hover/tractor:-translate-y-3 transition-all duration-500 ease-out drop-shadow-[0_10px_15px_rgba(0,0,0,0.08)]"
+                />
+              </div>
+
               {/* CONTACT CARD */}
-              <div className="rounded-[32px] border border-gray-200 bg-white shadow-xl p-8 relative overflow-hidden group hover:border-red-500/25 transition duration-300">
+              <div className="rounded-[32px] border border-gray-200 bg-white shadow-xl p-6 md:p-8 relative overflow-hidden group hover:border-red-500/25 transition duration-300">
                 {/* Subtle top indicator bar */}
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500 to-red-600" />
 
