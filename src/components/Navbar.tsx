@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 const logoImg = "/small-logo-black-sm.webp";
 
 const LANGUAGES: { code: Lang; label: string; native: string; flag: string }[] = [
@@ -25,6 +26,20 @@ export default function Navbar() {
   const { lang, setLang, t } = useLang();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const trackClick = (label: string) => {
+    if (typeof window !== "undefined") {
+      const ga = (window as any).ga;
+      if (typeof ga === "function") {
+        try {
+          ga("send", "event", "Header", "Click", label);
+        } catch (err) {
+          console.error("Tracking error:", err);
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -43,6 +58,14 @@ export default function Navbar() {
 
   const currentLang = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
 
+  const activeIndex = navLinks.findIndex(link => link.href === location);
+  const isResourcesActive = ["/news", "/blog", "/ev-blog"].includes(location);
+  const finalActiveIndex = isResourcesActive ? 6 : activeIndex;
+
+  const showUnderlineForIndex = (index: number) => {
+    return hoveredIndex !== null ? hoveredIndex === index : finalActiveIndex === index;
+  };
+
   return (
     <nav
       className={cn(
@@ -52,9 +75,18 @@ export default function Navbar() {
           : "bg-white py-3"
       )}
     >
-      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
+      <div 
+        className="container mx-auto px-4 md:px-6 flex items-center justify-between"
+        onMouseLeave={() => setHoveredIndex(null)}
+      >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group" data-testid="link-home-logo">
+        <Link 
+          href="/" 
+          className="flex items-center gap-2.5 group" 
+          data-testid="link-home-logo" 
+          onClick={() => trackClick("Logo")}
+          onMouseEnter={() => setHoveredIndex(null)}
+        >
           <img src={logoImg} alt="Autonxt Logo" width={36} height={36} className="w-9 h-9 object-contain" />
           <div className="flex flex-col leading-tight">
             <span className="font-display font-bold text-lg tracking-widest uppercase text-foreground">
@@ -66,21 +98,36 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-0.5 lg:space-x-1">
-          {navLinks.map((link) => (
+          {navLinks.map((link, index) => (
             <Link
               key={link.href}
               href={link.href}
               className={cn(
-                "px-3 h-12 flex items-center rounded-md text-sm font-medium transition-colors hover:text-primary",
-                location === link.href ? "text-primary font-semibold" : "text-foreground/70"
+                "relative px-3 h-12 flex items-center rounded-md text-sm font-medium transition-colors duration-300 hover:text-primary",
+                showUnderlineForIndex(index)
+                  ? "text-primary font-semibold"
+                  : "text-foreground/70"
               )}
               data-testid={`link-nav-${link.href.replace("/", "") || "home"}`}
+              onClick={() => trackClick(link.name)}
+              onMouseEnter={() => setHoveredIndex(index)}
             >
-              {link.name}
+              <span className="relative z-10">{link.name}</span>
+              {showUnderlineForIndex(index) && (
+                <motion.div
+                  layoutId="navbar-underline"
+                  className="absolute bottom-1.5 left-3 right-3 h-0.5 bg-primary"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
             </Link>
           ))}
-          <Button asChild className={cn("ml-3 bg-primary text-white hover:bg-primary/90 font-semibold tracking-wide h-12 px-6", location === "/book" && "opacity-90")}>
-            <Link href="/book" data-testid="link-nav-book">
+          <Button 
+            asChild 
+            className={cn("ml-3 bg-primary text-white hover:bg-primary/90 font-semibold tracking-wide h-12 px-6", location === "/book" && "opacity-90")}
+            onMouseEnter={() => setHoveredIndex(null)}
+          >
+            <Link href="/book" data-testid="link-nav-book" onClick={() => trackClick("Book Now")}>
               {t.nav.bookNow}
             </Link>
           </Button>
@@ -91,12 +138,30 @@ export default function Navbar() {
           {/* Resources dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-foreground/70 hover:text-primary gap-1 text-sm h-12 px-3" data-testid="btn-resources">
-                {t.nav.resources} <ChevronDown className="w-3.5 h-3.5" />
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className={cn(
+                  "relative gap-1 text-sm h-12 px-3 transition-colors duration-300 hover:text-primary font-medium",
+                  showUnderlineForIndex(6) ? "text-primary font-semibold" : "text-foreground/70"
+                )}
+                data-testid="btn-resources"
+                onMouseEnter={() => setHoveredIndex(6)}
+              >
+                <span className="relative z-10 flex items-center gap-1">
+                  {t.nav.resources} <ChevronDown className="w-3.5 h-3.5" />
+                </span>
+                {showUnderlineForIndex(6) && (
+                  <motion.div
+                    layoutId="navbar-underline"
+                    className="absolute bottom-1.5 left-3 right-3 h-0.5 bg-primary"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-52 bg-popover border-border shadow-md p-1">
-              <Link href="/news">
+              <Link href="/news" onClick={() => trackClick("News")}>
                 <DropdownMenuItem className="cursor-pointer hover:text-primary rounded-lg px-3 py-2.5 flex items-center gap-2.5">
                   <Newspaper className="w-4 h-4 text-primary flex-shrink-0" />
                   <div>
@@ -105,7 +170,7 @@ export default function Navbar() {
                   </div>
                 </DropdownMenuItem>
               </Link>
-              <Link href="/blog">
+              <Link href="/blog" onClick={() => trackClick("Blog")}>
                 <DropdownMenuItem className="cursor-pointer hover:text-primary rounded-lg px-3 py-2.5 flex items-center gap-2.5">
                   <BookOpen className="w-4 h-4 text-accent flex-shrink-0" />
                   <div>
@@ -114,7 +179,7 @@ export default function Navbar() {
                   </div>
                 </DropdownMenuItem>
               </Link>
-              <Link href="/ev-blog">
+              <Link href="/ev-blog" onClick={() => trackClick("EV Blog")}>
                 <DropdownMenuItem className="cursor-pointer hover:text-primary rounded-lg px-3 py-2.5 flex items-center gap-2.5">
                   <Zap className="w-4 h-4 text-amber-500 flex-shrink-0" />
                   <div>
@@ -129,10 +194,28 @@ export default function Navbar() {
           {/* Language switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="text-foreground/70 hover:text-primary gap-1.5 text-sm border-l border-border ml-1 pl-3 h-12 rounded-none" data-testid="btn-language">
-                <span className="text-base">{currentLang.flag}</span>
-                <span className="font-semibold text-xs tracking-wider">{currentLang.code.toUpperCase()}</span>
-                <ChevronDown className="w-3 h-3" />
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className={cn(
+                  "relative gap-1.5 text-sm border-l border-border ml-1 pl-3 h-12 rounded-none transition-colors duration-300 hover:text-primary font-medium",
+                  showUnderlineForIndex(7) ? "text-primary font-semibold" : "text-foreground/70"
+                )} 
+                data-testid="btn-language"
+                onMouseEnter={() => setHoveredIndex(7)}
+              >
+                <span className="relative z-10 flex items-center gap-1.5">
+                  <span className="text-base">{currentLang.flag}</span>
+                  <span className="font-semibold text-xs tracking-wider">{currentLang.code.toUpperCase()}</span>
+                  <ChevronDown className="w-3 h-3" />
+                </span>
+                {showUnderlineForIndex(7) && (
+                  <motion.div
+                    layoutId="navbar-underline"
+                    className="absolute bottom-1.5 left-3 right-3 h-0.5 bg-primary"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-44 bg-popover border-border shadow-md p-1">
@@ -143,7 +226,10 @@ export default function Navbar() {
                     "cursor-pointer rounded-lg px-3 py-2 flex items-center gap-2.5",
                     lang === l.code ? "bg-primary/10 text-primary" : "hover:text-primary"
                   )}
-                  onClick={() => setLang(l.code)}
+                  onClick={() => {
+                    setLang(l.code);
+                    trackClick(`Language - ${l.label}`);
+                  }}
                   data-testid={`lang-${l.code}`}
                 >
                   <span className="text-base">{l.flag}</span>
@@ -180,7 +266,10 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                trackClick(link.name);
+              }}
               className={cn(
                 "block px-4 py-2.5 rounded-md text-base font-medium",
                 location === link.href ? "bg-primary/10 text-primary" : "text-foreground hover:text-primary"
@@ -189,17 +278,44 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <Link href="/news" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2.5 rounded-md text-base font-medium text-foreground hover:text-primary">
+          <Link
+            href="/news"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              trackClick("News");
+            }}
+            className="block px-4 py-2.5 rounded-md text-base font-medium text-foreground hover:text-primary"
+          >
             {t.nav.news}
           </Link>
-          <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2.5 rounded-md text-base font-medium text-foreground hover:text-primary">
+          <Link
+            href="/blog"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              trackClick("Blog");
+            }}
+            className="block px-4 py-2.5 rounded-md text-base font-medium text-foreground hover:text-primary"
+          >
             {t.nav.blog}
           </Link>
-          <Link href="/ev-blog" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2.5 rounded-md text-base font-medium text-foreground hover:text-primary">
+          <Link
+            href="/ev-blog"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              trackClick("EV Blog");
+            }}
+            className="block px-4 py-2.5 rounded-md text-base font-medium text-foreground hover:text-primary"
+          >
             {t.nav.evBlog}
           </Link>
           <Button asChild className="w-full mt-2 bg-primary text-white hover:bg-primary/90">
-            <Link href="/book" onClick={() => setMobileMenuOpen(false)}>
+            <Link
+              href="/book"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                trackClick("Book Now");
+              }}
+            >
               {t.nav.bookNow}
             </Link>
           </Button>
@@ -210,7 +326,10 @@ export default function Navbar() {
               {LANGUAGES.map(l => (
                 <button
                   key={l.code}
-                  onClick={() => setLang(l.code)}
+                  onClick={() => {
+                    setLang(l.code);
+                    trackClick(`Language - ${l.label}`);
+                  }}
                   aria-label={`Switch language to ${l.label}`}
                   aria-pressed={lang === l.code}
                   className={cn(
