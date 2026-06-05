@@ -90,13 +90,13 @@ export default function Product() {
       badgeGrad: "from-primary to-red-700",
       status: availableNowLabel,
       image: tractor1,
-      glb: "/3dmodel/x45.glb",
+      glb: "/3dmodel/x45h2.glb",
       description: t.productPage.tractorsList.x45h2.desc,
       specs: [
-        { icon: Zap, label: t.productPage.specs.power, value: "32 kW" },
-        { icon: BatteryCharging, label: t.productPage.specs.battery, value: "38.4 kWh" },
-        { icon: Activity, label: t.productPage.specs.runtime, value: "8–10 hrs" },
-        { icon: Clock, label: t.productPage.specs.charging, value: "4–6 hrs" },
+        { icon: Zap, label: t.productPage.specs.power, value: t.productPage.tractorsList.x45h2.specs.power },
+        { icon: BatteryCharging, label: t.productPage.specs.battery, value: t.productPage.tractorsList.x45h2.specs.battery },
+        { icon: Activity, label: t.productPage.specs.runtime, value: t.productPage.tractorsList.x45h2.specs.runtime },
+        { icon: Clock, label: t.productPage.specs.charging, value: t.productPage.tractorsList.x45h2.specs.charging },
       ],
       cardGrad: "from-zinc-950 via-red-950/30 to-zinc-950",
       accentColor: "text-red-400",
@@ -111,13 +111,13 @@ export default function Product() {
       badgeGrad: "from-accent to-blue-700",
       status: availableNowLabel,
       image: tractor2,
-      glb: "/3dmodel/x45.glb",
+      glb: "/3dmodel/x25h2.glb",
       description: t.productPage.tractorsList.x25h2.desc,
       specs: [
-        { icon: Zap, label: t.productPage.specs.power, value: "45 kW" },
-        { icon: BatteryCharging, label: t.productPage.specs.battery, value: "38.4 kWh" },
-        { icon: Activity, label: t.productPage.specs.runtime, value: "6–8 hrs" },
-        { icon: Clock, label: t.productPage.specs.charging, value: "3–4 hrs" },
+        { icon: Zap, label: t.productPage.specs.power, value: t.productPage.tractorsList.x25h2.specs.power },
+        { icon: BatteryCharging, label: t.productPage.specs.battery, value: t.productPage.tractorsList.x25h2.specs.battery },
+        { icon: Activity, label: t.productPage.specs.runtime, value: t.productPage.tractorsList.x25h2.specs.runtime },
+        { icon: Clock, label: t.productPage.specs.charging, value: t.productPage.tractorsList.x25h2.specs.charging },
       ],
       cardGrad: "from-zinc-950 via-blue-950/30 to-zinc-950",
       accentColor: "text-blue-400",
@@ -135,10 +135,10 @@ export default function Product() {
       glb: "/3dmodel/x45.glb",
       description: t.productPage.tractorsList.h55c2.desc,
       specs: [
-        { icon: Zap, label: t.productPage.specs.power, value: "45 kW" },
-        { icon: BatteryCharging, label: t.productPage.specs.battery, value: "66 kWh Liquid-Cool" },
-        { icon: Activity, label: t.productPage.specs.runtime, value: "10–12 hrs" },
-        { icon: Clock, label: t.productPage.specs.charging, value: "1.5 / 7 hrs" },
+        { icon: Zap, label: t.productPage.specs.power, value: t.productPage.tractorsList.h55c2.specs.power },
+        { icon: BatteryCharging, label: t.productPage.specs.battery, value: t.productPage.tractorsList.h55c2.specs.battery },
+        { icon: Activity, label: t.productPage.specs.runtime, value: t.productPage.tractorsList.h55c2.specs.runtime },
+        { icon: Clock, label: t.productPage.specs.charging, value: t.productPage.tractorsList.h55c2.specs.charging },
       ],
       cardGrad: "from-zinc-950 via-emerald-950/30 to-zinc-950",
       accentColor: "text-emerald-400",
@@ -260,7 +260,7 @@ export default function Product() {
                     </div>
                   }>
                     <TractorViewer3D
-                      src="/3dmodel/x45.glb"
+                      src="/3dmodel/x45h2.glb"
                       fallbackSrc={tractor1}
                       className="w-full h-full"
                       rotate

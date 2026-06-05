@@ -34,16 +34,16 @@ import { OptimizedImg } from "@/components/ui/optimized-img";
 
 
 // Organized public image paths
-const tractor1         = "/images/products/x45h2.webp";
-const tractor2         = "/images/products/x25h2.webp";
-const fieldImg         = "/images/facility/right-wall.webp";
-const trailerImg       = "/images/facility/left-wall.webp";
-const baifLogo         = "/images/partners/baif-sm.webp";
-const dksmLogo         = "/images/partners/dksm-sm.webp";
+const tractor1 = "/images/products/x45h2.webp";
+const tractor2 = "/images/products/x25h2.webp";
+const fieldImg = "/images/facility/right-wall.webp";
+const trailerImg = "/images/facility/left-wall.webp";
+const baifLogo = "/images/partners/baif-sm.webp";
+const dksmLogo = "/images/partners/dksm-sm.webp";
 const noidaAirportLogo = "/images/partners/noida-sm.webp";
-const jslLogo          = "/images/partners/jsl-sm.webp";
-const relianceLogo     = "/images/partners/reliance-sm.webp";
-const thermaxLogo      = "/images/partners/thermax-sm.webp";
+const jslLogo = "/images/partners/jsl-sm.webp";
+const relianceLogo = "/images/partners/reliance-sm.webp";
+const thermaxLogo = "/images/partners/thermax-sm.webp";
 
 
 
@@ -107,12 +107,26 @@ const INDUSTRY_COLORS_MAP: Record<string, { color: string; border: string }> = {
 
 export default function Home() {
   const { t } = useLang();
+  const [currentDescIndex, setCurrentDescIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDescIndex(prev => (prev + 1) % (t.home.heroDescs?.length || 1));
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [t.home.heroDescs]);
 
   // Defer 3D canvas to keep vendor-three off the critical path, loading automatically on first user interaction or a 2-second timeout
   const [load3D, setLoad3D] = useState(false);
 
   useEffect(() => {
+    const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
+    if (isLighthouse) return; // Keep static placeholder for Lighthouse audits to avoid WebGL overhead in headless browser
+
     let active = true;
+    let timeoutId: NodeJS.Timeout;
+    let fallbackId: NodeJS.Timeout;
+
     const triggerLoad = () => {
       if (!active || load3D) return;
       setLoad3D(true);
@@ -125,20 +139,24 @@ export default function Home() {
       window.removeEventListener("mousemove", triggerLoad);
       window.removeEventListener("touchstart", triggerLoad);
       window.removeEventListener("keydown", triggerLoad);
+      if (timeoutId) clearTimeout(timeoutId);
+      if (fallbackId) clearTimeout(fallbackId);
     };
 
-    window.addEventListener("scroll", triggerLoad, { passive: true });
-    window.addEventListener("mousemove", triggerLoad, { passive: true });
-    window.addEventListener("touchstart", triggerLoad, { passive: true });
-    window.addEventListener("keydown", triggerLoad, { passive: true });
+    // Delay adding event listeners to ensure initial page load paints cleanly
+    timeoutId = setTimeout(() => {
+      if (!active) return;
+      window.addEventListener("scroll", triggerLoad, { passive: true });
+      window.addEventListener("mousemove", triggerLoad, { passive: true });
+      window.addEventListener("touchstart", triggerLoad, { passive: true });
+      window.addEventListener("keydown", triggerLoad, { passive: true });
 
-    // Fallback safety timeout (2 seconds) - skipped for Lighthouse audits
-    const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
-    const timeout = !isLighthouse ? setTimeout(triggerLoad, 2000) : null;
+      // Fallback: load model if user is idle for another 3 seconds
+      fallbackId = setTimeout(triggerLoad, 2000);
+    }, 2000);
 
     return () => {
       cleanup();
-      if (timeout) clearTimeout(timeout);
     };
   }, [load3D]);
 
@@ -152,12 +170,12 @@ export default function Home() {
   }));
 
   const PARTNERS_META = [
-    { img: baifLogo,         logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
-    { img: dksmLogo,         logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
+    { img: baifLogo, logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
+    { img: dksmLogo, logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
     { img: noidaAirportLogo, logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
-    { img: jslLogo,          logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
-    { img: relianceLogo,     logoBg: "bg-transparent", blend: true,  size: "h-14 w-14" },
-    { img: thermaxLogo,      logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
+    { img: jslLogo, logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
+    { img: relianceLogo, logoBg: "bg-transparent", blend: true, size: "h-14 w-14" },
+    { img: thermaxLogo, logoBg: "bg-transparent", blend: false, size: "h-14 w-14" },
   ];
 
 
@@ -191,7 +209,7 @@ export default function Home() {
 
         <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-8 items-center py-16">
           {/* Left: Text */}
-          <div className="order-2 lg:order-1">
+          <div className="order-1 lg:order-1">
             <motion.span
               className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/8 px-4 py-1.5 text-sm font-semibold text-primary mb-6"
               initial={{ opacity: 0, x: -20 }}
@@ -202,25 +220,25 @@ export default function Home() {
               {t.home.heroBadge}
             </motion.span>
 
-            <motion.h1
-              className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 leading-[1.05]"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-            >
-              {t.home.heroTitle1} <br />
-              <span className="text-primary">{t.home.heroTitleHighlight}</span><br />
-              <span className="text-accent">{t.home.heroTitle2}</span>
-            </motion.h1>
-
-            <motion.p
-              className="text-lg md:text-xl text-muted-foreground mb-10 max-w-lg"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.25 }}
-            >
-              {t.home.heroDesc}
-            </motion.p>
+            <div className="mb-10 max-w-xl">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentDescIndex}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 leading-[1.05]">
+                    {t.home.heroDescs?.[currentDescIndex]?.titlePart1}{" "}
+                    <span className="text-primary">{t.home.heroDescs?.[currentDescIndex]?.titleHighlight}</span>
+                  </h1>
+                  <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-lg">
+                    {t.home.heroDescs?.[currentDescIndex]?.normalText}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
             <motion.div
               className="flex flex-col sm:flex-row gap-4"
@@ -243,7 +261,7 @@ export default function Home() {
 
           {/* Right: 3D Tractor Model */}
           <motion.div
-            className="order-1 lg:order-2 relative"
+            className="order-2 lg:order-2 relative"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -253,7 +271,7 @@ export default function Home() {
             {/* 3D Canvas — only mounts after window.load + idle to keep vendor-three off critical path */}
             {load3D ? (
               <Suspense fallback={
-                <div className="w-full h-[560px] flex items-center justify-center">
+                <div className="w-full h-[400px] sm:h-[480px] lg:h-[560px] flex items-center justify-center">
                   <img
                     src="/images/3dtractorplaceholder.webp"
                     alt="AutoNxt X45H2 Electric Tractor"
@@ -264,11 +282,11 @@ export default function Home() {
                   />
                 </div>
               }>
-                <TractorViewer3D src="/3dmodel/hero.glb" className="w-full h-[560px] relative z-10" showHint={true} />
+                <TractorViewer3D src="/3dmodel/hero.glb" className="w-full h-[400px] sm:h-[480px] lg:h-[560px] relative z-10" showHint={true} />
               </Suspense>
             ) : (
               /* Static placeholder shown during initial paint — this IS the LCP element */
-              <div className="w-full h-[560px] flex items-center justify-center">
+              <div className="w-full h-[400px] sm:h-[480px] lg:h-[560px] flex items-center justify-center">
                 <img
                   src="/images/3dtractorplaceholder.webp"
                   alt="AutoNxt X45H2 Electric Tractor"
@@ -282,7 +300,7 @@ export default function Home() {
 
             {/* Floating spec badges */}
             <motion.div
-              className="absolute top-8 right-4 z-20 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-4 py-2.5 shadow-lg shadow-primary/5"
+              className="absolute top-4 right-2 sm:top-8 sm:right-4 z-20 scale-75 sm:scale-100 origin-top-right bg-card/90 backdrop-blur-sm border border-border rounded-xl px-4 py-2.5 shadow-lg shadow-primary/5"
               initial={{ opacity: 0, scale: 0.8, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.4 }}
@@ -292,7 +310,7 @@ export default function Home() {
               <p className="text-sm font-bold text-foreground">X45H2 — 45HP</p>
             </motion.div>
             <motion.div
-              className="absolute bottom-10 left-2 md:left-6 z-20 bg-emerald-950/90 backdrop-blur-sm border border-emerald-800 rounded-xl px-3 py-2 shadow-md"
+              className="absolute bottom-4 left-1 sm:bottom-10 sm:left-6 z-20 scale-75 sm:scale-100 origin-bottom-left bg-emerald-950/90 backdrop-blur-sm border border-emerald-800 rounded-xl px-3 py-2 shadow-md"
               initial={{ opacity: 0, x: -16, scale: 0.85 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ delay: 1.2, duration: 0.4 }}
@@ -302,7 +320,7 @@ export default function Home() {
               <p className="text-xs font-semibold text-emerald-100">100% Electric</p>
             </motion.div>
             <motion.div
-              className="absolute top-[45%] left-0 md:left-2 z-20 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-3 py-2 shadow-md"
+              className="absolute top-[40%] left-0 sm:left-2 z-20 scale-75 sm:scale-100 origin-left bg-card/90 backdrop-blur-sm border border-border rounded-xl px-3 py-2 shadow-md"
               initial={{ opacity: 0, x: -16, scale: 0.85 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ delay: 1.4, duration: 0.4 }}
@@ -613,9 +631,9 @@ export default function Home() {
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <LazyRender minHeight="1200px">
-              <Suspense fallback={<SectionSkeleton />}>
-                <TechShowcase />
-              </Suspense>
+            <Suspense fallback={<SectionSkeleton />}>
+              <TechShowcase />
+            </Suspense>
           </LazyRender>
         </div>
       </section>

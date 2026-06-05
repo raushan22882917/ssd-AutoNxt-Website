@@ -1,6 +1,6 @@
 import { Suspense, useRef, useState, useEffect, useCallback, Component, type ReactNode } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useGLTF, OrbitControls, Environment, ContactShadows, Bounds, useBounds } from "@react-three/drei";
+import { useGLTF, OrbitControls, ContactShadows, Bounds, useBounds } from "@react-three/drei";
 import type { Group } from "three";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/contexts/LanguageContext";
@@ -16,6 +16,8 @@ const MODEL_PLACEHOLDER: Record<string, string> = {
   "/3dmodel/battery.glb": "/images/batteryimage.avif",
   "/3dmodel/motor.glb":   "/images/motorimage.avif",
   "/3dmodel/x45.glb":     "/images/products/x45h2.webp",
+  "/3dmodel/x45h2.glb":   "/images/products/x45h2.webp",
+  "/3dmodel/x25h2.glb":   "/images/products/x25h2.webp",
   "/3dmodel/bucket.glb":  "/images/implement/bucket-removebg-preview.webp",
   "/3dmodel/loader.glb":  "/images/implement/loader-removebg-preview.webp",
   "/3dmodel/catcher.glb": "/images/implement/catcher.webp",
@@ -96,7 +98,7 @@ function TractorModel({ src, rotate }: { src: string; rotate: boolean }) {
   });
 
   return (
-    <Bounds fit clip observe margin={0.92}>
+    <Bounds fit clip observe margin={0.86}>
       <group ref={ref}>
         <primitive object={scene} />
       </group>
@@ -247,7 +249,7 @@ export default function TractorViewer3D({
               far={5}
               color="#1a1a1a"
             />
-            <Environment preset="studio" />
+            {/* Environment map is removed to optimize payload and eliminate the 1.64MB network fetch of studio_small_03_1k.hdr */}
           </Suspense>
 
           <OrbitControls

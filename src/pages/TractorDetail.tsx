@@ -16,7 +16,8 @@ const TractorViewer3D = lazy(() => import("@/components/TractorViewer3D"));
 
 const FEATURE_ICONS_MAP: Record<string, React.ElementType[]> = {
   x45h2: [Wifi, Zap],
-  x25h2: [Gauge]
+  x25h2: [Gauge],
+  h55c2: [Thermometer, Wifi]
 };
 
 export default function TractorDetail({ params }: { params: { slug: string } }) {
@@ -55,10 +56,10 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
     };
   }, [load3D]);
 
-  const tractorFromT = t.tractorDetailPage.tractors[slug as "x45h2" | "x25h2"] || t.tractorDetailPage.tractors.x45h2;
+  const tractorFromT = t.tractorDetailPage.tractors[slug as "x45h2" | "x25h2" | "h55c2"] || t.tractorDetailPage.tractors.x45h2;
   const texts = t.tractorDetailPage.texts;
 
-  const specIcons = [Zap, BatteryCharging, Clock, Activity, Gauge, Weight, Settings, Wrench, Thermometer, Shield, Shield];
+  const specIcons = [Zap, BatteryCharging, Clock, Activity, Gauge, Weight, Weight, Settings, Wrench, Thermometer, Shield, Shield];
   const specs = tractorFromT.specs.map((s, i) => ({
     ...s,
     icon: specIcons[i] || Shield
@@ -74,8 +75,8 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
     ...tractorFromT,
     specs,
     features,
-    image: slug === "x25h2" ? "/images/products/x25h2.webp" : "/images/products/x45h2.webp",
-    glbSrc: "/3dmodel/x45.glb"
+    image: slug === "x25h2" ? "/images/products/x25h2.webp" : slug === "h55c2" ? "/images/3dtractorplaceholder.webp" : "/images/products/x45h2.webp",
+    glbSrc: tractorFromT.glbSrc || "/3dmodel/x45.glb"
   };
 
   return (

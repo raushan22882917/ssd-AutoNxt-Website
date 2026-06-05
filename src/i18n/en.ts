@@ -23,6 +23,23 @@ export const en = {
     heroTitleHighlight: "For",
     heroTitle2: " Tomorrow.",
     heroDesc: "Electric Tractors for Modern Agriculture — Experience zero-emission farming with our advanced electric tractors. Sustainable, powerful, and intelligent solutions for the future of agriculture.",
+    heroDescs: [
+      {
+        titlePart1: "Smart Solutions for",
+        titleHighlight: "Heavy Industries",
+        normalText: "Transform your industrial operations with our cutting-edge automation systems. From construction to manufacturing, we deliver intelligent solutions."
+      },
+      {
+        titlePart1: "Green Technology for",
+        titleHighlight: "Tomorrow",
+        normalText: "Join the green revolution with our eco-friendly technology solutions. Clean energy, smart systems, and sustainable practices for a better world."
+      },
+      {
+        titlePart1: "Electric Tractors for",
+        titleHighlight: "Modern Agriculture",
+        normalText: "Experience zero-emission farming with our advanced electric tractors. Sustainable, powerful, and intelligent solutions for the future of agriculture."
+      }
+    ],
     exploreProducts: "Explore Products",
     bookNow: "Book Now",
     statsTitle: "Trusted by India's Best",
@@ -108,10 +125,10 @@ export const en = {
         label: "Battery",
         title: "38.4 kWh Battery Pack",
         subtitle: "High-Capacity Energy System",
-        desc: "Equipped with a 38.4 kWh high-capacity battery, the X45H2 provides 8 hours of continuous operation. Optimized for fast charging and extended lifespan, ensuring reliability in the field.",
+        desc: "Equipped with a 38.4 kWh high-capacity battery, the X45H2 provides 10 hours / 10 Acres of continuous operation. Optimized for fast charging and extended lifespan, ensuring reliability in the field.",
         specs: [
           { label: "Capacity", value: "38.4 kWh" },
-          { label: "Runtime", value: "8 hrs" },
+          { label: "Runtime", value: "10 hrs" },
           { label: "Charging", value: "Fast Charge" },
           { label: "Lifespan", value: "Extended" },
         ],
@@ -174,7 +191,7 @@ export const en = {
         specs: [
           { label: "Motor", value: "32 kW" },
           { label: "Battery", value: "38.4 kWh" },
-          { label: "Runtime", value: "8–10 hrs" },
+          { label: "Runtime", value: "10 Hours / 10 Acres" },
         ],
       },
       {
@@ -183,9 +200,9 @@ export const en = {
         tag: "Most Powerful",
         desc: "60HP heavy-duty performance with zero emissions — the perfect balance of raw power and sustainability.",
         specs: [
-          { label: "Motor", value: "45 kW" },
-          { label: "Battery", value: "52 kWh" },
-          { label: "Runtime", value: "10–12 hrs" },
+          { label: "Motor", value: "32 kW" },
+          { label: "Battery", value: "38.4 kWh" },
+          { label: "Runtime", value: "12 Hours / 12 Acres" },
         ],
       },
       {
@@ -194,9 +211,9 @@ export const en = {
         tag: "Compact",
         desc: "Perfect for small farms and precision farming. Lightweight at 1,400 kg with full field capability.",
         specs: [
-          { label: "Motor", value: "18 kW" },
-          { label: "Battery", value: "24 kWh" },
-          { label: "Runtime", value: "8 hrs" },
+          { label: "Motor", value: "32 kW" },
+          { label: "Battery", value: "38.4 kWh" },
+          { label: "Runtime", value: "8 Hours / 8 Acres" },
         ],
       },
     ],
@@ -455,22 +472,42 @@ export const en = {
       battery: "Battery",
       runtime: "Run Time",
       charging: "Charging",
+      lifting: "Lifting Capacity",
+      torque: "Max Torque",
     },
     tractorsList: {
       x45h2: {
         badge: "Flagship",
         type: "45HP Electric Tractor",
-        desc: "Our flagship 45HP electric tractor with advanced battery technology and superior performance for large-scale agricultural operations."
+        desc: "Our flagship 45HP electric tractor with advanced battery technology and superior performance for large-scale agricultural operations.",
+        specs: {
+          power: "32 kW",
+          battery: "38.4 kWh",
+          runtime: "10 hrs",
+          charging: "4 / 2 hrs"
+        }
       },
       x25h2: {
         badge: "Best Value",
         type: "25HP Compact Tractor",
-        desc: "Compact 25HP electric tractor designed for small farms and specialized applications — agile, efficient, and built for precision."
+        desc: "Compact 25HP electric tractor designed for small farms and specialized applications — agile, efficient, and built for precision.",
+        specs: {
+          power: "32 kW",
+          battery: "38.4 kWh",
+          runtime: "8 hrs",
+          charging: "4 / 2 hrs"
+        }
       },
       h55c2: {
         badge: "Most Powerful",
         type: "60HP Premium Tractor",
-        desc: "High-power 60HP electric tractor for commercial farming with extended liquid-cooled battery life and ultra-fast charging."
+        desc: "High-power 60HP electric tractor for commercial farming with extended liquid-cooled battery life and ultra-fast charging.",
+        specs: {
+          power: "32 kW",
+          battery: "38.4 kWh",
+          runtime: "12 Hours / 12 Acres",
+          charging: "5 / 3 hrs"
+        }
       }
     },
     implementsList: {
@@ -493,13 +530,13 @@ export const en = {
     techSpecsList: {
       battery: {
         title: "LFP Battery Pack",
-        desc: "High-density Lithium Iron Phosphate cells. 2,000+ charge cycles. IP67 waterproofed for decade-long farm life.",
+        desc: "Custom battery pack technology with superior thermal management and an advanced liquid cooling system. High-density Lithium Iron Phosphate (LFP) cells. 2,000+ charge cycles, IP67 waterproofed.",
         stat: "2,000+",
         statLabel: "Charge Cycles"
       },
       motor: {
         title: "NXT-Drive Motor",
-        desc: "Axial flux permanent magnet motor. 96% peak efficiency. Instant torque delivery. India-manufactured with local service.",
+        desc: "High-torque electric powertrains (32 kW / 45 kW motor options) driven by an intelligent control system. Axial flux permanent magnet motor with 96% peak efficiency, instant torque, and India-manufactured.",
         stat: "96%",
         statLabel: "Peak Efficiency"
       }
@@ -590,17 +627,18 @@ export const en = {
         badge: "Flagship",
         badgeColor: "bg-primary",
         tagline: "India's Most Powerful Electric Tractor",
-        desc: "The X45H2 is AutoNxt's flagship agricultural and industrial electric tractor. Built for heavy-duty operations across large farms, sugar mills, cement plants, and construction sites — it delivers 45HP of instant electric torque, an 8+ hour runtime, and zero direct emissions. The world's first iCAT-certified electric tractor, now commercially available across India.",
-        image: "/3dmodel/x45.glb",
-        glbSrc: "/3dmodel/x45.glb",
+        desc: "The X45H2 is AutoNxt's flagship agricultural and industrial electric tractor. Built for heavy-duty operations across large farms, sugar mills, cement plants, and construction sites — it delivers 45HP of instant electric torque, a 10 Hour / 10 Acres runtime, and zero direct emissions. The world's first iCAT-certified electric tractor, now commercially available across India.",
+        image: "/3dmodel/x45h2.glb",
+        glbSrc: "/3dmodel/x45h2.glb",
         status: "available",
         specs: [
           { label: "Motor Power", value: "45 HP (32 kW)" },
           { label: "Battery Capacity", value: "38.4 kWh LFP" },
-          { label: "Runtime", value: "8–10 hrs" },
-          { label: "Charge Time", value: "3–4 hrs (AC)" },
+          { label: "Runtime", value: "10 Hours / 10 Acres" },
+          { label: "Charge Time", value: "4 hrs (Single Phase) / 2 hrs (Three Phase)" },
           { label: "Max Torque", value: "280 Nm" },
           { label: "Weight", value: "2,200 kg" },
+          { label: "Lifting Capacity", value: "5–8 Tonnes" },
           { label: "Top Speed", value: "25 km/h" },
           { label: "PTO Power", value: "540 RPM" },
           { label: "Cooling", value: "Liquid-Cooled Battery" },
@@ -655,16 +693,17 @@ export const en = {
         badgeColor: "bg-accent",
         tagline: "Precision Electric Power for Small & Medium Farms",
         desc: "The X25H2 brings AutoNxt's zero-emission electric drivetrain to small and medium-scale agriculture. Lighter, more manoeuvrable, and more affordable than the X45H2, it's designed for precision farming, orchard operations, and mixed-crop farms where a compact, highly efficient tractor is the right tool.",
-        image: "/3dmodel/x45.glb",
-        glbSrc: "/3dmodel/x45.glb",
+        image: "/3dmodel/x25h2.glb",
+        glbSrc: "/3dmodel/x25h2.glb",
         status: "available",
         specs: [
-          { label: "Motor Power", value: "25 HP (18 kW)" },
-          { label: "Battery Capacity", value: "24 kWh LFP" },
-          { label: "Runtime", value: "8+ hrs" },
-          { label: "Charge Time", value: "3 hrs (AC)" },
+          { label: "Motor Power", value: "25 HP (32 kW)" },
+          { label: "Battery Capacity", value: "38.4 kWh LFP" },
+          { label: "Runtime", value: "8 Hours / 8 Acres" },
+          { label: "Charge Time", value: "4 hrs (Single Phase) / 2 hrs (Three Phase)" },
           { label: "Max Torque", value: "160 Nm" },
           { label: "Weight", value: "1,400 kg" },
+          { label: "Lifting Capacity", value: "3–7 Tonnes" },
           { label: "Top Speed", value: "22 km/h" },
           { label: "PTO Power", value: "540 RPM" },
           { label: "Cooling", value: "Liquid-Cooled Battery" },
@@ -679,14 +718,16 @@ export const en = {
         ],
         battery: [
           { label: "Chemistry", value: "Lithium Iron Phosphate (LFP)" },
-          { label: "Capacity", value: "24 kWh" },
+          { label: "Capacity", value: "38.4 kWh" },
           { label: "Cell Cycle Life", value: "2,000+" },
           { label: "IP Rating", value: "IP67" },
+          { label: "Cooling", value: "Active liquid cooling" },
         ],
         motor: [
           { label: "Type", value: "Permanent Magnet Synchronous Motor" },
-          { label: "Peak Power", value: "18 kW (25 HP)" },
+          { label: "Peak Power", value: "32 kW (25 HP)" },
           { label: "Peak Torque", value: "160 Nm" },
+          { label: "Peak Efficiency", value: "96%" },
         ],
         applications: [
           "Mixed-crop small and medium farms (5–30 acres)",
@@ -699,6 +740,70 @@ export const en = {
           "Minimum soil compaction — ideal for precision farming",
           "Fast AC charging in 3 hours",
           "Eligible for FAME-III and PM-KISAN linked EV subsidies",
+          "5-year comprehensive warranty",
+          "Made in India — Thane, Maharashtra",
+        ],
+      },
+      h55c2: {
+        name: "AutoNxt H55C2",
+        type: "60HP Electric Tractor",
+        badge: "Most Powerful",
+        badgeColor: "bg-emerald-700",
+        tagline: "Commercial Grade High-Power Electric Tractor",
+        desc: "The H55C2 is AutoNxt's most powerful agricultural and industrial electric tractor. Engineered for commercial farming and heavy-duty industrial tasks, it features a 32 kW electric motor, a 38.4 kWh battery pack, and a 12 Hour / 12 Acres runtime. Designed to deliver peak torque and zero direct emissions for the most demanding environments.",
+        image: "/3dmodel/x45.glb",
+        glbSrc: "/3dmodel/x45.glb",
+        status: "available",
+        specs: [
+          { label: "Motor Power", value: "60 HP (32 kW)" },
+          { label: "Battery Capacity", value: "38.4 kWh LFP" },
+          { label: "Runtime", value: "12 Hours / 12 Acres" },
+          { label: "Charge Time", value: "5 hrs (Single Phase) / 3 hrs (Three Phase)" },
+          { label: "Max Torque", value: "350 Nm" },
+          { label: "Weight", value: "2,500 kg" },
+          { label: "Lifting Capacity", value: "6–9 Tonnes" },
+          { label: "Top Speed", value: "28 km/h" },
+          { label: "PTO Power", value: "540 RPM" },
+          { label: "Cooling", value: "Liquid-Cooled Battery" },
+          { label: "IP Rating", value: "IP67" },
+          { label: "Warranty", value: "5 Years" },
+        ],
+        features: [
+          {
+            title: "Liquid-Cooled Battery Pack",
+            desc: "Advanced liquid cooling system keeps battery temperature optimal, extending overall cell life and ensuring safe operations in hot climates."
+          },
+          {
+            title: "Remote Fleet Telematics",
+            desc: "Real-time GPS tracking, battery status, motor health, and geo-fencing via the AutoNxt cloud platform — accessible from any device."
+          },
+        ],
+        battery: [
+          { label: "Chemistry", value: "Lithium Iron Phosphate (LFP)" },
+          { label: "Capacity", value: "38.4 kWh" },
+          { label: "Cell Cycle Life", value: "2,000+" },
+          { label: "IP Rating", value: "IP67" },
+          { label: "Cooling", value: "Active liquid cooling" },
+        ],
+        motor: [
+          { label: "Type", value: "Permanent Magnet Synchronous Motor" },
+          { label: "Peak Power", value: "32 kW (60 HP)" },
+          { label: "Peak Torque", value: "350 Nm" },
+          { label: "Peak Efficiency", value: "96%" },
+        ],
+        applications: [
+          "Commercial-scale agriculture operations",
+          "Sugarcane and timber haulage",
+          "Biomass collection and baling",
+          "Heavy construction and cement factory handling",
+          "Airport ground towing operations",
+          "Industrial plant internal logistics",
+        ],
+        highlights: [
+          "AutoNxt's most powerful heavy-duty electric tractor",
+          "38.4 kWh liquid-cooled battery pack for maximum runtime",
+          "High torque axial flux permanent magnet motor",
+          "Eligible for FAME-III and commercial EV subsidies",
           "5-year comprehensive warranty",
           "Made in India — Thane, Maharashtra",
         ],
@@ -797,7 +902,7 @@ export const en = {
         specs: [
           { label: "Motor", value: "32 kW" },
           { label: "Battery", value: "38.4 kWh" },
-          { label: "Runtime", value: "8 hrs" },
+          { label: "Runtime", value: "10 hrs / 10 Acres" },
         ],
         accentBg: "bg-primary/5",
         accentBorder: "border-primary/20",
@@ -812,9 +917,9 @@ export const en = {
         statusLabel: "Available Now",
         desc: "Compact 25HP tractor, ideal for small-scale agriculture and precision farming. Efficient, low-cost, and perfect for small and medium farms.",
         specs: [
-          { label: "Motor", value: "18 kW" },
-          { label: "Battery", value: "24 kWh" },
-          { label: "Runtime", value: "8 hrs" },
+          { label: "Motor", value: "32 kW" },
+          { label: "Battery", value: "38.4 kWh" },
+          { label: "Runtime", value: "8 hrs / 8 Acres" },
         ],
         accentBg: "bg-accent/5",
         accentBorder: "border-accent/20",
@@ -829,9 +934,9 @@ export const en = {
         statusLabel: "Available Now",
         desc: "Heavy-duty 60HP tractor with advanced features for large-scale operations. A perfect balance of maximum power and zero-emission sustainability.",
         specs: [
-          { label: "Motor", value: "45 kW" },
-          { label: "Battery", value: "52 kWh" },
-          { label: "Runtime", value: "10 hrs" },
+          { label: "Motor", value: "32 kW" },
+          { label: "Battery", value: "38.4 kWh" },
+          { label: "Runtime", value: "12 hrs / 12 Acres" },
         ],
         accentBg: "bg-primary/5",
         accentBorder: "border-primary/20",
@@ -896,13 +1001,13 @@ export const en = {
         benefits: [
           "70% lower operating cost vs diesel over 5 years",
           "Zero fumes — safe for indoor biomass storage and processing",
-          "8–10 hrs continuous operation per charge",
+          "10 Hours / 10 Acres continuous operation per charge",
           "iCAT certified for commercial agricultural use",
           "Fast charging capability keeps operations running",
           "Remote fleet monitoring via AutoNxt telematics portal",
         ],
         challenges: "Biomass operations run long shifts, often inside sheds where diesel fumes create serious air quality and fire risks. High fuel costs erode margins, and unplanned maintenance during harvest season disrupts the entire supply chain.",
-        solution: "AutoNxt X45H2 delivers 45HP of instant electric torque with zero exhaust emissions, making it safe inside biomass processing facilities. With 8+ hours of runtime and a 4-hour charge cycle, facilities can run two shifts with a single tractor using overnight charging.",
+        solution: "AutoNxt X45H2 delivers 45HP of instant electric torque with zero exhaust emissions, making it safe inside biomass processing facilities. With 10 Hours of runtime and a 4-hour charge cycle, facilities can run two shifts with a single tractor using overnight charging.",
         models: [
           { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/products/x45h2.webp", note: "Primary choice for biomass haulage and baling", slug: "x45h2" },
           { name: "AutoNxt X25H2", hp: "25 HP", img: "/images/products/x25h2.webp", note: "Ideal for small to medium biomass collection operations", slug: "x25h2" },
@@ -1312,20 +1417,28 @@ export const en = {
     },
     attachments: {
       bucket: {
-        name: "18 Ft Grabber Bucket",
+        name: "18 Feet Graber Bucket",
         type: "Heavy Duty Implement",
         badge: "Heavy Duty",
         tagline: "Maximum Digging Power for Any Terrain",
-        desc: "The AutoNxt 18 Ft Grabber Bucket is engineered for heavy-duty excavation and material handling with seamless AutoNxt integration.",
+        desc: "Heavy-duty 18 feet graber bucket attachment designed for efficient material handling and excavation operations. Built with premium materials and advanced engineering for maximum durability and performance in demanding construction and agricultural environments.",
         specs: {
           width: "18 Feet",
           capacity: "0.8m³",
           material: "Hardox 450",
           weight: "480kg",
+          power: "45 kW",
+          battery: "50 kWh",
+          runtime: "6-8 hours",
+          charging: "4-5 hours",
           widthLabel: "Width",
           capacityLabel: "Capacity",
           materialLabel: "Material",
-          weightLabel: "Weight"
+          weightLabel: "Weight",
+          powerLabel: "Power",
+          batteryLabel: "Battery",
+          runtimeLabel: "Run Time",
+          chargingLabel: "Charging"
         },
         features: [
           { title: "Hardox Steel", desc: "Extreme wear resistance for long-term durability in rugged environments." },
@@ -1342,20 +1455,28 @@ export const en = {
         ]
       },
       catcher: {
-        name: "18 Ft Catcher",
+        name: "18 Feet Catcher",
         type: "Precision Implement",
         badge: "Precision",
         tagline: "Efficient Material Collection and Harvesting",
-        desc: "The AutoNxt 18 Ft Catcher is precision-engineered for efficient material collection and harvesting with seamless AutoNxt integration.",
+        desc: "Precision-engineered 18 feet catcher attachment designed for efficient material collection and handling operations. Features advanced hydraulic controls and durable construction for optimal performance in agricultural and industrial applications. Ideal for harvesting, material sorting, and specialized collection tasks with enhanced precision and reliability. Built with premium materials and state-of-the-art engineering to deliver consistent performance in demanding environments.",
         specs: {
           width: "18 Feet",
           capacity: "0.75m³",
           material: "Hardox 400",
           weight: "450kg",
+          power: "40 kW",
+          battery: "45 kWh",
+          runtime: "5-7 hours",
+          charging: "3-4 hours",
           widthLabel: "Width",
           capacityLabel: "Capacity",
           materialLabel: "Material",
-          weightLabel: "Weight"
+          weightLabel: "Weight",
+          powerLabel: "Power",
+          batteryLabel: "Battery",
+          runtimeLabel: "Run Time",
+          chargingLabel: "Charging"
         },
         features: [
           { title: "Precision Engineering", desc: "Optimized design for accurate material collection and minimal spillage." },
@@ -1372,20 +1493,28 @@ export const en = {
         ]
       },
       loader: {
-        name: "18 Ft Loader Bucket",
+        name: "18 Feet Loader Bucket",
         type: "Max Load Implement",
         badge: "Max Load",
         tagline: "Maximum Efficiency in Loading and Material Transport",
-        desc: "The AutoNxt 18 Ft Loader Bucket is engineered for maximum efficiency in loading and material transport with seamless AutoNxt integration.",
+        desc: "Heavy-duty 18 feet loader bucket engineered for maximum efficiency in loading and material transport operations. Built with superior strength materials and advanced hydraulic systems for handling the most demanding construction, mining, and agricultural tasks. Features optimized bucket geometry for enhanced material retention and efficient loading cycles. Designed to withstand extreme working conditions while maintaining peak performance and operational reliability.",
         specs: {
           width: "18 Feet",
           capacity: "0.9m³",
           material: "Hardox 500",
           weight: "520kg",
+          power: "50 kW",
+          battery: "55 kWh",
+          runtime: "7-9 hours",
+          charging: "4-6 hours",
           widthLabel: "Width",
           capacityLabel: "Capacity",
           materialLabel: "Material",
-          weightLabel: "Weight"
+          weightLabel: "Weight",
+          powerLabel: "Power",
+          batteryLabel: "Battery",
+          runtimeLabel: "Run Time",
+          chargingLabel: "Charging"
         },
         features: [
           { title: "Maximum Capacity", desc: "Engineered for maximum load capacity and durability in heavy operations." },

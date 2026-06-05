@@ -18,6 +18,10 @@ import {
   Phone,
   Mail,
   MapPin,
+  Zap,
+  BatteryCharging,
+  Clock,
+  Activity,
 } from "lucide-react";
 
 const TractorViewer3D = lazy(
@@ -90,14 +94,22 @@ export default function AttachmentDetail({
     attachmentData.specs.capacityLabel,
     attachmentData.specs.materialLabel,
     attachmentData.specs.weightLabel,
+    attachmentData.specs.powerLabel,
+    attachmentData.specs.batteryLabel,
+    attachmentData.specs.runtimeLabel,
+    attachmentData.specs.chargingLabel,
   ];
   const specValues = [
     attachmentData.specs.width,
     attachmentData.specs.capacity,
     attachmentData.specs.material,
     attachmentData.specs.weight,
+    attachmentData.specs.power,
+    attachmentData.specs.battery,
+    attachmentData.specs.runtime,
+    attachmentData.specs.charging,
   ];
-  const specIcons = [Gauge, Package, Shield, Weight];
+  const specIcons = [Gauge, Package, Shield, Weight, Zap, BatteryCharging, Clock, Activity];
 
   const specs = specIcons.map((icon, idx) => ({
     icon,
