@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
-import { Leaf, Wind, TreePine, ArrowRight, ArrowLeft, Award, Handshake, Target, ChevronDown, Compass, Milestone } from "lucide-react";
+import { Leaf, Wind, TreePine, ArrowRight, ArrowLeft, Award, Handshake, Target } from "lucide-react";
 import SEO from "@/components/SEO";
 
 export default function Contribution() {
@@ -20,7 +20,6 @@ export default function Contribution() {
     icon: initiativeIcons[i] || Target,
   }));
 
-  const timeline = t.contributionPage.timeline;
   const texts = t.contributionPage.texts;
 
   const statIcons = [Leaf, TreePine, Target];
@@ -162,162 +161,14 @@ export default function Contribution() {
               })}
             </div>
           </div>
-      </div>
-    </div>
 
-      {/* ── OUR JOURNEY ── */}
-      <section className="py-24 bg-[#f5e6e6] dark:bg-[#1a0f0f] border-y border-red-200/30 dark:border-red-950/30 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.4),transparent_65%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.015),transparent_65%)] pointer-events-none" />
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div className="flex justify-center mb-16">
-            <motion.h2
-              className="font-display text-3xl md:text-4xl font-bold text-red-950 dark:text-red-50 text-center flex items-center justify-center gap-3 cursor-default"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <Compass className="w-8 h-8 text-primary" />
-              {texts.ourJourney}
-            </motion.h2>
-          </div>
-          
-          <div className="relative">
-            {/* SVG Flowchart Arrow Marker Definitions */}
-            <svg className="absolute w-0 h-0 pointer-events-none">
-              <defs>
-                <marker id="arrow-desktop" viewBox="0 0 10 10" refX="16" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 1 2 L 7 5 L 1 8" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                </marker>
-                <marker id="arrow-mobile" viewBox="0 0 10 10" refX="16" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 1 2 L 7 5 L 1 8" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                </marker>
-              </defs>
-            </svg>
 
-            <div className="space-y-6 relative z-10">
-              {timeline.map((item, i) => {
-                const parts = item.event.split(" — ");
-                const title = parts[0];
-                const desc = parts[1] || "";
-                const isEven = i % 2 === 0;
-                
-                // Alternating color classes optimized for the light red-black (#f5e6e6) background
-                const cardStyles = isEven
-                  ? {
-                      bg: "bg-red-50/60 dark:bg-red-950/20 border-red-200/50 dark:border-red-900/30",
-                      yearText: "text-red-600 dark:text-red-400",
-                      titleText: "text-red-950 dark:text-red-50",
-                      descText: "text-red-900/80 dark:text-red-200/80",
-                      badge: "bg-red-100/60 dark:bg-red-900/40 text-red-800 dark:text-red-200",
-                      glow: "shadow-[0_0_15px_rgba(239,68,68,0.02)]",
-                      dot: "bg-red-500 ring-red-100/80 dark:ring-red-950/50"
-                    }
-                  : {
-                      bg: "bg-blue-50/60 dark:bg-blue-950/20 border-blue-200/50 dark:border-blue-900/30",
-                      yearText: "text-blue-600 dark:text-blue-400",
-                      titleText: "text-blue-950 dark:text-blue-50",
-                      descText: "text-blue-900/80 dark:text-blue-200/80",
-                      badge: "bg-blue-100/60 dark:bg-blue-900/40 text-blue-800 dark:text-blue-200",
-                      glow: "shadow-[0_0_15px_rgba(59,130,246,0.02)]",
-                      dot: "bg-blue-500 ring-blue-100/80 dark:ring-blue-900/50"
-                    };
 
-                return (
-                  <motion.div
-                    key={i}
-                    className={`flex flex-col md:flex-row gap-6 md:gap-0 items-start md:items-center relative ${
-                      isEven ? "md:flex-row" : "md:flex-row-reverse"
-                    }`}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.05 }}
-                  >
-                    {/* Zigzag connecting arrow to the next node (except for the last item) */}
-                    {i < timeline.length - 1 && (
-                      <>
-                        {/* Mobile straight arrow */}
-                        <svg 
-                          className="absolute block md:hidden pointer-events-none z-10 select-none overflow-visible"
-                          style={{ top: "50%", left: 0, width: "100%", height: "100%" }}
-                        >
-                          <line 
-                            x1="24" 
-                            y1="0" 
-                            x2="24" 
-                            y2="100%" 
-                            stroke="currentColor" 
-                            strokeWidth="1.5" 
-                            strokeDasharray="4"
-                            markerEnd="url(#arrow-mobile)"
-                            className="text-red-200/70 dark:text-red-950/30"
-                          />
-                        </svg>
-
-                        {/* Desktop zigzag diagonal arrow */}
-                        <svg 
-                          className="absolute hidden md:block pointer-events-none z-10 select-none overflow-visible"
-                          style={{ top: "50%", left: 0, width: "100%", height: "100%" }}
-                        >
-                          <line 
-                            x1={isEven ? "45%" : "55%"} 
-                            y1="0" 
-                            x2={isEven ? "55%" : "45%"} 
-                            y2="100%" 
-                            stroke="currentColor" 
-                            strokeWidth="1.5" 
-                            strokeDasharray="4"
-                            markerEnd="url(#arrow-desktop)"
-                            className="text-red-200/70 dark:text-red-950/30"
-                          />
-                        </svg>
-                      </>
-                    )}
-
-                    {/* Card Wrapper */}
-                    <div className={`w-full md:w-[45%] pl-14 md:pl-0 ${isEven ? "md:pr-8" : "md:pl-8"}`}>
-                      <div className={`w-full max-w-[320px] border rounded-2xl p-4.5 ${cardStyles.bg} ${cardStyles.glow} hover:shadow-md transition-all duration-300 relative group ${
-                        isEven ? "ml-auto" : "mr-auto"
-                      }`}>
-                        
-                        {/* Year & Badge */}
-                        <div className="flex items-center gap-3 mb-2">
-                          <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full tracking-wider uppercase ${cardStyles.badge}`}>
-                            {item.year}
-                          </span>
-                        </div>
-                        
-                        {/* Title */}
-                        <h3 className={`font-display text-sm font-bold mb-1 leading-snug ${cardStyles.titleText}`}>
-                          {title}
-                        </h3>
-                        
-                        {/* Description */}
-                        <p className={`text-[11px] leading-relaxed ${cardStyles.descText}`}>
-                          {desc}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Timeline Central/Edge Dot */}
-                    <div className={`absolute ${
-                      isEven ? "md:left-[45%]" : "md:left-[55%]"
-                    } left-6 -translate-x-1/2 w-4 h-4 rounded-full ${cardStyles.dot} border-2 border-[#f5e6e6] dark:border-[#1a0f0f] ring-4 ring-red-100 dark:ring-red-950/40 shrink-0 z-20 flex items-center justify-center top-1/2 -translate-y-1/2`}>
-                      <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                    </div>
-                    
-                    {/* Spacer to push opposite content */}
-                    <div className="hidden md:block w-[45%]" />
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
         </div>
-      </section>
+      </div>
 
       {/* ── CTA ── */}
-      <section className="py-20 bg-background border-t border-border relative overflow-hidden">
+      <section className="py-20 bg-neutral-100 border-t border-neutral-200 relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10 max-w-2xl">
           <motion.div
             className="max-w-xl mx-auto"
@@ -325,11 +176,11 @@ export default function Contribution() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4">{texts.joinMovement}</h2>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-8">
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-neutral-900 mb-4">{texts.joinMovement}</h2>
+            <p className="text-neutral-500 text-lg max-w-xl mx-auto mb-8">
               {texts.joinDesc}
             </p>
-            <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold h-12 px-8">
+            <Button asChild size="lg" className="bg-[#8B1A1A] hover:bg-[#7a1616] text-white font-semibold h-12 px-8 shadow-md">
               <Link href="/book">
                 {texts.partnerBtn} <ArrowRight className="ml-2 w-4 h-4" />
               </Link>

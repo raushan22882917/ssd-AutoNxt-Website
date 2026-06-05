@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 
@@ -110,7 +110,7 @@ function SoftwareShowcase() {
   const tab = softwareTabs[active] || softwareTabs[0];
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] gap-10 items-center max-w-7xl mx-auto">
 
       {/* ── LEFT: text + tabs ── */}
       <motion.div
@@ -119,22 +119,52 @@ function SoftwareShowcase() {
         className="space-y-8"
       >
         {/* Tab switcher */}
-        <div className="flex gap-2 p-1 bg-muted/50 rounded-xl w-fit border border-border">
+        <div className="flex gap-1 p-1 bg-muted/60 rounded-xl w-fit border border-border shadow-sm">
           {softwareTabs.map((t, i) => {
             const Icon = t.icon;
+            const isActive = active === i;
             return (
-              <button
+              <motion.button
                 key={t.id}
                 onClick={() => setActive(i)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold transition-all duration-200 ${
-                  active === i
-                    ? "bg-background text-foreground shadow-sm border border-border"
-                    : "text-muted-foreground hover:text-foreground"
+                whileHover={!isActive ? { scale: 1.06, y: -1 } : {}}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 380, damping: 22 }}
+                className={`relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold transition-colors duration-200 group ${
+                  isActive
+                    ? "bg-background shadow-md border border-border text-primary"
+                    : "text-muted-foreground"
                 }`}
               >
-                <Icon className="w-4 h-4" />
-                {t.label}
-              </button>
+                {/* Red hover background glow */}
+                {!isActive && (
+                  <span className="absolute inset-0 rounded-lg bg-primary/0 group-hover:bg-primary/8 transition-colors duration-200" />
+                )}
+
+                <Icon className={`w-4 h-4 relative z-10 transition-colors duration-200 ${
+                  isActive ? "text-primary" : "group-hover:text-primary"
+                }`} />
+
+                <span className={`relative z-10 transition-colors duration-200 ${
+                  isActive ? "text-primary" : "group-hover:text-primary"
+                }`}>
+                  {t.label}
+                </span>
+
+                {/* Active: solid red underline */}
+                {isActive && (
+                  <motion.span
+                    layoutId="activeTabBar"
+                    className="absolute bottom-0 left-3 right-3 h-[3px] rounded-full bg-primary"
+                    transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  />
+                )}
+
+                {/* Hover: animated red underline (slides in from left) */}
+                {!isActive && (
+                  <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-250" />
+                )}
+              </motion.button>
             );
           })}
         </div>
@@ -207,12 +237,9 @@ function SoftwareShowcase() {
                   </div>
                   <Monitor className="w-3.5 h-3.5 text-white/30" />
                 </div>
-                <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                {/* Larger image — fills full width, taller ratio */}
+                <div className="relative overflow-hidden" style={{ aspectRatio: "16/8" }}>
                   <img src={dashboardMain} alt="NXT-Fleet Dashboard" className="w-full h-full object-cover object-top" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e]/30 to-transparent" />
-                  <div className="absolute bottom-3 right-3 w-36 rounded-lg overflow-hidden border border-white/20 shadow-xl">
-                    <img src={dashboardService} alt="Service Center" className="w-full object-cover" />
-                  </div>
                   <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm border border-white/10 rounded-full px-2.5 py-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="text-white/80 text-[10px] font-semibold tracking-wide">{t.home.liveTag}</span>
@@ -221,9 +248,9 @@ function SoftwareShowcase() {
               </div>
             )}
 
-            {/* Mobile phone */}
+            {/* Mobile phone — wider to reduce blank space */}
             {tab.device === "mobile" && (
-              <div className="relative w-[240px]">
+              <div className="relative w-[280px]">
                 <div className="relative rounded-[2.5rem] border-[7px] border-[#1a1a2e] bg-[#1a1a2e] shadow-2xl overflow-hidden">
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 bg-[#1a1a2e] rounded-b-2xl z-10" />
                   <div className="bg-[#0d1117] px-4 pt-6 pb-1 flex justify-between items-center">
@@ -244,17 +271,17 @@ function SoftwareShowcase() {
               </div>
             )}
 
-            {/* Tablet */}
+            {/* Tablet — expanded to fill available space */}
             {tab.device === "tablet" && (
-              <div className="relative w-full max-w-[520px]">
+              <div className="relative w-full max-w-[580px]">
                 {/* Tablet outer shell — landscape */}
                 <div className="rounded-[2rem] border-[10px] border-[#1a1a2e] bg-[#1a1a2e] shadow-2xl overflow-hidden">
                   {/* Top thin bar with camera */}
                   <div className="bg-[#0d0d1a] h-5 flex items-center justify-center border-b border-white/10">
                     <div className="w-2 h-2 rounded-full bg-white/25" />
                   </div>
-                  {/* Screen */}
-                  <div className="relative overflow-hidden bg-[#0d1117]" style={{ aspectRatio: "16/10" }}>
+                  {/* Screen — taller crop to fill device */}
+                  <div className="relative overflow-hidden bg-[#0d1117]" style={{ aspectRatio: "16/9" }}>
                     <img
                       src="/screen.png"
                       alt="NXT-Fleet Analytics"

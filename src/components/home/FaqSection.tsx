@@ -41,7 +41,7 @@ function FaqSection() {
   );
 
   return (
-    <section className="py-24 bg-muted/30" id="faq">
+    <section className="py-24 bg-gradient-to-b from-neutral-100 via-red-50/45 to-neutral-200/60 border-y border-neutral-200" id="faq">
       <div className="container mx-auto px-4 md:px-8">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
@@ -58,19 +58,45 @@ function FaqSection() {
 
         {/* Category tabs */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {FAQ_CATEGORIES.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => { setActiveCategory(cat.id); setOpenIndex(null); }}
-              className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all duration-200 cursor-pointer ${
-                activeCategory === cat.id
-                  ? "bg-primary text-white border-primary shadow-sm"
-                  : "bg-card text-foreground border-border hover:border-primary/50 hover:text-primary"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
+          {FAQ_CATEGORIES.map((cat) => {
+            const isActive = activeCategory === cat.id;
+            return (
+              <motion.button
+                key={cat.id}
+                onClick={() => { setActiveCategory(cat.id); setOpenIndex(null); }}
+                whileHover={!isActive ? { scale: 1.06, y: -2 } : {}}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 380, damping: 22 }}
+                className={`relative px-4 py-2 rounded-full text-sm font-semibold border cursor-pointer group transition-colors duration-200 ${
+                  isActive
+                    ? "bg-primary text-white border-primary shadow-md"
+                    : "bg-red-50 text-primary border-primary/30"
+                }`}
+              >
+                {/* Red glow background on hover */}
+                {!isActive && (
+                  <span className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary/8 transition-colors duration-200" />
+                )}
+
+                {/* Label — turns red on hover */}
+                <span className={`relative z-10 transition-colors duration-200 ${
+                  !isActive ? "group-hover:text-primary" : ""
+                }`}>
+                  {cat.label}
+                </span>
+
+                {/* Border highlight on hover */}
+                {!isActive && (
+                  <span className="absolute inset-0 rounded-full border border-primary/0 group-hover:border-primary/50 transition-colors duration-200 pointer-events-none" />
+                )}
+
+                {/* Sliding red underline on hover */}
+                {!isActive && (
+                  <span className="absolute bottom-1 left-4 right-4 h-[2px] rounded-full bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-250" />
+                )}
+              </motion.button>
+            );
+          })}
         </div>
 
         {/* FAQ list */}

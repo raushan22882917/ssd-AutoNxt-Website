@@ -306,19 +306,18 @@ export default function Industry() {
       </section>
 
       {/* ── CUSTOM INQUIRY ── */}
-      <section className="py-24 bg-red-100/80 dark:bg-red-950/20 border-y border-red-200/60 dark:border-red-900/30 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(0,72%,40%,0.12),transparent_65%)] pointer-events-none" />
+      <section className="py-24 bg-neutral-100 border-t border-neutral-200 relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10 max-w-xl">
           <motion.div
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           >
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-red-950 dark:text-red-50 mb-4">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
               {texts.dontSeeSector}
             </h2>
-            <p className="text-red-900/90 dark:text-red-200/90 text-base mb-8">
+            <p className="text-neutral-500 text-base mb-8">
               {texts.ctaDesc}
             </p>
-            <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold h-12 px-8 shadow-md hover:shadow-lg transition-all duration-300">
+            <Button asChild size="lg" className="bg-[#8B1A1A] hover:bg-[#7a1616] text-white font-semibold h-12 px-8 shadow-md">
               <Link href="/book">
                 {texts.talkToUs} <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
