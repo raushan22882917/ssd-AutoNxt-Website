@@ -1,6 +1,24 @@
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import { Linkedin, Twitter, Youtube, Instagram, Mail, Phone, MapPin } from "lucide-react";
-const logoImg = "/small-logo-white-sm.webp";import { useLang } from "@/contexts/LanguageContext";
+const logoImg = "/small-logo-white-sm.webp";
+import { useLang } from "@/contexts/LanguageContext";
+
+/* ── Reusable animated footer link ── */
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <motion.li
+      whileHover={{ x: 4 }}
+      transition={{ type: "spring", stiffness: 380, damping: 22 }}
+    >
+      <Link href={href} className="group relative inline-flex items-center gap-1.5 text-white/80 transition-colors duration-200 hover:text-primary">
+        {/* Sliding red underline */}
+        <span className="absolute -bottom-0.5 left-0 right-0 h-[1.5px] rounded-full bg-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-250" />
+        {children}
+      </Link>
+    </motion.li>
+  );
+}
 
 export default function Footer() {
   const { t } = useLang();
@@ -43,25 +61,25 @@ export default function Footer() {
           {/* Products */}
           <div>
             <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">{t.nav.product}</h3>
-            <ul className="space-y-3 text-sm text-white/80">
-              <li><Link href="/product" className="hover:text-primary transition-colors">Autonxt X45H2</Link></li>
-              <li><Link href="/product" className="hover:text-primary transition-colors">Autonxt X25H4</Link></li>
-              <li><Link href="/product" className="hover:text-primary transition-colors">{t.common.batterySystems}</Link></li>
-              <li><Link href="/product" className="hover:text-primary transition-colors">{t.common.motors}</Link></li>
-              <li><Link href="/product" className="hover:text-primary transition-colors">{t.common.fleetSolutions}</Link></li>
+            <ul className="space-y-3 text-sm">
+              <FooterLink href="/product">Autonxt X45H2</FooterLink>
+              <FooterLink href="/product">Autonxt X25H4</FooterLink>
+              <FooterLink href="/product">{t.common.batterySystems}</FooterLink>
+              <FooterLink href="/product">{t.common.motors}</FooterLink>
+              <FooterLink href="/product">{t.common.fleetSolutions}</FooterLink>
             </ul>
           </div>
 
           {/* Company */}
           <div>
             <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-widest">{t.nav.about}</h3>
-            <ul className="space-y-3 text-sm text-white/80">
-              <li><Link href="/about" className="hover:text-primary transition-colors">{t.nav.about}</Link></li>
-              <li><Link href="/industry" className="hover:text-primary transition-colors">{t.nav.industry}</Link></li>
-              <li><Link href="/contribution" className="hover:text-primary transition-colors">{t.nav.contribution}</Link></li>
-              <li><Link href="/gallery" className="hover:text-primary transition-colors">{t.nav.gallery}</Link></li>
-              <li><Link href="/news" className="hover:text-primary transition-colors">{t.nav.news}</Link></li>
-              <li><Link href="/careers" className="hover:text-primary transition-colors">{t.common.careers}</Link></li>
+            <ul className="space-y-3 text-sm">
+              <FooterLink href="/about">{t.nav.about}</FooterLink>
+              <FooterLink href="/industry">{t.nav.industry}</FooterLink>
+              <FooterLink href="/contribution">{t.nav.contribution}</FooterLink>
+              <FooterLink href="/gallery">{t.nav.gallery}</FooterLink>
+              <FooterLink href="/news">{t.nav.news}</FooterLink>
+              <FooterLink href="/careers">{t.common.careers}</FooterLink>
             </ul>
           </div>
 
@@ -98,3 +116,4 @@ export default function Footer() {
     </footer>
   );
 }
+

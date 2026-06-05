@@ -21,7 +21,6 @@ export default function Contribution() {
     icon: initiativeIcons[i] || Target,
   }));
 
-  const timeline = t.contributionPage.timeline;
   const texts = t.contributionPage.texts;
 
   const statIcons = [Leaf, TreePine, Target];
@@ -164,46 +163,13 @@ export default function Contribution() {
             </div>
           </div>
 
-          {/* Timeline */}
-          <div className="mb-24">
-            <motion.h2
-              className="font-display text-3xl md:text-4xl font-bold text-foreground mb-12 text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              {texts.ourJourney}
-            </motion.h2>
-            <div className="relative">
-              <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border/60 md:-translate-x-1/2" />
-              <div className="space-y-10">
-                {timeline.map((item, i) => (
-                  <motion.div
-                    key={i}
-                    className={`flex gap-8 md:gap-0 items-start md:items-center ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
-                    initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <div className={`w-full md:w-1/2 ${i % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"} pl-12 md:pl-0`}>
-                      <span className="inline-block text-primary font-bold text-2xl font-display mb-2">{item.year}</span>
-                      <p className="text-foreground">{item.event}</p>
-                    </div>
-                    <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-3 h-3 rounded-full bg-primary border-2 border-background mt-1 md:mt-0 shrink-0" />
-                    <div className="hidden md:block w-1/2" />
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
+
 
         </div>
       </div>
 
       {/* ── CTA ── */}
-      <section className="py-20 bg-primary text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(0,72%,30%,0.5),transparent_65%)] pointer-events-none" />
+      <section className="py-20 bg-neutral-100 border-t border-neutral-200 relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10 max-w-2xl">
           <motion.div
             className="max-w-xl mx-auto"
@@ -211,11 +177,11 @@ export default function Contribution() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4">{texts.joinMovement}</h2>
-            <p className="text-white/80 text-lg max-w-xl mx-auto mb-8">
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-neutral-900 mb-4">{texts.joinMovement}</h2>
+            <p className="text-neutral-500 text-lg max-w-xl mx-auto mb-8">
               {texts.joinDesc}
             </p>
-            <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold h-12 px-8">
+            <Button asChild size="lg" className="bg-[#8B1A1A] hover:bg-[#7a1616] text-white font-semibold h-12 px-8 shadow-md">
               <Link href="/book">
                 {texts.partnerBtn} <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
