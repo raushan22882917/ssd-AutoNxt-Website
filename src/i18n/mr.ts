@@ -353,6 +353,8 @@ export const mr: typeof en = {
     cancel: "रद्द करा",
     loadingModel: "3D मॉडेल लोड होत आहे...",
     dragToRotate: "↺ फिरवण्यासाठी ड्रॅग करा",
+    exploreAll: "सर्व पाहा",
+    collapseList: "यादी बंद करा",
   },
   book: {
     title: "डेमो बुक करा",

@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState, useEffect } from "react";
+import { lazy, Suspense, useState, useEffect, useRef } from "react";
+import { useAntigravityScroll } from "@/hooks/use-antigravity-scroll";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { BackgroundGradient } from "@/components/ui/background-gradient";
@@ -36,6 +37,9 @@ export default function Product() {
   const [show3D, setShow3D] = useState<Record<string, boolean>>({});
 
   const [load3D, setLoad3D] = useState(false);
+
+  const filterRef = useRef<HTMLDivElement>(null);
+  useAntigravityScroll(filterRef);
 
   useEffect(() => {
     let active = true;
@@ -199,7 +203,7 @@ export default function Product() {
       <SEO title={t.nav.product} description={t.productPage.desc} />
 
       {/* ── HERO ── */}
-      <section className="bg-zinc-950 relative overflow-hidden pt-24 pb-0 lg:h-[87.5vh] flex items-center">
+      <section className="bg-zinc-950 relative overflow-hidden pt-24 pb-0 lg:h-[93.75vh] flex items-center">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_60%,hsl(0,72%,40%,0.10),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.07),transparent_50%)] pointer-events-none" />
@@ -320,7 +324,7 @@ export default function Product() {
           </div>
 
           {/* Filter tabs */}
-          <div className="flex items-center justify-center gap-2 mb-12 flex-wrap">
+          <div ref={filterRef} className="flex items-center justify-center gap-2 mb-12 flex-wrap">
             {FILTER_TABS.map((tab) => (
               <button
                 key={tab.id}

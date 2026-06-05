@@ -356,6 +356,8 @@ export const en = {
     cancel: "Cancel",
     loadingModel: "Loading 3D model...",
     dragToRotate: "↺ drag to rotate",
+    exploreAll: "Explore All",
+    collapseList: "Collapse List",
   },
   // Book
   book: {

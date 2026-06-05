@@ -358,6 +358,8 @@ export const te: typeof en = {
     cancel: "రద్దు చేయి",
     loadingModel: "3D మోడల్ లోడ్ అవుతోంది...",
     dragToRotate: "↺ తిప్పడానికి లాగండి",
+    exploreAll: "అన్నీ చూడండి",
+    collapseList: "జాబితాను మూసివేయి",
   },
   // Book
   book: {
