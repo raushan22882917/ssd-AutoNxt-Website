@@ -19,8 +19,13 @@ function useCountUp(target: string, duration = 1800) {
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true;
-          const numericStr = target.replace(/[^0-9.]/g, "");
-          const suffix = target.replace(/[0-9.]/g, "");
+          // Extract prefix if target starts with non-numeric currency/symbol (like ₹)
+          const prefixMatch = target.match(/^[^0-9.]+/);
+          const prefix = prefixMatch ? prefixMatch[0] : "";
+          const restOfTarget = target.slice(prefix.length);
+
+          const numericStr = restOfTarget.replace(/[^0-9.]/g, "");
+          const suffix = restOfTarget.replace(/[0-9.]/g, "");
           const num = parseFloat(numericStr);
           if (isNaN(num)) { setDisplay(target); return; }
           const steps = 40;
@@ -33,7 +38,7 @@ function useCountUp(target: string, duration = 1800) {
             const formatted = Number.isInteger(num)
               ? Math.round(current).toString()
               : current.toFixed(1);
-            setDisplay(formatted + suffix);
+            setDisplay(prefix + formatted + suffix);
             if (step >= steps) clearInterval(timer);
           }, duration / steps);
         }
@@ -148,7 +153,7 @@ export default function EvBlog() {
 
   return (
     <div className="w-full min-h-screen bg-background">
-      <SEO title={t.nav.evBlog} description="Explore technical insights, battery innovations, motor technology, and trends in electric vehicle infrastructure." />
+      <SEO title={t.nav.evBlog} description={t.evBlog.desc} />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-20 md:pt-28 pb-0">
@@ -298,29 +303,7 @@ export default function EvBlog() {
         </div>
       </div>
 
-      {/* ── ANIMATED STATS BAR ── */}
-      <section className="bg-primary/10 border-y border-primary/15 py-10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-cyan-500/5" />
-        {/* Decorative blobs */}
-        <div className="absolute top-0 left-[20%] w-40 h-40 rounded-full bg-sky-400/10 blur-2xl pointer-events-none" />
-        <div className="absolute bottom-0 right-[20%] w-40 h-40 rounded-full bg-cyan-400/10 blur-2xl pointer-events-none" />
 
-        <div className="container mx-auto px-4 md:px-8 max-w-5xl relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {STATS.map((s: { value: string; label: string }, i: number) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <AnimatedStat value={s.value} label={s.label} />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── SEARCH & FILTER SECTION ── */}
       <section className="py-6 bg-muted/10 border-b border-border">
@@ -335,13 +318,13 @@ export default function EvBlog() {
                 placeholder={t.evBlog.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                aria-label="Search EV blog articles"
+                aria-label={t.evBlog.searchPlaceholder}
                 className="w-full pl-14 pr-12 py-3.5 bg-background border-2 border-primary/20 hover:border-primary/40 focus:border-primary rounded-full outline-none transition-all text-base text-foreground placeholder-muted-foreground shadow-md font-medium"
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm("")}
-                  aria-label="Clear search"
+                  aria-label={t.common.cancel}
                   className="absolute right-4 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-muted flex items-center justify-center hover:bg-primary/10 transition-colors"
                 >
                   <X className="w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
@@ -448,7 +431,7 @@ export default function EvBlog() {
                     <div
                       className="relative h-48 w-full overflow-hidden cursor-pointer"
                       onClick={() => handleReadArticle(post.externalUrl)}
-                      title="Click to read full article"
+                      title={t.evBlog.readArticle}
                     >
                       {post.image ? (
                         <img

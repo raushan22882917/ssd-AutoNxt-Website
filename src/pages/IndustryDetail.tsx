@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -27,9 +28,19 @@ const APP_ICONS_MAP: Record<string, React.ElementType[]> = {
   metal: [Truck]
 };
 
+const getFirstSentence = (text: string) => {
+  if (!text) return "";
+  const match = text.match(/^[^.!?।]+[.!?।]/);
+  return match ? match[0] : text;
+};
+
 export default function IndustryDetail({ params }: { params: { slug: string } }) {
   const { t } = useLang();
   const slug = params?.slug ?? "biomass";
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
   
   const industryFromT = t.industryDetailPage.industries[slug as "biomass"] || t.industryDetailPage.industries.biomass;
   const texts = t.industryDetailPage.texts;
@@ -98,10 +109,10 @@ export default function IndustryDetail({ params }: { params: { slug: string } })
                 {industry.tagline}
               </motion.p>
               <motion.p
-                className="text-white/55 text-base md:text-lg leading-relaxed"
+                className="text-white/80 text-base md:text-lg leading-relaxed"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
               >
-                {industry.desc}
+                {getFirstSentence(industry.desc)}
               </motion.p>
             </div>
 
@@ -111,13 +122,21 @@ export default function IndustryDetail({ params }: { params: { slug: string } })
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.22, duration: 0.6 }}
             >
-              <div className="relative h-[240px] sm:h-[300px] lg:h-[380px] rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+              <div 
+                className="relative h-[240px] sm:h-[300px] lg:h-[380px] overflow-hidden"
+                style={{
+                  maskImage: "radial-gradient(ellipse at center, black 50%, transparent 100%)",
+                  WebkitMaskImage: "radial-gradient(ellipse at center, black 50%, transparent 100%)"
+                }}
+              >
                 <img 
-                  src={industry.image} 
+                  src={industry.image ? industry.image.replace(/\.(webp|png)$/i, "-clean.webp") : ""} 
                   alt={industry.title} 
+                  width={600}
+                  height={380}
+                  fetchPriority="high"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               </div>
             </motion.div>
           </div>
@@ -129,6 +148,10 @@ export default function IndustryDetail({ params }: { params: { slug: string } })
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2 space-y-12">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                <h2 className="font-display text-2xl font-bold text-foreground mb-4">{texts.overview}</h2>
+                <p className="text-muted-foreground leading-relaxed text-base">{industry.desc}</p>
+              </motion.div>
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                 <h2 className="font-display text-2xl font-bold text-foreground mb-4">{texts.challenge}</h2>
                 <p className="text-muted-foreground leading-relaxed text-base">{industry.challenges}</p>

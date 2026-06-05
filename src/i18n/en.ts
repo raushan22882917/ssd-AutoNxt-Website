@@ -50,43 +50,43 @@ export const en = {
     faqs: [
       {
         q: "Why AutoNxt electric tractors over diesel tractors?",
-        a: "AutoNxt electric tractors offer significantly lower running costs — electricity is up to 70% cheaper per hour than diesel. They produce zero direct emissions, have fewer moving parts (meaning lower maintenance costs), deliver instant full torque from startup, and operate silently. Over a 5-year period, farmers typically save ₹3–5 lakh compared to diesel equivalents.",
+        a: "Electric tractors have several advantages over diesel tractors: lower operating costs, minimal maintenance, zero emissions, and high torque with instant acceleration.",
       },
       {
-        q: "How many hours does the tractor work on a single charge?",
-        a: "Our tractors are designed for a full working day. The X45H2 delivers 8–10 hours of standard field operations on one charge. For heavy-duty tasks such as deep tilling or loaded haulage, expect 6–8 hours. Our smart battery management system gives you real-time range estimates so you're never caught off guard.",
+        q: "How many hours does the tractor work?",
+        a: "4-8 hours depending on what activity the tractor is performing.",
       },
       {
-        q: "How long does the tractor take to charge from 0–100%?",
-        a: "Using our standard AC charger (included), a full charge takes approximately 6–8 hours — ideal for overnight charging. With our optional DC fast charger, you can reach 80% charge in under 3 hours. A complete charge costs roughly ₹150–200 at standard Indian electricity rates.",
+        q: "How much time does the tractor take to charge from 0-100%?",
+        a: "6 hours on single-phase slow charger and 2 hours 30 minutes on fast charger.",
       },
       {
-        q: "What implements can be used with AutoNxt tractors?",
-        a: "AutoNxt tractors are compatible with all standard 3-point hitch implements including rotavators, ploughs, seed drills, cultivators, harrows, and post-hole diggers. The PTO (Power Take-Off) is compatible with most standard Indian agricultural equipment. Our team can advise on compatibility for specific implements.",
+        q: "What all implements can be used with AutoNxt Tractors?",
+        a: "Any implement that works with the equivalent HP diesel tractor can be used with the AutoNxt tractors.",
       },
       {
         q: "Can the tractor be charged at home?",
-        a: "Yes. Our standard charger plugs into any 15-amp single-phase socket — the same as a regular home power point. You don't need a special charging station. For faster charging, we recommend a dedicated 32-amp circuit, which most agricultural households already have for irrigation pump connections.",
+        a: "Yes, the tractor can be charged with a 15 Ampere supply which is available at home or any other heavy-duty appliance.",
       },
       {
-        q: "Does the tractor have enough power for heavy-duty work?",
-        a: "Absolutely. Electric motors deliver maximum torque from zero RPM — unlike diesel engines that need to rev up. The X45H2's motor produces the pulling equivalent of a 55HP diesel tractor in practical fieldwork. Farmers switching from diesel consistently report better performance in demanding conditions like wet paddy fields and heavy soil.",
+        q: "Does the Tractor have enough power to get the heavy-duty work done?",
+        a: "Yes, the tractors can do any task that a traditional equivalent HP diesel tractor can perform.",
       },
       {
         q: "After how many years will the battery need to be replaced?",
-        a: "Our lithium iron phosphate (LFP) battery packs are rated for 3,000+ charge cycles with less than 20% capacity degradation — translating to roughly 8–10 years of typical farm use. The battery comes with a 5-year / 3,000-cycle warranty. Post-warranty, the battery can be replaced as a modular unit.",
+        a: "We estimate a life of 8-10 years for the tractor battery after which it can be replaced.",
       },
       {
         q: "How much savings will I have by using Electric Tractors?",
-        a: "On average, AutoNxt owners save ₹60,000–₹90,000 per year on fuel and maintenance compared to a diesel tractor of equivalent power. Over 5 years that's ₹3–4.5 lakh in direct savings, before accounting for government subsidies and carbon credits. Our finance calculator can give you a personalised estimate.",
+        a: "By using AutoNxt electric tractors, you will have 5 times less operational expenses.",
       },
       {
         q: "Is the tractor remote controlled?",
-        a: "Select models in our commercial range offer optional GPS-guided autonomous operation and remote monitoring via the AutoNxt NXT-OS app. The standard range includes full telematics — you can monitor location, battery health, and usage data remotely. Full autonomous driving is available for industrial and airport applications.",
+        a: "Yes, we are introducing remote and completely driverless functions in the Electric Tractors in some models to help you get the job done without having to expose yourself to extreme conditions.",
       },
       {
         q: "Are there any financing options for buying the tractor?",
-        a: "Yes. We partner with leading rural banks and NBFCs to offer EMI plans starting from ₹8,000/month with as low as 10% down payment. Kisan Credit Card (KCC) holders get preferential rates. Additionally, multiple state governments offer EV subsidies of ₹50,000–₹1.5 lakh on agricultural EVs. Contact our team to explore the best option for you.",
+        a: "Yes, we do have some financing options, for which you may send your contact details to our team at sales@autonxt.in.",
       },
     ],
     techTag: "Proprietary Technology",
@@ -170,7 +170,7 @@ export const en = {
         name: "AutoNxt X45H2",
         type: "45HP Electric Tractor",
         tag: "Best Seller",
-        desc: "Versatility and power across all farming and haulage activities. AI load management, solar-compatible.",
+        desc: "Versatility and power across all farming and haulage activities. AI load management.",
         specs: [
           { label: "Motor", value: "32 kW" },
           { label: "Battery", value: "38.4 kWh" },
@@ -316,6 +316,10 @@ export const en = {
     salesMeetingInfo: "Meetings are conducted via Google Meet with a product specialist (10 AM - 5 PM).",
     scheduleMeeting: "Confirm Meeting Schedule",
     bookingHeader: "PRE-BOOK YOUR AUTONXT TRACTOR",
+    inputPlaceholder: "Ask me anything...",
+    clearSession: "Clear session",
+    talkWithAgent: "Talk with agent",
+    assistantSubtitle: "Smart Farming Assistant",
   },
 
   common: {
@@ -361,6 +365,9 @@ export const en = {
     pressInquiries: "Press & Media Inquiries",
     pressDesc: "For press releases, high-res images, and media interviews, please contact our PR team.",
     contactPr: "Contact PR Team",
+    liveCovers: "Live Coverage",
+    pressMedia: "Press & Media",
+    latestUpdates: "Latest Updates",
   },
   // Blog
   blog: {
@@ -438,8 +445,8 @@ export const en = {
       zeroEmissionsDesc: "100% electric drivetrain",
       instantTorque: "Instant Torque",
       instantTorqueDesc: "From zero RPM on every terrain",
-      solar: "Solar Compatible",
-      solarDesc: "Charge directly from solar panels",
+      fastCharging: "Fast Charging",
+      fastChargingDesc: "Fully charged in 3–4 hours",
       warranty: "5-Year Warranty",
       warrantyDesc: "Backed by India service network"
     },
@@ -690,10 +697,10 @@ export const en = {
         highlights: [
           "Lightest electric tractor in AutoNxt's lineup",
           "Minimum soil compaction — ideal for precision farming",
-          "Charges fully from a 10-panel farm solar setup",
+          "Fast AC charging in 3 hours",
           "Eligible for FAME-III and PM-KISAN linked EV subsidies",
           "5-year comprehensive warranty",
-          "Coming soon — register interest now",
+          "Made in India — Thane, Maharashtra",
         ],
       },
     }
@@ -891,7 +898,7 @@ export const en = {
           "Zero fumes — safe for indoor biomass storage and processing",
           "8–10 hrs continuous operation per charge",
           "iCAT certified for commercial agricultural use",
-          "Solar charging integration reduces grid dependency",
+          "Fast charging capability keeps operations running",
           "Remote fleet monitoring via AutoNxt telematics portal",
         ],
         challenges: "Biomass operations run long shifts, often inside sheds where diesel fumes create serious air quality and fire risks. High fuel costs erode margins, and unplanned maintenance during harvest season disrupts the entire supply chain.",
@@ -953,7 +960,7 @@ export const en = {
           "No fuel storage risk on-site — reduces fire hazard",
         ],
         challenges: "Construction sites face increasing regulatory pressure on diesel emissions, particularly near urban residential zones. Fuel logistics are complex and theft-prone. Diesel engines struggle with dusty air filters and temperature extremes on exposed sites.",
-        solution: "AutoNxt X45H2's sealed electric drivetrain is unaffected by dust ingress. It requires no fuel delivery and the battery can be charged overnight from the site's temporary power supply or a portable solar charging unit.",
+        solution: "AutoNxt X45H2's sealed electric drivetrain is unaffected by dust ingress. It requires no fuel delivery and the battery can be charged overnight from the site's temporary power supply or a dedicated charging station.",
         models: [
           { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/products/x45h2.webp", note: "Primary choice for construction site haulage and earth prep", slug: "x45h2" },
         ],
@@ -979,7 +986,7 @@ export const en = {
           "Lower maintenance burden — no engine oil, filters, or injectors",
         ],
         challenges: "Defence logistics require equipment that can operate quietly, in diverse terrain, without complex fuel logistics. Diesel generators and tractors create acoustic and thermal signatures that compromise operational security.",
-        solution: "AutoNxt's electric powertraint operations are silent and generate no thermal signature, making it ideal for base perimeter operations. The modular battery pack can be charged via a field generator or vehicle-mounted solar system.",
+        solution: "AutoNxt's electric powertraint operations are silent and generate no thermal signature, making it ideal for base perimeter operations. The modular battery pack can be charged via a field generator or local grid connection.",
         models: [
           { name: "AutoNxt X45H2", hp: "45 HP", img: "/images/products/x45h2.webp", note: "Primary recommendation for defence base logistics", slug: "x45h2" },
         ],
@@ -1131,10 +1138,9 @@ export const en = {
       partnerBtn: "Partner With Us",
     },
     impacts: [
-      { value: "500K+", label: "Tons CO₂ Offset", desc: "Lifetime carbon emissions prevented by Autonxt EVs on Indian roads." },
-      { value: "10,000+", label: "Vehicles Electrified", desc: "Petrol and diesel vehicles replaced by clean Autonxt electric alternatives." },
-      { value: "1,200+", label: "Solar Chargers Deployed", desc: "Renewable energy charging stations installed across India." },
-      { value: "2M+", label: "Trees Equivalent", desc: "Environmental benefit equivalent in carbon sequestration per year." },
+      { value: "1,500+", label: "Tons CO₂ Offset", desc: "Lifetime carbon emissions prevented by Autonxt EVs on Indian roads." },
+      { value: "270+", label: "Vehicles Electrified", desc: "Petrol and diesel vehicles replaced by clean Autonxt electric alternatives." },
+      { value: "70,650+", label: "Trees Equivalent", desc: "Environmental benefit equivalent in carbon sequestration per year." },
     ],
     initiatives: [
       {
@@ -1154,18 +1160,18 @@ export const en = {
       },
     ],
     stats: [
-      { label: "CO₂ Offset", value: "500K+ T" },
-      { label: "Trees Equiv.", value: "2M+" },
+      { label: "Cost Saved", value: "₹4.76Cr" },
+      { label: "Industries", value: "8 Trusting" },
       { label: "Initiatives", value: "3 Active" },
     ],
     timeline: [
-      { year: "2019", event: "Autonxt founded in Pune, Maharashtra. First R&D lab opened." },
-      { year: "2020", event: "First EV prototype completed. Seed funding secured from SIDBI." },
-      { year: "2021", event: "FAME II certification achieved. Partnership with 3 state governments signed." },
-      { year: "2022", event: "Commercial production begins. 500 vehicles delivered to fleet operators." },
-      { year: "2023", event: "Series B funding raised. Expanded to 12 cities. 5,000 vehicles on road." },
-      { year: "2024", event: "Launched solar charging network. Defense contract signed. 10,000+ vehicles milestone." },
-      { year: "2025+", event: "International expansion begins. Solid-state battery pilot launched." },
+      { year: "2019", event: "Foundation — AutoNxt Automation Pvt. Ltd. was founded in Pune, Maharashtra. The first Research & Development (R&D) laboratory was established to build the foundation for clean electric mobility." },
+      { year: "2020", event: "First Prototype — The first EV prototype was successfully completed and tested. Seed funding was secured from SIDBI (Small Industries Development Bank of India), enabling further R&D." },
+      { year: "2021", event: "Certification & Partnerships — FAME II (Faster Adoption and Manufacturing of Electric Vehicles) certification was obtained. Partnership agreements were signed with 3 state governments to advance EV adoption." },
+      { year: "2022", event: "Commercial Production — Full-scale commercial production commenced. 500 vehicles were supplied to fleet operators, marking AutoNxt's entry into the commercial EV market." },
+      { year: "2023", event: "Rapid Growth — Series B funding was successfully raised. Operations expanded to 12 cities across India. The milestone of 5,000+ vehicles on the road was achieved." },
+      { year: "2024", event: "Milestones — The solar charging network was officially launched. A defence sector contract was signed. AutoNxt crossed the landmark of 10,000+ vehicles deployed across India." },
+      { year: "2025+", event: "Global Expansion — International expansion has commenced. A solid-state battery pilot project has been launched, marking the next frontier in AutoNxt's clean energy journey." },
     ]
   },
   // Privacy Page

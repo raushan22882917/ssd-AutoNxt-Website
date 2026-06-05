@@ -102,7 +102,7 @@ export default function Blog() {
 
   return (
     <div className="w-full min-h-screen bg-background">
-      <SEO title={t.nav.blog} description="Read our agricultural blog featuring stories from the field, crop guides, and tips for modern, sustainable farming." />
+      <SEO title={t.nav.blog} description={t.blog.desc} />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-20 md:pt-28 pb-0">
@@ -253,13 +253,13 @@ export default function Blog() {
                 placeholder={t.blog.searchPlaceholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                aria-label="Search blog articles"
+                aria-label={t.blog.searchPlaceholder}
                 className="w-full pl-14 pr-12 py-3.5 bg-background border-2 border-primary/20 hover:border-primary/40 focus:border-primary rounded-full outline-none transition-all text-base text-foreground placeholder-muted-foreground shadow-md font-medium"
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm("")}
-                  aria-label="Clear search"
+                  aria-label={t.common.cancel}
                   className="absolute right-4 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-muted flex items-center justify-center hover:bg-primary/10 transition-colors"
                 >
                   <X className="w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
@@ -487,7 +487,7 @@ export default function Blog() {
                   <div
                     className="relative h-52 w-full overflow-hidden cursor-pointer"
                     onClick={() => handleReadArticle(post.externalUrl)}
-                    title="Click to read full article"
+                    title={t.blog.readArticle}
                   >
                     {post.image ? (
                       <img
