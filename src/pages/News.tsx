@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -89,7 +89,7 @@ export default function News() {
       <SEO title={t.nav.news} description={t.news.desc} />
 
       {/* ── HERO ── */}
-      <section className="bg-surface-dark relative overflow-hidden pt-20 md:pt-28 pb-0">
+      <section className="bg-surface-dark relative overflow-hidden pt-24 pb-0 lg:h-[93.75vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(0,72%,45%,0.15),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,hsl(214,65%,40%,0.1),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.03]"

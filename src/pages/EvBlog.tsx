@@ -156,7 +156,7 @@ export default function EvBlog() {
       <SEO title={t.nav.evBlog} description={t.evBlog.desc} />
 
       {/* ── HERO ── */}
-      <section className="bg-surface-dark relative overflow-hidden pt-20 md:pt-28 pb-0">
+      <section className="bg-surface-dark relative overflow-hidden pt-24 pb-0 lg:h-[93.75vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.15),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.08),transparent_50%)] pointer-events-none" />
         {/* Floating orbs */}

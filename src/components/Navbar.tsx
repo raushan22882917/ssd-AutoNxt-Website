@@ -69,10 +69,10 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
+        "fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 border-b border-transparent py-2.5",
         isScrolled
-          ? "bg-white/95 backdrop-blur-md border-border shadow-sm py-2"
-          : "bg-white py-3"
+          ? "bg-white/95 backdrop-blur-md border-border shadow-sm"
+          : "bg-white"
       )}
     >
       <div 
