@@ -12,7 +12,6 @@ import {
   User,
   Calendar,
   MessageSquare,
-  Tag,
   Copy,
   Check,
 } from "lucide-react";
@@ -26,14 +25,12 @@ export default function ContactPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     subject: "",
     message: "",
-    tractorModel: "",
     preferredDate: "",
     location: "",
   });
@@ -99,7 +96,6 @@ export default function ContactPage() {
         phone: formData.phone,
         subject: formData.subject,
         message: formData.message,
-        tractorModel: formData.tractorModel,
         preferredDate: formData.preferredDate,
         location: formData.location,
       });
@@ -115,7 +111,6 @@ export default function ContactPage() {
           phone: "",
           subject: "",
           message: "",
-          tractorModel: "",
           preferredDate: "",
           location: "",
         });
@@ -208,45 +203,14 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    {/* Styled Select Dropdown for Tractor Model */}
-                    <div className="relative flex items-center">
-                      <Tag className="absolute left-4 text-gray-400 peer-focus:text-red-600 transition-colors pointer-events-none w-5 h-5 z-10" />
-                      <select
-                        name="tractorModel"
-                        value={formData.tractorModel}
-                        onChange={handleChange}
-                        className="peer w-full h-14 rounded-2xl border border-gray-200 bg-gray-50 pl-12 pr-10 text-gray-955 outline-none focus:border-red-500 focus:bg-white focus:ring-4 focus:ring-red-500/10 transition-all appearance-none cursor-pointer text-sm"
-                      >
-                        <option value="" disabled hidden></option>
-                        <option value="AutoNxt X45H2">AutoNxt X45H2 (45HP)</option>
-                        <option value="AutoNxt X60H2">AutoNxt X60H2 (60HP)</option>
-                        <option value="AutoNxt X25H2">AutoNxt X25H2 (25HP)</option>
-                        <option value="General Inquiry">General Inquiry / Other</option>
-                      </select>
-                      
-                      <div className="absolute right-4 pointer-events-none text-gray-400">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </div>
-
-                      <label className={`absolute text-gray-400 text-sm transition-all bg-white px-1 pointer-events-none ${
-                        formData.tractorModel ? "-top-2.5 text-xs text-red-600 left-5 z-10" : "left-12 top-[17px]"
-                      }`}>
-                        {t.bookPage.form.model}
-                      </label>
-                    </div>
-
-                    <InputField
-                      label={t.bookPage.form.date}
-                      name="preferredDate"
-                      type="date"
-                      value={formData.preferredDate}
-                      onChange={handleChange}
-                      icon={Calendar}
-                    />
-                  </div>
+                  <InputField
+                    label={t.bookPage.form.date}
+                    name="preferredDate"
+                    type="date"
+                    value={formData.preferredDate}
+                    onChange={handleChange}
+                    icon={Calendar}
+                  />
 
                   <InputField
                     label={t.bookPage.form.subject}
@@ -270,9 +234,8 @@ export default function ContactPage() {
                       className="peer w-full rounded-2xl border border-gray-200 bg-gray-50 pl-12 pr-5 py-4 text-gray-900 outline-none focus:border-red-500 focus:bg-white focus:ring-4 focus:ring-red-500/10 resize-none transition-all text-sm"
                     />
 
-                    <label className={`absolute text-gray-400 text-sm transition-all bg-white px-1 pointer-events-none ${
-                      formData.message ? "-top-2.5 text-xs text-red-600 left-5 z-10" : "left-12 top-[15px]"
-                    }`}>
+                    <label className={`absolute text-gray-400 text-sm transition-all bg-white px-1 pointer-events-none ${formData.message ? "-top-2.5 text-xs text-red-600 left-5 z-10" : "left-12 top-[15px]"
+                      }`}>
                       {t.bookPage.form.message}
                     </label>
                   </div>
@@ -315,7 +278,7 @@ export default function ContactPage() {
               </div>
             </motion.div>
 
-             {/* RIGHT SIDE */}
+            {/* RIGHT SIDE */}
             <motion.div
               initial={{ opacity: 0, x: 25 }}
               animate={{ opacity: 1, x: 0 }}
@@ -325,7 +288,7 @@ export default function ContactPage() {
               <div className="rounded-[32px] border border-gray-200 bg-white shadow-xl p-8 relative overflow-hidden group hover:border-red-500/25 transition duration-300">
                 {/* Subtle top indicator bar */}
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500 to-red-600" />
-                
+
                 <h3 className="text-2xl font-bold text-gray-900 mb-7">
                   {t.bookPage.contactInfo.title}
                 </h3>
@@ -420,21 +383,19 @@ function InputField({
         value={value}
         onChange={onChange}
         required={required}
-        className={`peer w-full h-14 rounded-2xl border border-gray-200 bg-gray-50 text-gray-900 outline-none focus:border-red-500 focus:bg-white focus:ring-4 focus:ring-red-500/10 transition-all text-sm ${
-          Icon ? "pl-12 pr-5" : "px-5"
-        }`}
+        className={`peer w-full h-14 rounded-2xl border border-gray-200 bg-gray-50 text-gray-900 outline-none focus:border-red-500 focus:bg-white focus:ring-4 focus:ring-red-500/10 transition-all text-sm ${Icon ? "pl-12 pr-5" : "px-5"
+          }`}
       />
 
-      <label className={`absolute text-gray-400 text-sm transition-all bg-white px-1 pointer-events-none ${
-        (type === "date" || value)
-          ? "-top-2.5 text-xs text-red-600 left-5 z-10"
-          : Icon
+      <label className={`absolute text-gray-400 text-sm transition-all bg-white px-1 pointer-events-none ${(type === "date" || value)
+        ? "-top-2.5 text-xs text-red-600 left-5 z-10"
+        : Icon
           ? "left-12 top-[17px] peer-focus:-top-2.5 peer-focus:left-5 peer-focus:text-xs peer-focus:text-red-600 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:left-5 peer-not-placeholder-shown:text-xs z-10"
           : "left-5 top-[17px] peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-red-600 peer-not-placeholder-shown:-top-2.5 peer-not-placeholder-shown:text-xs z-10"
-      }`}>
+        }`}>
         {label}
         {required && <span className="text-red-600 ml-1">*</span>}
       </label>
     </div>
   );
-}
+}

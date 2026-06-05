@@ -966,10 +966,7 @@ export default function StaticChatBot() {
   };
 
   const handleClearSession = () => {
-    const confirmMsg =
-      userLanguage === "hi"
-        ? "चैट, फॉर्म और सेशन डेटा साफ करें? नई बातचीत शुरू होगी।"
-        : "Clear chat, forms, and session data? A new conversation will start.";
+    const confirmMsg = t.chat.clearSession + "?";
     if (!window.confirm(confirmMsg)) return;
 
     clearCallTimers();
@@ -1072,7 +1069,7 @@ export default function StaticChatBot() {
 
                     <p className="text-white/50 text-xs flex items-center gap-1.5">
                       <Sparkles className="w-3 h-3 text-red-400" />
-                      Smart Farming Assistant
+                      {t.chat.assistantSubtitle}
                     </p>
                   </div>
                 </div>
@@ -1082,12 +1079,8 @@ export default function StaticChatBot() {
                     type="button"
                     onClick={handleClearSession}
                     disabled={loading || callCountdown !== null}
-                    title={
-                      userLanguage === "hi" ? "सेशन साफ करें" : "Clear session"
-                    }
-                    aria-label={
-                      userLanguage === "hi" ? "सेशन साफ करें" : "Clear session"
-                    }
+                    title={t.chat.clearSession}
+                    aria-label={t.chat.clearSession}
                     className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 transition-all disabled:opacity-40"
                   >
                     <RotateCcw className="w-4 h-4" />
@@ -1442,7 +1435,7 @@ export default function StaticChatBot() {
 
             {/* FOOTER */}
             <div className="border-t border-gray-100 bg-white px-4 py-3 space-y-3">
-              <div className="grid grid-cols-2 gap-2">
+              {/* <div className="grid grid-cols-2 gap-2">
                 <button type="button" onClick={() => openCallForm("now")} disabled={loading} aria-label="Talk with agent" className="flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-lg bg-red-600 text-white text-[9px] font-semibold leading-tight hover:bg-red-700 disabled:opacity-50">
                   <PhoneCall className="w-3.5 h-3.5 shrink-0" />
                   Talk with agent
@@ -1451,7 +1444,7 @@ export default function StaticChatBot() {
                   <Calendar className="w-3.5 h-3.5 shrink-0" />
                   Schedule meeting
                 </button>
-              </div>
+              </div> */}
               {/* Text Input */}
               <div className="flex items-center gap-2">
                 <input
@@ -1463,7 +1456,7 @@ export default function StaticChatBot() {
                       handleSendMessage();
                     }
                   }}
-                  placeholder="Ask me anything..."
+                  placeholder={t.chat.inputPlaceholder}
                   disabled={loading}
                   className="flex-1 px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 />

@@ -30,7 +30,7 @@ export default function AttachmentDetail({
   params: { slug: string };
 }) {
   const { t } = useLang();
-  
+
   const [load3D, setLoad3D] = useState(false);
 
   useEffect(() => {
@@ -112,9 +112,18 @@ export default function AttachmentDetail({
   }));
 
   const IMPLEMENT_ASSETS: Record<string, { glb?: string; image: string }> = {
-    bucket: { glb: "/3dmodel/bucket.glb", image: "/images/implement/bucket-removebg-preview.webp" },
-    catcher: { image: "/images/implement/catcher.webp" },
-    loader: { image: "/images/implement/loader-removebg-preview.webp" },
+    bucket: {
+      glb: "/3dmodel/bucket.glb",
+      image: "/images/implement/bucket-removebg-preview.webp"
+    },
+    catcher: {
+      glb: "/3dmodel/catcher.glb",
+      image: "/images/implement/catcher.webp"
+    },
+    loader: {
+      glb: "/3dmodel/loader.glb",
+      image: "/images/implement/loader-removebg-preview.webp"
+    },
   };
 
   const assets = IMPLEMENT_ASSETS[slug as "bucket" | "catcher" | "loader"] || IMPLEMENT_ASSETS.bucket;

@@ -17,6 +17,8 @@ const MODEL_PLACEHOLDER: Record<string, string> = {
   "/3dmodel/motor.glb":   "/images/motorimage.avif",
   "/3dmodel/x45.glb":     "/images/products/x45h2.webp",
   "/3dmodel/bucket.glb":  "/images/implement/bucket-removebg-preview.webp",
+  "/3dmodel/loader.glb":  "/images/implement/loader-removebg-preview.webp",
+  "/3dmodel/catcher.glb": "/images/implement/catcher.webp",
 };
 
 /* ── sessionStorage key for a captured screenshot ── */

@@ -10,9 +10,9 @@ export default defineConfig({
     tailwindcss(),
     // Auto-compresses all images at production build time
     ViteImageOptimizer({
-      jpg:  { quality: 72 },
+      jpg: { quality: 72 },
       jpeg: { quality: 72 },
-      png:  { quality: 72 },
+      png: { quality: 72 },
       webp: { quality: 78, effort: 4 },
       avif: { quality: 62, effort: 5 },
       // SVG: skip (svgo not installed; SVGs are vector and already tiny)
@@ -47,7 +47,6 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true,
-    allowedHosts: [".ngrok-free.app"],
     proxy: {
       "/api/n8n-form-callback": {
         target: "https://autonxt.app.n8n.cloud",

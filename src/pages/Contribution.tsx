@@ -2,13 +2,13 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
-import { Leaf, Wind, Sun, TreePine, ArrowRight, ArrowLeft, Award, Handshake, Target } from "lucide-react";
+import { Leaf, Wind, TreePine, ArrowRight, ArrowLeft, Award, Handshake, Target } from "lucide-react";
 import SEO from "@/components/SEO";
 
 export default function Contribution() {
   const { t, lang } = useLang();
 
-  const impactIcons = [Leaf, Wind, Sun, TreePine];
+  const impactIcons = [Leaf, Wind, TreePine];
   const impacts = t.contributionPage.impacts.map((imp, i) => ({
     ...imp,
     icon: impactIcons[i] || Leaf,
@@ -104,7 +104,7 @@ export default function Contribution() {
         <div className="container mx-auto px-4 md:px-6 pt-16">
 
           {/* Impact Numbers */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
             {impacts.map((impact, i) => {
               const ImpactIcon = impact.icon;
               return (
@@ -163,7 +163,7 @@ export default function Contribution() {
             </div>
           </div>
 
-          {/* Timeline - Option 1: Horizontal Carousel Card Deck */}
+          {/* Timeline */}
           <div className="mb-24">
             <motion.h2
               className="font-display text-3xl md:text-4xl font-bold text-foreground mb-12 text-center"
@@ -173,34 +173,27 @@ export default function Contribution() {
             >
               {texts.ourJourney}
             </motion.h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mt-12">
-              {timeline.map((item, i) => (
-                <motion.div
-                  key={i}
-                  className="bg-card/45 backdrop-blur-md border border-border/80 hover:border-primary/45 rounded-2xl p-6 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 relative overflow-hidden group"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.07, duration: 0.5 }}
-                >
-                  {/* Corner decorative light leak */}
-                  <div className="absolute -top-12 -right-12 w-24 h-24 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-xl pointer-events-none group-hover:from-primary/20 transition-all duration-500" />
-
-                  {/* Header */}
-                  <div className="flex items-center justify-between mb-4 border-b border-border/60 pb-3">
-                    <span className="text-primary font-black text-2xl font-display tracking-tight">{item.year}</span>
-                    <span className="text-[10px] font-mono font-bold bg-muted px-2 py-0.5 rounded border border-border text-muted-foreground">
-                      Step 0{i + 1}
-                    </span>
-                  </div>
-
-                  {/* Event description */}
-                  <p className="text-muted-foreground text-sm leading-relaxed font-medium group-hover:text-foreground transition-colors duration-300">
-                    {item.event}
-                  </p>
-                </motion.div>
-              ))}
+            <div className="relative">
+              <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border/60 md:-translate-x-1/2" />
+              <div className="space-y-10">
+                {timeline.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    className={`flex gap-8 md:gap-0 items-start md:items-center ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
+                    initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <div className={`w-full md:w-1/2 ${i % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16 md:text-left"} pl-12 md:pl-0`}>
+                      <span className="inline-block text-primary font-bold text-2xl font-display mb-2">{item.year}</span>
+                      <p className="text-foreground">{item.event}</p>
+                    </div>
+                    <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 w-3 h-3 rounded-full bg-primary border-2 border-background mt-1 md:mt-0 shrink-0" />
+                    <div className="hidden md:block w-1/2" />
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
 

@@ -664,7 +664,7 @@ export default function Product() {
                   {[
                     { icon: CheckCircle2, title: t.productPage.features.zeroEmissions, desc: t.productPage.features.zeroEmissionsDesc },
                     { icon: Zap, title: t.productPage.features.instantTorque, desc: t.productPage.features.instantTorqueDesc },
-                    { icon: Battery, title: t.productPage.features.solar, desc: t.productPage.features.solarDesc },
+                    { icon: BatteryCharging, title: t.productPage.features.fastCharging, desc: t.productPage.features.fastChargingDesc },
                     { icon: Gauge, title: t.productPage.features.warranty, desc: t.productPage.features.warrantyDesc },
                   ].map((feat, i) => (
                     <motion.div

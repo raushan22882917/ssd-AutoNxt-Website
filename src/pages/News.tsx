@@ -86,7 +86,7 @@ export default function News() {
 
   return (
     <div className="w-full min-h-screen bg-background">
-      <SEO title={t.nav.news} description="Read latest press releases, news articles, media mentions, and official updates from AutoNxt Automation." />
+      <SEO title={t.nav.news} description={t.news.desc} />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-20 md:pt-28 pb-0">
@@ -158,9 +158,9 @@ export default function News() {
                   <div className="absolute bottom-6 left-6 z-20">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                      <span className="text-white/80 text-xs font-bold uppercase tracking-wider">Live Coverage</span>
+                      <span className="text-white/80 text-xs font-bold uppercase tracking-wider">{t.news.liveCovers}</span>
                     </div>
-                    <h3 className="text-white font-bold text-xl leading-tight">Press & Media</h3>
+                    <h3 className="text-white font-bold text-xl leading-tight">{t.news.pressMedia}</h3>
                   </div>
                 </div>
                 <div className="rounded-tr-3xl overflow-hidden relative group">
@@ -290,7 +290,7 @@ export default function News() {
                   <div
                     className="relative h-72 w-full overflow-hidden cursor-pointer"
                     onClick={() => handleReadArticle(post.externalUrl)}
-                    title="Click to read full article"
+                    title={t.news.readArticle}
                   >
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
                     <img
@@ -366,7 +366,7 @@ export default function News() {
         <div className="container mx-auto px-4 md:px-8 max-w-6xl">
           <div className="mb-10">
             <h2 className="text-xl font-display font-bold text-foreground">
-              {isFilteringOrSearching ? `Search Results (${filteredPosts.length})` : "Latest Updates"}
+              {isFilteringOrSearching ? `${t.news.allCategories} (${filteredPosts.length})` : t.news.latestUpdates}
             </h2>
           </div>
 
@@ -416,7 +416,7 @@ export default function News() {
                   <div
                     className="relative h-56 w-full overflow-hidden cursor-pointer"
                     onClick={() => handleReadArticle(post.externalUrl)}
-                    title="Click to read full article"
+                    title={t.news.readArticle}
                   >
                     <img
                       src={getImageSrc(post)}
