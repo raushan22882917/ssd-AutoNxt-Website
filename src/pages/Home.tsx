@@ -24,6 +24,7 @@ const VideoShowcase = lazy(
   () => import("@/components/home/VideoShowcase")
 );
 
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
@@ -176,6 +177,7 @@ export default function Home() {
 
   return (
     <div className="w-full flex flex-col min-h-screen pt-16">
+      <SEO title={t.home.metaTitle} description={t.home.heroDesc} />
 
       {/* ── HERO ── */}
       <section className="relative w-full min-h-[92vh] flex items-center overflow-hidden bg-background">
@@ -204,7 +206,7 @@ export default function Home() {
         <div className="absolute bottom-[18%] left-[6%] w-24 h-24 rounded-full border border-primary/6 pointer-events-none" />
         <div className="absolute bottom-[14%] left-[9%] w-10 h-10 rounded-full border border-accent/10 pointer-events-none" />
 
-        <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-8 items-center py-16">
+        <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[1fr_1.25fr] gap-8 items-center py-10 md:py-16">
           {/* Left: Text */}
           <div className="order-1 lg:order-1">
             <motion.span
@@ -331,9 +333,9 @@ export default function Home() {
       </section>
 
       {/* ── STATS BAR ── */}
-      <section className="py-14 bg-muted/30">
+      <section className="py-8 md:py-14 bg-muted/30">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-border">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 divide-x divide-border">
             {t.home.stats.map((stat, i) => (
               <motion.div
                 key={i}
@@ -353,23 +355,23 @@ export default function Home() {
       </section>
 
       {/* ── TRUSTED BY ── */}
-      <section className="py-14 bg-background">
+      <section className="py-8 md:py-14 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <motion.p
-            className="text-center text-xs font-bold uppercase tracking-widest text-muted-foreground mb-10"
+            className="text-center text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6 md:mb-10"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
             {t.home.trustedBy}
           </motion.p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {t.home.partners.map((partnerName, i) => {
               const meta = PARTNERS_META[i];
               return (
                 <motion.div
                   key={i}
-                  className="group flex items-center gap-3 bg-card border border-border hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all duration-200 rounded-xl px-4 py-3 cursor-default"
+                  className="group flex items-center gap-3 bg-card border border-border hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all duration-200 rounded-xl px-3 py-3 cursor-default"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -386,7 +388,7 @@ export default function Home() {
                     />
                   </div>
                   {/* Company name */}
-                  <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight max-w-[140px]">
+                  <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
                     {partnerName}
                   </span>
                 </motion.div>
@@ -399,7 +401,7 @@ export default function Home() {
 
 
       {/* ── PRODUCT TEASER ── */}
-      <section className="py-24 bg-background relative overflow-hidden">
+      <section className="py-12 md:py-24 bg-background relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
@@ -490,7 +492,7 @@ export default function Home() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section className="py-24 bg-background relative overflow-hidden">
+      <section className="py-12 md:py-24 bg-background relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
@@ -538,7 +540,7 @@ export default function Home() {
       </section>
 
       {/* ── INDUSTRIAL SOLUTIONS ── */}
-      <section className="py-24 bg-background">
+      <section className="py-12 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">{t.home.industryTag}</p>
@@ -613,7 +615,7 @@ export default function Home() {
       </section>
 
       {/* ── TECH SHOWCASE: Battery + Motor ── */}
-      <section className="py-24 bg-background">
+      <section className="py-12 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <LazyRender minHeight="1200px">
             <Suspense fallback={<SectionSkeleton />}>
@@ -657,7 +659,7 @@ export default function Home() {
 
 
       {/* ── SOFTWARE WE DELIVER ── */}
-      <section className="py-24 bg-background">
+      <section className="py-12 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center mb-16">
             <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>{t.home.softwareTag}</motion.p>
@@ -814,28 +816,28 @@ export default function Home() {
       </LazyRender>
 
       {/* ── CTA ── */}
-      <section className="py-14 bg-surface-dark text-white relative overflow-hidden">
+      <section className="py-10 md:py-14 bg-surface-dark text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/10 pointer-events-none" />
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="max-w-2xl mx-auto"
+            className="max-w-xl mx-auto"
           >
-            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">Ready to Go Electric?</h2>
-            <p className="text-white/70 text-xl mb-10">
-              Join 5,000+ Indian farmers who have switched to Autonxt. Reserve your tractor today.
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3">{t.home.ctaTitle}</h2>
+            <p className="text-white/65 text-sm md:text-base lg:text-lg mb-6 md:mb-8 leading-relaxed">
+              {t.home.ctaDesc}
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-3">
               <Link href="/book">
-                <Button size="lg" className="h-13 px-10 text-base bg-primary text-white hover:bg-primary/90 font-semibold" data-testid="btn-cta-book">
-                  Book Now
+                <Button size="lg" className="h-11 md:h-13 px-8 md:px-10 text-sm md:text-base bg-primary text-white hover:bg-primary/90 font-semibold w-full sm:w-auto" data-testid="btn-cta-book">
+                  {t.home.bookNow}
                 </Button>
               </Link>
               <Link href="/about">
-                <Button size="lg" variant="outline" className="h-13 px-10 text-base border-white/30 text-white hover:bg-white/10 font-semibold" data-testid="btn-cta-story">
-                  Our Story
+                <Button size="lg" variant="outline" className="h-11 md:h-13 px-8 md:px-10 text-sm md:text-base border-white/30 text-white hover:bg-white/10 font-semibold w-full sm:w-auto" data-testid="btn-cta-story">
+                  {t.home.ourStory}
                 </Button>
               </Link>
             </div>

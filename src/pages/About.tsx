@@ -8,6 +8,7 @@ import {
   Leaf, MapPin, Calendar, Cpu, Coins, ShieldCheck, Factory, Globe, Compass
 } from "lucide-react"
 import { useLang } from "@/contexts/LanguageContext"
+import SEO from "@/components/SEO";
 
 
 // Team
@@ -104,9 +105,10 @@ export default function About() {
 
   return (
     <div className="w-full min-h-screen bg-background">
+      <SEO title={t.nav.about} description={t.about.heroDesc} />
 
       {/* ── HERO ── */}
-      <section className="bg-surface-dark relative overflow-hidden pt-24 pb-0 lg:h-[93.75vh] flex items-center">
+      <section className="bg-surface-dark relative overflow-hidden pt-20 pb-12 md:pt-24 md:pb-0 lg:h-[93.75vh] lg:flex lg:items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
         <div
@@ -118,21 +120,21 @@ export default function About() {
         />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
 
             {/* Left: text */}
             <div className="h-full flex flex-col justify-between">
               <div>
                 <motion.div
-                  className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
+                  className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-3 py-1 mb-4"
                   initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                  <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.aboutPage.aboutAutoNxt}</span>
+                  <span className="text-primary text-[10px] font-bold uppercase tracking-widest">{t.aboutPage.aboutAutoNxt}</span>
                 </motion.div>
 
                 <motion.h1
-                  className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-[1.06]"
+                  className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 leading-[1.1]"
                   initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
                 >
                   {t.about.heroTitle}{" "}
@@ -141,7 +143,7 @@ export default function About() {
                 </motion.h1>
 
                 <motion.p
-                  className="text-white/55 text-lg max-w-lg leading-relaxed mb-10"
+                  className="text-white/55 text-sm md:text-base lg:text-lg max-w-lg leading-relaxed mb-6"
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
                 >
                   {t.about.heroDesc}
@@ -150,7 +152,7 @@ export default function About() {
 
               {/* Quick facts */}
               <motion.div
-                className="flex flex-wrap gap-6"
+                className="flex flex-wrap gap-4 md:gap-6"
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
@@ -158,13 +160,13 @@ export default function About() {
                   { icon: MapPin,   label: t.aboutPage.headquarteredLabel,  value: "Thane, MH" },
                   { icon: Users,    label: t.aboutPage.teamSizeLabel,       value: "150+"      },
                 ].map((f, i) => (
-                  <div key={i} className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
-                      <f.icon className="w-4 h-4 text-white/60" />
+                  <div key={i} className="flex items-center gap-2">
+                    <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-white/8 border border-white/10 flex items-center justify-center">
+                      <f.icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-white/60" />
                     </div>
                     <div>
-                      <p className="text-white/40 text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
-                      <p className="text-white font-bold text-sm">{f.value}</p>
+                      <p className="text-white/40 text-[9px] md:text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
+                      <p className="text-white font-bold text-xs md:text-sm">{f.value}</p>
                     </div>
                   </div>
                 ))}
@@ -539,143 +541,46 @@ export default function About() {
             })}
           </div>
 
-          {/* Mobile Timeline Layout (Visible on < lg) */}
-          <div className="block lg:hidden relative w-full h-[760px] mx-auto select-none">
-            {/* SVG Background Vertical Winding Line */}
-            <div className="absolute inset-0 pointer-events-none">
-              <svg className="w-full h-full" viewBox="0 0 320 800" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="journey-grad-mobile" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#dc2626" />
-                    <stop offset="25%" stopColor="#991b1b" />
-                    <stop offset="50%" stopColor="#171717" />
-                    <stop offset="75%" stopColor="#dc2626" />
-                    <stop offset="100%" stopColor="#171717" />
-                  </linearGradient>
-                  <linearGradient id="glow-grad-mobile" x1="0%" y1="-30%" x2="0%" y2="70%">
-                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-                    <stop offset="50%" stopColor="#ffffff" stopOpacity="0.6" />
-                    <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
-                    <animate attributeName="y1" from="-30%" to="100%" dur="3s" repeatCount="indefinite" />
-                    <animate attributeName="y2" from="70%" to="200%" dur="3s" repeatCount="indefinite" />
-                  </linearGradient>
-                </defs>
-                {/* Background static curve */}
-                <path
-                  id="journey-path-mobile"
-                  d="M 80 66 C 80 133, 240 133, 240 200 C 240 266, 80 266, 80 333 C 80 400, 240 400, 240 466 C 240 533, 80 533, 80 600 C 80 666, 240 666, 240 733"
-                  fill="none"
-                  stroke="url(#journey-grad-mobile)"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                />
-                {/* Glowing moving highlight curve */}
-                <path
-                  d="M 80 66 C 80 133, 240 133, 240 200 C 240 266, 80 266, 80 333 C 80 400, 240 400, 240 466 C 240 533, 80 533, 80 600 C 80 666, 240 666, 240 733"
-                  fill="none"
-                  stroke="url(#glow-grad-mobile)"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                />
-                {/* Animated Arrowhead */}
-                <polygon
-                  points="-8,-6 8,0 -8,6 -4,0"
-                  fill="#dc2626"
-                  stroke="#ffffff"
-                  strokeWidth="1.2"
-                >
-                  <animateMotion dur="16s" repeatCount="indefinite" rotate="auto">
-                    <mpath href="#journey-path-mobile" />
-                  </animateMotion>
-                </polygon>
-              </svg>
-            </div>
+          {/* Mobile Timeline Layout — clean vertical list (< lg) */}
+          <div className="block lg:hidden relative mx-auto max-w-sm">
+            {/* Vertical line down the left */}
+            <div className="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-red-600 via-neutral-800 to-red-600 opacity-40" />
 
-            {/* Nodes and Labels */}
-            {JOURNEY.map((item, i) => {
-              const isEven = i % 2 === 0;
-              const Icon = journeyIcons[i];
-              const nodeColor = [
-                "bg-[#dc2626] border-red-500 shadow-red-100",
-                "bg-[#171717] border-neutral-700 shadow-neutral-100",
-                "bg-[#dc2626] border-red-500 shadow-red-100",
-                "bg-[#171717] border-neutral-700 shadow-neutral-100",
-                "bg-[#dc2626] border-red-500 shadow-red-100",
-                "bg-[#171717] border-neutral-700 shadow-neutral-100",
-              ][i];
+            <div className="space-y-6 pl-14 relative">
+              {JOURNEY.map((item, i) => {
+                const Icon = journeyIcons[i];
+                const isRed = i % 2 === 0;
+                const nodeColor = isRed
+                  ? "bg-[#dc2626] border-red-500"
+                  : "bg-[#171717] border-neutral-700";
+                const yearColor = isRed ? "text-red-600" : "text-neutral-700";
 
-              const textColor = [
-                "text-red-600",
-                "text-neutral-800",
-                "text-red-600",
-                "text-neutral-800",
-                "text-red-600",
-                "text-neutral-800",
-              ][i];
-
-              const hoverBorder = [
-                "hover:border-red-300",
-                "hover:border-neutral-400",
-                "hover:border-red-300",
-                "hover:border-neutral-400",
-                "hover:border-red-300",
-                "hover:border-neutral-400",
-              ][i];
-
-              const yPercentage = `${((i * 133.33) + 66.66) / 800 * 100}%`;
-              const xPercentageNode = isEven ? "25%" : "75%";
-              const xPercentageCard = isEven ? "55%" : "5%";
-
-              return (
-                <div
-                  key={i}
-                  className="absolute w-full"
-                  style={{
-                    top: yPercentage,
-                    transform: "translateY(-50%)",
-                    height: "100px",
-                  }}
-                >
-                  {/* Circular Node */}
-                  <div
-                    className={`absolute w-10 h-10 rounded-full border-2 ${nodeColor} flex items-center justify-center shadow-lg z-20`}
-                    style={{
-                      left: xPercentageNode,
-                      transform: "translateX(-50%)",
-                      top: "calc(50% - 20px)",
-                    }}
-                  >
-                    <Icon className="w-4 h-4 text-white" />
-                  </div>
-
-                  {/* Horizontal Connector Dotted Line */}
-                  <div
-                    className="absolute h-0 border-t border-dashed border-neutral-300/80"
-                    style={{
-                      left: isEven ? "25%" : "45%",
-                      right: isEven ? "45%" : "25%",
-                      top: "calc(50% - 20px)",
-                    }}
-                  />
-
-                  {/* Label Block beside Node */}
+                return (
                   <motion.div
-                    className={`absolute w-[40%] bg-transparent border border-neutral-200 ${hoverBorder} rounded-xl p-3 backdrop-blur-[2px] transition-all duration-300 shadow-sm`}
-                    style={{
-                      left: xPercentageCard,
-                      top: "calc(50% - 45px)",
-                    }}
-                    initial={{ opacity: 0, x: isEven ? 15 : -15 }}
+                    key={i}
+                    className="relative"
+                    initial={{ opacity: 0, x: -12 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
                   >
-                    <span className={`font-bold text-[10px] uppercase tracking-widest ${textColor}`}>{item.year}</span>
-                    <h3 className="font-display font-bold text-neutral-900 text-[12px] mt-0.5 leading-snug">{item.title}</h3>
-                    <p className="text-neutral-500 text-[9px] leading-relaxed mt-1">{item.desc}</p>
+                    {/* Node icon — positioned on the left line */}
+                    <div
+                      className={`absolute -left-9 top-1 w-8 h-8 rounded-full border-2 ${nodeColor} flex items-center justify-center shadow-md z-10`}
+                    >
+                      <Icon className="w-3.5 h-3.5 text-white" />
+                    </div>
+
+                    {/* Card */}
+                    <div className="bg-white border border-neutral-200 rounded-2xl p-4 shadow-sm">
+                      <span className={`font-bold text-[10px] uppercase tracking-widest ${yearColor}`}>{item.year}</span>
+                      <h3 className="font-display font-bold text-neutral-900 text-sm mt-0.5 leading-snug">{item.title}</h3>
+                      <p className="text-neutral-500 text-xs leading-relaxed mt-1.5">{item.desc}</p>
+                    </div>
                   </motion.div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
         </div>
@@ -787,11 +692,11 @@ export default function About() {
           </div>
 
           {/* Rest of the team */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 items-stretch">
             {TEAM.filter(m => !m.featured).map((member, i) => (
               <motion.div
                 key={i}
-                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all duration-300 will-change-transform"
+                className="group bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-lg transition-all duration-300 will-change-transform flex flex-col"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -809,18 +714,20 @@ export default function About() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
-                <div className="p-4">
+                <div className="p-4 flex flex-col">
                   <h3 className="font-bold text-foreground text-sm leading-tight mb-1 group-hover:text-primary transition-colors">{member.name}</h3>
                   <p className="text-primary text-[10px] font-semibold uppercase tracking-widest mb-2">{member.role}</p>
-                  <p className="text-muted-foreground text-[11px] leading-relaxed mb-3">{member.bio}</p>
-                  <a
-                    href="https://www.linkedin.com/company/autonxt-automation"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#0A66C2] border border-[#0A66C2]/30 hover:bg-[#0A66C2] hover:text-white px-2.5 py-1 rounded-full transition-colors"
-                  >
-                    <Linkedin className="w-2.5 h-2.5" /> {t.about.connect}
-                  </a>
+                  <p className="text-muted-foreground text-[11px] leading-relaxed mb-3 flex-1">{member.bio}</p>
+                  <div>
+                    <a
+                      href="https://www.linkedin.com/company/autonxt-automation"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#0A66C2] border border-[#0A66C2]/30 hover:bg-[#0A66C2] hover:text-white px-2.5 py-1 rounded-full transition-colors"
+                    >
+                      <Linkedin className="w-2.5 h-2.5" /> {t.about.connect}
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             ))}

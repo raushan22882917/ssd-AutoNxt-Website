@@ -100,27 +100,27 @@ export default function Contribution() {
         </div>
       </section>
 
-      <div className="pb-20">
-        <div className="container mx-auto px-4 md:px-6 pt-16">
+      <div className="pb-10 md:pb-20">
+        <div className="container mx-auto px-4 md:px-6 pt-10 md:pt-16">
 
           {/* Impact Numbers */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12 md:mb-24">
             {impacts.map((impact, i) => {
               const ImpactIcon = impact.icon;
               return (
                 <motion.div
                   key={i}
-                  className="bg-card border border-border rounded-2xl p-8 text-center hover:border-primary/40 transition-colors"
+                  className="bg-card border border-border rounded-2xl p-5 md:p-8 text-center hover:border-primary/40 transition-colors"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <ImpactIcon className="w-6 h-6 text-primary" />
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                    <ImpactIcon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                   </div>
-                  <p className="font-display text-4xl font-bold text-foreground mb-2">{impact.value}</p>
-                  <p className="font-semibold text-foreground mb-3 text-sm">{impact.label}</p>
+                  <p className="font-display text-3xl md:text-4xl font-bold text-foreground mb-1.5">{impact.value}</p>
+                  <p className="font-semibold text-foreground mb-2 text-sm">{impact.label}</p>
                   <p className="text-muted-foreground text-xs leading-relaxed">{impact.desc}</p>
                 </motion.div>
               );
@@ -128,34 +128,34 @@ export default function Contribution() {
           </div>
 
           {/* Key Initiatives */}
-          <div className="mb-24">
+          <div className="mb-10 md:mb-24">
             <motion.h2
-              className="font-display text-3xl md:text-4xl font-bold text-foreground mb-12 text-center"
+              className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-8 md:mb-12 text-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
               {texts.keyInitiatives}
             </motion.h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
               {initiatives.map((item, i) => {
                 const InitIcon = item.icon;
                 return (
                   <motion.div
                     key={i}
-                    className="bg-card border border-border rounded-2xl p-8 hover:border-primary/40 transition-colors group"
+                    className="bg-card border border-border rounded-2xl p-5 md:p-8 hover:border-primary/40 transition-colors group"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
                   >
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        <InitIcon className="w-6 h-6 text-primary" />
+                    <div className="flex items-start justify-between mb-4 md:mb-6">
+                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <InitIcon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                       </div>
-                      <span className="text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-full border border-primary/20">{item.badge}</span>
+                      <span className="text-xs font-bold bg-primary/10 text-primary px-2.5 py-1 rounded-full border border-primary/20">{item.badge}</span>
                     </div>
-                    <h3 className="font-display text-xl font-bold text-foreground mb-3">{item.title}</h3>
+                    <h3 className="font-display text-lg md:text-xl font-bold text-foreground mb-2">{item.title}</h3>
                     <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
                   </motion.div>
                 );
@@ -163,13 +163,11 @@ export default function Contribution() {
             </div>
           </div>
 
-
-
         </div>
       </div>
 
       {/* ── CTA ── */}
-      <section className="py-20 bg-neutral-100 border-t border-neutral-200 relative overflow-hidden">
+      <section className="py-12 md:py-20 bg-neutral-100 border-t border-neutral-200 relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10 max-w-2xl">
           <motion.div
             className="max-w-xl mx-auto"
@@ -177,11 +175,11 @@ export default function Contribution() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-neutral-900 mb-4">{texts.joinMovement}</h2>
-            <p className="text-neutral-500 text-lg max-w-xl mx-auto mb-8">
+            <h2 className="font-display text-2xl md:text-3xl lg:text-5xl font-bold text-neutral-900 mb-3">{texts.joinMovement}</h2>
+            <p className="text-neutral-500 text-sm md:text-lg max-w-xl mx-auto mb-6 md:mb-8">
               {texts.joinDesc}
             </p>
-            <Button asChild size="lg" className="bg-[#8B1A1A] hover:bg-[#7a1616] text-white font-semibold h-12 px-8 shadow-md">
+            <Button asChild size="lg" className="bg-[#8B1A1A] hover:bg-[#7a1616] text-white font-semibold h-11 md:h-12 px-7 md:px-8 shadow-md">
               <Link href="/book">
                 {texts.partnerBtn} <ArrowRight className="ml-2 w-4 h-4" />
               </Link>

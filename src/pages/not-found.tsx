@@ -9,7 +9,7 @@ export default function NotFound() {
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <SEO title="Page Not Found" description="The page you are looking for does not exist on AutoNxt Automation." />
+      <SEO title={texts.title} description={texts.desc} />
       <Card className="w-full max-w-md mx-4">
         <CardContent className="pt-6">
           <div className="flex mb-4 gap-2">

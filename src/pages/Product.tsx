@@ -298,7 +298,7 @@ export default function Product() {
       </section>
 
       {/* ── FILTER + PRODUCTS ── */}
-      <section className="py-20 bg-background">
+      <section className="py-12 md:py-20 bg-background">
         <div className="container mx-auto px-4 md:px-8">
 
           <div className="text-center mb-12">
@@ -514,7 +514,7 @@ export default function Product() {
       </section>
 
       {/* ── TECH COMPONENTS ── */}
-      <section className="py-20 bg-gradient-to-b from-white via-red-50/25 to-white border-y border-red-100/50 relative overflow-hidden shadow-[inset_0_0_60px_rgba(220,38,38,0.025)]">
+      <section className="py-12 md:py-20 bg-gradient-to-b from-white via-red-50/25 to-white border-y border-red-100/50 relative overflow-hidden shadow-[inset_0_0_60px_rgba(220,38,38,0.025)]">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#dc262604_1px,transparent_1px),linear-gradient(to_bottom,#dc262604_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="text-center mb-14">
@@ -536,24 +536,24 @@ export default function Product() {
             {techSpecs.map((tech, i) => (
               <motion.div
                 key={i}
-                className="group relative bg-white border border-red-100/60 rounded-2xl p-8 flex gap-7 items-start hover:border-primary/30 hover:shadow-xl hover:shadow-red-500/12 transition-all duration-300 shadow-lg shadow-red-500/5"
+                className="group relative bg-white border border-red-100/60 rounded-2xl p-5 md:p-8 flex flex-col sm:flex-row gap-5 md:gap-7 items-start hover:border-primary/30 hover:shadow-xl hover:shadow-red-500/12 transition-all duration-300 shadow-lg shadow-red-500/5"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <div className="shrink-0 w-40 h-40 rounded-2xl bg-neutral-50 border border-neutral-100 flex items-center justify-center p-4 group-hover:border-primary/30 group-hover:bg-white transition-all duration-300">
+                <div className="shrink-0 w-28 h-28 sm:w-40 sm:h-40 rounded-2xl bg-neutral-50 border border-neutral-100 flex items-center justify-center p-3 md:p-4 group-hover:border-primary/30 group-hover:bg-white transition-all duration-300">
                   <OptimizedImg src={tech.img} alt={tech.title} loading="lazy" decoding="async" className="w-full h-full object-contain" width={tech.w} height={tech.h} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
-                    <tech.icon className="w-4 h-4 text-primary" />
+                    <tech.icon className="w-4 h-4 text-primary shrink-0" />
                     <h3 className="font-display text-lg font-bold text-neutral-900">{tech.title}</h3>
                   </div>
                   <p className="text-neutral-600 text-sm leading-relaxed mb-4">{tech.desc}</p>
-                  <div className="inline-flex items-baseline gap-1.5 bg-primary/10 border border-primary/20 rounded-xl px-4 py-2">
-                    <span className="font-display text-2xl font-bold text-primary">{tech.stat}</span>
-                    <span className="text-neutral-500 text-xs font-medium">{tech.statLabel}</span>
+                  <div className="inline-flex items-baseline gap-1.5 bg-primary/10 border border-primary/20 rounded-xl px-3 py-2 max-w-full">
+                    <span className="font-display text-xl md:text-2xl font-bold text-primary">{tech.stat}</span>
+                    <span className="text-neutral-500 text-xs font-medium truncate">{tech.statLabel}</span>
                   </div>
                 </div>
               </motion.div>
