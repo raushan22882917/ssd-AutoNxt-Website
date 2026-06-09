@@ -25,7 +25,7 @@ export default function Careers() {
 
   return (
     <div className="w-full min-h-screen bg-background">
-      <SEO title={t.nav.resources + " - Careers"} description="Join the revolution at AutoNxt Automation. Explore career opportunities in building smart electric mobility and sustainable agriculture technology." />
+      <SEO title={t.nav.resources + " - " + t.common.careers} description="Join the revolution at AutoNxt Automation. Explore career opportunities in building smart electric mobility and sustainable agriculture technology." />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">

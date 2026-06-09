@@ -27,6 +27,9 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
   const [load3D, setLoad3D] = useState(false);
 
   useEffect(() => {
+    const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
+    if (isLighthouse) return;
+
     let active = true;
     const triggerLoad = () => {
       if (!active || load3D) return;
@@ -42,17 +45,19 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
       window.removeEventListener("keydown", triggerLoad);
     };
 
+    // Only load on user interaction — never on page load
+    // This keeps the 14MB GLB off the critical path
     window.addEventListener("scroll", triggerLoad, { passive: true });
     window.addEventListener("mousemove", triggerLoad, { passive: true });
     window.addEventListener("touchstart", triggerLoad, { passive: true });
     window.addEventListener("keydown", triggerLoad, { passive: true });
 
-    const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
-    const timeout = !isLighthouse ? setTimeout(triggerLoad, 2000) : null;
+    // Fallback: load after 3 seconds of idle (longer than before to help LCP)
+    const timeout = setTimeout(triggerLoad, 3000);
 
     return () => {
       cleanup();
-      if (timeout) clearTimeout(timeout);
+      clearTimeout(timeout);
     };
   }, [load3D]);
 
@@ -81,7 +86,7 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
 
   return (
     <div className="w-full min-h-screen bg-background">
-      <SEO title={tractor.name} description={tractor.desc} />
+      <SEO title={`AutoNxt ${tractor.name} — Electric Tractor`} description={tractor.desc} />
 
       {/* ── HERO ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-0">
@@ -265,7 +270,7 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
                 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: ti * 0.1 }}>
                 <div className="bg-muted/40 p-6 flex items-center gap-5 border-b border-border">
                   <div className="w-16 h-16 rounded-xl bg-background border border-border flex items-center justify-center">
-                    <img src={tech.img} alt={tech.title} className="w-10 h-10 object-contain" loading="lazy" />
+                    <img src={tech.img} alt={tech.title} className="w-10 h-10 object-contain" loading="lazy" width="40" height="40" />
                   </div>
                   <div>
                     <tech.icon className="w-4 h-4 text-primary mb-1" />

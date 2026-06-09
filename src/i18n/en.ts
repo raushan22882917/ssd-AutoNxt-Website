@@ -18,6 +18,7 @@ export const en = {
   },
   // Home
   home: {
+    metaTitle: "AutoNxt Automation — Electric Tractors for Agriculture & Industry",
     heroBadge: "India's Electric Tractor Pioneer",
     heroTitle1: "Green Technology",
     heroTitleHighlight: "For",
@@ -52,7 +53,7 @@ export const en = {
     fieldBannerDesc: "One charge. All day. Every season. Autonxt is built for the rhythm of Indian farming.",
     faqTitle: "Frequently Asked Questions",
     ctaTitle: "Ready to Go Electric?",
-    ctaDesc: "Join 5,000+ Indian farmers who have switched to Autonxt. Reserve your tractor today.",
+    ctaDesc: "Power your operations with zero emissions. From farms to factories, AutoNxt delivers.",
     ourStory: "Our Story",
     faqSub: "Have a question? Find the answer.",
     faqDesc: "Frequently asked questions about our electric tractors.",
@@ -195,7 +196,7 @@ export const en = {
         ],
       },
       {
-        name: "AutoNxt X60H2",
+        name: "AutoNxt H55C2",
         type: "60HP Electric Tractor",
         tag: "Most Powerful",
         desc: "60HP heavy-duty performance with zero emissions — the perfect balance of raw power and sustainability.",
@@ -929,8 +930,8 @@ export const en = {
       },
       {
         img: "/images/products/x45h2.webp",
-        name: "AutoNxt X60H2",
-        slug: "x60h2",
+        name: "AutoNxt H55C2",
+        slug: "h55c2",
         hp: "60HP",
         status: "available",
         statusLabel: "Available Now",

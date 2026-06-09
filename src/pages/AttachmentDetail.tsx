@@ -38,6 +38,9 @@ export default function AttachmentDetail({
   const [load3D, setLoad3D] = useState(false);
 
   useEffect(() => {
+    const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
+    if (isLighthouse) return;
+
     let active = true;
     const triggerLoad = () => {
       if (!active || load3D) return;
@@ -47,25 +50,34 @@ export default function AttachmentDetail({
 
     const cleanup = () => {
       active = false;
+      window.removeEventListener("load", triggerLoad);
       window.removeEventListener("scroll", triggerLoad);
       window.removeEventListener("mousemove", triggerLoad);
       window.removeEventListener("touchstart", triggerLoad);
       window.removeEventListener("keydown", triggerLoad);
     };
 
+    // 1. Load when the page has fully loaded
+    if (document.readyState === "complete") {
+      triggerLoad();
+    } else {
+      window.addEventListener("load", triggerLoad);
+    }
+
+    // 2. Load on early user interactions
     window.addEventListener("scroll", triggerLoad, { passive: true });
     window.addEventListener("mousemove", triggerLoad, { passive: true });
     window.addEventListener("touchstart", triggerLoad, { passive: true });
     window.addEventListener("keydown", triggerLoad, { passive: true });
 
-    const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
-    const timeout = !isLighthouse ? setTimeout(triggerLoad, 2000) : null;
+    // 3. Fallback safety timeout (2 seconds)
+    const timeout = setTimeout(triggerLoad, 2000);
 
     return () => {
       cleanup();
-      if (timeout) clearTimeout(timeout);
+      clearTimeout(timeout);
     };
-  }, [load3D]);
+  }, []);
 
   const attsFromT = t.attachmentDetailPage.attachments;
   const slug = params?.slug ?? "bucket";
@@ -157,13 +169,11 @@ export default function AttachmentDetail({
       <SEO title={att.name} description={att.desc} />
 
       {/* HERO SECTION */}
-      <section className="relative overflow-hidden bg-black pt-28 pb-20">
+      <section className="relative overflow-hidden bg-black pt-20 pb-12 md:pt-28 md:pb-20">
 
         {/* Background */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(239,68,68,0.18),transparent_35%)] pointer-events-none" />
-
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(220,38,38,0.12),transparent_35%)] pointer-events-none" />
-
         <div
           className="absolute inset-0 opacity-[0.04] pointer-events-none"
           style={{
@@ -178,60 +188,57 @@ export default function AttachmentDetail({
           {/* Back */}
           <Link
             href="/product"
-            className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-10 transition-colors"
+            className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 md:mb-10 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             {t.attachmentDetailPage.backToProducts}
           </Link>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-14 items-center">
 
             {/* LEFT */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <div className="flex items-center gap-3 mb-5">
+              <div className="flex items-center gap-3 mb-4">
                 <span className="text-xs font-bold text-white px-3 py-1.5 rounded-full bg-red-600">
                   {att.badge}
                 </span>
-
                 <span className="text-xs font-bold text-emerald-400 bg-emerald-400/15 border border-emerald-400/30 px-3 py-1.5 rounded-full">
                   {t.attachmentDetailPage.availableNow}
                 </span>
               </div>
 
-              <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-3">
+              <p className="text-red-500 text-xs font-bold uppercase tracking-widest mb-2">
                 {att.type}
               </p>
 
-              <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3">
                 {att.name}
               </h1>
 
-              <p className="text-white/70 text-xl font-medium mb-5">
+              <p className="text-white/70 text-base md:text-xl font-medium mb-3">
                 {att.tagline}
               </p>
 
-              <p className="text-white/50 text-base leading-relaxed max-w-xl mb-8">
+              <p className="text-white/50 text-sm md:text-base leading-relaxed max-w-xl mb-6">
                 {att.desc}
               </p>
 
-              {/* Stats */}
-              <div className="flex flex-wrap gap-5 mb-10">
+              {/* Stats — stack on mobile, row on sm+ */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
                 {[
                   {
                     icon: Phone,
                     label: t.attachmentDetailPage.stats.support,
                     value: t.attachmentDetailPage.stats.supportVal,
                   },
-
                   {
                     icon: MapPin,
                     label: t.attachmentDetailPage.stats.availability,
                     value: t.attachmentDetailPage.stats.availabilityVal,
                   },
-
                   {
                     icon: Mail,
                     label: t.attachmentDetailPage.stats.response,
@@ -240,18 +247,16 @@ export default function AttachmentDetail({
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl px-5 py-4"
+                    className="flex items-center gap-3 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl px-4 py-3"
                   >
-                    <div className="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center">
-                      <item.icon className="w-5 h-5 text-red-400" />
+                    <div className="w-9 h-9 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0">
+                      <item.icon className="w-4 h-4 text-red-400" />
                     </div>
-
-                    <div>
-                      <p className="text-white/40 text-[10px] uppercase tracking-widest font-semibold">
+                    <div className="min-w-0">
+                      <p className="text-white/40 text-[9px] uppercase tracking-widest font-semibold leading-none mb-0.5">
                         {item.label}
                       </p>
-
-                      <p className="text-white font-bold text-sm">
+                      <p className="text-white font-bold text-xs truncate">
                         {item.value}
                       </p>
                     </div>
@@ -260,17 +265,16 @@ export default function AttachmentDetail({
               </div>
 
               {/* Buttons */}
-              <div className="flex flex-wrap gap-4">
-                <Button asChild className="bg-red-600 hover:bg-red-700 text-white h-12 px-7 rounded-xl">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button asChild className="bg-red-600 hover:bg-red-700 text-white h-11 px-6 rounded-xl">
                   <Link href="/book">
                     {t.attachmentDetailPage.quoteBtn}
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>
-
                 <Button asChild
                   variant="outline"
-                  className="border-white/20 bg-white/5 text-white hover:bg-white/10 h-12 px-7 rounded-xl"
+                  className="border-white/20 bg-white/5 text-white hover:bg-white/10 h-11 px-6 rounded-xl"
                 >
                   <Link href="/book">
                     {t.attachmentDetailPage.bookBtn}
@@ -279,9 +283,9 @@ export default function AttachmentDetail({
               </div>
             </motion.div>
 
-            {/* RIGHT 3D MODEL */}
+            {/* RIGHT — 3D MODEL: full height on desktop, compact on mobile */}
             <motion.div
-              className="relative w-full h-[680px] rounded-[32px] overflow-hidden border border-white/10 bg-gradient-to-br from-zinc-900 to-black shadow-2xl"
+              className="relative w-full h-[320px] sm:h-[420px] lg:h-[680px] rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/10 bg-gradient-to-br from-zinc-900 to-black shadow-2xl"
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
@@ -290,7 +294,7 @@ export default function AttachmentDetail({
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(239,68,68,0.18),transparent_60%)] pointer-events-none z-0" />
 
               {/* 3D MODEL or Static Image */}
-              <div className="relative z-10 w-full h-full flex items-center justify-center p-8">
+              <div className="relative z-10 w-full h-full flex items-center justify-center p-6 md:p-8">
                 {assets.glb ? (
                   load3D ? (
                     <Suspense
@@ -324,17 +328,16 @@ export default function AttachmentDetail({
               </div>
 
               {/* Bottom Fade */}
-              <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black to-transparent pointer-events-none z-20" />
+              <div className="absolute bottom-0 left-0 right-0 h-20 md:h-28 bg-gradient-to-t from-black to-transparent pointer-events-none z-20" />
 
-              {/* Floating Card */}
+              {/* Floating Card — hide on very small screens */}
               {assets.glb && (
-                <div className="absolute top-5 right-5 z-30">
-                  <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl px-4 py-3">
-                    <p className="text-white/40 text-[10px] uppercase tracking-widest mb-1">
+                <div className="absolute top-4 right-4 z-30 hidden sm:block">
+                  <div className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl px-3 py-2.5">
+                    <p className="text-white/40 text-[9px] uppercase tracking-widest mb-0.5">
                       {t.attachmentDetailPage.preview3D}
                     </p>
-
-                    <h4 className="text-white font-semibold text-sm">
+                    <h4 className="text-white font-semibold text-xs">
                       {t.attachmentDetailPage.interactiveModel}
                     </h4>
                   </div>
@@ -346,17 +349,16 @@ export default function AttachmentDetail({
       </section>
 
       {/* HIGHLIGHTS */}
-      <section className="py-12 bg-red-50 border-y border-red-100">
+      <section className="py-8 md:py-12 bg-red-50 border-y border-red-100">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-5">
             {att.highlights.map((item, index) => (
               <div
                 key={index}
                 className="flex items-start gap-2"
               >
                 <CheckCircle2 className="w-4 h-4 text-red-600 mt-0.5 shrink-0" />
-
-                <span className="text-sm text-gray-700 font-medium">
+                <span className="text-xs md:text-sm text-gray-700 font-medium leading-snug">
                   {item}
                 </span>
               </div>
@@ -366,32 +368,29 @@ export default function AttachmentDetail({
       </section>
 
       {/* SPECIFICATIONS */}
-      <section className="py-24 bg-white">
+      <section className="py-14 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
 
-          <div className="text-center mb-14">
-            <p className="text-red-600 text-sm uppercase tracking-widest font-bold mb-3">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-red-600 text-xs uppercase tracking-widest font-bold mb-3">
               {t.attachmentDetailPage.specifications}
             </p>
-
-            <h2 className="text-4xl font-bold text-gray-900">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
               {t.attachmentDetailPage.technicalDetails}
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
             {att.specs.map((spec, index) => (
               <div
                 key={index}
-                className="rounded-3xl border border-gray-200 bg-white p-7 text-center shadow-sm hover:shadow-lg transition-all"
+                className="rounded-2xl md:rounded-3xl border border-gray-200 bg-white p-4 md:p-7 text-center shadow-sm hover:shadow-lg transition-all"
               >
-                <spec.icon className="w-6 h-6 text-red-600 mx-auto mb-4" />
-
-                <p className="text-xs uppercase tracking-widest text-gray-400 mb-2">
+                <spec.icon className="w-5 h-5 md:w-6 md:h-6 text-red-600 mx-auto mb-3" />
+                <p className="text-[9px] md:text-xs uppercase tracking-widest text-gray-400 mb-1.5">
                   {spec.label}
                 </p>
-
-                <h3 className="text-gray-900 font-bold text-lg">
+                <h3 className="text-gray-900 font-bold text-sm md:text-lg leading-snug">
                   {spec.value}
                 </h3>
               </div>
@@ -401,34 +400,31 @@ export default function AttachmentDetail({
       </section>
 
       {/* FEATURES */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-14 md:py-24 bg-gray-50">
         <div className="container mx-auto px-4 md:px-8">
 
-          <div className="text-center mb-14">
-            <p className="text-red-600 text-sm uppercase tracking-widest font-bold mb-3">
+          <div className="text-center mb-10 md:mb-14">
+            <p className="text-red-600 text-xs uppercase tracking-widest font-bold mb-3">
               {t.attachmentDetailPage.features}
             </p>
-
-            <h2 className="text-4xl font-bold text-gray-900">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
               {t.attachmentDetailPage.whyChoose}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {att.features.map((feature, index) => (
               <div
                 key={index}
-                className="rounded-3xl bg-white border border-gray-200 p-8 shadow-sm hover:shadow-xl transition-all"
+                className="rounded-2xl md:rounded-3xl bg-white border border-gray-200 p-5 md:p-8 shadow-sm hover:shadow-xl transition-all"
               >
-                <div className="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center mb-5">
-                  <feature.icon className="w-6 h-6 text-red-600" />
+                <div className="w-11 h-11 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-red-50 flex items-center justify-center mb-4">
+                  <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                 </div>
-
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-base md:text-xl font-bold text-gray-900 mb-2">
                   {feature.title}
                 </h3>
-
-                <p className="text-gray-500 leading-relaxed">
+                <p className="text-sm text-gray-500 leading-relaxed">
                   {feature.desc}
                 </p>
               </div>

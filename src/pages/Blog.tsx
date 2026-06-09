@@ -167,7 +167,7 @@ export default function Blog() {
                   <div className="absolute inset-0 flex flex-col justify-end p-6">
                     <BookOpen className="w-10 h-10 text-white/70 mb-3 drop-shadow-lg" />
                     <h3 className="text-white font-bold text-2xl drop-shadow-lg leading-tight">
-                       {ARTICLES[0]?.title || "Insights & Updates"}
+                      {ARTICLES[0]?.title || "Insights & Updates"}
                     </h3>
                   </div>
                 </div>
@@ -381,113 +381,113 @@ export default function Blog() {
             ) : filteredPosts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredPosts.map((post: any, i: number) => (
-                    <motion.div
-                      key={post.id}
-                      className="bg-card border border-border/60 rounded-3xl transition-all duration-300 group flex flex-col overflow-hidden relative card-lift"
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ delay: (i % 3) * 0.08, duration: 0.5, ease: "easeOut" }}
-                      onMouseEnter={e => {
-                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(180,30,30,0.12)";
-                        (e.currentTarget as HTMLElement).style.borderColor = "hsl(0,72%,50%,0.35)";
-                      }}
-                      onMouseLeave={e => {
-                        (e.currentTarget as HTMLElement).style.boxShadow = "";
-                        (e.currentTarget as HTMLElement).style.borderColor = "";
-                      }}
+                  <motion.div
+                    key={post.id}
+                    className="bg-card border border-border/60 rounded-3xl transition-all duration-300 group flex flex-col overflow-hidden relative card-lift"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ delay: (i % 3) * 0.08, duration: 0.5, ease: "easeOut" }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(180,30,30,0.12)";
+                      (e.currentTarget as HTMLElement).style.borderColor = "hsl(0,72%,50%,0.35)";
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.boxShadow = "";
+                      (e.currentTarget as HTMLElement).style.borderColor = "";
+                    }}
+                  >
+                    {/* Top gradient accent line */}
+                    <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${post.accent} rounded-t-3xl z-10`} />
+
+                    {/* "New" badge */}
+                    {post.isNew && (
+                      <div className="absolute top-5 left-4 z-20">
+                        <span className="bg-primary text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-md animate-pulse">
+                          {t.blog.newBadge}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Card Cover */}
+                    <div
+                      className="relative h-52 w-full overflow-hidden cursor-pointer"
+                      onClick={() => handleReadArticle(post.externalUrl)}
+                      title={t.blog.readArticle}
                     >
-                      {/* Top gradient accent line */}
-                      <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${post.accent} rounded-t-3xl z-10`} />
-
-                      {/* "New" badge */}
-                      {post.isNew && (
-                        <div className="absolute top-5 left-4 z-20">
-                          <span className="bg-primary text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-md animate-pulse">
-                            {t.blog.newBadge}
-                          </span>
-                        </div>
+                      {post.image ? (
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="absolute inset-0 w-full h-full object-contain bg-muted/40 group-hover:scale-105 transition-transform duration-700"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className={`absolute inset-0 w-full h-full ${getGradient(post.id)} group-hover:scale-110 transition-transform duration-700`} />
                       )}
+                      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay pointer-events-none" />
 
-                      {/* Card Cover */}
-                      <div
-                        className="relative h-52 w-full overflow-hidden cursor-pointer"
+                      {/* Category tag */}
+                      <div className={`absolute ${post.isNew ? "top-4 left-16" : "top-4 left-4"}`} onClick={(e) => e.stopPropagation()}>
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md backdrop-blur-md bg-white/95 text-black">
+                          {post.tag}
+                        </span>
+                      </div>
+
+                      {/* External link */}
+                      <div className="absolute top-4 right-4">
+                        <div className="bg-black/30 backdrop-blur-md rounded-full p-2 transition-all group-hover:scale-110 group-hover:bg-primary/80">
+                          <ExternalLink className="w-3.5 h-3.5 text-white" />
+                        </div>
+                      </div>
+
+                      {/* Hover CTA */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                        <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 bg-white/95 text-black px-5 py-2.5 rounded-full text-xs font-bold shadow-lg tracking-wider">
+                          {t.blog.readArticle}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="p-6 flex flex-col flex-1 bg-gradient-to-b from-transparent to-muted/10">
+                      <div className="flex items-center gap-3 mb-3 text-[11px] font-medium text-muted-foreground">
+                        <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{post.date}</span>
+                        <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
+                      </div>
+
+                      <h3
+                        className="font-bold text-foreground text-lg leading-snug mb-3 hover:text-primary transition-colors cursor-pointer line-clamp-2"
                         onClick={() => handleReadArticle(post.externalUrl)}
-                        title={t.blog.readArticle}
                       >
-                        {post.image ? (
-                          <img
-                            src={post.image}
-                            alt={post.title}
-                            className="absolute inset-0 w-full h-full object-contain bg-muted/40 group-hover:scale-105 transition-transform duration-700"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <div className={`absolute inset-0 w-full h-full ${getGradient(post.id)} group-hover:scale-110 transition-transform duration-700`} />
-                        )}
-                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-overlay pointer-events-none" />
+                        {post.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-5 line-clamp-3 flex-1">
+                        {post.summary}
+                      </p>
 
-                        {/* Category tag */}
-                        <div className={`absolute ${post.isNew ? "top-4 left-16" : "top-4 left-4"}`} onClick={(e) => e.stopPropagation()}>
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md backdrop-blur-md bg-white/95 text-black">
-                            {post.tag}
-                          </span>
-                        </div>
-
-                        {/* External link */}
-                        <div className="absolute top-4 right-4">
-                          <div className="bg-black/30 backdrop-blur-md rounded-full p-2 transition-all group-hover:scale-110 group-hover:bg-primary/80">
-                            <ExternalLink className="w-3.5 h-3.5 text-white" />
+                      <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50 text-muted-foreground text-xs font-medium">
+                        <span className="flex items-center gap-2">
+                          {/* Author avatar with initials */}
+                          <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${authorColor(post.author)} flex items-center justify-center text-white text-[10px] font-bold shadow-sm`}>
+                            {post.author.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
                           </div>
-                        </div>
-
-                        {/* Hover CTA */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                          <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 bg-white/95 text-black px-5 py-2.5 rounded-full text-xs font-bold shadow-lg tracking-wider">
-                            {t.blog.readArticle}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Card Content */}
-                      <div className="p-6 flex flex-col flex-1 bg-gradient-to-b from-transparent to-muted/10">
-                        <div className="flex items-center gap-3 mb-3 text-[11px] font-medium text-muted-foreground">
-                          <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{post.date}</span>
-                          <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
-                        </div>
-
-                        <h3
-                          className="font-bold text-foreground text-lg leading-snug mb-3 hover:text-primary transition-colors cursor-pointer line-clamp-2"
+                          <span className="font-medium text-foreground/70">{post.author}</span>
+                        </span>
+                        <button
                           onClick={() => handleReadArticle(post.externalUrl)}
+                          className="flex items-center gap-1 text-primary/70 hover:text-primary font-semibold transition-colors"
                         >
-                          {post.title}
-                        </h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed mb-5 line-clamp-3 flex-1">
-                          {post.summary}
-                        </p>
-
-                        <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50 text-muted-foreground text-xs font-medium">
-                          <span className="flex items-center gap-2">
-                            {/* Author avatar with initials */}
-                            <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${authorColor(post.author)} flex items-center justify-center text-white text-[10px] font-bold shadow-sm`}>
-                              {post.author.split(" ").map((w: string) => w[0]).slice(0, 2).join("")}
-                            </div>
-                            <span className="font-medium text-foreground/70">{post.author}</span>
-                          </span>
-                          <button
-                            onClick={() => handleReadArticle(post.externalUrl)}
-                            className="flex items-center gap-1 text-primary/70 hover:text-primary font-semibold transition-colors"
-                          >
-                            {t.blog.readAction} <ArrowRight className="w-3 h-3" />
-                          </button>
-                        </div>
+                          {t.blog.readAction} <ArrowRight className="w-3 h-3" />
+                        </button>
                       </div>
-                    </motion.div>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          </section>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        </section>
       )}
 
       {/* ── CTA ── */}

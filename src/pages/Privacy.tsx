@@ -11,7 +11,7 @@ export default function Privacy() {
 
   return (
     <div className="w-full min-h-screen bg-background">
-      <SEO title="Privacy Policy" description="AutoNxt Automation Privacy Policy and data protection terms." />
+      <SEO title={texts.policyTitle} description="AutoNxt Automation Privacy Policy and data protection terms." />
 
       {/* ── HEADER ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16">

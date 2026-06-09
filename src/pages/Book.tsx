@@ -286,27 +286,56 @@ export default function ContactPage() {
               animate={{ opacity: 1, x: 0 }}
               className="flex flex-col h-full justify-between gap-6"
             >
-              {/* Floating Tractor Image (No Circle, 3D Shadowed) */}
-              <div className="relative group/tractor flex flex-col items-center justify-center py-6 w-full">
-                {/* 3D Drop Ground Shadow beneath the wheels */}
-                <div className="absolute bottom-4 w-[70%] h-4 bg-slate-950/20 blur-[6px] rounded-[50%] scale-x-95 scale-y-50 group-hover/tractor:scale-x-90 group-hover/tractor:bg-slate-950/15 group-hover/tractor:blur-[8px] transition-all duration-500 pointer-events-none" />
-
-                {/* Tractor Image with ambient body shadow */}
+              {/* Floating Tractor Image — hidden on mobile, shown on desktop */}
+              <div className="relative group/tractor hidden lg:flex flex-col items-center justify-center w-full rounded-3xl bg-gradient-to-br from-slate-50 via-red-50/30 to-slate-100 border border-red-100/60 overflow-hidden py-6 shadow-sm">
+                {/* Subtle radial glow behind the tractor */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(220,38,38,0.06),transparent_70%)] pointer-events-none" />
+                {/* Model badge */}
+                <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-white/80 backdrop-blur-sm border border-red-100 rounded-full px-3 py-1 shadow-sm z-10">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-red-600">X45H2 · 45 HP</span>
+                </div>
+                {/* Zero emissions badge */}
+                <div className="absolute top-4 right-4 bg-emerald-50 border border-emerald-200 rounded-full px-3 py-1 z-10">
+                  <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">100% Electric</span>
+                </div>
+                {/* 3D ground shadow */}
+                <div className="absolute bottom-5 w-[55%] h-3 bg-slate-900/15 blur-[8px] rounded-[50%] pointer-events-none" />
+                {/* Tractor image */}
                 <img
                   src="/images/products/x45h2.webp"
                   alt="AutoNxt X45H2 Electric Tractor"
-                  className="w-[85%] max-w-[340px] h-auto object-contain z-10 transform group-hover/tractor:-translate-y-3 transition-all duration-500 ease-out drop-shadow-[0_10px_15px_rgba(0,0,0,0.08)]"
+                  className="w-[88%] max-w-[300px] h-auto object-contain z-10 transform group-hover/tractor:-translate-y-2 transition-all duration-500 ease-out drop-shadow-[0_16px_24px_rgba(0,0,0,0.10)]"
                 />
               </div>
 
               {/* CONTACT CARD */}
-              <div className="rounded-[32px] border border-gray-200 bg-white shadow-xl p-6 md:p-8 relative overflow-hidden group hover:border-red-500/25 transition duration-300">
+              <div className="rounded-[32px] border border-gray-200 bg-white shadow-xl relative overflow-hidden group hover:border-red-500/25 transition duration-300">
                 {/* Subtle top indicator bar */}
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500 to-red-600" />
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-7">
-                  {t.bookPage.contactInfo.title}
-                </h3>
+                {/* Mobile-only tractor banner — compact hero at top of card */}
+                <div className="lg:hidden relative bg-gradient-to-br from-slate-50 via-red-50/30 to-slate-100 flex items-center justify-between px-5 pt-6 pb-2 overflow-hidden">
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_50%,rgba(220,38,38,0.07),transparent_70%)] pointer-events-none" />
+                  <div className="z-10">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                      <span className="text-[9px] font-bold uppercase tracking-widest text-red-600">X45H2 · 45 HP</span>
+                    </div>
+                    <p className="text-xs font-bold text-gray-800 leading-tight">AutoNxt X45H2</p>
+                    <p className="text-[10px] text-emerald-600 font-semibold mt-0.5">100% Electric</p>
+                  </div>
+                  <img
+                    src="/images/products/x45h2.webp"
+                    alt="AutoNxt X45H2 Electric Tractor"
+                    className="w-32 h-20 object-contain drop-shadow-md z-10 -mr-1"
+                  />
+                </div>
+
+                <div className="p-6 md:p-8">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-7">
+                    {t.bookPage.contactInfo.title}
+                  </h3>
 
                 <div className="space-y-6">
                   {contactInfo.map((item, index) => {
@@ -355,7 +384,8 @@ export default function ContactPage() {
                     );
                   })}
                 </div>
-              </div>
+              </div>  {/* closes p-6 md:p-8 padding wrapper */}
+              </div>  {/* closes contact card */}
             </motion.div>
           </div>
         </div>

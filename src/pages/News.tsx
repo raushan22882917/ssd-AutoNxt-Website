@@ -334,106 +334,10 @@ export default function News() {
         </div>
       </section>
 
-      {/* ── FEATURED STORIES & ARTICLES GRID ── */}
+      {/* ── ARTICLES GRID (shown when Explore All is clicked) ── */}
       {showAll && (
         <>
-          {/* ── FEATURED STORIES ── */}
-          {featuredPosts.length > 0 && (
-            <section className="pt-12 pb-4 bg-background relative">
-              <div className="container mx-auto px-4 md:px-8 max-w-6xl">
-                <div className="flex items-center gap-3 mb-10">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-primary" />
-                  </div>
-                  <h2 className="text-2xl font-display font-bold">{t.news.featured}</h2>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                  {featuredPosts.map((post: any, i: number) => (
-                    <motion.article
-                      key={post.id}
-                      className="bg-card border border-border/50 rounded-3xl hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 group flex flex-col overflow-hidden relative"
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: (i % 2) * 0.1, duration: 0.6 }}
-                    >
-                      {/* Card Image Container */}
-                      <div
-                        className="relative h-72 w-full overflow-hidden cursor-pointer"
-                        onClick={() => handleReadArticle(post.externalUrl)}
-                        title={t.news.readArticle}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
-                        <img
-                          src={getImageSrc(post)}
-                          alt={post.title}
-                          className="absolute inset-0 w-full h-full object-contain bg-muted/40 group-hover:scale-110 transition-transform duration-700"
-                          onError={() => handleImageError(post.id)}
-                        />
-
-                        {/* Category tag */}
-                        <div className="absolute top-5 left-5 z-20" onClick={(e) => e.stopPropagation()}>
-                          <span className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full shadow-lg backdrop-blur-md ${post.accent}`}>
-                            {post.cat}
-                          </span>
-                        </div>
-
-                        {/* Date/Time overlay */}
-                        <div className="absolute bottom-5 left-5 z-20 flex gap-4 text-white/90 text-sm font-medium">
-                          <span className="flex items-center gap-1.5 backdrop-blur-md bg-black/30 px-3 py-1.5 rounded-lg"><Calendar className="w-4 h-4" />{post.date}</span>
-                          <span className="flex items-center gap-1.5 backdrop-blur-md bg-black/30 px-3 py-1.5 rounded-lg"><Clock className="w-4 h-4" />{post.readTime}</span>
-                        </div>
-
-                        {/* Top Right External Link Icon */}
-                        <div className="absolute top-5 right-5 z-20">
-                          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full p-2.5 transition-transform group-hover:scale-110 group-hover:bg-primary group-hover:border-primary">
-                            <ExternalLink className="w-4 h-4 text-white" />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Card Content */}
-                      <div className="p-8 flex flex-col flex-1 bg-gradient-to-b from-transparent to-muted/10">
-                        <h3
-                          className="font-display text-2xl font-bold text-foreground mb-4 hover:text-primary transition-colors cursor-pointer leading-tight line-clamp-2"
-                          onClick={() => handleReadArticle(post.externalUrl)}
-                        >
-                          {post.title}
-                        </h3>
-
-                        <p className="text-muted-foreground text-base leading-relaxed mb-6 flex-1 line-clamp-3">
-                          {post.summary}
-                        </p>
-
-                        <div className="flex flex-wrap items-center justify-between pt-5 border-t border-border/50 gap-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                              <User className="w-4 h-4" />
-                            </div>
-                            <div>
-                              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{t.news.authorLabel}</p>
-                              <p className="text-sm font-bold">{post.author}</p>
-                            </div>
-                          </div>
-
-                          <Button
-                            variant="ghost"
-                            className="group/btn hover:bg-primary/10 hover:text-primary"
-                            onClick={() => handleReadArticle(post.externalUrl)}
-                          >
-                            {t.news.readArticle} <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                          </Button>
-                        </div>
-                      </div>
-                    </motion.article>
-                  ))}
-                </div>
-              </div>
-            </section>
-          )}
-
-          {/* ── REGULAR POSTS GRID ── */}
+          {/* ── LATEST UPDATES GRID — all posts, no featured split ── */}
           <section className="pt-4 pb-16 bg-muted/5 border-t border-border/50">
             <div className="container mx-auto px-4 md:px-8 max-w-6xl">
               <div className="mb-10">

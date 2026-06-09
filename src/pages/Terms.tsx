@@ -11,7 +11,7 @@ export default function Terms() {
 
   return (
     <div className="w-full min-h-screen bg-background">
-      <SEO title="Terms of Service" description="AutoNxt Automation Terms and Conditions of use." />
+      <SEO title={texts.termsTitle} description="AutoNxt Automation Terms and Conditions of use." />
 
       {/* ── HEADER ── */}
       <section className="bg-surface-dark relative overflow-hidden pt-28 pb-16">

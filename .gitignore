@@ -40,3 +40,8 @@ out/
 # public/images/**/*.webp
 !public/images/partners/*-sm.webp
 !public/images/partners/*-tiny.webp
+
+# Playwright test output — generated on each test run, not source-controlled
+playwright-report/
+test-results/
+test-output.json
