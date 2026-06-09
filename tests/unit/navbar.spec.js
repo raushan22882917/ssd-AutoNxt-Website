@@ -29,15 +29,16 @@ test.describe('Navbar – Unit / Component Tests', () => {
   });
 
   test('UNIT-NAV-004 All desktop nav links are present', async ({ page }) => {
+    // Desktop nav is visible at lg (1024px+) breakpoint
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
-    // Count visible nav links inside the desktop nav area (excludes mobile-only links)
     const links = page.locator('nav a[data-testid^="link-nav-"]');
     const count = await links.count();
-    // Project has 6–7 nav links depending on layout; confirm at least 6
     expect(count).toBeGreaterThanOrEqual(6);
   });
 
   test('UNIT-NAV-005 "Book Now" CTA button is visible in navbar', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
     await expect(
       page.locator('nav').getByRole('link', { name: /book now/i })
@@ -61,8 +62,9 @@ test.describe('Navbar – Unit / Component Tests', () => {
   // Active link highlight
   // ------------------------------------------------------------------
   test('UNIT-NAV-007 Active route link is visually distinguished', async ({ page }) => {
+    // Desktop nav visible at lg (1024px+)
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/product');
-    // Active nav link should have an underline or special class
     const activeLink = page.getByTestId('link-nav-product');
     await expect(activeLink).toBeVisible();
   });
@@ -71,59 +73,55 @@ test.describe('Navbar – Unit / Component Tests', () => {
   // Language switcher
   // ------------------------------------------------------------------
   test('UNIT-NAV-008 Language switcher button is visible', async ({ page }) => {
+    // Language switcher is in the desktop nav — visible at lg (1024px+)
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
-    // Language switcher renders as a dropdown button in the navbar
     await expect(
       page.locator('nav button').filter({ hasText: /EN|HI|MR|TE/i }).first()
     ).toBeVisible();
   });
 
   test('UNIT-NAV-009 Language switcher opens on click', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
     const langBtn = page.locator('nav button').filter({ hasText: /EN|HI|MR|TE/i }).first();
     await langBtn.click();
-    // A dropdown with language options should appear
     await expect(
       page.getByText(/Hindi|English|Marathi|Telugu/i).first()
     ).toBeVisible();
   });
 
   // ------------------------------------------------------------------
-  // Mobile menu
+  // Mobile menu — hamburger visible below lg (1024px)
   // ------------------------------------------------------------------
   test('UNIT-NAV-010 Mobile hamburger button visible on small screens', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 812 });
+    await page.setViewportSize({ width: 900, height: 812 });
     await page.goto('/');
-    // Mobile menu toggle button
-    await expect(
-      page.locator('nav button').filter({ has: page.locator('svg') }).last()
-    ).toBeVisible();
+    await expect(page.getByTestId('btn-mobile-menu')).toBeVisible();
   });
 
   test('UNIT-NAV-011 Mobile menu opens when hamburger is clicked', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 812 });
+    await page.setViewportSize({ width: 900, height: 812 });
     await page.goto('/');
-    const hamburger = page.locator('nav button').last();
-    await hamburger.click();
+    await page.getByTestId('btn-mobile-menu').click();
     await expect(
       page.getByRole('link', { name: /home/i }).first()
     ).toBeVisible();
   });
 
   test('UNIT-NAV-012 Mobile menu closes after selecting a link', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 812 });
+    await page.setViewportSize({ width: 900, height: 812 });
     await page.goto('/');
-    const hamburger = page.locator('nav button').last();
-    await hamburger.click();
-    // Click a mobile nav link
+    await page.getByTestId('btn-mobile-menu').click();
     await page.getByRole('link', { name: /about/i }).first().click();
     await expect(page).toHaveURL(/about/);
   });
 
   // ------------------------------------------------------------------
-  // Resources dropdown
+  // Resources dropdown — desktop only (lg+)
   // ------------------------------------------------------------------
   test('UNIT-NAV-013 Resources dropdown is present in desktop nav', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
     await expect(
       page.locator('nav').getByText(/resources/i)
@@ -131,10 +129,10 @@ test.describe('Navbar – Unit / Component Tests', () => {
   });
 
   test('UNIT-NAV-014 Resources dropdown shows News, Blog, EV Blog', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
     const resourcesBtn = page.locator('nav').getByText(/resources/i);
     await resourcesBtn.click();
-    // After click the dropdown should show resource links
     await expect(page.getByRole('link', { name: /news/i }).first()).toBeVisible({ timeout: 5000 });
     await expect(page.getByRole('link', { name: /blog/i }).first()).toBeVisible({ timeout: 5000 });
   });

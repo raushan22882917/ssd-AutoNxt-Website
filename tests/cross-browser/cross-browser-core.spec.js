@@ -51,8 +51,8 @@ test.describe('Cross-Browser Smoke', () => {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helper: navigate via navbar, handling mobile (hamburger) vs desktop (links)
-// Mobile menu links are in: div.md:hidden.absolute > a.block
-// Desktop links use: a[data-testid="link-nav-*"]  (hidden on mobile via .hidden.md:flex)
+// Mobile menu links are in: div.lg:hidden.absolute > a.block
+// Desktop links use: a[data-testid="link-nav-*"] — visible at lg (1024px+) via .hidden.lg:flex
 // ─────────────────────────────────────────────────────────────────────────────
 async function navTo(page, href, expectedUrl) {
   // Check if the mobile hamburger button is present and visible

@@ -11,6 +11,9 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Home → Navigation Integration Tests', () => {
 
+  // Desktop nav links are only visible at lg (1024px+)
+  test.use({ viewport: { width: 1280, height: 800 } });
+
   // ------------------------------------------------------------------
   // CTA buttons navigate correctly
   // ------------------------------------------------------------------
