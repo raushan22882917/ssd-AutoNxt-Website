@@ -11,11 +11,14 @@ const STATIC_TECH_TABS = [
   {
     id: "motor",
     glb: "/3dmodel/motor.glb",
+    // Static fallback image shown on mobile instead of loading three.js
+    image: "/images/products/motor.webp",
     accent: "text-amber-500",
   },
   {
     id: "battery",
     glb: "/3dmodel/battery.glb",
+    image: "/images/products/battery.webp",
     accent: "text-blue-500",
   },
 ];
@@ -23,6 +26,9 @@ const STATIC_TECH_TABS = [
 function TechShowcase() {
   const { t } = useLang();
   const [activeTab, setActiveTab] = useState(0);
+
+  // Detect mobile — motor/battery 3D skipped on mobile to prevent main-thread block
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
 
   const techTabs = t.home.techTabs.map((tab, i) => {
     const staticConfig = STATIC_TECH_TABS[i] || STATIC_TECH_TABS[0];
@@ -118,13 +124,25 @@ function TechShowcase() {
             transition={{ duration: 0.3 }}
             className="w-full h-full"
           >
-            <Suspense fallback={
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+            {isMobile ? (
+              /* Static image on mobile — motor/battery 3D not loaded */
+              <div className="w-full h-full flex items-center justify-center p-6">
+                <img
+                  src={tab.image}
+                  alt={tab.title}
+                  className="max-h-[280px] w-auto object-contain drop-shadow-xl"
+                  loading="lazy"
+                />
               </div>
-            }>
-              <TractorViewer3D src={tab.glb} className="w-full h-full" rotate showHint={false} />
-            </Suspense>
+            ) : (
+              <Suspense fallback={
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                </div>
+              }>
+                <TractorViewer3D src={tab.glb} className="w-full h-full" rotate showHint={false} />
+              </Suspense>
+            )}
           </motion.div>
         </AnimatePresence>
 

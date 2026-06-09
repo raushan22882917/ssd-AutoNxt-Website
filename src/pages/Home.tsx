@@ -115,17 +115,12 @@ export default function Home() {
   }, [t.home.heroDescs]);
 
   // Defer 3D canvas to keep vendor-three off the critical path
-  // On mobile (< lg) the 3D viewer is hidden via CSS, so skip loading entirely
+  // hero.glb loads on ALL devices (mobile + desktop)
   const [load3D, setLoad3D] = useState(false);
 
   useEffect(() => {
     const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
     if (isLighthouse) return;
-
-    // Skip 3D on mobile — the canvas is hidden below lg anyway
-    // This prevents three.js from blocking the mobile main thread
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
-    if (isMobile) return;
 
     let active = true;
     let timeoutId: NodeJS.Timeout;
@@ -141,17 +136,19 @@ export default function Home() {
       active = false;
       window.removeEventListener("scroll", triggerLoad);
       window.removeEventListener("mousemove", triggerLoad);
+      window.removeEventListener("touchstart", triggerLoad);
       if (timeoutId) clearTimeout(timeoutId);
       if (fallbackId) clearTimeout(fallbackId);
     };
 
-    // Wait 2s after mount, then listen for desktop interactions
+    // Wait 2s then listen for interaction on all devices
     timeoutId = setTimeout(() => {
       if (!active) return;
       window.addEventListener("scroll", triggerLoad, { passive: true });
       window.addEventListener("mousemove", triggerLoad, { passive: true });
-      // Fallback: load after 3s of no interaction on desktop
-      fallbackId = setTimeout(triggerLoad, 3000);
+      window.addEventListener("touchstart", triggerLoad, { passive: true });
+      // Fallback: load after 5s of no interaction
+      fallbackId = setTimeout(triggerLoad, 2000);
     }, 2000);
 
     return () => {
