@@ -7,7 +7,7 @@ export default defineConfig({
     testMatch: '**/*.spec.{js,ts}',
 
     use: {
-        baseURL: 'http://localhost:5174',
+        baseURL: 'http://localhost:5173',
         headless: false,
         // Capture screenshots on failure
         screenshot: 'only-on-failure',

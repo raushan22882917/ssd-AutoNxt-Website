@@ -106,14 +106,14 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-8 pt-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/60">
-          <p>{t.common.copyright}</p>
+        <div className="border-t border-white/10 mt-8 pt-5 flex flex-col lg:flex-row items-center justify-between gap-3 text-xs text-white/60">
+          <p className="text-center lg:text-left">{t.common.copyright}</p>
           <div className="flex gap-4 flex-wrap justify-center">
             <Link href="/privacy" className="hover:text-white transition-colors">{t.common.privacyPolicy}</Link>
             <Link href="/terms" className="hover:text-white transition-colors">{t.common.termsConditions}</Link>
             <Link href="/careers" className="hover:text-white transition-colors">{t.common.careers}</Link>
           </div>
-          <p>{t.common.madeIn}</p>
+          <p className="text-center lg:text-right">{t.common.madeIn}</p>
         </div>
       </div>
     </footer>

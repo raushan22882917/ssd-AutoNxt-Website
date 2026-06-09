@@ -32,7 +32,7 @@ test.describe('Home → Navigation Integration Tests', () => {
     await page.goto('/product');
     await page.getByTestId('link-home-logo').click();
     // Match the full URL — the origin + trailing slash or empty path
-    await expect(page).toHaveURL(/localhost:5174\/?$/);
+    await expect(page).toHaveURL(/\/$/);
   });
 
   // ------------------------------------------------------------------

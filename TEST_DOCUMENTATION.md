@@ -1,9 +1,10 @@
-# AutoNxt — UI Test Suite Documentation
+4. [Test Suite Structure](#4-test-suite-structure)
+5. [Layer 1 — Unit / Component# AutoNxt — UI Test Suite Documentation
 
 **Project:** AutoNxt Automation (Electric Tractor Marketing Website)  
 **Test Framework:** [Playwright](https://playwright.dev/) v1.60  
 **Language:** JavaScript (ES Modules)  
-**Base URL:** `http://localhost:5174`  
+**Base URL:** `http://localhost:5173`  
 **Date:** June 2026  
 
 ---
@@ -13,8 +14,7 @@
 1. [Overview](#1-overview)
 2. [QA Pyramid Strategy](#2-qa-pyramid-strategy)
 3. [Project & Tech Stack](#3-project--tech-stack)
-4. [Test Suite Structure](#4-test-suite-structure)
-5. [Layer 1 — Unit / Component Tests](#5-layer-1--unit--component-tests)
+ Tests](#5-layer-1--unit--component-tests)
    - [Navbar Component](#51-navbar-component)
    - [Home Page Sections](#52-home-page-sections)
    - [Booking Form Fields](#53-booking-form-fields)
@@ -610,76 +610,125 @@ The smoke suite is the first gate in any CI pipeline. For each of the 24 routes 
 
 ## 9. Running the Tests
 
-### Prerequisites
+### Step 1 — One-time Setup
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+# Install all npm dependencies
+npm install
 
-2. Install Playwright browsers (first time only):
-   ```bash
-   npx playwright install
-   ```
-
-3. Start the development server in a separate terminal:
-   ```bash
-   npm run dev
-   ```
-   The server must be running at `http://localhost:5174` before tests execute.
+# Install Playwright browsers (Chromium, Firefox, WebKit)
+# Only needed once after first clone
+npx playwright install
+```
 
 ---
 
-### Run Commands
+### Step 2 — Start the Dev Server
+
+The test suite needs the site running before any tests execute.
+Open a terminal and start the dev server — keep it running while tests run:
 
 ```bash
-# Run the entire test suite
+npm run dev
+```
+
+The site will be available at `http://localhost:5173`.  
+All test files use the `baseURL` from `playwright.config.cjs` — **no hardcoded URLs anywhere**.
+
+---
+
+### Step 3 — Run Tests
+
+Open a **second terminal** and run any of the commands below:
+
+```bash
+# ── FULL SUITE ──────────────────────────────────────────────────
+# Run every test across all layers and browsers
 npx playwright test
 
-# Run only unit tests
+# ── BY LAYER ────────────────────────────────────────────────────
+# Layer 1 — Unit / Component tests (fast, ~30 seconds)
 npx playwright test tests/unit/
 
-# Run only integration tests
+# Layer 2 — Integration tests (~1 minute)
 npx playwright test tests/integration/
 
-# Run only E2E tests
+# Layer 3 — E2E tests (~3 minutes)
 npx playwright test tests/e2e/
 
-# Run a single spec file
+# Layout, typography, content, animation tests
+npx playwright test tests/layout/
+
+# Cross-browser tests (runs on Chrome, Firefox, Edge, Pixel 5, iPhone 12)
+npx playwright test tests/cross-browser/
+
+# Legacy smoke tests (original test files)
+npx playwright test tests/smoke.spec.js tests/navigation.spec.js
+
+# ── BY BROWSER ──────────────────────────────────────────────────
+npx playwright test --project=chromium
+npx playwright test --project=firefox
+npx playwright test --project=msedge
+npx playwright test --project=mobile-chrome
+npx playwright test --project=mobile-safari
+
+# ── SINGLE FILE ─────────────────────────────────────────────────
 npx playwright test tests/e2e/book-a-test-drive.spec.js
+npx playwright test tests/e2e/full-site-smoke.spec.js
+npx playwright test tests/layout/typography.spec.js
 
-# Run a single test by name (grep)
+# ── SINGLE TEST BY ID ───────────────────────────────────────────
 npx playwright test --grep "E2E-BOOK-001"
+npx playwright test --grep "SMOKE-000"
+npx playwright test --grep "UNIT-NAV-004"
 
-# Run in headless mode (faster, good for CI)
-npx playwright test --headed=false
-
-# Run with HTML report
-npx playwright test --reporter=html
-
-# Open the last HTML report
+# ── REPORTS ─────────────────────────────────────────────────────
+# Open the HTML report after a test run
 npx playwright show-report
+
+# Run with live HTML report output
+npx playwright test --reporter=html
 ```
 
 ---
 
-### Recommended CI Order
+### Recommended CI / Pre-commit Order
 
-Run the layers in order — fail fast on cheap tests before running expensive ones:
+Run layers in order — catch cheap failures first before running expensive ones:
 
 ```bash
-# 1. Smoke (fastest gate — stops CI immediately if any page crashes)
-npx playwright test tests/e2e/full-site-smoke.spec.js
+# Gate 1 — Smoke: confirms every page renders (fastest, ~1 min)
+npx playwright test tests/e2e/full-site-smoke.spec.js --project=chromium
 
-# 2. Unit (fast component checks)
-npx playwright test tests/unit/
+# Gate 2 — Unit: component-level checks (~30 sec)
+npx playwright test tests/unit/ --project=chromium
 
-# 3. Integration (multi-component checks)
-npx playwright test tests/integration/
+# Gate 3 — Integration: cross-page flows (~1 min)
+npx playwright test tests/integration/ --project=chromium
 
-# 4. E2E (full user journeys)
-npx playwright test tests/e2e/
+# Gate 4 — Layout: spacing, typography, content (~45 sec)
+npx playwright test tests/layout/ --project=chromium
+
+# Gate 5 — E2E: full user journeys (~3 min)
+npx playwright test tests/e2e/ --project=chromium
+
+# Gate 6 — Cross-browser: all 5 browser profiles (~8 min)
+npx playwright test tests/cross-browser/
 ```
+
+---
+
+### Quick Reference — Common Scenarios
+
+| Goal | Command |
+|---|---|
+| Check nothing broke after a code change | `npx playwright test tests/e2e/full-site-smoke.spec.js` |
+| Verify booking form still works | `npx playwright test tests/unit/form-fields.spec.js` |
+| Test a specific page | `npx playwright test --grep "SMOKE-017"` (Book page) |
+| Run on mobile only | `npx playwright test --project=mobile-chrome` |
+| Run on Firefox only | `npx playwright test --project=firefox` |
+| See what failed last run | `npx playwright show-report` |
+| Debug a failing test visually | `npx playwright test --debug tests/e2e/book-a-test-drive.spec.js` |
 
 ---
 
@@ -696,7 +745,7 @@ npx playwright test tests/e2e/
   workers: 4,               // 4 browser workers locally, 2 in CI
 
   use: {
-    baseURL: 'http://localhost:5174',
+    baseURL: 'http://localhost:5173',
     headless: false,
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
@@ -766,4 +815,3 @@ npx playwright test tests/e2e/
 
 ---
 
-*Generated by Kiro — AutoNxt UI Test Suite — June 2026*

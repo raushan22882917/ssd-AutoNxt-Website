@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Contact / Booking Page', () => {
 
   test('Contact page loads', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(page).toHaveURL(/book/);
 
@@ -13,7 +13,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Name field visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.locator('input[name="name"]')
@@ -21,7 +21,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Email field visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.locator('input[name="email"]')
@@ -29,7 +29,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Phone field visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.locator('input[name="phone"]')
@@ -37,7 +37,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Location field visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.locator('input[name="location"]')
@@ -45,7 +45,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Preferred date field visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.locator('input[name="preferredDate"]')
@@ -53,7 +53,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Subject field visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.locator('input[name="subject"]')
@@ -61,7 +61,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Message field visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.locator('textarea[name="message"]')
@@ -69,7 +69,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('User can type in form', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await page.locator('input[name="name"]').fill('Rajiv Kumar');
     await page.locator('input[name="email"]').fill('rajiv@test.com');
@@ -81,7 +81,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Email contact card visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.locator('a[href^="mailto:"]').first()
@@ -89,7 +89,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Phone contact card visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.locator('a[href^="tel:"]').first()
@@ -97,7 +97,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Tractor image visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.getByRole('img', {
@@ -107,7 +107,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Submit button visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     await expect(
       page.locator('button[type="submit"]')
@@ -115,7 +115,7 @@ test.describe('Contact / Booking Page', () => {
   });
 
   test('Required field validation works', async ({ page }) => {
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     const submitButton = page.locator(
       'button[type="submit"]'
@@ -131,7 +131,7 @@ test.describe('Contact / Booking Page', () => {
       errors.push(error);
     });
 
-    await page.goto('http://localhost:5174/book');
+    await page.goto('/book');
 
     expect(errors.length).toBe(0);
   });

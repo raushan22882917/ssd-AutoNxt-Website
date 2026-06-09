@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Blog Page', () => {
 
   test('Blog page loads successfully', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     await expect(page).toHaveURL(/blog/);
 
@@ -13,7 +13,7 @@ test.describe('Blog Page', () => {
   });
 
   test('Hero section is visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     await expect(
       page.getByText(/blog/i).first()
@@ -21,7 +21,7 @@ test.describe('Blog Page', () => {
   });
 
   test('Search box is visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     await expect(
       page.locator('input[type="search"]')
@@ -29,7 +29,7 @@ test.describe('Blog Page', () => {
   });
 
   test('Search input accepts text', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     const search = page.locator('input[type="search"]');
 
@@ -39,7 +39,7 @@ test.describe('Blog Page', () => {
   });
 
   test('Category dropdown is visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     await expect(
       page.locator('button').filter({ hasText: /\(/ }).first()
@@ -49,7 +49,7 @@ test.describe('Blog Page', () => {
 
 
   test('Article cards are displayed', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     await expect(
       page.locator('img').first()
@@ -57,7 +57,7 @@ test.describe('Blog Page', () => {
   });
 
   test('Read Article buttons exist', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     await expect(
       page.getByText(/Read Article/i).first()
@@ -65,7 +65,7 @@ test.describe('Blog Page', () => {
   });
 
   test('Blog images load', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     const images = page.locator('img');
 
@@ -73,7 +73,7 @@ test.describe('Blog Page', () => {
   });
 
   test('Author information is visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     await expect(
       page.locator('[class*="rounded-full"]').first()
@@ -81,7 +81,7 @@ test.describe('Blog Page', () => {
   });
 
   test('Article slider section is visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     await expect(
       page.locator('section').nth(2)
@@ -89,7 +89,7 @@ test.describe('Blog Page', () => {
   });
 
   test('CTA section visible', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     await expect(
       page.getByRole('button').last()
@@ -97,7 +97,7 @@ test.describe('Blog Page', () => {
   });
 
   test('Contact button exists', async ({ page }) => {
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     await expect(
       page.getByRole('link', {
@@ -113,7 +113,7 @@ test.describe('Blog Page', () => {
       errors.push(error);
     });
 
-    await page.goto('http://localhost:5174/blog');
+    await page.goto('/blog');
 
     expect(errors.length).toBe(0);
   });

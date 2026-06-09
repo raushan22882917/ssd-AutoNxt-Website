@@ -82,7 +82,7 @@ test.describe('Cross-Browser Navigation', () => {
   test('CB-NAV-001 Logo navigates home from /product', async ({ page }) => {
     await page.goto('/product');
     await page.getByTestId('link-home-logo').click();
-    await expect(page).toHaveURL(/localhost:5174\/?$/);
+    await expect(page).toHaveURL(/\/$/);
   });
 
   test('CB-NAV-002 Navbar Product link works', async ({ page }) => {

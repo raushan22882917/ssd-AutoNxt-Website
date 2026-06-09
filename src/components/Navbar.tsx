@@ -97,7 +97,8 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-0.5 lg:space-x-1">
+        {/* Desktop Nav — only visible at lg (1024px+) to avoid overflow at 768–1023px */}
+        <div className="hidden lg:flex items-center space-x-0.5 lg:space-x-1">
           {navLinks.map((link, index) => (
             <Link
               key={link.href}
@@ -133,8 +134,8 @@ export default function Navbar() {
           </Button>
         </div>
 
-        {/* Right controls */}
-        <div className="hidden md:flex items-center gap-1">
+        {/* Right controls — only visible at lg (1024px+) */}
+        <div className="hidden lg:flex items-center gap-1">
           {/* Resources dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -251,8 +252,8 @@ export default function Navbar() {
           </DropdownMenu>
         </div>
 
-        {/* Mobile menu button */}
-        <div className="md:hidden flex items-center gap-1">
+        {/* Mobile menu button — visible below lg (1024px) */}
+        <div className="lg:hidden flex items-center gap-1">
           <Button
             variant="ghost"
             size="icon"
@@ -268,7 +269,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-border p-4 flex flex-col space-y-1 shadow-lg">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-border p-4 flex flex-col space-y-1 shadow-lg">
           {navLinks.map((link) => (
             <Link
               key={link.href}

@@ -85,7 +85,7 @@ test.describe('404 Not Found Page – Integration Tests', () => {
     if (await homeLink.count() > 0) {
       await homeLink.first().click();
       // Match full URL with origin — avoid anchoring to start of string
-      await expect(page).toHaveURL(/localhost:5174\/?$/);
+      await expect(page).toHaveURL(/\/$/);
     }
   });
 });
