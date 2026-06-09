@@ -114,12 +114,18 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [t.home.heroDescs]);
 
-  // Defer 3D canvas to keep vendor-three off the critical path, loading automatically on first user interaction or a 2-second timeout
+  // Defer 3D canvas to keep vendor-three off the critical path
+  // On mobile (< lg) the 3D viewer is hidden via CSS, so skip loading entirely
   const [load3D, setLoad3D] = useState(false);
 
   useEffect(() => {
     const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
-    if (isLighthouse) return; // Keep static placeholder for Lighthouse audits to avoid WebGL overhead in headless browser
+    if (isLighthouse) return;
+
+    // Skip 3D on mobile — the canvas is hidden below lg anyway
+    // This prevents three.js from blocking the mobile main thread
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+    if (isMobile) return;
 
     let active = true;
     let timeoutId: NodeJS.Timeout;
@@ -135,22 +141,17 @@ export default function Home() {
       active = false;
       window.removeEventListener("scroll", triggerLoad);
       window.removeEventListener("mousemove", triggerLoad);
-      window.removeEventListener("touchstart", triggerLoad);
-      window.removeEventListener("keydown", triggerLoad);
       if (timeoutId) clearTimeout(timeoutId);
       if (fallbackId) clearTimeout(fallbackId);
     };
 
-    // Delay adding event listeners to ensure initial page load paints cleanly
+    // Wait 2s after mount, then listen for desktop interactions
     timeoutId = setTimeout(() => {
       if (!active) return;
       window.addEventListener("scroll", triggerLoad, { passive: true });
       window.addEventListener("mousemove", triggerLoad, { passive: true });
-      window.addEventListener("touchstart", triggerLoad, { passive: true });
-      window.addEventListener("keydown", triggerLoad, { passive: true });
-
-      // Fallback: load model if user is idle for another 3 seconds
-      fallbackId = setTimeout(triggerLoad, 2000);
+      // Fallback: load after 3s of no interaction on desktop
+      fallbackId = setTimeout(triggerLoad, 3000);
     }, 2000);
 
     return () => {
