@@ -148,7 +148,7 @@ export default function Home() {
       window.addEventListener("mousemove", triggerLoad, { passive: true });
       window.addEventListener("touchstart", triggerLoad, { passive: true });
       // Fallback: load after 5s of no interaction
-      fallbackId = setTimeout(triggerLoad, 5000);
+      fallbackId = setTimeout(triggerLoad, 2000);
     }, 2000);
 
     return () => {
