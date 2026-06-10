@@ -717,13 +717,8 @@ export default function Product() {
             </h2>
             <div className="flex gap-3 flex-wrap">
               <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold shadow-lg shadow-primary/25">
-                <Link href="/book">
-                  {t.productPage.scheduleTestDrive} <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 font-semibold">
                 <Link href="/industry">
-                  {t.productPage.seeIndustries}
+                  {t.productPage.seeIndustries} <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
             </div>

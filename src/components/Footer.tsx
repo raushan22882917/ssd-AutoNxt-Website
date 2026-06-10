@@ -64,11 +64,12 @@ export default function Footer() {
             <div>
               <h3 className="font-semibold text-white mb-4 text-xs uppercase tracking-widest">{t.nav.product}</h3>
               <ul className="space-y-2.5 text-sm">
-                <FooterLink href="/product/x45h2">AutoNxt X45H2</FooterLink>
-                <FooterLink href="/product/x25h2">AutoNxt X25H2</FooterLink>
-                <FooterLink href="/product/attachment/bucket">18 Ft Grabber Bucket</FooterLink>
-                <FooterLink href="/product/attachment/catcher">18 Ft Catcher</FooterLink>
-                <FooterLink href="/product/attachment/loader">18 Ft Loader Bucket</FooterLink>
+                <FooterLink href="/product/x45h2">{t.home.products[0].name}</FooterLink>
+                <FooterLink href="/product/x25h2">{t.home.products[2].name}</FooterLink>
+                <FooterLink href="/product/h55c2">{t.home.products[1].name}</FooterLink>
+                <FooterLink href="/product/attachment/bucket">{t.productPage.implementsList.bucket.name}</FooterLink>
+                <FooterLink href="/product/attachment/catcher">{t.productPage.implementsList.catcher.name}</FooterLink>
+                <FooterLink href="/product/attachment/loader">{t.productPage.implementsList.loader.name}</FooterLink>
               </ul>
             </div>
 

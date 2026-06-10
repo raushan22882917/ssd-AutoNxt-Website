@@ -193,27 +193,10 @@ test.describe('Products Page', () => {
 
     /*
      ============================================================
-     TC-014 Schedule Test Drive button
+     TC-014 Industries button visible
      ============================================================
     */
-    test('TC-014 Schedule Test Drive button visible', async ({ page }) => {
-        await page.goto('/product');
-
-        const button = page.getByRole('link', {
-            name: /schedule/i
-        });
-
-        if (await button.count()) {
-            await expect(button.first()).toBeVisible();
-        }
-    });
-
-    /*
-     ============================================================
-     TC-015 Industries button visible
-     ============================================================
-    */
-    test('TC-015 Industries button visible', async ({ page }) => {
+    test('TC-014 Industries button visible', async ({ page }) => {
         await page.goto('/product');
 
         const button = page.getByRole('link', {
@@ -227,10 +210,10 @@ test.describe('Products Page', () => {
 
     /*
      ============================================================
-     TC-016 Footer visible
+     TC-015 Footer visible
      ============================================================
     */
-    test('TC-016 Footer visible', async ({ page }) => {
+    test('TC-015 Footer visible', async ({ page }) => {
         await page.goto('/product');
 
         await expect(
@@ -240,10 +223,10 @@ test.describe('Products Page', () => {
 
     /*
      ============================================================
-     TC-017 No console errors
+     TC-016 No console errors
      ============================================================
     */
-    test('TC-017 Page loads without JS crash', async ({ page }) => {
+    test('TC-016 Page loads without JS crash', async ({ page }) => {
         const errors = [];
 
         page.on('pageerror', err => {

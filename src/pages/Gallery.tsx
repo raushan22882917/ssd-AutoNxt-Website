@@ -35,7 +35,7 @@ type GalleryPhoto = {
 
 export default function Gallery() {
   const { t } = useLang();
-  const [activeTab, setActiveTab] = useState<Tab>("photos");
+  const [activeTab, setActiveTab] = useState<Tab>("events");
   const [lightbox, setLightbox] = useState<{ index: number; source: "photos" | "events" } | null>(null);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
@@ -400,11 +400,11 @@ export default function Gallery() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-display font-bold text-foreground mb-3">{t.gallery.seeInPerson}</h3>
-            <p className="text-muted-foreground mb-6">{t.gallery.seeInPersonDesc}</p>
+            <h3 className="text-2xl font-display font-bold text-foreground mb-3">{t.home.readyToElectric}</h3>
+            <p className="text-muted-foreground mb-6">{t.home.readyToElectricDesc}</p>
             <Link href="/book">
-              <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold" data-testid="btn-schedule-viewing">
-                {t.gallery.scheduleDemo}
+              <Button size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold" data-testid="btn-book-now">
+                {t.nav.bookNow}
               </Button>
             </Link>
           </motion.div>

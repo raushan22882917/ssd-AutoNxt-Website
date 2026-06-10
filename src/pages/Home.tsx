@@ -55,6 +55,7 @@ const fadeUp = {
 const PRODUCTS_META = [
   {
     img: tractor1,
+    slug: "x45h2",
     tagColor: "bg-primary/10 text-primary border-primary/20",
     accentBar: "bg-primary",
     specs: [
@@ -65,6 +66,7 @@ const PRODUCTS_META = [
   },
   {
     img: tractor1,
+    slug: "h55c2",
     tagColor: "bg-accent/10 text-accent border-accent/20",
     accentBar: "bg-accent",
     specs: [
@@ -75,6 +77,7 @@ const PRODUCTS_META = [
   },
   {
     img: tractor2,
+    slug: "x25h2",
     tagColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
     accentBar: "bg-emerald-500",
     specs: [
@@ -477,7 +480,7 @@ export default function Home() {
                     })}
                   </div>
 
-                  <Link href="/product">
+                  <Link href={`/product/${p.slug}`}>
                     <Button size="sm" variant="outline" className="w-full mt-1 group-hover:border-primary group-hover:text-primary transition-colors">
                       {t.home.viewDetails} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                     </Button>

@@ -353,7 +353,7 @@ export const en = {
     fleetSolutions: "Fleet Solutions",
     batterySystems: "Battery Systems",
     motors: "NXT-Drive Motors",
-    slogan: "India's electric tractor pioneer. Powering the fields of tomorrow, built for Indian farmers today.",
+    slogan: "Building next-generation electric machines for industry, infrastructure, and agriculture.",
     cancel: "Cancel",
     loadingModel: "Loading 3D model...",
     dragToRotate: "↺ drag to rotate",

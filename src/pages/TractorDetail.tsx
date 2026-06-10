@@ -122,11 +122,6 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
                     {tractor.status === "available" ? texts.reserveNow : texts.registerInterest} <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 h-12 px-7">
-                  <Link href="/book">
-                    {texts.bookTestDrive}
-                  </Link>
-                </Button>
               </div>
             </motion.div>
             <motion.div
