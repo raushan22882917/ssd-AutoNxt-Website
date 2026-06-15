@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Production
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Misc
+.cache/
+.parcel-cache/
+.next/
+out/
+
+# Generated WebP image artifacts — run `npm run compress-images` to regenerate.
+# Originals (.jpg / .png) are source-controlled; .webp files are derived output.
+# public/images/**/*.webp
+!public/images/partners/*-sm.webp
+!public/images/partners/*-tiny.webp
+
+# Playwright test output — generated on each test run, not source-controlled
+playwright-report/
+test-results/
+test-output.json

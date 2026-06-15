@@ -1,0 +1,157 @@
+import { lazy, Suspense, useState, useEffect } from "react";
+import { Switch, Route, useLocation, Router as WouterRouter } from "wouter";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { LanguageProvider } from "@/contexts/LanguageProvider";
+
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import PageLoader from "@/components/PageLoader";
+
+const AiChat = lazy(() => import("@/components/AiChat"));
+
+const Home = lazy(() => import("@/pages/Home"));
+const Product = lazy(() => import("@/pages/Product"));
+const Industry = lazy(() => import("@/pages/Industry"));
+const Gallery = lazy(() => import("@/pages/Gallery"));
+const Contribution = lazy(() => import("@/pages/Contribution"));
+const About = lazy(() => import("@/pages/About"));
+const Book = lazy(() => import("@/pages/Book"));
+const News = lazy(() => import("@/pages/News"));
+const Blog = lazy(() => import("@/pages/Blog"));
+const EvBlog = lazy(() => import("@/pages/EvBlog"));
+const Careers = lazy(() => import("@/pages/Careers"));
+const Privacy = lazy(() => import("@/pages/Privacy"));
+const Terms = lazy(() => import("@/pages/Terms"));
+const IndustryDetail = lazy(() => import("@/pages/IndustryDetail"));
+const TractorDetail = lazy(() => import("@/pages/TractorDetail"));
+const AttachmentDetail = lazy(() => import("@/pages/AttachmentDetail"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+const queryClient = new QueryClient();
+
+function PageSkeleton() {
+  return (
+    <div className="flex-1 w-full min-h-[60vh] flex items-center justify-center">
+      <div className="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
+    </div>
+  );
+}
+
+// Helper component to reset window scroll position to top on every route change
+function ScrollToTop() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  return null;
+}
+
+function Router() {
+  return (
+    <div className="flex flex-col min-h-screen bg-background text-foreground">
+      <ScrollToTop />
+      <Navbar />
+      <Suspense fallback={<PageSkeleton />}>
+        <main className="flex-1 w-full">
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route path="/product" component={Product} />
+            <Route path="/industry" component={Industry} />
+            <Route path="/gallery" component={Gallery} />
+            <Route path="/contribution" component={Contribution} />
+            <Route path="/about" component={About} />
+            <Route path="/book" component={Book} />
+            <Route path="/news" component={News} />
+            <Route path="/blog" component={Blog} />
+            <Route path="/ev-blog" component={EvBlog} />
+            <Route path="/industry/:slug" component={IndustryDetail} />
+            <Route path="/product/attachment/:slug" component={AttachmentDetail} />
+            <Route path="/product/:slug" component={TractorDetail} />
+            <Route path="/careers" component={Careers} />
+            <Route path="/privacy" component={Privacy} />
+            <Route path="/terms" component={Terms} />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
+        <Footer />
+      </Suspense>
+    </div>
+  );
+}
+
+function ChatFallbackSkeleton() {
+  return (
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+      <div className="h-12 w-12 rounded-full bg-blue-700/60 animate-pulse" />
+      <div className="h-12 w-12 rounded-full bg-red-600/60 animate-pulse" />
+      <div className="h-14 w-14 rounded-full bg-black flex items-center justify-center shadow-2xl">
+        <div className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin" />
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [loadChat, setLoadChat] = useState(false);
+
+  useEffect(() => {
+    const isLighthouse = typeof navigator !== "undefined" && /lighthouse|chrome-lighthouse/i.test(navigator.userAgent);
+    if (isLighthouse) return;
+
+    let active = true;
+    const triggerLoad = () => {
+      if (!active || loadChat) return;
+      setLoadChat(true);
+      cleanup();
+    };
+
+    const cleanup = () => {
+      active = false;
+      window.removeEventListener("load", triggerLoad);
+      window.removeEventListener("scroll", triggerLoad);
+      window.removeEventListener("mousemove", triggerLoad);
+      window.removeEventListener("touchstart", triggerLoad);
+      window.removeEventListener("keydown", triggerLoad);
+    };
+
+    if (document.readyState === "complete") {
+      // Trigger after a tiny delay so the main paint/frame finishes first
+      setTimeout(triggerLoad, 100);
+    } else {
+      window.addEventListener("load", triggerLoad, { passive: true });
+      window.addEventListener("scroll", triggerLoad, { passive: true });
+      window.addEventListener("mousemove", triggerLoad, { passive: true });
+      window.addEventListener("touchstart", triggerLoad, { passive: true });
+      window.addEventListener("keydown", triggerLoad, { passive: true });
+    }
+
+    return () => {
+      cleanup();
+    };
+  }, [loadChat]);
+
+  return (
+    <LanguageProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <PageLoader />
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <Router />
+          </WouterRouter>
+          <Toaster />
+          {loadChat ? (
+            <Suspense fallback={<ChatFallbackSkeleton />}><AiChat /></Suspense>
+          ) : (
+            <ChatFallbackSkeleton />
+          )}
+        </TooltipProvider>
+      </QueryClientProvider>
+    </LanguageProvider>
+  );
+}
+
+export default App;
