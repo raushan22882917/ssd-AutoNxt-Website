@@ -23,42 +23,25 @@ const VideoShowcase = lazy(
   () => import("@/components/home/VideoShowcase")
 );
 
+import HeroAutomationSlide, { type HeroOverlayText } from "@/components/home/HeroAutomationSlide";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
 import { ArrowRight, ChevronRight, Zap, BatteryCharging, ShieldCheck, Activity, Hammer, Building2, Shield, PlaneTakeoff, Factory, Leaf, Smartphone, CheckCircle, Monitor, MapPin, Bell, Wrench, Package, Ticket, CalendarDays, QrCode, User, IndianRupee, TrendingUp } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
-import type { Lang } from "@/i18n/translations";
-
-
-const HERO_IMAGES_BY_LANG: Record<Lang, readonly string[]> = {
-  en: [
-    "/images/hero/image.png",
-    "/images/hero/image-1.png",
-    "/images/hero/image-2.png",
-  ],
-  hi: [
-    "/images/hero/image-HI.png",
-    "/images/hero/image-1-hi.png",
-    "/images/hero/image-2-HI.png",
-  ],
-  mr: [
-    "/images/hero/image-mr.png",
-    "/images/hero/image-1-mr.png",
-    "/images/hero/image-2-MR.png",
-  ],
-  te: [
-    "/images/hero/image-tl.png",
-    "/images/hero/image-1-tl.png",
-    "/images/hero/image-2-TL.png",
-  ],
+type HeroOverlaySlide = {
+  key: string;
+  backgroundSrc: string;
+  content: HeroOverlayText;
+  showFloatingCard?: boolean;
+  layout?: "full" | "compact";
+  variant?: "industry" | "loader" | "automation";
 };
 const HERO_ROTATE_MS = 5000;
 
 const tractor1 = "/images/products/x45h2.webp";
 const tractor2 = "/images/products/x25h2.webp";
-const fieldImg = "/images/facility/right-wall.webp";
 const trailerImg = "/images/facility/left-wall.webp";
 const baifLogo = "/images/partners/baif-sm.webp";
 const dksmLogo = "/images/partners/dksm-sm.webp";
@@ -132,7 +115,40 @@ const INDUSTRY_COLORS_MAP: Record<string, { color: string; border: string }> = {
 
 export default function Home() {
   const { t, lang } = useLang();
-  const heroImages = HERO_IMAGES_BY_LANG[lang];
+  const baseOverlayContent = t.home.heroAutomation;
+  const heroSlides: HeroOverlaySlide[] = [
+    {
+      key: "image2",
+      backgroundSrc: "/images/hero/image2.png",
+      showFloatingCard: true,
+      layout: "compact",
+      variant: "industry",
+      content: {
+        ...baseOverlayContent,
+        titlePart1: `${t.home.heroDescs[0].titlePart1} `,
+        titleHighlight: t.home.heroDescs[0].titleHighlight,
+        subtitle: t.home.heroDescs[0].normalText,
+      },
+    },
+    {
+      key: "image3",
+      backgroundSrc: "/images/hero/image3.png",
+      layout: "compact",
+      variant: "loader",
+      content: {
+        ...baseOverlayContent,
+        titlePart1: `${t.home.heroDescs[2].titlePart1} `,
+        titleHighlight: t.home.heroDescs[2].titleHighlight,
+        subtitle: t.home.heroDescs[2].normalText,
+      },
+    },
+    {
+      key: "image1",
+      backgroundSrc: "/images/hero/image1.png",
+      variant: "automation",
+      content: baseOverlayContent,
+    },
+  ];
   const [heroIndex, setHeroIndex] = useState(0);
 
   useEffect(() => {
@@ -140,12 +156,12 @@ export default function Home() {
   }, [lang]);
 
   useEffect(() => {
-    if (heroImages.length <= 1) return;
+    if (heroSlides.length <= 1) return;
     const timer = setInterval(() => {
-      setHeroIndex((prev) => (prev + 1) % heroImages.length);
+      setHeroIndex((prev) => (prev + 1) % heroSlides.length);
     }, HERO_ROTATE_MS);
     return () => clearInterval(timer);
-  }, [lang, heroImages.length]);
+  }, [heroSlides.length]);
 
   const teaserProducts = t.home.products.map((p, i) => ({
     ...p,
@@ -171,18 +187,23 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <section className="relative w-full overflow-hidden bg-background">
-        <div className="relative w-full">
-          {heroImages.map((src, i) => (
-            <motion.img
-              key={`${lang}-${src}`}
-              src={src}
-              alt="AutoNxt electric tractor"
-              className={`w-full h-auto block ${i === 0 ? "relative" : "absolute inset-0"}`}
-              fetchPriority={i === 0 ? "high" : "auto"}
+        <div className="relative w-full leading-[0]">
+          {heroSlides.map((slide, i) => (
+            <motion.div
+              key={slide.key}
+              className={`w-full ${i === 0 ? "relative" : "absolute inset-0"}`}
               animate={{ opacity: heroIndex === i ? 1 : 0 }}
               transition={{ duration: 0.6 }}
               aria-hidden={heroIndex !== i}
-            />
+            >
+              <HeroAutomationSlide
+                backgroundSrc={slide.backgroundSrc}
+                content={slide.content}
+                showFloatingCard={slide.showFloatingCard}
+                layout={slide.layout}
+                variant={slide.variant}
+              />
+            </motion.div>
           ))}
         </div>
       </section>
@@ -481,19 +502,30 @@ export default function Home() {
       </section>
 
       {/* ── FIELD PHOTO BANNER ── */}
-      <section className="relative h-[420px] overflow-hidden">
-        <img src={fieldImg} alt="Autonxt in the Fields of India" className="w-full h-full object-cover object-center" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-4 md:px-8 max-w-xl">
+      <section className="relative w-full overflow-hidden">
+        <img
+          src={t.home.fieldBannerImage}
+          alt="From Sunrise to Sunset — Autonxt in the Fields of India"
+          className="w-full h-auto block"
+        />
+        <div className="absolute inset-0 bg-gradient-to-tr from-black/65 via-black/25 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 flex items-end pointer-events-none">
+          <div className="container mx-auto px-4 md:px-6 pb-8 md:pb-12 lg:pb-14 pointer-events-auto">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              className="max-w-xl text-left"
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <p className="text-primary font-bold text-sm uppercase tracking-widest mb-3">{t.home.fieldBannerTag}</p>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">{t.home.fieldBannerTitle}</h2>
-              <p className="text-white/80 text-lg mb-6">{t.home.fieldBannerDesc}</p>
+              <p className="text-primary font-bold text-sm uppercase tracking-widest mb-3">
+                {t.home.fieldBannerTag}
+              </p>
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 md:mb-4 leading-tight">
+                {t.home.fieldBannerTitle}
+              </h2>
+              <p className="text-white/85 text-base md:text-lg mb-5 md:mb-6 max-w-lg">
+                {t.home.fieldBannerDesc}
+              </p>
               <Link href="/gallery">
                 <Button size="lg" className="bg-primary text-white hover:bg-primary/90" data-testid="btn-view-gallery">
                   {t.home.viewGallery} <ArrowRight className="ml-2 w-4 h-4" />
@@ -525,13 +557,13 @@ export default function Home() {
               {t.home.softwareDesc}
             </motion.p>
           </div>
-
-          <LazyRender minHeight="520px">
-            <Suspense fallback={<SectionSkeleton />}>
-              <SoftwareShowcase />
-            </Suspense>
-          </LazyRender>
         </div>
+
+        <LazyRender minHeight="520px">
+          <Suspense fallback={<SectionSkeleton />}>
+            <SoftwareShowcase />
+          </Suspense>
+        </LazyRender>
       </section>
 
       {/* ── VISITING PASS & MOBILE APP ── */}

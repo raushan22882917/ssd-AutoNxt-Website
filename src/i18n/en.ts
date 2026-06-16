@@ -24,6 +24,26 @@ export const en = {
     heroTitleHighlight: "For",
     heroTitle2: " Tomorrow.",
     heroDesc: "Electric Tractors for Modern Agriculture — Experience zero-emission farming with our advanced electric tractors. Sustainable, powerful, and intelligent solutions for the future of agriculture.",
+    heroAutomation: {
+      titlePart1: "This is the ",
+      titleHighlight: "Future of Automation.",
+      subtitle:
+        "Intelligent machines. Smart systems. Better automation. Built for a sustainable tomorrow. Built for you.",
+      featureCards: [
+        { title: "Smart Technology", desc: "AI-powered systems for maximum efficiency." },
+        { title: "High Performance", desc: "Engineered for power, precision, and productivity." },
+        { title: "Reliable & Durable", desc: "Built tough for every terrain and condition." },
+        { title: "Sustainable Future", desc: "Eco-friendly solutions for a better tomorrow." },
+      ],
+      taglineBold: "Innovate. Automate. Elevate.",
+      taglineNormal: "The future is intelligent. The future is autonomous.",
+      bottomFeatures: [
+        { title: "AI & Automation", desc: "Intelligent control for smarter operations." },
+        { title: "Precision & Control", desc: "Advanced precision technology for accurate performance." },
+        { title: "Max Efficiency", desc: "Boost productivity and reduce downtime." },
+        { title: "Future Ready", desc: "Latest technology for tomorrow's world." },
+      ],
+    },
     heroDescs: [
       {
         titlePart1: "Smart Solutions for",
@@ -51,6 +71,7 @@ export const en = {
     fieldBannerTag: "In the Field",
     fieldBannerTitle: "From Sunrise to Sunset.",
     fieldBannerDesc: "One charge. All day. Every season. Autonxt is built for the rhythm of Indian farming.",
+    fieldBannerImage: "/sun.png",
     faqTitle: "Frequently Asked Questions",
     ctaTitle: "Ready to Go Electric?",
     ctaDesc: "Power your operations with zero emissions. From farms to factories, AutoNxt delivers.",
@@ -221,7 +242,7 @@ export const en = {
     precisionTag: "Technology",
     precisionTitle: "Precision Engineering.",
     precisionDesc: "Every component engineered for maximum efficiency, safety, and performance in Indian field conditions.",
-    featureImage: "/image-en.webp",
+    featureImage: "/images/precision/image.png",
     featureImageAlt: "Precision Engineering",
     industryTag: "Industrial Solutions",
     industryHeading: "EV Tractor of Choice for Industry.",
