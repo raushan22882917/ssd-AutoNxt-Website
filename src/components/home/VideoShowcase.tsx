@@ -18,7 +18,7 @@ function VideoShowcase() {
   const { t } = useLang();
 
   return (
-    <section className="py-10 md:py-16 bg-background">
+    <section className="pt-5 pb-10 md:pt-8 md:pb-16 bg-background">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div>

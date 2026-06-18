@@ -157,7 +157,7 @@ export default function EvBlog() {
       <SEO title={t.nav.evBlog} description={t.evBlog.desc} />
 
       {/* ── HERO ── */}
-      <section className="bg-background relative overflow-hidden pt-24 pb-0 lg:h-[93.75vh] flex items-center">
+      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:h-[93.75vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.15),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.08),transparent_50%)] pointer-events-none" />
         {/* Floating orbs */}
@@ -167,9 +167,9 @@ export default function EvBlog() {
           style={{ backgroundImage: "linear-gradient(hsl(0,72%,40%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,72%,40%) 1px,transparent 1px)", backgroundSize: "40px 40px" }} />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-12 items-end">
             {/* Left: text */}
-            <div className="pb-8 md:pb-10">
+            <div className="pt-8 md:pt-16 pb-0 md:pb-10">
               <motion.div
                 className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md"
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
@@ -187,7 +187,7 @@ export default function EvBlog() {
                 </span>
               </motion.h1>
               <motion.p
-                className="text-muted-foreground text-lg max-w-lg leading-relaxed mb-10"
+                className="text-muted-foreground text-lg max-w-lg leading-relaxed mb-0"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
               >
                 {t.evBlog.desc}
@@ -216,11 +216,11 @@ export default function EvBlog() {
 
             {/* Right: photo collage */}
             <motion.div
-              className="relative pb-0 hidden lg:block"
+              className="relative pb-0 w-full aspect-[1675/939] lg:aspect-auto lg:h-[420px]"
               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
             >
-              <div className="grid grid-cols-3 gap-2 h-[420px]">
-                <div className="col-span-2 row-span-2 rounded-tl-3xl overflow-hidden relative group">
+              <div className="grid grid-cols-3 gap-2 h-full lg:h-[420px] w-full">
+                <div className="col-span-2 row-span-2 rounded-xl lg:rounded-tl-2xl overflow-hidden relative group">
                   <img
                     src="/images/ev-blog/ev-charging-hero.webp"
                     alt="Electric vehicle charging"
@@ -231,12 +231,12 @@ export default function EvBlog() {
                   />
                   <div className="absolute bottom-6 left-6 z-20">
                     <div className="bg-background/90 backdrop-blur-md rounded-2xl p-4 border border-border shadow-xl">
-                      <BatteryCharging className="w-8 h-8 text-primary mb-2" />
+                      <BatteryCharging className="w-8 h-8 text-black mb-2" />
                       <div className="text-foreground font-bold">{t.evBlog.evRevolution}</div>
                     </div>
                   </div>
                 </div>
-                <div className="rounded-tr-3xl overflow-hidden relative group">
+                <div className="rounded-tr-xl lg:rounded-tr-2xl overflow-hidden relative group">
                   <img
                     src="/images/ev-blog/solar-farm.webp"
                     alt="Solar energy farm"
@@ -244,7 +244,7 @@ export default function EvBlog() {
                     loading="lazy" decoding="async"
                   />
                 </div>
-                <div className="overflow-hidden relative group">
+                <div className="overflow-hidden relative rounded-br-xl lg:rounded-none group">
                   <img
                     src="/images/ev-blog/ev-power.webp"
                     alt="Electric power technology"
@@ -253,7 +253,33 @@ export default function EvBlog() {
                   />
                 </div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent pointer-events-none z-30" />
+
+              {/* Mobile Overlay: facts boxes on the left side of the image */}
+              <div className="flex lg:hidden absolute left-3 top-3 flex-col gap-1 w-[clamp(110px,30vw,150px)] z-20">
+                {[
+                  { icon: BookOpen, label: t.evBlogPage.articlesLabel, value: t.evBlogPage.articlesValue },
+                  { icon: Tag, label: t.evBlogPage.topicsLabel, value: t.evBlogPage.topicsValue },
+                  { icon: Clock, label: t.evBlogPage.avgReadLabel, value: t.evBlogPage.avgReadValue },
+                ].map((f, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-1.5 rounded border border-white/70 bg-white/90 backdrop-blur-[2px] shadow-sm p-[clamp(4px,1vw,6px)]"
+                  >
+                    <f.icon
+                      className="w-[clamp(10px,2.5vw,13px)] h-[clamp(10px,2.5vw,13px)] text-black flex-shrink-0 mt-0.5"
+                      strokeWidth={2}
+                    />
+                    <div className="min-w-0">
+                      <p className="text-[clamp(7.5px,1.8vw,9.5px)] font-bold text-black leading-tight mb-0.5 truncate">
+                        {f.value}
+                      </p>
+                      <p className="text-[6.5px] min-[450px]:text-[8px] text-foreground/80 leading-none truncate">
+                        {f.label}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </div>
         </div>
@@ -383,7 +409,7 @@ export default function EvBlog() {
                     </div>
                   </div>
 
-                  <div className="p-6 md:p-8 md:w-7/12 flex flex-col justify-center">
+                  <div className="p-4 md:p-6 md:w-7/12 flex flex-col justify-center">
                     <div className="flex items-center gap-3 mb-3 text-xs text-muted-foreground font-medium">
                       <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" />{post.date}</span>
                       <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
@@ -432,7 +458,7 @@ export default function EvBlog() {
                     <div className="h-48 bg-muted/60 relative overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
                     </div>
-                    <div className="p-6 flex flex-col flex-1 space-y-4">
+                    <div className="p-4 flex flex-col flex-1 space-y-4">
                       <div className="h-4 bg-muted/60 rounded w-1/3 relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted-foreground/10 to-transparent shimmer-line" />
                       </div>
@@ -527,7 +553,7 @@ export default function EvBlog() {
                       </div>
 
                       {/* Card content */}
-                      <div className="p-6 flex flex-col flex-1 bg-gradient-to-b from-transparent to-primary/5">
+                      <div className="p-4 flex flex-col flex-1 bg-gradient-to-b from-transparent to-primary/5">
                         <h3
                           className="font-bold text-foreground text-lg leading-snug mb-3 hover:text-primary transition-colors cursor-pointer line-clamp-2"
                           onClick={() => handleReadArticle(post.externalUrl)}

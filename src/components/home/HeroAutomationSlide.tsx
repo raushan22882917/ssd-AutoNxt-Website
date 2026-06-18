@@ -38,10 +38,10 @@ export default function HeroAutomationSlide({
   const isIndustry = variant === "industry";
   const isLoader = variant === "loader";
   const containerClass = isIndustry
-    ? `relative h-auto sm:h-full flex flex-col justify-start sm:${layout === "compact" ? "justify-start" : "justify-between"} py-3 sm:py-6 md:py-7 lg:py-8`
+    ? `relative h-auto sm:h-full flex flex-col justify-start sm:${layout === "compact" ? "justify-start" : "justify-between"} pt-1.5 pb-3 sm:pt-3 sm:pb-6 md:pt-3.5 md:pb-7 lg:pt-4 lg:pb-8`
     : isLoader
-    ? `relative h-auto sm:h-full flex flex-col justify-start sm:${layout === "compact" ? "justify-start" : "justify-between"} py-3 sm:py-7 md:py-8 lg:py-10`
-    : `relative h-auto sm:h-full flex flex-col justify-start sm:${layout === "compact" ? "justify-start" : "justify-between"} py-3 sm:py-7 md:py-8 lg:py-10`;
+    ? `relative h-auto sm:h-full flex flex-col justify-start sm:${layout === "compact" ? "justify-start" : "justify-between"} pt-1.5 pb-3 sm:pt-3.5 sm:pb-7 md:pt-4 md:pb-8 lg:pt-5 lg:pb-10`
+    : `relative h-auto sm:h-full flex flex-col justify-start sm:${layout === "compact" ? "justify-start" : "justify-between"} pt-1.5 pb-3 sm:pt-3.5 sm:pb-7 md:pt-4 md:pb-8 lg:pt-5 lg:pb-10`;
 
   const panelClass = isIndustry
     ? "w-full max-w-[min(100%,620px)] lg:max-w-[43%] xl:max-w-[40%]"
@@ -70,7 +70,7 @@ export default function HeroAutomationSlide({
     <div className="flex flex-col sm:block relative w-full h-auto sm:aspect-[1675/939] sm:min-h-[480px] lg:min-h-[540px] overflow-hidden bg-background leading-normal">
       
       {/* ── MOBILE HEADER (Heading + Subheading) ── */}
-      <div className="block sm:hidden px-4 pt-5 pb-3">
+      <div className="block sm:hidden px-4 pt-2.5 pb-[0.5cm]">
         <h1 className={headingClass}>
           {content.titlePart1}
           <span className="text-[#0056D2]">{content.titleHighlight}</span>
@@ -83,9 +83,9 @@ export default function HeroAutomationSlide({
       {/* ── IMAGE SECTION (Full screen width on mobile, absolute background on desktop) ── */}
       <div className="relative w-full aspect-[1675/939] px-4 sm:px-0 sm:absolute sm:inset-0 sm:aspect-auto sm:h-full z-10">
         <div className="relative w-full h-full">
-          {/* Top Gradient Overlay to fade the top edge of the image into the background */}
-          <div className="block sm:hidden absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
-          
+          {/* Top gradient — blends image top edge into background */}
+          <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-background to-transparent pointer-events-none z-20 rounded-t-xl sm:rounded-t-none" />
+
           <img
             src={backgroundSrc}
             alt=""
@@ -108,11 +108,11 @@ export default function HeroAutomationSlide({
                   className="flex items-start gap-1.5 rounded border border-white/70 bg-white/90 backdrop-blur-[2px] shadow-sm p-[clamp(4px,1vw,6px)]"
                 >
                   <Icon
-                    className="w-[clamp(10px,2.5vw,13px)] h-[clamp(10px,2.5vw,13px)] text-[#0056D2] flex-shrink-0 mt-0.5"
+                    className="w-[clamp(10px,2.5vw,13px)] h-[clamp(10px,2.5vw,13px)] text-black flex-shrink-0 mt-0.5"
                     strokeWidth={2}
                   />
                   <div className="min-w-0">
-                    <p className="text-[clamp(7.5px,1.8vw,9.5px)] font-bold text-[#0056D2] leading-tight mb-0.5 truncate">
+                    <p className="text-[clamp(7.5px,1.8vw,9.5px)] font-bold text-black leading-tight mb-0.5 truncate">
                       {card.title}
                     </p>
                     <p className="text-[6.5px] min-[450px]:text-[8px] text-foreground/80 leading-none truncate">
@@ -131,9 +131,9 @@ export default function HeroAutomationSlide({
         <div className={`container mx-auto px-4 md:px-6 ${containerClass} pointer-events-auto`}>
           {showFloatingCard && (
             <div className="hidden lg:flex absolute top-10 right-4 md:right-6 rounded-xl border border-white/80 bg-white/88 backdrop-blur-sm shadow-sm px-4 py-3 max-w-[260px] items-start gap-2.5">
-              <Cpu className="w-5 h-5 text-[#0056D2] flex-shrink-0 mt-0.5" strokeWidth={1.75} />
+              <Cpu className="w-5 h-5 text-black flex-shrink-0 mt-0.5" strokeWidth={1.75} />
               <div>
-                <p className="text-sm font-bold text-[#0056D2] leading-tight mb-1">
+                <p className="text-sm font-bold text-black leading-tight mb-1">
                   {content.bottomFeatures[0]?.title}
                 </p>
                 <p className="text-xs text-foreground/65 leading-snug">
@@ -164,11 +164,11 @@ export default function HeroAutomationSlide({
                       className="flex items-start gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl border border-white/80 bg-white/85 backdrop-blur-sm shadow-sm px-2.5 py-2.5 sm:px-3 sm:py-3 md:px-4 md:py-3.5"
                     >
                       <Icon
-                        className="w-4 h-4 sm:w-5 sm:h-5 text-[#0056D2] flex-shrink-0 mt-0.5"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-black flex-shrink-0 mt-0.5"
                         strokeWidth={1.75}
                       />
                       <div className="min-w-0">
-                        <p className="text-[10px] sm:text-xs md:text-sm font-bold text-[#0056D2] leading-tight mb-0.5">
+                        <p className="text-[10px] sm:text-xs md:text-sm font-bold text-black leading-tight mb-0.5">
                           {card.title}
                         </p>
                         <p className="text-[9px] sm:text-[10px] md:text-xs text-foreground/70 leading-snug">
@@ -184,11 +184,11 @@ export default function HeroAutomationSlide({
                 <div className={isLoader ? "mt-1.5 sm:mt-3 ml-[8%] sm:ml-[12%] w-[72%] sm:w-[68%] rotate-[-1deg]" : "mt-1.5 sm:mt-3 ml-[18%] sm:ml-[22%] w-[62%] sm:w-[56%] rotate-[-2deg]"}>
                   <div className="flex items-start gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl border border-white/80 bg-white/90 backdrop-blur-sm shadow-sm px-2.5 py-2.5 sm:px-3 sm:py-3 md:px-4 md:py-3.5">
                     <ShieldCheck
-                      className="w-4 h-4 sm:w-5 sm:h-5 text-[#0056D2] flex-shrink-0 mt-0.5"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-black flex-shrink-0 mt-0.5"
                       strokeWidth={1.75}
                     />
                     <div className="min-w-0">
-                      <p className="text-[10px] sm:text-xs md:text-sm font-bold text-[#0056D2] leading-tight mb-0.5">
+                      <p className="text-[10px] sm:text-xs md:text-sm font-bold text-black leading-tight mb-0.5">
                         {content.featureCards[2].title}
                       </p>
                       <p className="text-[9px] sm:text-[10px] md:text-xs text-foreground/70 leading-snug">

@@ -330,7 +330,7 @@ export default function Navbar() {
 
           {/* Mobile Language switcher */}
           <div className="flex items-center justify-between pt-3 border-t border-border mt-2">
-            <div className="flex gap-1">
+            <div className="flex gap-0.5 min-[375px]:gap-1">
               {LANGUAGES.map(l => (
                 <button
                   key={l.code}
@@ -341,7 +341,7 @@ export default function Navbar() {
                   aria-label={`Switch language to ${l.label}`}
                   aria-pressed={lang === l.code}
                   className={cn(
-                    "px-2.5 py-1 rounded-lg text-xs font-bold transition-colors",
+                    "px-2 min-[375px]:px-2.5 py-1 rounded-lg text-xs font-bold transition-colors",
                     lang === l.code
                       ? "bg-primary text-white"
                       : "bg-muted text-muted-foreground hover:text-primary"

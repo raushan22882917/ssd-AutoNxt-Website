@@ -125,7 +125,7 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
               </div>
             </motion.div>
             <motion.div
-              className="relative w-full h-[420px]"
+              className="relative w-full h-[260px] sm:h-[320px] md:h-[400px] lg:h-[420px]"
               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}
             >
               {load3D ? (

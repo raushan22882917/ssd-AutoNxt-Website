@@ -61,7 +61,7 @@ export function ArticleSlider<T>({
         {items.length > 1 && (
           <button
             onClick={handlePrev}
-            className="p-3 rounded-full bg-background border border-border shadow-lg hover:bg-primary hover:text-white transition-all text-foreground shrink-0 cursor-pointer"
+            className="hidden md:flex p-3 rounded-full bg-background border border-border shadow-lg hover:bg-primary hover:text-white transition-all text-foreground shrink-0 cursor-pointer"
             aria-label="Previous article"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -87,7 +87,7 @@ export function ArticleSlider<T>({
         {items.length > 1 && (
           <button
             onClick={handleNext}
-            className="p-3 rounded-full bg-background border border-border shadow-lg hover:bg-primary hover:text-white transition-all text-foreground shrink-0 cursor-pointer"
+            className="hidden md:flex p-3 rounded-full bg-background border border-border shadow-lg hover:bg-primary hover:text-white transition-all text-foreground shrink-0 cursor-pointer"
             aria-label="Next article"
           >
             <ChevronRight className="w-5 h-5" />

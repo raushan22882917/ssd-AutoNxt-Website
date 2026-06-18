@@ -328,7 +328,7 @@ export default function ContactPage() {
                   <img
                     src="/images/products/x45h2.webp"
                     alt="AutoNxt X45H2 Electric Tractor"
-                    className="w-32 h-20 object-contain drop-shadow-md z-10 -mr-1"
+                    className="w-20 min-[375px]:w-28 min-[412px]:w-32 h-20 object-contain drop-shadow-md z-10 -mr-1"
                   />
                 </div>
 

@@ -9,6 +9,7 @@ import {
 } from "lucide-react"
 import { useLang } from "@/contexts/LanguageContext"
 import SEO from "@/components/SEO";
+import { BlurDivider } from "@/components/ui/blur-divider"
 
 
 // Team
@@ -108,7 +109,7 @@ export default function About() {
       <SEO title={t.nav.about} description={t.about.heroDesc} />
 
       {/* ── HERO ── */}
-      <section className="bg-background relative overflow-hidden pt-20 pb-12 md:pt-24 md:pb-0 lg:h-[93.75vh] lg:flex lg:items-center">
+      <section className="bg-background relative overflow-hidden pt-10 pb-8 md:pt-14 md:pb-0 lg:h-[93.75vh] lg:flex lg:items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
         <div
@@ -120,10 +121,10 @@ export default function About() {
         />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-stretch">
 
             {/* Left: text */}
-            <div className="h-full flex flex-col justify-between">
+            <div className="h-full flex flex-col justify-between pt-8 lg:pt-16">
               <div>
                 <motion.div
                   className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-3 py-1 mb-4"
@@ -134,7 +135,7 @@ export default function About() {
                 </motion.div>
 
                 <motion.h1
-                  className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-4 leading-[1.1]"
+                  className="font-display text-[1.55rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-[2.9rem] xl:text-[3.2rem] font-bold text-foreground mb-4 leading-[1.08] tracking-tight"
                   initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
                 >
                   {t.about.heroTitle}{" "}
@@ -143,85 +144,90 @@ export default function About() {
                 </motion.h1>
 
                 <motion.p
-                  className="text-muted-foreground text-sm md:text-base lg:text-lg max-w-lg leading-relaxed mb-6"
+                  className="text-muted-foreground text-[12px] sm:text-sm md:text-base font-bold max-w-lg leading-relaxed mb-0"
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
                 >
                   {t.about.heroDesc}
                 </motion.p>
               </div>
 
-              {/* Quick facts */}
-              <motion.div
-                className="flex flex-wrap gap-4 md:gap-6"
-                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
-              >
+            </div>
+
+
+            {/* Right: Photo collage */}
+            <motion.div
+              className="relative pb-0 w-full z-10"
+              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
+            >
+              {/* Collage grid */}
+              <div className="relative w-full aspect-[1675/939] lg:aspect-auto lg:h-full">
+                <div className="grid grid-cols-3 grid-rows-2 gap-2 h-full w-full">
+                  {/* LCP image — eager + high priority + sync decode */}
+                  <div className="col-span-2 row-span-2 rounded-xl lg:rounded-tl-2xl overflow-hidden relative">
+                    <OptimizedImg
+                      src={facilityGarage}
+                      alt="AutoNxt Facility"
+                      className="w-full h-full object-cover"
+                      loading="eager"
+                      decoding="sync"
+                      fetchpriority="high"
+                    />
+                  </div>
+                  {/* Secondary collage images — lazy + low priority */}
+                  <div className="rounded-tr-xl lg:rounded-tr-2xl overflow-hidden relative">
+                    <OptimizedImg
+                      src={fieldImg1}
+                      alt="AutoNxt in the field"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      fetchpriority="low"
+                    />
+                  </div>
+                  <div className="overflow-hidden relative rounded-br-xl lg:rounded-none">
+                    <OptimizedImg
+                      src={fieldImg2}
+                      alt="AutoNxt tractor"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      fetchpriority="low"
+                    />
+                  </div>
+                </div>
+                {/* Top gradient — blends image top edge into background */}
+                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
+              </div>
+
+              {/* Fact cards — horizontal row below the image on all screens */}
+              <div className="flex flex-row gap-2 mt-3 w-full">
                 {[
                   { icon: Calendar, label: t.aboutPage.foundedLabel,       value: "2016"      },
                   { icon: MapPin,   label: t.aboutPage.headquarteredLabel,  value: "Thane, MH" },
                   { icon: Users,    label: t.aboutPage.teamSizeLabel,       value: "150+"      },
                 ].map((f, i) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-muted border border-border flex items-center justify-center">
-                      <f.icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-muted-foreground" />
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground text-[9px] md:text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
-                      <p className="text-foreground font-bold text-xs md:text-sm">{f.value}</p>
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 flex-1 rounded-lg border border-border bg-card shadow-sm px-3 py-2"
+                  >
+                    <f.icon className="w-4 h-4 text-primary flex-shrink-0" strokeWidth={2} />
+                    <div className="min-w-0">
+                      <p className="text-[9px] font-bold text-foreground leading-tight truncate">{f.value}</p>
+                      <p className="text-[8px] text-muted-foreground leading-none truncate">{f.label}</p>
                     </div>
                   </div>
                 ))}
-              </motion.div>
-            </div>
-
-            {/* Right: Photo collage */}
-            <motion.div
-              className="relative pb-0 hidden lg:block h-full"
-              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
-            >
-              <div className="grid grid-cols-3 grid-rows-2 gap-2 h-full">
-                
-                {/* LCP image — eager + high priority + sync decode */}
-                <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
-                  <OptimizedImg
-                    src={facilityGarage}
-                    alt="AutoNxt Facility"
-                    className="w-full h-full object-cover"
-                    loading="eager"
-                    decoding="sync"
-                    fetchpriority="high"
-                  />
-                </div>
-                {/* Secondary collage images — lazy + low priority */}
-                <div className="rounded-tr-2xl overflow-hidden">
-                  <OptimizedImg
-                    src={fieldImg1}
-                    alt="AutoNxt in the field"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                    fetchpriority="low"
-                  />
-                </div>
-                <div className="overflow-hidden">
-                  <OptimizedImg
-                    src={fieldImg2}
-                    alt="AutoNxt tractor"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                    fetchpriority="low"
-                  />
-                </div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent pointer-events-none" />
             </motion.div>
 
           </div>
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── MISSION & VALUES ── */}
-      <section className="py-24 bg-background">
+      <section className="pt-12 pb-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
 
           {/* Centered Mission Heading */}
@@ -298,7 +304,7 @@ export default function About() {
                 {VALUES.map((v, i) => (
                   <motion.div
                     key={i}
-                    className={`bg-card rounded-xl border ${v.border} p-5 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-center`}
+                    className={`bg-card rounded-xl border ${v.border} p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-center`}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -317,6 +323,8 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      <BlurDivider />
 
       {/* ── FIELD PHOTO STRIP ── */}
       <section className="py-0 bg-background overflow-hidden">
@@ -343,8 +351,10 @@ export default function About() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── JOURNEY TIMELINE ── */}
-      <section className="py-24 bg-gradient-to-b from-white via-red-50/15 to-white border-y border-neutral-100 relative overflow-hidden">
+      <section className="pt-12 pb-24 bg-gradient-to-b from-white via-red-50/15 to-white border-y border-neutral-100 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.03)_0%,transparent_65%)] pointer-events-none" />
         
         <div className="container mx-auto px-4 md:px-8 relative z-10">
@@ -544,9 +554,9 @@ export default function About() {
           {/* Mobile Timeline Layout — clean vertical list (< lg) */}
           <div className="block lg:hidden relative mx-auto max-w-sm">
             {/* Vertical line down the left */}
-            <div className="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-red-600 via-neutral-800 to-red-600 opacity-40" />
+            <div className="absolute left-4 sm:left-5 top-0 bottom-0 w-px bg-gradient-to-b from-red-600 via-neutral-800 to-red-600 opacity-40" />
 
-            <div className="space-y-6 pl-14 relative">
+            <div className="space-y-6 pl-10 sm:pl-14 relative">
               {JOURNEY.map((item, i) => {
                 const Icon = journeyIcons[i];
                 const isRed = i % 2 === 0;
@@ -566,7 +576,7 @@ export default function About() {
                   >
                     {/* Node icon — positioned on the left line */}
                     <div
-                      className={`absolute -left-9 top-1 w-8 h-8 rounded-full border-2 ${nodeColor} flex items-center justify-center shadow-md z-10`}
+                      className={`absolute -left-6 sm:-left-9 top-1 w-8 h-8 rounded-full border-2 ${nodeColor} flex items-center justify-center shadow-md z-10`}
                     >
                       <Icon className="w-3.5 h-3.5 text-white" />
                     </div>
@@ -586,8 +596,10 @@ export default function About() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── ENGINEERING PROCESS ── */}
-      <section className="py-24 bg-background">
+      <section className="pt-12 pb-24 bg-background">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <motion.div
@@ -609,7 +621,7 @@ export default function About() {
             {PROCESS.map((p, i) => (
               <motion.div
                 key={i}
-                className="bg-card border border-border rounded-2xl p-7 hover:border-primary/30 hover:shadow-lg transition-all"
+                className="bg-card border border-border rounded-2xl p-5 hover:border-primary/30 hover:shadow-lg transition-all"
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
               >
                 <div className="font-display text-3xl font-black text-primary/20 mb-3">{p.step}</div>
@@ -621,8 +633,10 @@ export default function About() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── TEAM ── */}
-      <section className="py-24 bg-background">
+      <section className="pt-12 pb-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <motion.div
@@ -676,7 +690,7 @@ export default function About() {
                     <h3 className="font-display font-bold text-white text-xl">{member.name}</h3>
                   </div>
                 </div>
-                <div className="p-5">
+                <div className="p-4">
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">{member.bio}</p>
                   <a
                     href="https://www.linkedin.com/company/autonxt-automation"
@@ -714,7 +728,7 @@ export default function About() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
-                <div className="p-4 flex flex-col">
+                <div className="p-3 flex flex-col">
                   <h3 className="font-bold text-foreground text-sm leading-tight mb-1 group-hover:text-primary transition-colors">{member.name}</h3>
                   <p className="text-primary text-[10px] font-semibold uppercase tracking-widest mb-2">{member.role}</p>
                   <p className="text-muted-foreground text-[11px] leading-relaxed mb-3 flex-1">{member.bio}</p>
@@ -735,8 +749,10 @@ export default function About() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── ADVISORS ── */}
-      <section className="py-24 bg-muted/40 border-t border-border">
+      <section className="pt-12 pb-24 bg-muted/40 border-t border-border">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <motion.div
@@ -783,7 +799,7 @@ export default function About() {
                     <h3 className="font-display font-bold text-white text-lg">{a.name}</h3>
                   </div>
                 </div>
-                <div className="p-5">
+                <div className="p-4">
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">{a.bio}</p>
                   <a
                     href="https://www.linkedin.com/company/autonxt-automation"
@@ -800,8 +816,10 @@ export default function About() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── CTA ── */}
-      <section className="py-24 bg-primary relative overflow-hidden">
+      <section className="pt-12 pb-24 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(0,72%,30%,0.5),transparent_65%)] pointer-events-none" />
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
           <motion.div

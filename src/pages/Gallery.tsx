@@ -5,6 +5,7 @@ import { Link } from "wouter";
 import { X, ZoomIn, Images, PlayCircle, ExternalLink, ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 import SEO from "@/components/SEO";
+import { BlurDivider } from "@/components/ui/blur-divider";
 
 // Organized public image paths (using optimized WebP assets)
 const tractor1   = "/images/products/x45h2.webp";
@@ -123,14 +124,14 @@ export default function Gallery() {
       <SEO title={t.nav.gallery} description="Browse images and videos of AutoNxt electric tractors at work in agriculture, fields, and industrial operations." />
 
       {/* ── HERO ── */}
-      <section className="bg-background relative overflow-hidden pt-24 pb-0 lg:h-[93.75vh] flex items-center">
+      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:h-[93.75vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
           style={{ backgroundImage: "linear-gradient(hsl(0,0%,0%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,0%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-            <div className="pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-end">
+            <div className="pt-8 lg:pt-16 pb-0 lg:pb-16">
               <motion.div
                 className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
@@ -139,63 +140,65 @@ export default function Gallery() {
                 <span className="text-primary text-xs font-bold uppercase tracking-widest">AutoNxt Gallery</span>
               </motion.div>
               <motion.h1
-                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-[1.06]"
+                className="font-display text-[1.55rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-[2.9rem] xl:text-[3.2rem] font-bold text-foreground mb-6 leading-[1.08] tracking-tight"
                 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
               >
                 {t.gallery.title} <span className="text-primary">{t.gallery.titleHighlight}</span>
               </motion.h1>
               <motion.p
-                className="text-muted-foreground text-lg max-w-lg leading-relaxed mb-10"
+                className="text-muted-foreground text-[12px] sm:text-sm md:text-base font-bold max-w-lg leading-relaxed mb-0"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}
               >
                 {t.gallery.desc}
               </motion.p>
-              <motion.div
-                className="flex flex-wrap gap-6"
-                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
-              >
+            </div>
+            <motion.div
+              className="relative pb-0 w-full z-10"
+              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
+            >
+              {/* Collage grid with merge gradients */}
+              <div className="relative w-full aspect-[1675/939] lg:aspect-auto lg:h-[420px]">
+                <div className="grid grid-cols-3 gap-2 h-full lg:h-[420px] w-full">
+                  <div className="col-span-2 row-span-2 rounded-xl lg:rounded-tl-2xl overflow-hidden relative">
+                    <img src={event6} alt="AutoNxt launch event" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="rounded-tr-xl lg:rounded-tr-2xl overflow-hidden relative">
+                    <img src={event1} alt="AutoNxt field" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="overflow-hidden relative rounded-br-xl lg:rounded-none">
+                    <img src={event3} alt="AutoNxt ceremony" className="w-full h-full object-cover" />
+                  </div>
+                </div>
+                {/* Top gradient — blends image top edge into background */}
+                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
+              </div>
+              {/* Fact cards — horizontal row below image */}
+              <div className="flex flex-row gap-2 mt-3 w-full">
                 {[
                   { icon: Images, label: t.galleryPage.galleryPhotos, value: "40+" },
                   { icon: PlayCircle, label: t.galleryPage.galleryVideos, value: "6" },
                   { icon: CalendarDays, label: t.galleryPage.galleryEvents, value: "5+" },
                 ].map((f, i) => (
-                  <div key={i} className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-muted border border-border flex items-center justify-center">
-                      <f.icon className="w-4 h-4 text-muted-foreground" />
-                    </div>
-                    <div>
-                      <p className="text-muted-foreground text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
-                      <p className="text-foreground font-bold text-sm">{f.value}</p>
+                  <div key={i} className="flex items-center gap-2 flex-1 rounded-lg border border-border bg-card shadow-sm px-3 py-2">
+                    <f.icon className="w-4 h-4 text-primary flex-shrink-0" strokeWidth={2} />
+                    <div className="min-w-0">
+                      <p className="text-[9px] font-bold text-foreground leading-tight truncate">{f.value}</p>
+                      <p className="text-[8px] text-muted-foreground leading-none truncate">{f.label}</p>
                     </div>
                   </div>
                 ))}
-              </motion.div>
-            </div>
-            <motion.div
-              className="relative pb-0 hidden lg:block"
-              initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
-            >
-              <div className="grid grid-cols-3 gap-2 h-[420px]">
-                <div className="col-span-2 row-span-2 rounded-tl-2xl overflow-hidden">
-                  <img src={event6} alt="AutoNxt launch event" className="w-full h-full object-cover" />
-                </div>
-                <div className="rounded-tr-2xl overflow-hidden">
-                  <img src={event1} alt="AutoNxt field" className="w-full h-full object-cover" />
-                </div>
-                <div className="overflow-hidden">
-                  <img src={event3} alt="AutoNxt ceremony" className="w-full h-full object-cover" />
-                </div>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background to-transparent pointer-events-none" />
             </motion.div>
           </div>
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* Tabs section (white background) */}
-      <div className="py-10 bg-background border-b border-border relative">
+      <div className="pt-5 pb-10 bg-background border-b border-border relative">
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="flex gap-1 p-1 bg-muted/50 rounded-xl w-fit border border-border">
+          <div className="flex w-full sm:w-fit gap-1 p-1 bg-muted/50 rounded-xl border border-border">
             {([
               { id: "photos" as Tab, label: t.gallery.photos, icon: Images },
               { id: "events" as Tab, label: t.gallery.events, icon: CalendarDays },
@@ -204,14 +207,14 @@ export default function Gallery() {
               <button
                 key={id}
                 onClick={() => setActiveTab(id)}
-                className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                className={`flex items-center gap-1.5 min-[375px]:gap-2 px-3 py-2 sm:px-6 sm:py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer flex-1 sm:flex-initial text-center justify-center ${
                   activeTab === id
                     ? "bg-card text-primary shadow-sm border border-border"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
                 data-testid={`tab-${id}`}
               >
-                <Icon className="w-4 h-4" />
+                <Icon className="w-4 h-4 shrink-0" />
                 {label}
               </button>
             ))}
@@ -219,8 +222,10 @@ export default function Gallery() {
         </div>
       </div>
 
+      <BlurDivider />
+
       {/* Grid Content section (light red-black background) */}
-      <div className="py-20 bg-[#f5e6e6] dark:bg-[#1a0f0f] border-b border-red-200/30 dark:border-red-950/30 relative overflow-hidden">
+      <div className="pt-10 pb-20 bg-[#f5e6e6] dark:bg-[#1a0f0f] border-b border-red-200/30 dark:border-red-950/30 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.4),transparent_65%)] dark:bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.015),transparent_65%)] pointer-events-none" />
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <AnimatePresence mode="wait">
@@ -391,8 +396,10 @@ export default function Gallery() {
         </div>
       </div>
 
+      <BlurDivider />
+
       {/* ── CTA ── */}
-      <section className="py-20 bg-background border-t border-border relative z-20">
+      <section className="pt-10 pb-20 bg-background border-t border-border relative z-20">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div
             className="text-center"

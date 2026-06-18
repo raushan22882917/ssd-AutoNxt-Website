@@ -41,7 +41,7 @@ function FaqSection() {
   );
 
   return (
-    <section className="pt-6 pb-12 md:pt-8 md:pb-16 bg-gradient-to-b from-neutral-100 via-red-50/45 to-neutral-200/60 border-y border-neutral-200" id="faq">
+    <section className="pt-3 pb-12 md:pt-4 md:pb-16 bg-gradient-to-b from-neutral-100 via-red-50/45 to-neutral-200/60 border-y border-neutral-200" id="faq">
       <div className="container mx-auto px-4 md:px-8">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-8">
