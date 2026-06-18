@@ -1304,14 +1304,32 @@ export const te: typeof en = {
       { year: "2025+", event: "వైశ్విక విస్తరణ — అంతర్జాతీయ విస్తరణ ప్రారంభమైంది. సోలిడ్-స్టేట్ బ్యాటరీ పైలట్ ప్రాజెక్ట్ ప్రారంభమైంది, ఈది ఆటోనెక్స్ట్ స్వచ్ఛ శక్తి ప్రయాణంలో తదుపరి సరహద్దును సూచిస్తోంది." },
     ]
   },
+  legalAppAffiliation: {
+    bannerTitle: "AUTONXT-Attendance కోసం అధికారిక పేజీ",
+    bannerDesc:
+      "ఈ పేజీ AutoNxt Automation Pvt. Ltd. ద్వారా ప్రచురించబడింది, Google Playలో autonxtdeveloper డెవలపర్ ఖాతా కింద AUTONXT-Attendance మొబైల్ యాప్‌ను అభివృద్ధి చేసిన డెవలపర్.",
+    appNameLabel: "యాప్ పేరు",
+    appNameValue: "AUTONXT-Attendance",
+    developerLabel: "డెవలపర్",
+    developerValue: "AutoNxt Automation Pvt. Ltd.",
+    playDeveloperLabel: "Google Play డెవలపర్",
+    playDeveloperValue: "autonxtdeveloper",
+    packageIdLabel: "ప్యాకేజీ ID",
+    packageIdValue: "com.autonxt.attendance.app2",
+    websiteLabel: "వెబ్‌సైట్",
+    websiteValue: "autonxt.in",
+  },
   // Privacy Page
   privacyPage: {
     texts: {
       legalBadge: "చట్టపరమైనది",
-      policyTitle: "గోప్యతా విధానం",
-      effectiveDate: "అమలులోకి వచ్చిన తేదీ: 1 జనవరి 2025 · ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్.",
-      policyIntro: 'ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్ ("ఆటోనెక్స్ట్", "మేము", "మా" లేదా "మాకు") మా వెబ్‌సైట్ సందర్శకుల మరియు మా సేవల వినియోగదారుల గోప్యతను రక్షించడానికి కట్టుబడి ఉంది. ఈ గోప్యతా విధానం మేము ఏ డేటాను సేకరిస్తాము, దానిని ఎలా ఉపయోగిస్తాము మరియు దానికి సంబంధించి మీ హక్కులను వివరిస్తుంది.',
+      policyTitle: "గోప్యతా విధానం — AUTONXT-Attendance",
+      metaDescription:
+        "AUTONXT-Attendance (com.autonxt.attendance.app2) గోప్యతా విధానం, AutoNxt Automation Pvt. Ltd. (autonxtdeveloper) ద్వారా.",
+      effectiveDate: "అమలులోకి వచ్చిన తేదీ: 18 జూన్ 2025 · ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్.",
+      policyIntro: 'ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్ ("ఆటోనెక్స్ట్", "మేము", "మా" లేదా "మాకు"), AUTONXT-Attendance మొబైల్ యాప్ (ప్యాకేజీ: com.autonxt.attendance.app2, Google Play డెవలపర్: autonxtdeveloper) యొక్క డెవలపర్, మా మొబైల్ యాప్ వినియోగదారులు, వెబ్‌సైట్ (autonxt.in) సందర్శకులు మరియు సేవల వినియోగదారుల గోప్యతను రక్షించడానికి కట్టుబడి ఉంది.',
       backToHome: "హోమ్‌కు తిరిగి వెళ్ళండి",
+      accountDeletionLink: "ఖాతా తొలగింపు అభ్యర్థించండి",
       copyright: "© 2025 ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్. అన్ని హక్కులు ప్రత్యేకించబడినవి.",
     },
     sections: [
@@ -1329,7 +1347,7 @@ export const te: typeof en = {
       },
       {
         title: "4. డేటా నిలుపుదల",
-        body: `సమాచారం సేకరించబడిన ప్రయోజనాన్ని నెరవేర్చడానికి లేదా వర్తించే చట్టం ప్రకారం అవసరమైనంత కాలం మాత్రమే మేము మీ వ్యక్తిగత డేటాను ఉంచుకుంటాము. విచారణ రికార్డులు సాధారణంగా గరిష్టంగా 3 సంవత్సరాల వరకు ఉంచబడతాయి. మీరు sales@autonxt.in ని సంప్రదించడం ద్వారా ఎప్పుడైనా మీ డేటాను తొలగించాలని అభ్యర్థించవచ్చు.`,
+        body: `సమాచారం సేకరించబడిన ప్రయోజనాన్ని నెరవేర్చడానికి లేదా వర్తించే చట్టం ప్రకారం అవసరమైనంత కాలం మాత్రమే మేము మీ వ్యక్తిగత డేటాను ఉంచుకుంటాము. విచారణ రికార్డులు సాధారణంగా గరిష్టంగా 3 సంవత్సరాల వరకు ఉంచబడతాయి. మీరు software-admin@autonxt.in ని సంప్రదించడం ద్వారా ఎప్పుడైనా మీ డేటాను తొలగించాలని అభ్యర్థించవచ్చు.`,
       },
       {
         title: "5. కుకీలు మరియు ట్రాకింగ్",
@@ -1341,7 +1359,7 @@ export const te: typeof en = {
       },
       {
         title: "7. మీ హక్కులు",
-        body: `మీకు క్రింది హక్కులు ఉన్నాయి:\n• మీ గురించి మేము కలిగి ఉన్న వ్యక్తిగత డేటాను యాక్సెస్ చేయడం.\n• తప్పు లేదా అసంపూర్ణ డేటాను సవరించాలని అభ్యర్థించడం.\n• చట్టపరమైన నిలుపుదల బాధ్యతలకు లోబడి, మీ వ్యక్తిగత డేటాను తొలగించాలని అభ్యర్థించడం.\n• మార్కెటింగ్ కమ్యూనికేషన్‌ల కోసం సమ్మతిని ఎప్పుడైనా ఉపసంహరించుకోవడం.\n• సంబంధిత డేటా రక్షణ అధికార సంస్థకు ఫిర్యాదు చేయడం.\n\nఈ హక్కులలో దేనినైనా ఉపయోగించుకోవడానికి, sales@autonxt.in ని సంప్రదించండి లేదా +91 9067404606 కి కాల్ చేయండి.`,
+        body: `మీకు క్రింది హక్కులు ఉన్నాయి:\n• మీ గురించి మేము కలిగి ఉన్న వ్యక్తిగత డేటాను యాక్సెస్ చేయడం.\n• తప్పు లేదా అసంపూర్ణ డేటాను సవరించాలని అభ్యర్థించడం.\n• చట్టపరమైన నిలుపుదల బాధ్యతలకు లోబడి, మీ వ్యక్తిగత డేటాను తొలగించాలని అభ్యర్థించడం.\n• మార్కెటింగ్ కమ్యూనికేషన్‌ల కోసం సమ్మతిని ఎప్పుడైనా ఉపసంహరించుకోవడం.\n• సంబంధిత డేటా రక్షణ అధికార సంస్థకు ఫిర్యాదు చేయడం.\n\nఈ హక్కులలో దేనినైనా ఉపయోగించుకోవడానికి, software-admin@autonxt.in ని సంప్రదించండి లేదా +91 9067404606 కి కాల్ చేయండి.`,
       },
       {
         title: "8. మూడవ పక్ష లింకులు",
@@ -1353,7 +1371,7 @@ export const te: typeof en = {
       },
       {
         title: "10. మమ్మల్ని సంప్రదించండి",
-        body: `ఈ గోప్యతా విధానానికి సంబంధించిన ఏవైనా ప్రశ్నలు, ఆందోళనలు లేదా అభ్యర్థనల కోసం, దయచేసి సంప్రదించండి:\n\nఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్.\n704 & 705, అమ్ఫోటెక్ ఐటీ పార్క్, రోడ్ 8, వాగ్లే ఎస్టేట్ రోడ్,\nపద్వాల్ నగర్, థానే వెస్ట్, థానే, మహారాష్ట్ర 400604\nఫోన్: +91 9067404606\nఈమెయిల్: sales@autonxt.in`,
+        body: `ఈ గోప్యతా విధానానికి సంబంధించిన ఏవైనా ప్రశ్నలు, ఆందోళనలు లేదా అభ్యర్థనల కోసం, దయచేసి సంప్రదించండి:\n\nఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్.\n704 & 705, అమ్ఫోటెక్ ఐటీ పార్క్, రోడ్ 8, వాగ్లే ఎస్టేట్ రోడ్,\nపద్వాల్ నగర్, థానే వెస్ట్, థానే, మహారాష్ట్ర 400604\nఫోన్: +91 9067404606\nఈమెయిల్: software-admin@autonxt.in`,
       },
     ]
   },
@@ -1417,16 +1435,17 @@ export const te: typeof en = {
   accountDeletionPage: {
     texts: {
       legalBadge: "వినియోగదారు డేటా",
-      pageTitle: "ఖాతా & డేటా తొలగింపు",
-      pageSubtitle: "మీ AutoNxt యాప్ ఖాతా మరియు సంబంధిత వ్యక్తిగత డేటాను తొలగించమని అభ్యర్థించండి.",
-      metaDescription: "మీ AutoNxt మొబైల్ యాప్ ఖాతాను ఎలా తొలగించాలి మరియు మీ వ్యక్తిగత డేటా తొలగింపును ఎలా అభ్యర్థించాలి అని తెలుసుకోండి.",
-      effectiveDate: "అమలు తేదీ: 1 జనవరి 2025 · ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్.",
+      pageTitle: "ఖాతా & డేటా తొలగింపు — AUTONXT-Attendance",
+      pageSubtitle: "మీ AUTONXT-Attendance యాప్ ఖాతా మరియు సంబంధిత వ్యక్తిగత డేటాను తొలగించమని అభ్యర్థించండి.",
+      metaDescription:
+        "AUTONXT-Attendance (com.autonxt.attendance.app2) ఖాతాను తొలగించండి. AutoNxt Automation Pvt. Ltd. (autonxtdeveloper) అధికారిక ఖాతా తొలగింపు పేజీ.",
+      effectiveDate: "అమలు తేదీ: 18 జూన్ 2025 · ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్.",
       pageIntro:
-        'ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్. ("ఆటోనెక్స్ట్") తమ AutoNxt మొబైల్ యాప్ ఖాతా మరియు సంబంధిత వ్యక్తిగత డేటాను తొలగించాలనుకునే వినియోగదారుల కోసం ఈ పేజీని అందిస్తుంది. తొలగింపు అభ్యర్థన ఎలా సమర్పించాలి, ఏ డేటా తొలగించబడుతుంది మరియు చట్టం ప్రకారం ఏ డేటా ఉంచబడవచ్చు అని ఈ పేజీ వివరిస్తుంది.',
-      requestTitle: "ఖాతా తొలగింపును ఎలా అభ్యర్థించాలి",
+        'ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్. ("ఆటోనెక్స్ట్"), AUTONXT-Attendance మొబైల్ యాప్ (ప్యాకేజీ: com.autonxt.attendance.app2, Google Play డెవలపర్: autonxtdeveloper) యొక్క డెవలపర్, యాప్ వినియోగదారులు తమ ఖాతా మరియు సంబంధిత వ్యక్తిగత డేటాను తొలగించాలనుకునే వారికి ఈ పేజీని అందిస్తుంది.',
+      requestTitle: "AUTONXT-Attendance ఖాతా తొలగింపును ఎలా అభ్యర్థించాలి",
       requestButton: "తొలగింపు అభ్యర్థన ఈమెయిల్ చేయండి",
       requestMailto:
-        "mailto:sales@autonxt.in?subject=AutoNxt%20App%20-%20Account%20Deletion%20Request&body=Please%20delete%20my%20AutoNxt%20app%20account%20and%20associated%20data.%0A%0ARegistered%20email%20/%20phone%3A%20%0AAccount%20username%20(if%20any)%3A%20%0AReason%20(optional)%3A%20",
+        "mailto:software-admin@autonxt.in?subject=AUTONXT-Attendance%20-%20Account%20Deletion%20Request&body=Please%20delete%20my%20AUTONXT-Attendance%20app%20account%20and%20associated%20data.%0A%0AApp%3A%20AUTONXT-Attendance%20(com.autonxt.attendance.app2)%0ARegistered%20email%20/%20phone%3A%20%0AEmployee%20ID%20(if%20any)%3A%20%0AAccount%20username%20(if%20any)%3A%20%0AReason%20(optional)%3A%20",
       processingNote:
         "మేము సాధారణంగా ధృవీకరించిన తొలగింపు అభ్యర్థనలను 30 రోజులలోపు ప్రాసెస్ చేస్తాము. మీ ఖాతా మరియు అర్హత గల డేటా తొలగించబడిన తర్వాత మీకు నిర్ధారణ ఈమెయిల్ వస్తుంది.",
       deletedTitle: "తొలగించబడే డేటా",
@@ -1438,7 +1457,7 @@ export const te: typeof en = {
       copyright: "© 2025 ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రై. Ltd. All rights reserved.",
     },
     steps: [
-      "మీ AutoNxt యాప్ ఖాతాకు లింక్ చేయబడిన ఈమెయిల్ చిరunaal నుండి sales@autonxt.in కు ఈమెయిల్ పంపండి.",
+      "మీ AutoNxt యాప్ ఖాతాకు లింక్ చేయబడిన ఈమెయిల్ చిరunaal నుండి software-admin@autonxt.in కు ఈమెయిల్ పంపండి.",
       "Subject line: AutoNxt App - Account Deletion Request ఉపయోగించండి.",
       "మీ నమోదైన ఈమెయిల్ చిరunaal, phone number మరియు account username (అ applicable) చేర్చండి.",
       "మా team మీ request verify చేసి account మరియు associated personal data delete చేస్తుంది.",
@@ -1473,7 +1492,7 @@ export const te: typeof en = {
       },
       {
         title: "Contact us",
-        body: "Account deletion requests లేదా personal data questions:\n\nAutoNxt Automation Pvt. Ltd.\n704 & 705, Amfotech IT Park, Rd 8, Wagle Estate Rd,\nPadwal Nagar, Thane West, Thane, Maharashtra 400604\nPhone: +91 9067404606\nEmail: sales@autonxt.in",
+        body: "Account deletion requests లేదా personal data questions:\n\nAutoNxt Automation Pvt. Ltd.\n704 & 705, Amfotech IT Park, Rd 8, Wagle Estate Rd,\nPadwal Nagar, Thane West, Thane, Maharashtra 400604\nPhone: +91 9067404606\nEmail: software-admin@autonxt.in",
       },
     ],
   },

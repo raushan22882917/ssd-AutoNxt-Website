@@ -1304,56 +1304,142 @@ export const en = {
       { year: "2025+", event: "Global Expansion — International expansion has commenced. A solid-state battery pilot project has been launched, marking the next frontier in AutoNxt's clean energy journey." },
     ]
   },
+  // Legal App Affiliation (Google Play compliance)
+  legalAppAffiliation: {
+    bannerTitle: "Official page for AUTONXT-Attendance",
+    bannerDesc:
+      "This page is published by AutoNxt Automation Pvt. Ltd., the developer of the AUTONXT-Attendance mobile application listed on Google Play under the developer account autonxtdeveloper.",
+    appNameLabel: "App name",
+    appNameValue: "AUTONXT-Attendance",
+    developerLabel: "Developer",
+    developerValue: "AutoNxt Automation Pvt. Ltd.",
+    playDeveloperLabel: "Google Play developer",
+    playDeveloperValue: "autonxtdeveloper",
+    packageIdLabel: "Package ID",
+    packageIdValue: "com.autonxt.attendance.app2",
+    websiteLabel: "Website",
+    websiteValue: "autonxt.in",
+  },
   // Privacy Page
   privacyPage: {
     texts: {
       legalBadge: "Legal",
-      policyTitle: "Privacy Policy",
-      effectiveDate: "Effective date: 1 January 2025 · AutoNxt Automation Pvt. Ltd.",
-      policyIntro: 'AutoNxt Automation Pvt. Ltd. ("AutoNxt", "we", "our", or "us") is committed to protecting the privacy of visitors to our website and users of our services. This Privacy Policy explains what data we collect, how we use it, and your rights in relation to it.',
+      policyTitle: "Privacy Policy — AUTONXT-Attendance",
+      metaDescription:
+        "Privacy Policy for AUTONXT-Attendance (com.autonxt.attendance.app2) by AutoNxt Automation Pvt. Ltd. (autonxtdeveloper). Learn what data we collect and how we protect it.",
+      effectiveDate: "Effective date: 18 June 2025 · AutoNxt Automation Pvt. Ltd.",
+      policyIntro:
+        'AutoNxt Automation Pvt. Ltd. ("AutoNxt", "we", "our", or "us"), developer of the AUTONXT-Attendance mobile application (package: com.autonxt.attendance.app2, Google Play developer: autonxtdeveloper), is committed to protecting the privacy of users of our mobile app, visitors to our website (autonxt.in), and users of our services. This Privacy Policy explains what data we collect, how we use it, and your rights in relation to it.',
       backToHome: "Back to Home",
+      accountDeletionLink: "Request account deletion",
       copyright: "© 2025 AutoNxt Automation Pvt. Ltd. All rights reserved.",
     },
     sections: [
       {
-        title: "1. Information We Collect",
-        body: `When you visit the AutoNxt website, submit an enquiry, or book a demo, we may collect the following information:\n• Personal identification information: name, email address, phone number, and organisation name.\n• Usage data: pages visited, time spent, browser type, and IP address collected automatically via analytics tools.\n• Communication records: any messages, queries, or feedback you submit through our contact or booking forms.\n\nWe do not collect payment card details directly; any transactions are processed through certified payment gateways.`,
+        title: "1. About This Policy and Our App",
+        body: `This Privacy Policy applies to the AUTONXT-Attendance mobile application published on Google Play by AutoNxt Automation Pvt. Ltd.
+
+App name: AUTONXT-Attendance
+Package ID: com.autonxt.attendance.app2
+Developer: AutoNxt Automation Pvt. Ltd.
+Google Play developer account: autonxtdeveloper
+Website: https://autonxt.in
+
+This policy also covers data collected through the AutoNxt website (autonxt.in) and related services operated by the same developer.`,
       },
       {
-        title: "2. How We Use Your Information",
-        body: `We use collected information for the following purposes:\n• To respond to your enquiries and provide product information or quotations.\n• To process demo bookings, test-drive requests, and purchase orders.\n• To send relevant product updates, news, and offers — only where you have consented to receive such communications.\n• To improve the functionality and content of our website through aggregated, anonymised analytics.\n• To comply with legal obligations under applicable Indian law, including the Information Technology Act, 2000.`,
+        title: "2. Information We Collect",
+        body: `When you use the AUTONXT-Attendance app, visit the AutoNxt website, submit an enquiry, or book a demo, we may collect the following information:
+
+Mobile app (AUTONXT-Attendance):
+• Account information: name, email address, phone number, employee ID, and organisation/company name.
+• Attendance data: check-in/check-out timestamps, attendance status, shift details, and related records submitted through the app.
+• Device information: device model, operating system version, unique device identifiers, and push notification tokens.
+• Location data: approximate or precise location when you use location-based attendance features (only with your permission).
+• Usage data: app screens visited, feature usage, crash logs, and performance diagnostics.
+
+Website and services:
+• Personal identification information: name, email address, phone number, and organisation name.
+• Usage data: pages visited, time spent, browser type, and IP address collected automatically via analytics tools.
+• Communication records: any messages, queries, or feedback you submit through our contact or booking forms.
+
+We do not collect payment card details directly; any transactions are processed through certified payment gateways.`,
       },
       {
-        title: "3. Data Sharing and Disclosure",
-        body: `AutoNxt Automation Pvt. Ltd. does not sell, rent, or trade your personal data to third parties. We may share data in the following limited circumstances:\n• With authorised service partners (e.g. CRM, email, and cloud hosting providers) who process data solely on our behalf under confidentiality agreements.\n• With government authorities or regulatory bodies when required by law or court order.\n• In the event of a merger, acquisition, or asset sale, in which case users will be notified prior to any transfer.`,
+        title: "3. How We Use Your Information",
+        body: `We use collected information for the following purposes:
+
+AUTONXT-Attendance app:
+• To manage employee attendance, check-in/check-out, and workforce reporting for your organisation.
+• To authenticate your account and provide secure access to the app.
+• To send attendance-related notifications and app updates.
+• To improve app performance, fix bugs, and develop new features.
+
+General purposes:
+• To respond to your enquiries and provide product information or quotations.
+• To process demo bookings, test-drive requests, and purchase orders.
+• To send relevant product updates, news, and offers — only where you have consented to receive such communications.
+• To improve the functionality and content of our website and apps through aggregated, anonymised analytics.
+• To comply with legal obligations under applicable Indian law, including the Information Technology Act, 2000.`,
       },
       {
-        title: "4. Data Retention",
-        body: `We retain your personal data only for as long as necessary to fulfil the purpose for which it was collected, or as required by applicable law. Enquiry records are typically retained for up to 3 years. You may request deletion of your data at any time by contacting us at sales@autonxt.in.`,
+        title: "4. Data Sharing and Disclosure",
+        body: `AutoNxt Automation Pvt. Ltd. does not sell, rent, or trade your personal data to third parties. We may share data in the following limited circumstances:
+• With your employer or organisation administrator when you use AUTONXT-Attendance as an employee attendance tool.
+• With authorised service partners (e.g. cloud hosting, authentication, and analytics providers) who process data solely on our behalf under confidentiality agreements.
+• With government authorities or regulatory bodies when required by law or court order.
+• In the event of a merger, acquisition, or asset sale, in which case users will be notified prior to any transfer.`,
       },
       {
-        title: "5. Cookies and Tracking",
-        body: `Our website uses cookies and similar tracking technologies to enhance your browsing experience and gather analytics data. These include:\n• Essential cookies: required for the website to function correctly.\n• Analytics cookies: help us understand how visitors interact with the site (e.g. Google Analytics).\n• Marketing cookies: used to deliver relevant content and measure campaign effectiveness.\n\nYou may disable cookies through your browser settings at any time; however, certain site features may not function as intended.`,
+        title: "5. Data Retention",
+        body: `We retain your personal data only for as long as necessary to fulfil the purpose for which it was collected, or as required by applicable law. Attendance records may be retained as required by your employer's policies and applicable labour regulations. Enquiry records are typically retained for up to 3 years.
+
+You may request deletion of your AUTONXT-Attendance account and associated data at any time by visiting https://autonxt.in/account-deletion or contacting us at software-admin@autonxt.in.`,
       },
       {
-        title: "6. Data Security",
-        body: `We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, alteration, disclosure, or destruction. Our website uses HTTPS encryption for all data transmissions. Despite these measures, no internet transmission is completely secure, and we cannot guarantee absolute security.`,
+        title: "6. Cookies and Tracking",
+        body: `Our website uses cookies and similar tracking technologies to enhance your browsing experience and gather analytics data. These include:
+• Essential cookies: required for the website to function correctly.
+• Analytics cookies: help us understand how visitors interact with the site (e.g. Google Analytics).
+• Marketing cookies: used to deliver relevant content and measure campaign effectiveness.
+
+The AUTONXT-Attendance mobile app may use similar technologies (such as device identifiers) for authentication and analytics. You may disable cookies through your browser settings at any time; however, certain site features may not function as intended.`,
       },
       {
-        title: "7. Your Rights",
-        body: `You have the right to:\n• Access the personal data we hold about you.\n• Request correction of inaccurate or incomplete data.\n• Request deletion of your personal data, subject to legal retention obligations.\n• Withdraw consent for marketing communications at any time.\n• Lodge a complaint with the relevant data protection authority.\n\nTo exercise any of these rights, contact us at sales@autonxt.in or call +91 9067404606.`,
+        title: "7. Data Security",
+        body: `We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, alteration, disclosure, or destruction. Our website and app services use HTTPS encryption for data transmissions. Despite these measures, no internet transmission is completely secure, and we cannot guarantee absolute security.`,
       },
       {
-        title: "8. Third-Party Links",
+        title: "8. Your Rights and Account Deletion",
+        body: `You have the right to:
+• Access the personal data we hold about you.
+• Request correction of inaccurate or incomplete data.
+• Request deletion of your AUTONXT-Attendance account and personal data, subject to legal retention obligations.
+• Withdraw consent for marketing communications at any time.
+• Lodge a complaint with the relevant data protection authority.
+
+To delete your AUTONXT-Attendance account, visit: https://autonxt.in/account-deletion
+
+To exercise any of these rights, contact us at software-admin@autonxt.in or call +91 9067404606.`,
+      },
+      {
+        title: "9. Third-Party Links",
         body: `Our website may contain links to third-party websites, including LinkedIn, YouTube, and other partner platforms. We are not responsible for the privacy practices of these sites and encourage you to review their respective privacy policies.`,
       },
       {
-        title: "9. Changes to This Policy",
+        title: "10. Changes to This Policy",
         body: `AutoNxt Automation Pvt. Ltd. reserves the right to update this Privacy Policy at any time. Any changes will be published on this page with an updated effective date. We encourage you to review this policy periodically.`,
       },
       {
-        title: "10. Contact Us",
-        body: `For any questions, concerns, or requests relating to this Privacy Policy, please contact:\n\nAutoNxt Automation Pvt. Ltd.\n704 & 705, Amfotech IT Park, Rd 8, Wagle Estate Rd,\nPadwal Nagar, Thane West, Thane, Maharashtra 400604\nPhone: +91 9067404606\nEmail: sales@autonxt.in`,
+        title: "11. Contact Us",
+        body: `For any questions, concerns, or requests relating to this Privacy Policy or the AUTONXT-Attendance app, please contact:
+
+AutoNxt Automation Pvt. Ltd.
+704 & 705, Amfotech IT Park, Rd 8, Wagle Estate Rd,
+Padwal Nagar, Thane West, Thane, Maharashtra 400604
+Phone: +91 9067404606
+Email: software-admin@autonxt.in
+Google Play developer: autonxtdeveloper`,
       },
     ]
   },
@@ -1417,63 +1503,65 @@ export const en = {
   accountDeletionPage: {
     texts: {
       legalBadge: "User Data",
-      pageTitle: "Account & Data Deletion",
-      pageSubtitle: "Request deletion of your AutoNxt app account and associated personal data.",
-      metaDescription: "Learn how to delete your AutoNxt mobile app account and request removal of your personal data.",
-      effectiveDate: "Effective date: 1 January 2025 · AutoNxt Automation Pvt. Ltd.",
+      pageTitle: "Account & Data Deletion — AUTONXT-Attendance",
+      pageSubtitle:
+        "Request deletion of your AUTONXT-Attendance app account and associated personal data.",
+      metaDescription:
+        "Delete your AUTONXT-Attendance account (com.autonxt.attendance.app2). Official account deletion page by AutoNxt Automation Pvt. Ltd. (autonxtdeveloper).",
+      effectiveDate: "Effective date: 18 June 2025 · AutoNxt Automation Pvt. Ltd.",
       pageIntro:
-        'AutoNxt Automation Pvt. Ltd. ("AutoNxt") provides this page for users of the AutoNxt mobile application who wish to delete their account and associated personal data. This page explains how to submit a deletion request, what data is removed, and what data may be retained as required by law.',
-      requestTitle: "How to request account deletion",
+        'AutoNxt Automation Pvt. Ltd. ("AutoNxt"), developer of the AUTONXT-Attendance mobile application (package: com.autonxt.attendance.app2, Google Play developer: autonxtdeveloper), provides this page for app users who wish to delete their account and associated personal data. This page explains how to submit a deletion request, what data is removed, and what data may be retained as required by law.',
+      requestTitle: "How to request AUTONXT-Attendance account deletion",
       requestButton: "Email deletion request",
       requestMailto:
-        "mailto:sales@autonxt.in?subject=AutoNxt%20App%20-%20Account%20Deletion%20Request&body=Please%20delete%20my%20AutoNxt%20app%20account%20and%20associated%20data.%0A%0ARegistered%20email%20/%20phone%3A%20%0AAccount%20username%20(if%20any)%3A%20%0AReason%20(optional)%3A%20",
+        "mailto:software-admin@autonxt.in?subject=AUTONXT-Attendance%20-%20Account%20Deletion%20Request&body=Please%20delete%20my%20AUTONXT-Attendance%20app%20account%20and%20associated%20data.%0A%0AApp%3A%20AUTONXT-Attendance%20(com.autonxt.attendance.app2)%0ARegistered%20email%20/%20phone%3A%20%0AEmployee%20ID%20(if%20any)%3A%20%0AAccount%20username%20(if%20any)%3A%20%0AReason%20(optional)%3A%20",
       processingNote:
-        "We typically process verified deletion requests within 30 days. You will receive a confirmation email once your account and eligible data have been deleted.",
+        "We typically process verified deletion requests within 30 days. You will receive a confirmation email once your AUTONXT-Attendance account and eligible data have been deleted.",
       deletedTitle: "Data that will be deleted",
       retainedTitle: "Data that may be retained",
       privacyLinkTitle: "Privacy Policy",
-      privacyLinkDesc: "Read our full privacy policy for details on how we collect and use data.",
+      privacyLinkDesc: "Read the AUTONXT-Attendance privacy policy for details on how we collect and use data.",
       privacyLinkButton: "View Privacy Policy",
       backToHome: "Back to Home",
       copyright: "© 2025 AutoNxt Automation Pvt. Ltd. All rights reserved.",
     },
     steps: [
-      "Send an email to sales@autonxt.in from the email address linked to your AutoNxt app account.",
-      "Use the subject line: AutoNxt App - Account Deletion Request.",
-      "Include your registered email address, phone number, and account username (if applicable) so we can verify your identity.",
-      "Our team will verify your request and delete your account along with associated personal data.",
+      "Send an email to software-admin@autonxt.in from the email address linked to your AUTONXT-Attendance app account.",
+      "Use the subject line: AUTONXT-Attendance - Account Deletion Request.",
+      "Include your registered email address, phone number, employee ID, and account username (if applicable) so we can verify your identity.",
+      "Our team will verify your request and delete your AUTONXT-Attendance account along with associated personal data.",
       "You will receive a confirmation email once the deletion is complete.",
     ],
     deletedItems: [
-      "Your app account profile (name, email, phone number, and login credentials)",
+      "Your AUTONXT-Attendance account profile (name, email, phone number, employee ID, and login credentials)",
+      "Attendance records linked to your account (check-in/check-out history, shift data, and attendance status)",
       "User preferences and app settings",
-      "Saved bookings, demo requests, and enquiry history linked to your account",
       "Push notification tokens and device identifiers used for app notifications",
+      "Location data associated with your attendance check-ins (where applicable)",
       "Chat or support conversation history associated with your account",
-      "Fleet or tractor monitoring data linked solely to your user profile (where applicable)",
     ],
     retainedItems: [
-      "Transaction, invoice, or warranty records required for legal, tax, or accounting compliance (retained as required by applicable law, typically up to 7 years)",
-      "Anonymised or aggregated analytics data that cannot identify you personally",
+      "Anonymised or aggregated attendance analytics that cannot identify you personally",
+      "Records your employer or organisation is legally required to retain for payroll, tax, or labour compliance (retained as required by applicable law, typically up to 7 years)",
       "Records we are legally required to retain under Indian law or a valid court/regulatory order",
       "Backup copies may persist for up to 90 days after deletion before being permanently removed from all systems",
     ],
     sections: [
       {
         title: "In-app deletion (where available)",
-        body: "If your version of the AutoNxt app includes an in-app account deletion option, you may also delete your account from:\n\nApp → Profile / Settings → Account → Delete Account\n\nIf this option is not visible in your app version, please use the email request process described above.",
+        body: "If your version of the AUTONXT-Attendance app includes an in-app account deletion option, you may also delete your account from:\n\nApp → Profile / Settings → Account → Delete Account\n\nIf this option is not visible in your app version, please use the email request process described above.",
       },
       {
         title: "Identity verification",
-        body: "To protect your account, we may ask you to confirm ownership of the registered email address or phone number before processing a deletion request. We will not delete an account based on an unverified third-party request.",
+        body: "To protect your account, we may ask you to confirm ownership of the registered email address or phone number before processing a deletion request. We will not delete an AUTONXT-Attendance account based on an unverified third-party request.",
       },
       {
         title: "Processing timeline",
-        body: "Verified account deletion requests are processed within 30 days. During this period, your account may be deactivated immediately, but complete removal from all backups and systems may take up to 90 days.",
+        body: "Verified AUTONXT-Attendance account deletion requests are processed within 30 days. During this period, your account may be deactivated immediately, but complete removal from all backups and systems may take up to 90 days.",
       },
       {
         title: "Contact us",
-        body: "For account deletion requests or questions about your personal data:\n\nAutoNxt Automation Pvt. Ltd.\n704 & 705, Amfotech IT Park, Rd 8, Wagle Estate Rd,\nPadwal Nagar, Thane West, Thane, Maharashtra 400604\nPhone: +91 9067404606\nEmail: sales@autonxt.in",
+        body: "For AUTONXT-Attendance account deletion requests or questions about your personal data:\n\nAutoNxt Automation Pvt. Ltd.\nDeveloper of AUTONXT-Attendance (com.autonxt.attendance.app2)\nGoogle Play developer: autonxtdeveloper\n704 & 705, Amfotech IT Park, Rd 8, Wagle Estate Rd,\nPadwal Nagar, Thane West, Thane, Maharashtra 400604\nPhone: +91 9067404606\nEmail: software-admin@autonxt.in",
       },
     ],
   },

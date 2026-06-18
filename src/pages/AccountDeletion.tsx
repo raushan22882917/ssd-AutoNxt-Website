@@ -4,6 +4,7 @@ import { useLang } from "@/contexts/LanguageContext";
 import { Shield, ArrowLeft, Mail, Trash2, Clock, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEO from "@/components/SEO";
+import AppAffiliationBanner from "@/components/legal/AppAffiliationBanner";
 
 export default function AccountDeletion() {
   const { t } = useLang();
@@ -70,6 +71,7 @@ export default function AccountDeletion() {
 
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4 md:px-8 max-w-4xl">
+          <AppAffiliationBanner />
           <motion.p
             className="text-muted-foreground leading-relaxed mb-10 text-base border-l-4 border-primary pl-5"
             initial={{ opacity: 0 }}

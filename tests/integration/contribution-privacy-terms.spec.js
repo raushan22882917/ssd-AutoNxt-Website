@@ -39,6 +39,14 @@ test.describe('Privacy Policy Page – Integration Tests', () => {
     await expect(page.locator('main p').first()).toBeVisible();
   });
 
+  test('INT-PRIV-004 Privacy page shows AUTONXT-Attendance affiliation', async ({ page }) => {
+    await page.goto('/privacy');
+    await expect(page.getByRole('heading', { name: /AUTONXT-Attendance/i }).first()).toBeVisible();
+    await expect(page.getByText('com.autonxt.attendance.app2')).toBeVisible();
+    await expect(page.getByText('autonxtdeveloper')).toBeVisible();
+    await expect(page.getByText('AutoNxt Automation Pvt. Ltd.')).toBeVisible();
+  });
+
   test('INT-PRIV-003 No JS errors on Privacy page', async ({ page }) => {
     const errors = [];
     page.on('pageerror', err => errors.push(err));
@@ -65,6 +73,28 @@ test.describe('Terms & Conditions Page – Integration Tests', () => {
     page.on('pageerror', err => errors.push(err));
     await page.goto('/terms');
     expect(errors.length).toBe(0);
+  });
+});
+
+test.describe('Account Deletion Page – Integration Tests', () => {
+
+  test('INT-DEL-001 Account deletion page loads at /account-deletion', async ({ page }) => {
+    await page.goto('/account-deletion');
+    await expect(page).toHaveURL(/account-deletion/);
+    await expect(page.locator('h1').first()).toBeVisible();
+  });
+
+  test('INT-DEL-002 Delete-account alias loads the same page', async ({ page }) => {
+    await page.goto('/delete-account');
+    await expect(page.locator('h1').first()).toBeVisible();
+    await expect(page.getByText('com.autonxt.attendance.app2')).toBeVisible();
+  });
+
+  test('INT-DEL-003 Account deletion page shows AUTONXT-Attendance affiliation', async ({ page }) => {
+    await page.goto('/account-deletion');
+    await expect(page.getByRole('heading', { name: /AUTONXT-Attendance/i }).first()).toBeVisible();
+    await expect(page.getByText('autonxtdeveloper')).toBeVisible();
+    await expect(page.getByRole('link', { name: /Email deletion request/i })).toBeVisible();
   });
 });
 

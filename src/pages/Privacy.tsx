@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
 import { Shield, ArrowLeft } from "lucide-react";
 import SEO from "@/components/SEO";
+import AppAffiliationBanner from "@/components/legal/AppAffiliationBanner";
 
 export default function Privacy() {
   const { t } = useLang();
@@ -11,7 +12,10 @@ export default function Privacy() {
 
   return (
     <div className="w-full min-h-screen bg-background">
-      <SEO title={texts.policyTitle} description="AutoNxt Automation Privacy Policy and data protection terms." />
+      <SEO
+        title={texts.policyTitle}
+        description={texts.metaDescription}
+      />
 
       {/* ── HEADER ── */}
       <section className="bg-background relative overflow-hidden pt-28 pb-16">
@@ -44,6 +48,7 @@ export default function Privacy() {
       {/* ── CONTENT ── */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4 md:px-8 max-w-4xl">
+          <AppAffiliationBanner />
           <motion.p
             className="text-muted-foreground leading-relaxed mb-12 text-base border-l-4 border-primary pl-5 italic"
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
@@ -63,9 +68,14 @@ export default function Privacy() {
             ))}
           </div>
           <div className="mt-14 pt-8 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
-              <ArrowLeft className="w-3.5 h-3.5" /> {texts.backToHome}
-            </Link>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+                <ArrowLeft className="w-3.5 h-3.5" /> {texts.backToHome}
+              </Link>
+              <Link href="/account-deletion" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
+                {texts.accountDeletionLink}
+              </Link>
+            </div>
             <p className="text-xs text-muted-foreground">{texts.copyright}</p>
           </div>
         </div>
