@@ -99,28 +99,32 @@ function SoftwareShowcase() {
 
   return (
     <div className="relative w-full min-h-[540px] md:min-h-[640px] overflow-hidden bg-background">
-      <AnimatePresence mode="wait">
-        <motion.img
-          key={currentImage}
-          src={currentImage}
-          alt={showcase.alt}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.35 }}
-          className="absolute inset-0 w-full h-full object-contain bg-background"
-        />
-      </AnimatePresence>
+      
+      {/* ── IMAGE SECTION (Absolute background on desktop, hidden on mobile) ── */}
+      <div className="hidden sm:block absolute inset-0 w-full h-full">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={currentImage}
+            src={currentImage}
+            alt={showcase.alt}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="w-full h-full object-contain bg-background"
+          />
+        </AnimatePresence>
+      </div>
 
       <div className="relative z-10 h-full">
-        <div className="container mx-auto px-4 md:px-8 h-full py-6 sm:py-8 md:py-10 lg:py-12 flex flex-col">
+        <div className="container mx-auto px-4 md:px-8 h-full pt-0 pb-6 sm:pt-0 sm:pb-8 md:py-10 lg:py-12 flex flex-col justify-start">
           {/* Tab switcher */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45 }}
-            className="flex gap-1 p-1 bg-muted/80 rounded-xl w-fit border border-border shadow-sm"
+            className="flex flex-wrap gap-1 p-1 bg-muted/80 rounded-xl w-fit max-w-full border border-border shadow-sm animate-fade-in"
           >
             {softwareTabs.map((t, i) => {
               const Icon = t.icon;
@@ -132,7 +136,7 @@ function SoftwareShowcase() {
                   whileHover={!isActive ? { scale: 1.06, y: -1 } : {}}
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: "spring", stiffness: 380, damping: 22 }}
-                  className={`relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold transition-colors duration-200 group ${
+                  className={`relative flex items-center gap-2 px-3 py-2 min-[400px]:px-5 min-[400px]:py-2.5 rounded-lg text-xs min-[400px]:text-sm font-bold transition-colors duration-200 group whitespace-nowrap shrink-0 ${
                     isActive
                       ? "bg-white text-primary"
                       : "text-foreground/80"
@@ -156,27 +160,86 @@ function SoftwareShowcase() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -14 }}
                 transition={{ duration: 0.28 }}
-                className="w-full max-w-xl space-y-6 mt-6"
+                className="w-full max-w-xl space-y-5 mt-6 flex flex-col justify-start"
               >
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest mb-1.5 text-foreground/70">{tab.subtitle}</p>
                   <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">{tab.title}</h3>
-                  <p className="text-foreground/85 text-lg leading-relaxed">{tab.desc}</p>
+                  {/* Mobile-only description right after the heading */}
+                  <p className="block sm:hidden text-foreground/85 text-xs leading-relaxed mt-1">{tab.desc}</p>
                 </div>
 
-                <ul className="space-y-3">
-                  {tab.features.map((f, i) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-foreground/85">
-                      <CheckCircle className="w-4 h-4 shrink-0 text-primary" /> {f}
-                    </li>
-                  ))}
-                </ul>
+                {/* Mobile-only Image & Overlay Section */}
+                <div className="block sm:hidden w-full aspect-[16/10] my-3 relative">
+                  {/* Top Gradient Overlay of reduced scale */}
+                  <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
+                  
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentImage}
+                      src={currentImage}
+                      alt={showcase.alt}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.35 }}
+                      className="w-full h-full object-contain rounded-xl bg-background border border-border/40 shadow-sm"
+                    />
+                  </AnimatePresence>
 
-                <Link href={tab.ctaHref}>
-                  <Button className="bg-white text-foreground hover:bg-white/90 font-semibold gap-2">
-                    {tab.ctaLabel} <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
+                  {/* Mobile Overlay: 4 ticks + Red Button on the left side of the image (no card background) */}
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 -mt-[0.8cm] w-[55%] flex flex-col space-y-2 z-20">
+                    <ul className="space-y-2">
+                      {tab.features.map((f, i) => {
+                        const words = f.split(" ");
+                        let splitIndex = 2;
+                        if (words[1] === "&") {
+                          splitIndex = 3;
+                        }
+                        const firstPart = words.slice(0, splitIndex).join(" ");
+                        const remaining = words.slice(splitIndex).join(" ");
+                        return (
+                          <li key={i} className="flex items-start gap-1 text-[7.5px] font-bold text-foreground leading-tight drop-shadow-[0_1px_1px_rgba(255,255,255,0.85)]">
+                            <CheckCircle className="w-2.5 h-2.5 shrink-0 text-primary mt-0.5" />
+                            <span>
+                              {firstPart}
+                              {remaining && <><br />{remaining}</>}
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+
+                    <div className="pt-0.5">
+                      <Link href={tab.ctaHref}>
+                        <Button className="w-fit h-[0.32cm] text-[6.5px] bg-primary hover:bg-primary/95 text-white font-bold rounded-[2px] shadow-sm py-0 px-[0.18cm] flex items-center justify-center gap-0.5">
+                          {tab.ctaLabel} <ArrowRight className="w-1.5 h-1.5" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Desktop layout: Description & features & CTA */}
+                <div className="hidden sm:block space-y-4">
+                  <p className="text-foreground/85 text-base sm:text-lg leading-relaxed">{tab.desc}</p>
+
+                  <ul className="space-y-2.5">
+                    {tab.features.map((f, i) => (
+                      <li key={i} className="flex items-center gap-3 text-xs sm:text-sm text-foreground/85">
+                        <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-primary" /> {f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="pt-2">
+                    <Link href={tab.ctaHref}>
+                      <Button className="bg-white text-foreground hover:bg-white/90 font-semibold gap-2 border border-border/80">
+                        {tab.ctaLabel} <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

@@ -113,6 +113,13 @@ const INDUSTRY_COLORS_MAP: Record<string, { color: string; border: string }> = {
   metal: { color: "text-slate-300", border: "hover:border-slate-300" },
 };
 
+const BlurDivider = () => (
+  <div className="relative w-full h-px my-0 pointer-events-none z-10">
+    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-border/50 to-transparent" />
+    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent blur-[2px]" />
+  </div>
+);
+
 export default function Home() {
   const { t, lang } = useLang();
   const baseOverlayContent = t.home.heroAutomation;
@@ -208,8 +215,10 @@ export default function Home() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── STATS BAR ── */}
-      <section className="py-8 md:py-14 bg-muted/30">
+      <section className="py-6 md:py-10 bg-muted/30">
         <div className="container mx-auto px-4 md:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 divide-x divide-border">
             {t.home.stats.map((stat, i) => (
@@ -230,8 +239,10 @@ export default function Home() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── TRUSTED BY ── */}
-      <section className="py-8 md:py-14 bg-background">
+      <section className="py-6 md:py-10 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <motion.p
             className="text-center text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6 md:mb-10"
@@ -247,7 +258,7 @@ export default function Home() {
               return (
                 <motion.div
                   key={i}
-                  className="group flex items-center gap-3 bg-card border border-border hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all duration-200 rounded-xl px-3 py-3 cursor-default"
+                  className="group flex items-center gap-1.5 bg-card border border-border hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all duration-200 rounded-xl pl-3 pr-[0.2cm] py-3 cursor-default"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -274,12 +285,10 @@ export default function Home() {
         </div>
       </section>
 
-
+      <BlurDivider />
 
       {/* ── PRODUCT TEASER ── */}
-      <section className="py-12 md:py-24 bg-background relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <section className="py-8 md:py-16 bg-background relative overflow-hidden">
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12">
@@ -306,7 +315,7 @@ export default function Home() {
           </div>
 
           {/* Product cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-6">
             {teaserProducts.map((p, i) => (
               <motion.div
                 key={i}
@@ -321,43 +330,43 @@ export default function Home() {
                 <div className={`h-1 w-full ${p.accentBar}`} />
 
                 {/* Image area */}
-                <div className="relative bg-muted/30 flex items-center justify-center px-8 pt-8 pb-4 overflow-hidden">
+                <div className="relative bg-muted/30 flex items-center justify-center px-5 pt-3 pb-3 sm:px-8 sm:pt-8 sm:pb-4 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-muted/60 to-transparent pointer-events-none" />
                   <img
                     src={p.img}
                     alt={p.name}
-                    className="h-44 object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500 relative z-10"
+                    className="h-[clamp(110px,28vw,160px)] sm:h-44 object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500 relative z-10"
                   />
                   {/* Tag badge */}
-                  <span className={`absolute top-4 left-4 text-[10px] font-bold px-2.5 py-1 rounded-full border ${p.tagColor}`}>
+                  <span className={`absolute top-3 left-3 sm:top-4 sm:left-4 text-[9px] sm:text-[10px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border ${p.tagColor}`}>
                     {p.tag}
                   </span>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 space-y-4">
+                <div className="p-4 sm:p-6 space-y-3.5 sm:space-y-4">
                   <div>
-                    <p className="text-[11px] text-muted-foreground font-semibold uppercase tracking-widest mb-1">{p.type}</p>
-                    <h3 className="font-display text-xl font-bold text-foreground group-hover:text-primary transition-colors">{p.name}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed mt-2">{p.desc}</p>
+                    <p className="text-[10px] sm:text-[11px] text-muted-foreground font-semibold uppercase tracking-widest mb-1">{p.type}</p>
+                    <h3 className="font-display text-lg sm:text-xl font-bold text-foreground group-hover:text-primary transition-colors">{p.name}</h3>
+                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mt-1.5 sm:mt-2">{p.desc}</p>
                   </div>
 
                   {/* Specs row */}
-                  <div className="grid grid-cols-3 gap-2 pt-1">
+                  <div className="grid grid-cols-3 gap-1.5 sm:gap-2 pt-0.5 sm:pt-1">
                     {p.specs.map((s, si) => {
                       const Icon = s.icon;
                       return (
-                        <div key={si} className="bg-muted/50 rounded-xl px-3 py-2.5 text-center border border-border/60">
-                          <p className="text-[10px] text-muted-foreground uppercase tracking-wide font-medium mb-1">{s.label}</p>
-                          <p className="text-sm text-foreground font-bold">{s.value}</p>
+                        <div key={si} className="bg-muted/50 rounded-lg sm:rounded-xl px-[clamp(4px,1vw,8px)] py-[clamp(4px,1vw,8px)] sm:px-3 sm:py-2.5 text-center border border-border/60">
+                          <p className="text-[clamp(8px,2vw,10px)] sm:text-xs text-muted-foreground uppercase tracking-wide font-medium mb-0.5 sm:mb-1">{s.label}</p>
+                          <p className="text-[clamp(10px,2.5vw,13px)] sm:text-sm text-foreground font-bold">{s.value}</p>
                         </div>
                       );
                     })}
                   </div>
 
                   <Link href={`/product/${p.slug}`}>
-                    <Button size="sm" variant="outline" className="w-full mt-1 group-hover:border-primary group-hover:text-primary transition-colors">
-                      {t.home.viewDetails} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                    <Button size="sm" variant="outline" className="w-full h-8 sm:h-9 text-xs sm:text-sm mt-0.5 sm:mt-1 group-hover:border-primary group-hover:text-primary transition-colors">
+                      {t.home.viewDetails} <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 ml-1 sm:ml-1.5" />
                     </Button>
                   </Link>
                 </div>
@@ -367,10 +376,10 @@ export default function Home() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── FEATURES ── */}
-      <section className="py-12 md:py-24 bg-background relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <section className="py-8 md:py-16 bg-background relative overflow-hidden">
 
         <div className="container mx-auto px-4 md:px-8">
           {/* Asymmetric header */}
@@ -415,8 +424,10 @@ export default function Home() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── INDUSTRIAL SOLUTIONS ── */}
-      <section className="py-12 md:py-24 bg-background">
+      <section className="py-8 md:py-16 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">{t.home.industryTag}</p>
@@ -426,7 +437,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: "1200px" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-6" style={{ perspective: "1200px" }}>
             {t.industryPage.industries.map((sol, i) => {
               const IconComponent = INDUSTRY_ICONS_MAP[sol.slug] || Leaf;
               const styleMeta = INDUSTRY_COLORS_MAP[sol.slug] || { color: "text-lime-300", border: "hover:border-lime-300" };
@@ -445,28 +456,28 @@ export default function Home() {
                   <Link href={`/industry/${sol.slug}`} className="block h-full">
                     <Card className={`bg-card border border-border ${styleMeta.border} hover:shadow-xl transition-all duration-300 h-full overflow-hidden cursor-pointer`}>
                       {/* Photo header */}
-                      <div className="relative h-44 overflow-hidden">
+                      <div className="relative w-full overflow-hidden">
                         <img
                           src={sol.img}
                           alt={sol.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          className="w-full h-auto block group-hover:scale-105 transition-transform duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
                         {/* Icon + label overlay */}
-                        <div className="absolute bottom-3 left-4 flex items-center gap-2">
-                          <div className={`w-7 h-7 rounded-lg ${sol.bg} flex items-center justify-center shrink-0`}>
-                            <IconComponent className={`w-3.5 h-3.5 ${styleMeta.color}`} />
+                        <div className="absolute bottom-3 left-3.5 sm:bottom-3.5 sm:left-4 flex items-center gap-2">
+                          <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${sol.bg} flex items-center justify-center shrink-0`}>
+                            <IconComponent className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${styleMeta.color}`} />
                           </div>
-                          <span className="text-white text-[11px] font-bold uppercase tracking-widest drop-shadow-sm">{sol.short}</span>
+                          <span className="text-white text-[10.5px] sm:text-[12px] font-bold uppercase tracking-widest drop-shadow-sm">{sol.short}</span>
                         </div>
                         {/* Arrow hint on hover */}
                         <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                           <ArrowRight className="w-3.5 h-3.5 text-white" />
                         </div>
                       </div>
-                      <CardContent className="p-6">
-                        <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{sol.title}</h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed">{sol.desc}</p>
+                      <CardContent className="p-5 sm:p-6">
+                        <h3 className="text-base sm:text-lg font-bold text-foreground mb-1.5 sm:mb-2 group-hover:text-primary transition-colors">{sol.title}</h3>
+                        <p className="text-muted-foreground text-[13px] sm:text-sm leading-relaxed">{sol.desc}</p>
                       </CardContent>
                     </Card>
                   </Link>
@@ -490,8 +501,10 @@ export default function Home() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── TECH SHOWCASE: Battery + Motor ── */}
-      <section className="py-12 md:py-24 bg-background">
+      <section className="py-8 md:py-16 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <LazyRender minHeight="1200px">
             <Suspense fallback={<SectionSkeleton />}>
@@ -500,6 +513,8 @@ export default function Home() {
           </LazyRender>
         </div>
       </section>
+
+      <BlurDivider />
 
       {/* ── FIELD PHOTO BANNER ── */}
       <section className="relative w-full overflow-hidden">
@@ -536,6 +551,8 @@ export default function Home() {
         </div>
       </section>
 
+      <BlurDivider />
+
       {/* ── VIDEOS ── */}
       <LazyRender minHeight="600px" placeholder={<SectionSkeleton />}>
         <Suspense fallback={<SectionSkeleton />}>
@@ -543,12 +560,12 @@ export default function Home() {
         </Suspense>
       </LazyRender>
 
-
+      <BlurDivider />
 
       {/* ── SOFTWARE WE DELIVER ── */}
-      <section className="py-12 md:py-24 bg-background">
+      <section className="py-8 md:py-16 bg-background">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-6 md:mb-12">
             <motion.p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>{t.home.softwareTag}</motion.p>
             <motion.h2 className="font-display text-4xl md:text-5xl font-bold text-foreground" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               {t.home.softwareHeading}
@@ -695,12 +712,16 @@ export default function Home() {
         </div>
       </section> */}
 
+      <BlurDivider />
+
       {/* ── FAQ ── */}
       <LazyRender minHeight="1200px">
         <Suspense fallback={<SectionSkeleton />}>
           <FaqSection />
         </Suspense>
       </LazyRender>
+
+      <BlurDivider />
 
       {/* ── CTA ── */}
       <section className="py-10 md:py-14 bg-surface-dark text-white relative overflow-hidden">

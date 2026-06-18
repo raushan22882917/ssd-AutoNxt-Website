@@ -113,7 +113,7 @@ function TechShowcase() {
         initial={{ opacity: 0, x: 30 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="relative rounded-2xl overflow-hidden border border-border bg-muted/20 h-[420px]"
+        className="relative rounded-2xl overflow-hidden border border-border bg-muted/20 w-full aspect-[4/3] lg:aspect-auto lg:h-[420px]"
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -130,7 +130,7 @@ function TechShowcase() {
                 <img
                   src={tab.image}
                   alt={tab.title}
-                  className="max-h-[280px] w-auto object-contain drop-shadow-xl"
+                  className="max-h-[80%] w-auto object-contain drop-shadow-xl"
                   loading="lazy"
                 />
               </div>

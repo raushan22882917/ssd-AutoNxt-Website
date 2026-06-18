@@ -41,10 +41,10 @@ function FaqSection() {
   );
 
   return (
-    <section className="py-24 bg-gradient-to-b from-neutral-100 via-red-50/45 to-neutral-200/60 border-y border-neutral-200" id="faq">
+    <section className="pt-6 pb-12 md:pt-8 md:pb-16 bg-gradient-to-b from-neutral-100 via-red-50/45 to-neutral-200/60 border-y border-neutral-200" id="faq">
       <div className="container mx-auto px-4 md:px-8">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-8">
           <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
             {t.home.faqTitle}
           </p>
@@ -57,7 +57,7 @@ function FaqSection() {
         </div>
 
         {/* Category tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-1.5 min-[400px]:gap-2 mb-10 max-w-4xl mx-auto px-2">
           {FAQ_CATEGORIES.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
@@ -67,7 +67,7 @@ function FaqSection() {
                 whileHover={!isActive ? { scale: 1.06, y: -2 } : {}}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 380, damping: 22 }}
-                className={`relative px-4 py-2 rounded-full text-sm font-semibold border cursor-pointer group transition-colors duration-200 ${
+                className={`relative px-[clamp(10px,2.5vw,14px)] pt-[clamp(4px,1vw,6px)] pb-[clamp(5px,1.2vw,8px)] text-[clamp(10px,2.2vw,13px)] md:text-sm font-semibold border cursor-pointer group transition-colors duration-200 whitespace-nowrap shrink-0 rounded-xl ${
                   isActive
                     ? "bg-primary text-white border-primary shadow-md"
                     : "bg-red-50 text-primary border-primary/30"
@@ -75,7 +75,7 @@ function FaqSection() {
               >
                 {/* Red glow background on hover */}
                 {!isActive && (
-                  <span className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary/8 transition-colors duration-200" />
+                  <span className="absolute inset-0 rounded-xl bg-primary/0 group-hover:bg-primary/8 transition-colors duration-200" />
                 )}
 
                 {/* Label — turns red on hover */}
@@ -87,7 +87,7 @@ function FaqSection() {
 
                 {/* Border highlight on hover */}
                 {!isActive && (
-                  <span className="absolute inset-0 rounded-full border border-primary/0 group-hover:border-primary/50 transition-colors duration-200 pointer-events-none" />
+                  <span className="absolute inset-0 rounded-xl border border-primary/0 group-hover:border-primary/50 transition-colors duration-200 pointer-events-none" />
                 )}
 
                 {/* Sliding red underline on hover */}

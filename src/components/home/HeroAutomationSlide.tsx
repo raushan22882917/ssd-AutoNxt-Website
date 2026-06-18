@@ -99,23 +99,23 @@ export default function HeroAutomationSlide({
           />
 
           {/* Mobile Overlay: 3 smaller boxes on the left side of the image */}
-          <div className="flex sm:hidden absolute left-3 top-1/2 -translate-y-1/2 -mt-[1cm] flex-col gap-1 w-[28%] z-20">
+          <div className="flex sm:hidden absolute left-[clamp(8px,2vw,16px)] top-1/2 -translate-y-1/2 -mt-[1.1cm] flex-col gap-1 w-[clamp(100px,28vw,135px)] z-20">
             {content.featureCards.slice(0, 3).map((card, i) => {
               const Icon = FEATURE_ICONS[i] || ShieldCheck;
               return (
                 <div
                   key={card.title}
-                  className="flex items-start gap-1 rounded border border-white/70 bg-white/90 backdrop-blur-[2px] shadow-sm p-1"
+                  className="flex items-start gap-1.5 rounded border border-white/70 bg-white/90 backdrop-blur-[2px] shadow-sm p-[clamp(4px,1vw,6px)]"
                 >
                   <Icon
-                    className="w-2.5 h-2.5 text-[#0056D2] flex-shrink-0 mt-0.5"
+                    className="w-[clamp(10px,2.5vw,13px)] h-[clamp(10px,2.5vw,13px)] text-[#0056D2] flex-shrink-0 mt-0.5"
                     strokeWidth={2}
                   />
                   <div className="min-w-0">
-                    <p className="text-[7.5px] font-bold text-[#0056D2] leading-tight mb-0.5 truncate">
+                    <p className="text-[clamp(7.5px,1.8vw,9.5px)] font-bold text-[#0056D2] leading-tight mb-0.5 truncate">
                       {card.title}
                     </p>
-                    <p className="text-[6.5px] text-foreground/80 leading-none truncate">
+                    <p className="text-[6.5px] min-[450px]:text-[8px] text-foreground/80 leading-none truncate">
                       {card.desc}
                     </p>
                   </div>
