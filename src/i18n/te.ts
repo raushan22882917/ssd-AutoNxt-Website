@@ -373,6 +373,7 @@ export const te: typeof en = {
     careers: "ఉద్యోగాలు",
     privacyPolicy: "గోప్యతా విధానం",
     termsConditions: "నిబంధనలు & షరతులు",
+    accountDeletion: "ఖాతా తొలగింపు",
     fleetSolutions: "ఫ్లీట్ సొల్యూషన్స్",
     batterySystems: "బ్యాటరీ సిస్టమ్స్",
     motors: "NXT-డ్రైవ్ మోటార్లు",
@@ -1412,6 +1413,69 @@ export const te: typeof en = {
         body: `ఈ నిబంధనలు మరియు షరతులకు సంబంధించి ఏవైనా ప్రశ్నల కోసం:\n\nఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్.\n704 & 705, అమ్ఫోటెక్ ఐటీ పార్క్, రోడ్ 8, వాగ్లే ఎస్టేట్ రోడ్,\nపద్వాల్ నగర్, థానే వెస్ట్, థానే, మహారాష్ట్ర 400604\nఫోన్: +91 9067404606\nఈమెయిల్: sales@autonxt.in`,
       },
     ]
+  },
+  accountDeletionPage: {
+    texts: {
+      legalBadge: "వినియోగదారు డేటా",
+      pageTitle: "ఖాతా & డేటా తొలగింపు",
+      pageSubtitle: "మీ AutoNxt యాప్ ఖాతా మరియు సంబంధిత వ్యక్తిగత డేటాను తొలగించమని అభ్యర్థించండి.",
+      metaDescription: "మీ AutoNxt మొబైల్ యాప్ ఖాతాను ఎలా తొలగించాలి మరియు మీ వ్యక్తిగత డేటా తొలగింపును ఎలా అభ్యర్థించాలి అని తెలుసుకోండి.",
+      effectiveDate: "అమలు తేదీ: 1 జనవరి 2025 · ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్.",
+      pageIntro:
+        'ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రైవేట్ లిమిటెడ్. ("ఆటోనెక్స్ట్") తమ AutoNxt మొబైల్ యాప్ ఖాతా మరియు సంబంధిత వ్యక్తిగత డేటాను తొలగించాలనుకునే వినియోగదారుల కోసం ఈ పేజీని అందిస్తుంది. తొలగింపు అభ్యర్థన ఎలా సమర్పించాలి, ఏ డేటా తొలగించబడుతుంది మరియు చట్టం ప్రకారం ఏ డేటా ఉంచబడవచ్చు అని ఈ పేజీ వివరిస్తుంది.',
+      requestTitle: "ఖాతా తొలగింపును ఎలా అభ్యర్థించాలి",
+      requestButton: "తొలగింపు అభ్యర్థన ఈమెయిల్ చేయండి",
+      requestMailto:
+        "mailto:sales@autonxt.in?subject=AutoNxt%20App%20-%20Account%20Deletion%20Request&body=Please%20delete%20my%20AutoNxt%20app%20account%20and%20associated%20data.%0A%0ARegistered%20email%20/%20phone%3A%20%0AAccount%20username%20(if%20any)%3A%20%0AReason%20(optional)%3A%20",
+      processingNote:
+        "మేము సాధారణంగా ధృవీకరించిన తొలగింపు అభ్యర్థనలను 30 రోజులలోపు ప్రాసెస్ చేస్తాము. మీ ఖాతా మరియు అర్హత గల డేటా తొలగించబడిన తర్వాత మీకు నిర్ధారణ ఈమెయిల్ వస్తుంది.",
+      deletedTitle: "తొలగించబడే డేటా",
+      retainedTitle: "ఉంచబడే డేటా",
+      privacyLinkTitle: "గోప్యతా విధానం",
+      privacyLinkDesc: "మేము డేటాను ఎలా సేకరిస్తాము మరియు ఉపయోగిస్తాము అనే దాని గురించి మా పూర్తి గోప్యతా విధానాన్ని చదవండి.",
+      privacyLinkButton: "గోప్యతా విధానం చూడండి",
+      backToHome: "హోమ్‌కు తిరిగి వెళ్ళండి",
+      copyright: "© 2025 ఆటోనెక్స్ట్ ఆటోమేషన్ ప్రై. Ltd. All rights reserved.",
+    },
+    steps: [
+      "మీ AutoNxt యాప్ ఖాతాకు లింక్ చేయబడిన ఈమెయిల్ చిరunaal నుండి sales@autonxt.in కు ఈమెయిల్ పంపండి.",
+      "Subject line: AutoNxt App - Account Deletion Request ఉపయోగించండి.",
+      "మీ నమోదైన ఈమెయిల్ చిరunaal, phone number మరియు account username (అ applicable) చేర్చండి.",
+      "మా team మీ request verify చేసి account మరియు associated personal data delete చేస్తుంది.",
+      "తొలగింపు పూర్తైన తర్వాత మీకు confirmation email వస్తుంది.",
+    ],
+    deletedItems: [
+      "మీ app account profile (name, email, phone number, login credentials)",
+      "User preferences మరియు app settings",
+      "మీ accountకు linked saved bookings, demo requests, enquiry history",
+      "App notifications కోసం push notification tokens మరియు device identifiers",
+      "మీ accountకు associated chat/support conversation history",
+      "మీ user profileకు solely linked fleet/tractor monitoring data (where applicable)",
+    ],
+    retainedItems: [
+      "Legal, tax, accounting compliance కోసం transaction, invoice, warranty records (typically up to 7 years)",
+      "మిమ్మల్ని personally identify చేయలేని anonymised/aggregated analytics data",
+      "Indian law లేదా valid court/regulatory order under legally retain చేయాల్సిన records",
+      "Backup copies permanently remove కాకముందు deletion తర్వాత 90 days వరకు persist అవ్వచ్చు",
+    ],
+    sections: [
+      {
+        title: "In-app deletion (available అయితే)",
+        body: "మీ AutoNxt app versionలో in-app account deletion option ఉంటే:\n\nApp → Profile / Settings → Account → Delete Account\n\nఈ option కనిపించకపోతే, పై email process ఉపయోగించండి.",
+      },
+      {
+        title: "Identity verification",
+        body: "Account protect చేయడానికి, deletion request process చేయడానికి ముందు registered email/phone ownership confirm చేయమని అడగవచ్చు.",
+      },
+      {
+        title: "Processing timeline",
+        body: "Verified account deletion requests 30 daysలో process అవుతాయి. Account immediately deactivate అవ్వవచ్చు, complete removal backups/systems నుండి 90 days పట్టవచ్చు.",
+      },
+      {
+        title: "Contact us",
+        body: "Account deletion requests లేదా personal data questions:\n\nAutoNxt Automation Pvt. Ltd.\n704 & 705, Amfotech IT Park, Rd 8, Wagle Estate Rd,\nPadwal Nagar, Thane West, Thane, Maharashtra 400604\nPhone: +91 9067404606\nEmail: sales@autonxt.in",
+      },
+    ],
   },
   // NotFound Page
   notFoundPage: {

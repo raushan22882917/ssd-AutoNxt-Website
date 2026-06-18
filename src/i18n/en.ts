@@ -371,6 +371,7 @@ export const en = {
     careers: "Careers",
     privacyPolicy: "Privacy Policy",
     termsConditions: "Terms & Conditions",
+    accountDeletion: "Account Deletion",
     fleetSolutions: "Fleet Solutions",
     batterySystems: "Battery Systems",
     motors: "NXT-Drive Motors",
@@ -1412,6 +1413,69 @@ export const en = {
         body: `For any questions regarding these Terms and Conditions:\n\nAutoNxt Automation Pvt. Ltd.\n704 & 705, Amfotech IT Park, Rd 8, Wagle Estate Rd,\nPadwal Nagar, Thane West, Thane, Maharashtra 400604\nPhone: +91 9067404606\nEmail: sales@autonxt.in`,
       },
     ]
+  },
+  accountDeletionPage: {
+    texts: {
+      legalBadge: "User Data",
+      pageTitle: "Account & Data Deletion",
+      pageSubtitle: "Request deletion of your AutoNxt app account and associated personal data.",
+      metaDescription: "Learn how to delete your AutoNxt mobile app account and request removal of your personal data.",
+      effectiveDate: "Effective date: 1 January 2025 · AutoNxt Automation Pvt. Ltd.",
+      pageIntro:
+        'AutoNxt Automation Pvt. Ltd. ("AutoNxt") provides this page for users of the AutoNxt mobile application who wish to delete their account and associated personal data. This page explains how to submit a deletion request, what data is removed, and what data may be retained as required by law.',
+      requestTitle: "How to request account deletion",
+      requestButton: "Email deletion request",
+      requestMailto:
+        "mailto:sales@autonxt.in?subject=AutoNxt%20App%20-%20Account%20Deletion%20Request&body=Please%20delete%20my%20AutoNxt%20app%20account%20and%20associated%20data.%0A%0ARegistered%20email%20/%20phone%3A%20%0AAccount%20username%20(if%20any)%3A%20%0AReason%20(optional)%3A%20",
+      processingNote:
+        "We typically process verified deletion requests within 30 days. You will receive a confirmation email once your account and eligible data have been deleted.",
+      deletedTitle: "Data that will be deleted",
+      retainedTitle: "Data that may be retained",
+      privacyLinkTitle: "Privacy Policy",
+      privacyLinkDesc: "Read our full privacy policy for details on how we collect and use data.",
+      privacyLinkButton: "View Privacy Policy",
+      backToHome: "Back to Home",
+      copyright: "© 2025 AutoNxt Automation Pvt. Ltd. All rights reserved.",
+    },
+    steps: [
+      "Send an email to sales@autonxt.in from the email address linked to your AutoNxt app account.",
+      "Use the subject line: AutoNxt App - Account Deletion Request.",
+      "Include your registered email address, phone number, and account username (if applicable) so we can verify your identity.",
+      "Our team will verify your request and delete your account along with associated personal data.",
+      "You will receive a confirmation email once the deletion is complete.",
+    ],
+    deletedItems: [
+      "Your app account profile (name, email, phone number, and login credentials)",
+      "User preferences and app settings",
+      "Saved bookings, demo requests, and enquiry history linked to your account",
+      "Push notification tokens and device identifiers used for app notifications",
+      "Chat or support conversation history associated with your account",
+      "Fleet or tractor monitoring data linked solely to your user profile (where applicable)",
+    ],
+    retainedItems: [
+      "Transaction, invoice, or warranty records required for legal, tax, or accounting compliance (retained as required by applicable law, typically up to 7 years)",
+      "Anonymised or aggregated analytics data that cannot identify you personally",
+      "Records we are legally required to retain under Indian law or a valid court/regulatory order",
+      "Backup copies may persist for up to 90 days after deletion before being permanently removed from all systems",
+    ],
+    sections: [
+      {
+        title: "In-app deletion (where available)",
+        body: "If your version of the AutoNxt app includes an in-app account deletion option, you may also delete your account from:\n\nApp → Profile / Settings → Account → Delete Account\n\nIf this option is not visible in your app version, please use the email request process described above.",
+      },
+      {
+        title: "Identity verification",
+        body: "To protect your account, we may ask you to confirm ownership of the registered email address or phone number before processing a deletion request. We will not delete an account based on an unverified third-party request.",
+      },
+      {
+        title: "Processing timeline",
+        body: "Verified account deletion requests are processed within 30 days. During this period, your account may be deactivated immediately, but complete removal from all backups and systems may take up to 90 days.",
+      },
+      {
+        title: "Contact us",
+        body: "For account deletion requests or questions about your personal data:\n\nAutoNxt Automation Pvt. Ltd.\n704 & 705, Amfotech IT Park, Rd 8, Wagle Estate Rd,\nPadwal Nagar, Thane West, Thane, Maharashtra 400604\nPhone: +91 9067404606\nEmail: sales@autonxt.in",
+      },
+    ],
   },
   // NotFound Page
   notFoundPage: {
