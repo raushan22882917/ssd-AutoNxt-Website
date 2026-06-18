@@ -122,6 +122,13 @@ const BlurDivider = () => (
 
 export default function Home() {
   const { t, lang } = useLang();
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const checkIsDesktop = () => setIsDesktop(window.innerWidth >= 1024);
+    checkIsDesktop();
+    window.addEventListener("resize", checkIsDesktop);
+    return () => window.removeEventListener("resize", checkIsDesktop);
+  }, []);
   const baseOverlayContent = t.home.heroAutomation;
   const heroSlides: HeroOverlaySlide[] = [
     {
@@ -445,12 +452,12 @@ export default function Home() {
                 <motion.div
                   key={i}
                   className="group"
-                  initial={{ opacity: 0, y: 36, rotateX: 12 }}
-                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  initial={isDesktop ? { opacity: 0, y: 36, rotateX: 12 } : { opacity: 0, y: 36 }}
+                  whileInView={isDesktop ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.07, duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
-                  whileHover={{ rotateY: 5, rotateX: -4, scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 22 } }}
-                  style={{ transformPerspective: 900, transformStyle: "preserve-3d" }}
+                  whileHover={isDesktop ? { rotateY: 5, rotateX: -4, scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 22 } } : { scale: 1.04, y: -8, transition: { type: "spring", stiffness: 300, damping: 22 } }}
+                  style={isDesktop ? { transformPerspective: 900, transformStyle: "preserve-3d" } : undefined}
                   data-testid={`card-industry-${i}`}
                 >
                   <Link href={`/industry/${sol.slug}`} className="block h-full">
@@ -597,9 +604,9 @@ export default function Home() {
 
             <motion.div
               className="bg-card border border-border rounded-3xl p-8 relative overflow-hidden"
-              initial={{ opacity: 0, y: 40, rotateX: 12 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-              whileHover={{ rotateY: 4, rotateX: -3, scale: 1.01, y: -8, transition: { type: "spring", stiffness: 280, damping: 22 } }}
-              style={{ transformPerspective: 1000, transformStyle: "preserve-3d" }}
+              initial={isDesktop ? { opacity: 0, y: 40, rotateX: 12 } : { opacity: 0, y: 40 }} whileInView={isDesktop ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+              whileHover={isDesktop ? { rotateY: 4, rotateX: -3, scale: 1.01, y: -8, transition: { type: "spring", stiffness: 280, damping: 22 } } : { scale: 1.01, y: -8, transition: { type: "spring", stiffness: 280, damping: 22 } }}
+              style={isDesktop ? { transformPerspective: 1000, transformStyle: "preserve-3d" } : undefined}
             >
               <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
               <div className="flex items-center gap-3 mb-6">
@@ -663,9 +670,9 @@ export default function Home() {
 
             <motion.div
               className="bg-surface-dark rounded-3xl p-8 relative overflow-hidden text-white"
-              initial={{ opacity: 0, y: 40, rotateX: 12 }} whileInView={{ opacity: 1, y: 0, rotateX: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
-              whileHover={{ rotateY: -4, rotateX: -3, scale: 1.01, y: -8, transition: { type: "spring", stiffness: 280, damping: 22 } }}
-              style={{ transformPerspective: 1000, transformStyle: "preserve-3d" }}
+              initial={isDesktop ? { opacity: 0, y: 40, rotateX: 12 } : { opacity: 0, y: 40 }} whileInView={isDesktop ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+              whileHover={isDesktop ? { rotateY: -4, rotateX: -3, scale: 1.01, y: -8, transition: { type: "spring", stiffness: 280, damping: 22 } } : { scale: 1.01, y: -8, transition: { type: "spring", stiffness: 280, damping: 22 } }}
+              style={isDesktop ? { transformPerspective: 1000, transformStyle: "preserve-3d" } : undefined}
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/8 rounded-full -translate-y-1/3 translate-x-1/3 pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/8 rounded-full translate-y-1/3 -translate-x-1/3 pointer-events-none" />

@@ -121,10 +121,10 @@ export default function About() {
         />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-stretch lg:items-start">
 
             {/* Left: text */}
-            <div className="h-full flex flex-col justify-between pt-8 lg:pt-16">
+            <div className="pt-8 lg:pt-0 pb-0 lg:pb-0">
               <div>
                 <motion.div
                   className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-3 py-1 mb-4"
@@ -150,7 +150,27 @@ export default function About() {
                   {t.about.heroDesc}
                 </motion.p>
               </div>
-
+              {/* Fact cards — horizontal row below description (visible only on desktop) */}
+              <motion.div 
+                className="hidden lg:flex flex-row gap-2 mt-8 w-full"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.24 }}
+              >
+                {[
+                  { icon: Calendar, label: t.aboutPage.foundedLabel,       value: "2016"      },
+                  { icon: MapPin,   label: t.aboutPage.headquarteredLabel,  value: "Thane, MH" },
+                  { icon: Users,    label: t.aboutPage.teamSizeLabel,       value: "150+"      },
+                ].map((f, i) => (
+                  <div key={i} className="flex items-center gap-2.5 flex-1 py-1">
+                    <f.icon className="w-4 h-4 text-neutral-500 flex-shrink-0" strokeWidth={2} />
+                    <div className="min-w-0">
+                      <p className="text-[10px] text-neutral-500 uppercase font-bold tracking-wider leading-none truncate">{f.label}</p>
+                      <p className="text-sm sm:text-base font-bold text-black mt-1 leading-tight truncate">{f.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
             </div>
 
 
@@ -160,7 +180,7 @@ export default function About() {
               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
             >
               {/* Collage grid */}
-              <div className="relative w-full aspect-[1675/939] lg:aspect-auto lg:h-full">
+              <div className="relative w-full aspect-[1675/939] lg:aspect-auto lg:h-[420px]">
                 <div className="grid grid-cols-3 grid-rows-2 gap-2 h-full w-full">
                   {/* LCP image — eager + high priority + sync decode */}
                   <div className="col-span-2 row-span-2 rounded-xl lg:rounded-tl-2xl overflow-hidden relative">
@@ -199,8 +219,8 @@ export default function About() {
                 <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
               </div>
 
-              {/* Fact cards — horizontal row below the image on all screens */}
-              <div className="flex flex-row gap-2 mt-3 w-full">
+              {/* Fact cards — horizontal row below the image on all screens (hidden on desktop) */}
+              <div className="flex lg:hidden flex-row gap-2 mt-3 w-full">
                 {[
                   { icon: Calendar, label: t.aboutPage.foundedLabel,       value: "2016"      },
                   { icon: MapPin,   label: t.aboutPage.headquarteredLabel,  value: "Thane, MH" },
@@ -208,12 +228,12 @@ export default function About() {
                 ].map((f, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-2 flex-1 rounded-lg border border-border bg-card shadow-sm px-3 py-2"
+                    className="flex items-center gap-2.5 flex-1 py-1"
                   >
-                    <f.icon className="w-4 h-4 text-primary flex-shrink-0" strokeWidth={2} />
+                    <f.icon className="w-4 h-4 text-neutral-500 flex-shrink-0" strokeWidth={2} />
                     <div className="min-w-0">
-                      <p className="text-[9px] font-bold text-foreground leading-tight truncate">{f.value}</p>
-                      <p className="text-[8px] text-muted-foreground leading-none truncate">{f.label}</p>
+                      <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider leading-none truncate">{f.label}</p>
+                      <p className="text-xs sm:text-sm font-bold text-foreground mt-1 leading-tight truncate">{f.value}</p>
                     </div>
                   </div>
                 ))}
@@ -279,11 +299,11 @@ export default function About() {
                   decoding="async"
                 />
                 
-                {/* 2016 Founding Badge */}
-                <div className="absolute bottom-5 left-5 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-3 shadow-xl">
-                  <p className="text-primary font-black text-2xl font-display">2016</p>
-                  <p className="text-foreground text-xs font-semibold">{t.aboutPage.foundedInMumbai}</p>
-                </div>
+                 {/* 2016 Founding Badge */}
+                 <div className="absolute bottom-5 left-5 z-10">
+                   <p className="text-black font-black text-2xl font-display">2016</p>
+                   <p className="text-black text-xs font-semibold">{t.aboutPage.foundedInMumbai}</p>
+                 </div>
 
                 {/* Floating secondary image */}
                 <div className="absolute -bottom-5 -right-4 w-40 h-28 rounded-xl overflow-hidden border-4 border-background shadow-xl">
