@@ -114,22 +114,22 @@ export default function News() {
         <div className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--foreground)) 1px,transparent 1px)", backgroundSize: "30px 30px" }} />
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-end lg:items-start">
             {/* Left: text */}
-            <div className="pt-8 md:pt-16 pb-0 md:pb-10">
+            <div className="pt-8 lg:pt-16 pb-0 lg:pb-10">
               <motion.div
-                className="inline-flex items-center gap-2 bg-primary/20 border border-primary/40 rounded-full px-5 py-2 mb-3 backdrop-blur-md"
+                className="inline-flex items-center gap-2 bg-primary/20 border border-primary/40 rounded-full px-5 py-2 mb-3 md:mb-6 backdrop-blur-md"
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
               >
                 <Sparkles className="w-4 h-4 text-primary animate-pulse" />
                 <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.news.tag}</span>
               </motion.div>
               <motion.h1
-                className="font-display text-[1.55rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-[2.9rem] xl:text-[3.2rem] font-bold text-foreground mb-3 leading-[1.08] tracking-tight"
+                className="font-display text-[1.55rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-6xl font-bold text-foreground mb-3 md:mb-6 leading-[1.08] lg:leading-[1.06] tracking-tight"
                 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
               >
-                {t.news.title} <br />
-                <span className="text-primary">
+                {t.news.title}{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">
                   {t.news.titleHighlight}
                 </span>
               </motion.h1>
@@ -139,6 +139,28 @@ export default function News() {
               >
                 {t.news.desc}
               </motion.p>
+              
+              {/* Fact cards — visible only on desktop */}
+              <motion.div
+                className="hidden lg:flex flex-wrap gap-6 mt-8"
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
+              >
+                {[
+                  { icon: FileText, label: t.newsPage.storiesLabel, value: `${newsPosts.length}` },
+                  { icon: Globe, label: t.newsPage.coverageLabel, value: `${new Set(newsPosts.map((p: any) => { try { return new URL(p.externalUrl).hostname.replace('www.', '') } catch { return p.externalUrl } })).size}` },
+                  { icon: Award, label: t.newsPage.milestonesLabel, value: `${categories.length - 1}` },
+                ].map((f, i) => (
+                  <div key={i} className="flex items-center gap-2.5 group">
+                    <div className="w-9 h-9 rounded-lg bg-muted border border-border flex items-center justify-center group-hover:bg-primary/20 group-hover:border-primary/30 transition-all duration-300">
+                      <f.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground text-[10px] uppercase tracking-widest font-medium">{f.label}</p>
+                      <p className="text-foreground font-bold text-sm">{f.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
             </div>
             {/* Right: photo collage */}
             <motion.div
@@ -151,12 +173,12 @@ export default function News() {
                   <div className="col-span-2 row-span-2 rounded-xl lg:rounded-tl-3xl overflow-hidden relative group">
                     <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80" alt="AutoNxt press event"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="eager" decoding="async" />
-                    <div className="absolute bottom-3 left-3 z-20 bg-background/85 backdrop-blur-sm rounded-lg px-3 py-2 border border-border">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                        <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider">{t.news.liveCovers}</span>
+                    <div className="absolute bottom-3 left-3 md:bottom-6 md:left-6 z-20 bg-background/85 backdrop-blur-sm rounded-lg md:rounded-xl px-3 py-2 md:px-4 md:py-3 border border-border">
+                      <div className="flex items-center gap-1.5 md:gap-2 mb-1 md:mb-2">
+                        <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary animate-pulse" />
+                        <span className="text-muted-foreground text-[10px] md:text-xs font-bold uppercase tracking-wider">{t.news.liveCovers}</span>
                       </div>
-                      <h3 className="text-foreground font-bold text-sm md:text-base leading-tight">{t.news.pressMedia}</h3>
+                      <h3 className="text-foreground font-bold text-sm md:text-xl leading-tight">{t.news.pressMedia}</h3>
                     </div>
                   </div>
                   <div className="rounded-tr-xl lg:rounded-tr-3xl overflow-hidden relative group">
@@ -171,8 +193,8 @@ export default function News() {
                 {/* Top gradient — blends image top edge into background */}
                 <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
               </div>
-              {/* Fact cards — horizontal row below image */}
-              <div className="flex flex-row gap-2 mt-3 w-full">
+              {/* Fact cards — horizontal row below image (mobile only) */}
+              <div className="flex lg:hidden flex-row gap-2 mt-3 w-full">
                 {[
                   { icon: FileText, label: t.newsPage.storiesLabel, value: `${newsPosts.length}` },
                   { icon: Globe, label: t.newsPage.coverageLabel, value: `${new Set(newsPosts.map((p: any) => { try { return new URL(p.externalUrl).hostname.replace('www.', '') } catch { return p.externalUrl } })).size}` },
