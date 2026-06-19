@@ -150,7 +150,7 @@ export default function Industry() {
       <BlurDivider />
 
       {/* ── OUR SOLUTIONS ── */}
-      <section className="pt-12 pb-12 bg-background">
+      <section className="pt-5 pb-10 md:pt-12 md:pb-12 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-6 sm:mb-12">
             <div>

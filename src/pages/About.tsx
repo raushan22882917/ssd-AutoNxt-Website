@@ -109,7 +109,7 @@ export default function About() {
       <SEO title={t.nav.about} description={t.about.heroDesc} />
 
       {/* ── HERO ── */}
-      <section className="bg-background relative overflow-hidden pt-10 pb-8 md:pt-14 md:pb-0 lg:pt-[18px] lg:h-[93.75vh] lg:flex lg:items-center">
+      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:pt-[18px] lg:h-[93.75vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
         <div
@@ -121,21 +121,21 @@ export default function About() {
         />
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-stretch lg:items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-end lg:items-start">
 
             {/* Left: text */}
             <div className="pt-8 lg:pt-0 pb-0 lg:pb-0">
               <div>
                 <motion.div
-                  className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-3 py-1 mb-4"
+                  className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
                   initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                  <span className="text-primary text-[10px] font-bold uppercase tracking-widest">{t.aboutPage.aboutAutoNxt}</span>
+                  <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.aboutPage.aboutAutoNxt}</span>
                 </motion.div>
 
                 <motion.h1
-                  className="font-display text-[1.55rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-[2.9rem] xl:text-[3.2rem] font-bold text-foreground mb-4 leading-[1.08] tracking-tight"
+                  className="font-display text-[1.55rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-[2.9rem] xl:text-[3.2rem] font-bold text-foreground mb-6 leading-[1.08] tracking-tight"
                   initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
                 >
                   {t.about.heroTitle}{" "}
@@ -247,7 +247,7 @@ export default function About() {
       <BlurDivider />
 
       {/* ── MISSION & VALUES ── */}
-      <section className="pt-12 pb-24 bg-background">
+      <section className="pt-5 pb-10 md:pt-12 md:pb-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
 
           {/* Centered Mission Heading */}
@@ -374,7 +374,7 @@ export default function About() {
       <BlurDivider />
 
       {/* ── JOURNEY TIMELINE ── */}
-      <section className="pt-12 pb-24 bg-gradient-to-b from-white via-red-50/15 to-white border-y border-neutral-100 relative overflow-hidden">
+      <section className="pt-5 pb-10 md:pt-12 md:pb-24 bg-gradient-to-b from-white via-red-50/15 to-white border-y border-neutral-100 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.03)_0%,transparent_65%)] pointer-events-none" />
         
         <div className="container mx-auto px-4 md:px-8 relative z-10">
@@ -619,7 +619,7 @@ export default function About() {
       <BlurDivider />
 
       {/* ── ENGINEERING PROCESS ── */}
-      <section className="pt-12 pb-24 bg-background">
+      <section className="pt-5 pb-10 md:pt-12 md:pb-24 bg-background">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <motion.div
@@ -656,7 +656,7 @@ export default function About() {
       <BlurDivider />
 
       {/* ── TEAM ── */}
-      <section className="pt-12 pb-24 bg-background">
+      <section className="pt-5 pb-10 md:pt-12 md:pb-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <motion.div
@@ -772,7 +772,7 @@ export default function About() {
       <BlurDivider />
 
       {/* ── ADVISORS ── */}
-      <section className="pt-12 pb-24 bg-muted/40 border-t border-border">
+      <section className="pt-5 pb-10 md:pt-12 md:pb-24 bg-muted/40 border-t border-border">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <motion.div
@@ -839,7 +839,7 @@ export default function About() {
       <BlurDivider />
 
       {/* ── CTA ── */}
-      <section className="pt-12 pb-24 bg-primary relative overflow-hidden">
+      <section className="pt-5 pb-10 md:pt-12 md:pb-24 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(0,72%,30%,0.5),transparent_65%)] pointer-events-none" />
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
           <motion.div

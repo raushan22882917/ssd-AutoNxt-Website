@@ -29,14 +29,14 @@ export default function Careers() {
       <SEO title={t.nav.resources + " - " + t.common.careers} description="Join the revolution at AutoNxt Automation. Explore career opportunities in building smart electric mobility and sustainable agriculture technology." />
 
       {/* ── HERO ── */}
-      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:pt-[18px]">
+      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:pt-[18px] lg:h-[93.75vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
           style={{ backgroundImage: "linear-gradient(hsl(0,0%,0%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,0%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-end">
-            <div className="pt-8 lg:pt-16 pb-0 lg:pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-end lg:items-start">
+            <div className="pt-8 lg:pt-0 pb-0 lg:pb-0">
               <motion.div
                 className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
@@ -93,17 +93,17 @@ export default function Careers() {
                 <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-background to-transparent pointer-events-none z-10" />
               </div>
               {/* Fact cards — horizontal row below image */}
-              <div className="flex flex-row gap-2 mt-3 w-full">
+              <div className="flex lg:hidden flex-row gap-2 mt-3 w-full">
                 {[
                   { icon: Briefcase, label: texts.openRolesLabel, value: `${roles.length}${texts.positionsCount}` },
                   { icon: MapPin, label: texts.locationsLabel, value: texts.locationsVal },
                   { icon: Users, label: texts.teamSizeLabel, value: texts.teamSizeVal },
                 ].map((f, i) => (
-                  <div key={i} className="flex items-center gap-2 flex-1 rounded-lg border border-border bg-card shadow-sm px-3 py-2">
-                    <f.icon className="w-4 h-4 text-primary flex-shrink-0" strokeWidth={2} />
+                  <div key={i} className="flex items-center gap-2.5 flex-1 py-1">
+                    <f.icon className="w-4 h-4 text-neutral-500 flex-shrink-0" strokeWidth={2} />
                     <div className="min-w-0">
-                      <p className="text-[9px] font-bold text-foreground leading-tight truncate">{f.value}</p>
-                      <p className="text-[8px] text-muted-foreground leading-none truncate">{f.label}</p>
+                      <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider leading-none truncate">{f.label}</p>
+                      <p className="text-xs sm:text-sm font-bold text-foreground mt-1 leading-tight truncate">{f.value}</p>
                     </div>
                   </div>
                 ))}
@@ -116,7 +116,7 @@ export default function Careers() {
       <BlurDivider />
 
       {/* ── WHY AUTONXT ── */}
-      <section className="pt-12 pb-24 bg-background">
+      <section className="pt-5 pb-10 md:pt-12 md:pb-24 bg-background">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <motion.div className="flex items-center justify-center gap-3 mb-4"
@@ -158,7 +158,7 @@ export default function Careers() {
       <BlurDivider />
 
       {/* ── OPEN ROLES ── */}
-      <section className="pt-12 pb-24 bg-muted/40 border-y border-border">
+      <section className="pt-5 pb-10 md:pt-12 md:pb-24 bg-muted/40 border-y border-border">
         <div className="container mx-auto px-4 md:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <motion.div className="flex items-center justify-center gap-3 mb-4"
@@ -209,7 +209,7 @@ export default function Careers() {
       <BlurDivider />
 
       {/* ── CTA ── */}
-      <section className="pt-12 pb-24 bg-primary relative overflow-hidden">
+      <section className="pt-5 pb-10 md:pt-12 md:pb-24 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(0,72%,30%,0.5),transparent_65%)] pointer-events-none" />
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10">
           <motion.div

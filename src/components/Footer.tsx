@@ -120,11 +120,10 @@ export default function Footer() {
                   href={mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="leading-snug hover:text-primary transition-colors md:hidden"
+                  className="leading-snug hover:text-primary transition-colors"
                 >
                   {t.bookPage.contactInfo.visitVal}
                 </a>
-                <span className="leading-snug hidden md:inline">{t.bookPage.contactInfo.visitVal}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-primary shrink-0" />

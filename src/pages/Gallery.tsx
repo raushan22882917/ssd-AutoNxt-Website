@@ -217,7 +217,7 @@ export default function Gallery() {
       <BlurDivider />
 
       {/* Tabs section (white background) */}
-      <div className="pt-5 pb-10 bg-background border-b border-border relative">
+      <div className="pb-10 md:pb-20 pt-5 md:pt-8 bg-background border-b border-border relative">
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="flex w-full sm:w-fit gap-1 p-1 bg-muted/50 rounded-xl border border-border">
             {([

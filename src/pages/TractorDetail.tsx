@@ -5,7 +5,7 @@ import { Link } from "wouter";
 import { useLang } from "@/contexts/LanguageContext";
 import SEO from "@/components/SEO";
 import {
-  ArrowRight, ArrowLeft, CheckCircle2, Zap, BatteryCharging,
+  ArrowRight, CheckCircle2, Zap, BatteryCharging,
   Gauge, Shield, Wifi, Clock, Weight, Wrench, Thermometer, Settings, Activity
 } from "lucide-react";
 
@@ -95,9 +95,6 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
         <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
           style={{ backgroundImage: "linear-gradient(hsl(0,0%,0%) 1px,transparent 1px),linear-gradient(90deg,hsl(0,0%,0%) 1px,transparent 1px)", backgroundSize: "60px 60px" }} />
         <div className="container mx-auto px-4 md:px-8 relative z-10">
-          <Link href="/product" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm mb-8 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> {texts.allTractors}
-          </Link>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pb-16">
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
               <div className="flex items-center gap-3 mb-5">

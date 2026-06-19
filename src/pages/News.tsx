@@ -116,16 +116,16 @@ export default function News() {
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[0.5cm] lg:gap-9 items-end lg:items-start">
             {/* Left: text */}
-            <div className="pt-8 lg:pt-16 pb-0 lg:pb-10">
+            <div className="pt-8 lg:pt-0 pb-0 lg:pb-0">
               <motion.div
-                className="inline-flex items-center gap-2 bg-primary/20 border border-primary/40 rounded-full px-5 py-2 mb-3 md:mb-6 backdrop-blur-md"
+                className="inline-flex items-center gap-2 bg-primary/15 border border-primary/25 rounded-full px-4 py-1.5 mb-6"
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
               >
                 <Sparkles className="w-4 h-4 text-primary animate-pulse" />
                 <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.news.tag}</span>
               </motion.div>
               <motion.h1
-                className="font-display text-[1.55rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-6xl font-bold text-foreground mb-3 md:mb-6 leading-[1.08] lg:leading-[1.06] tracking-tight"
+                className="font-display text-[1.55rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-[2.9rem] xl:text-[3.2rem] font-bold text-foreground mb-6 leading-[1.08] tracking-tight"
                 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
               >
                 {t.news.title}{" "}
@@ -168,8 +168,8 @@ export default function News() {
               initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2, duration: 0.7 }}
             >
               {/* Collage grid with merge gradients */}
-              <div className="relative w-full aspect-[1675/939] lg:aspect-auto lg:h-[450px]">
-                <div className="grid grid-cols-3 gap-3 h-full lg:h-[450px] w-full">
+              <div className="relative w-full aspect-[1675/939] lg:aspect-auto lg:h-[420px]">
+                <div className="grid grid-cols-3 gap-2 h-full lg:h-[420px] w-full">
                   <div className="col-span-2 row-span-2 rounded-xl lg:rounded-tl-3xl overflow-hidden relative group">
                     <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80" alt="AutoNxt press event"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="eager" decoding="async" />
@@ -200,11 +200,11 @@ export default function News() {
                   { icon: Globe, label: t.newsPage.coverageLabel, value: `${new Set(newsPosts.map((p: any) => { try { return new URL(p.externalUrl).hostname.replace('www.', '') } catch { return p.externalUrl } })).size}` },
                   { icon: Award, label: t.newsPage.milestonesLabel, value: `${categories.length - 1}` },
                 ].map((f, i) => (
-                  <div key={i} className="flex items-center gap-2 flex-1 rounded-lg border border-border bg-card shadow-sm px-3 py-2">
-                    <f.icon className="w-4 h-4 text-primary flex-shrink-0" strokeWidth={2} />
+                  <div key={i} className="flex items-center gap-2.5 flex-1 py-1">
+                    <f.icon className="w-4 h-4 text-neutral-500 flex-shrink-0" strokeWidth={2} />
                     <div className="min-w-0">
-                      <p className="text-[9px] font-bold text-foreground leading-tight truncate">{f.value}</p>
-                      <p className="text-[8px] text-muted-foreground leading-none truncate">{f.label}</p>
+                      <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider leading-none truncate">{f.label}</p>
+                      <p className="text-xs sm:text-sm font-bold text-foreground mt-1 leading-tight truncate">{f.value}</p>
                     </div>
                   </div>
                 ))}
