@@ -7,7 +7,6 @@ import SEO from "@/components/SEO";
 
 import {
   ArrowRight,
-  ArrowLeft,
   CheckCircle2,
   Settings,
   Wrench,
@@ -185,15 +184,6 @@ export default function AttachmentDetail({
 
         <div className="container mx-auto px-4 md:px-8 relative z-10">
 
-          {/* Back */}
-          <Link
-            href="/product"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm mb-8 md:mb-10 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            {t.attachmentDetailPage.backToProducts}
-          </Link>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-14 items-center">
 
             {/* LEFT */}
@@ -270,14 +260,6 @@ export default function AttachmentDetail({
                   <Link href="/book">
                     {t.attachmentDetailPage.quoteBtn}
                     <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-                <Button asChild
-                  variant="outline"
-                  className="border-border bg-background text-foreground hover:bg-muted h-11 px-6 rounded-xl"
-                >
-                  <Link href="/book">
-                    {t.attachmentDetailPage.bookBtn}
                   </Link>
                 </Button>
               </div>

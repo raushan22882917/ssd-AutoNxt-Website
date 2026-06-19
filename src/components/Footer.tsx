@@ -5,9 +5,10 @@ const logoImg = "/small-logo-white-sm.webp";
 import { useLang } from "@/contexts/LanguageContext";
 
 /* ── Reusable animated footer link ── */
-function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+function FooterLink({ href, children, className = "" }: { href: string; children: React.ReactNode; className?: string }) {
   return (
     <motion.li
+      className={className}
       whileHover={{ x: 4 }}
       transition={{ type: "spring", stiffness: 380, damping: 22 }}
     >
@@ -22,6 +23,26 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
 
 export default function Footer() {
   const { t } = useLang();
+
+  const mapsUrl = "https://www.google.com/maps/search/?api=1&query=704+%26+705+Amfotech+IT+Park,+Thane,+Maharashtra";
+
+  const companyLinksDesktop = [
+    { href: "/about", label: t.nav.about },
+    { href: "/industry", label: t.nav.industry },
+    { href: "/contribution", label: t.nav.contribution },
+    { href: "/gallery", label: t.nav.gallery },
+    { href: "/news", label: t.nav.news },
+    { href: "/careers", label: t.common.careers },
+  ];
+
+  const companyLinksMobile = [
+    { href: "/industry", label: t.nav.industry },
+    { href: "/gallery", label: t.nav.gallery },
+    { href: "/contribution", label: t.nav.contribution },
+    { href: "/about", label: t.nav.about },
+    { href: "/news", label: t.nav.news },
+    { href: "/careers", label: t.common.careers },
+  ];
 
   return (
     <footer className="bg-surface-dark text-white">
@@ -58,10 +79,25 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Links — 2-column grid on mobile so Product + About sit side by side */}
+          {/* Links — 2-column grid on mobile; company column first on phone */}
           <div className="col-span-1 md:col-span-1 lg:col-span-2 grid grid-cols-2 gap-6">
-            {/* Products */}
-            <div>
+            {/* Company — shown first on mobile */}
+            <div className="order-1 md:order-2">
+              <h3 className="font-semibold text-white mb-4 text-xs uppercase tracking-widest">{t.nav.about}</h3>
+              <ul className="space-y-2.5 text-sm md:hidden">
+                {companyLinksMobile.map((link) => (
+                  <FooterLink key={link.href} href={link.href}>{link.label}</FooterLink>
+                ))}
+              </ul>
+              <ul className="space-y-2.5 text-sm hidden md:block">
+                {companyLinksDesktop.map((link) => (
+                  <FooterLink key={link.href} href={link.href}>{link.label}</FooterLink>
+                ))}
+              </ul>
+            </div>
+
+            {/* Products — shown second on mobile */}
+            <div className="order-2 md:order-1">
               <h3 className="font-semibold text-white mb-4 text-xs uppercase tracking-widest">{t.nav.product}</h3>
               <ul className="space-y-2.5 text-sm">
                 <FooterLink href="/product/x45h2">{t.home.products[0].name}</FooterLink>
@@ -72,19 +108,6 @@ export default function Footer() {
                 <FooterLink href="/product/attachment/loader">{t.productPage.implementsList.loader.name}</FooterLink>
               </ul>
             </div>
-
-            {/* Company */}
-            <div>
-              <h3 className="font-semibold text-white mb-4 text-xs uppercase tracking-widest">{t.nav.about}</h3>
-              <ul className="space-y-2.5 text-sm">
-                <FooterLink href="/about">{t.nav.about}</FooterLink>
-                <FooterLink href="/industry">{t.nav.industry}</FooterLink>
-                <FooterLink href="/contribution">{t.nav.contribution}</FooterLink>
-                <FooterLink href="/gallery">{t.nav.gallery}</FooterLink>
-                <FooterLink href="/news">{t.nav.news}</FooterLink>
-                <FooterLink href="/careers">{t.common.careers}</FooterLink>
-              </ul>
-            </div>
           </div>
 
           {/* Contact */}
@@ -93,7 +116,15 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-white/80">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                <span className="leading-snug">{t.bookPage.contactInfo.visitVal}</span>
+                <a
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="leading-snug hover:text-primary transition-colors md:hidden"
+                >
+                  {t.bookPage.contactInfo.visitVal}
+                </a>
+                <span className="leading-snug hidden md:inline">{t.bookPage.contactInfo.visitVal}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-primary shrink-0" />
