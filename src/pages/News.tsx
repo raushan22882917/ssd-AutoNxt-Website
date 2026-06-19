@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useResourceFilter } from "@/hooks/use-resource-filter";
-import { CustomSelect } from "@/components/ui/custom-select";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
-  ArrowRight, Calendar, ExternalLink, Tag, FileText, Globe, Award, Search, Clock, Eye, User, Sparkles, ChevronDown, X
+  ArrowRight, Calendar, ExternalLink, Tag, FileText, Globe, Award, Search, Clock, Eye, User, Sparkles, ChevronDown, X, SlidersHorizontal
 } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
 import SEO from "@/components/SEO";
@@ -82,19 +81,34 @@ export default function News() {
   const featuredPosts = filteredPosts.filter((post: any) => post.featured);
   const regularPosts = filteredPosts.filter((post: any) => !post.featured);
 
-  const selectOptions = categories.map((category) => ({
-    value: category as string,
-    label: category === "all" ? t.news.allCategories : (category as string),
-  }));
+  const selectOptions = categories.map((category) => {
+    const count = categoryCounts[category as string] ?? 0;
+    return {
+      value: category as string,
+      label: category === "all" ? `${t.news.allCategories} (${count})` : `${category as string} (${count})`,
+    };
+  });
 
   const [showAll, setShowAll] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const filterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+        setIsFilterOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <div className="w-full min-h-screen bg-background">
       <SEO title={t.nav.news} description={t.news.desc} />
 
       {/* ── HERO ── */}
-      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:h-[93.75vh] flex items-center">
+      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:pt-[18px] lg:h-[93.75vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--primary)/0.15),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,hsl(var(--primary)/0.1),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.03]"
@@ -104,14 +118,14 @@ export default function News() {
             {/* Left: text */}
             <div className="pt-8 md:pt-16 pb-0 md:pb-10">
               <motion.div
-                className="inline-flex items-center gap-2 bg-primary/20 border border-primary/40 rounded-full px-5 py-2 mb-6 backdrop-blur-md"
+                className="inline-flex items-center gap-2 bg-primary/20 border border-primary/40 rounded-full px-5 py-2 mb-3 backdrop-blur-md"
                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
               >
                 <Sparkles className="w-4 h-4 text-primary animate-pulse" />
                 <span className="text-primary text-xs font-bold uppercase tracking-widest">{t.news.tag}</span>
               </motion.div>
               <motion.h1
-                className="font-display text-[1.55rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-[2.9rem] xl:text-[3.2rem] font-bold text-foreground mb-6 leading-[1.08] tracking-tight"
+                className="font-display text-[1.55rem] sm:text-[2.1rem] md:text-[2.5rem] lg:text-[2.9rem] xl:text-[3.2rem] font-bold text-foreground mb-3 leading-[1.08] tracking-tight"
                 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}
               >
                 {t.news.title} <br />
@@ -137,12 +151,12 @@ export default function News() {
                   <div className="col-span-2 row-span-2 rounded-xl lg:rounded-tl-3xl overflow-hidden relative group">
                     <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80" alt="AutoNxt press event"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="eager" decoding="async" />
-                    <div className="absolute bottom-6 left-6 z-20 bg-background/85 backdrop-blur-sm rounded-xl px-4 py-3 border border-border">
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                        <span className="text-muted-foreground text-xs font-bold uppercase tracking-wider">{t.news.liveCovers}</span>
+                    <div className="absolute bottom-3 left-3 z-20 bg-background/85 backdrop-blur-sm rounded-lg px-3 py-2 border border-border">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                        <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider">{t.news.liveCovers}</span>
                       </div>
-                      <h3 className="text-foreground font-bold text-xl leading-tight">{t.news.pressMedia}</h3>
+                      <h3 className="text-foreground font-bold text-sm md:text-base leading-tight">{t.news.pressMedia}</h3>
                     </div>
                   </div>
                   <div className="rounded-tr-xl lg:rounded-tr-3xl overflow-hidden relative group">
@@ -227,37 +241,72 @@ export default function News() {
       <BlurDivider />
 
       {/* ── SEARCH & FILTER SECTION ── */}
-      <section className="pt-4 pb-8 bg-muted/10 border-b border-border relative z-20 shadow-sm">
-        <div className="container mx-auto px-4 md:px-8 max-w-6xl">
-          <div className="flex flex-col md:flex-row gap-6 items-center w-full">
-            {/* Search Input */}
-            <div className="relative w-full flex-1">
-              <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-primary w-5 h-5" />
-              <input
-                type="text"
-                placeholder={t.news.searchPlaceholder}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-14 pr-12 py-3.5 bg-background border-2 border-primary/20 hover:border-primary/40 focus:border-primary rounded-full outline-none transition-all text-base text-foreground placeholder-muted-foreground shadow-md font-medium"
-              />
+      <section className="pt-4 pb-8 bg-muted/10 border-b border-border relative z-30 shadow-sm">
+        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+          <div className="max-w-2xl mx-auto relative w-full">
+            <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-primary w-5 h-5 pointer-events-none" />
+            <input
+              type="text"
+              placeholder={t.news.searchPlaceholder}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-14 pr-24 py-3.5 bg-background border-2 border-primary/20 hover:border-primary/40 focus:border-primary rounded-full outline-none transition-all text-base text-foreground placeholder-muted-foreground shadow-md font-medium"
+            />
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
               {searchTerm && (
                 <button
+                  type="button"
                   onClick={() => setSearchTerm("")}
                   aria-label={t.common.cancel}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-muted flex items-center justify-center hover:bg-primary/10 transition-colors"
+                  className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-primary/10 transition-colors cursor-pointer"
                 >
                   <X className="w-3.5 h-3.5 text-muted-foreground" aria-hidden="true" />
                 </button>
               )}
-            </div>
 
-            {/* Categories Dropdown Filter */}
-            <CustomSelect
-              value={selectedCategory}
-              onChange={setSelectedCategory}
-              options={selectOptions}
-              className="w-full md:w-[240px] shrink-0"
-            />
+              {/* Category Filter Icon Trigger */}
+              <div ref={filterRef} className="relative flex items-center">
+                <button
+                  type="button"
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  aria-label="Filter by category"
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-primary hover:bg-primary/10 active:bg-primary/20 transition-all cursor-pointer relative"
+                >
+                  <SlidersHorizontal className="w-4 h-4" />
+                  {selectedCategory !== "all" && (
+                    <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-primary border-2 border-background rounded-full" />
+                  )}
+                </button>
+
+                {/* Dropdown Options List */}
+                {isFilterOpen && (
+                  <div className="absolute right-0 top-full mt-3 w-56 bg-background border border-border shadow-xl rounded-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="max-h-[280px] overflow-y-auto hide-scrollbar">
+                      {selectOptions.map((option) => {
+                        const isSelected = option.value === selectedCategory;
+                        return (
+                          <button
+                            key={option.value}
+                            type="button"
+                            onClick={() => {
+                              setSelectedCategory(option.value);
+                              setIsFilterOpen(false);
+                            }}
+                            className={`w-full text-left px-5 py-2.5 text-sm transition-colors duration-150 select-none block truncate cursor-pointer
+                              ${isSelected 
+                                ? "bg-primary/10 text-primary font-bold" 
+                                : "text-foreground hover:bg-primary/5 hover:text-primary font-medium"
+                              }`}
+                          >
+                            {option.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -273,6 +322,7 @@ export default function News() {
             noItemsDesc={t.news.noArticlesDesc}
             showAll={showAll}
             setShowAll={setShowAll}
+            isPaused={isFilterOpen}
             renderCard={(post: any) => (
               <div className="bg-card border border-border rounded-2xl overflow-hidden group flex flex-col md:flex-row shadow-md relative">
                 <div

@@ -109,7 +109,7 @@ export default function About() {
       <SEO title={t.nav.about} description={t.about.heroDesc} />
 
       {/* ── HERO ── */}
-      <section className="bg-background relative overflow-hidden pt-10 pb-8 md:pt-14 md:pb-0 lg:h-[93.75vh] lg:flex lg:items-center">
+      <section className="bg-background relative overflow-hidden pt-10 pb-8 md:pt-14 md:pb-0 lg:pt-[18px] lg:h-[93.75vh] lg:flex lg:items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(0,72%,40%,0.12),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
         <div

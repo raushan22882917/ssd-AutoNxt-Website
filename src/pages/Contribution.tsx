@@ -36,7 +36,7 @@ export default function Contribution() {
       <SEO title={t.nav.contribution} description="Discover the ESG impact, carbon footprint reduction, and environmental contributions of AutoNxt electric tractors." />
 
       {/* ── HERO ── */}
-      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:h-[93.75vh] flex items-center">
+      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:pt-[18px] lg:h-[93.75vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_60%,hsl(134,72%,30%,0.10),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_40%,hsl(214,65%,32%,0.09),transparent_50%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.025] pointer-events-none"

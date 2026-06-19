@@ -43,7 +43,7 @@ export default function Industry() {
       <SEO title={t.nav.industry} description="Explore AutoNxt electric utility vehicles across different sectors: agriculture, construction, airports, biomass, metal, and defense." />
 
       {/* ── HERO ── */}
-      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:h-[93.75vh] flex items-center">
+      <section className="bg-background relative overflow-hidden pt-10 pb-0 md:pt-14 lg:pt-[18px] lg:h-[93.75vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_60%,hsl(0,72%,40%,0.12),transparent_55%)] pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_40%,hsl(214,65%,32%,0.10),transparent_55%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-[0.025] pointer-events-none"

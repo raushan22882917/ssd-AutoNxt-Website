@@ -12,6 +12,7 @@ interface ArticleSliderProps<T> {
   renderCard: (item: T) => ReactNode;
   showAll: boolean;
   setShowAll: (val: boolean) => void;
+  isPaused?: boolean;
 }
 
 export function ArticleSlider<T>({
@@ -21,9 +22,10 @@ export function ArticleSlider<T>({
   renderCard,
   showAll,
   setShowAll,
+  isPaused = false,
 }: ArticleSliderProps<T>) {
   const { t } = useLang();
-  const { currentIndex, setCurrentIndex, handleNext, handlePrev } = useArticleSlider(items.length);
+  const { currentIndex, setCurrentIndex, handleNext, handlePrev } = useArticleSlider(items.length, isPaused);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   if (items.length === 0) {

@@ -6,9 +6,10 @@ interface CustomSelectProps {
   onChange: (value: string) => void;
   options: { value: string; label: string }[];
   className?: string;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export function CustomSelect({ value, onChange, options, className = "" }: CustomSelectProps) {
+export function CustomSelect({ value, onChange, options, className = "", onOpenChange }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -22,6 +23,12 @@ export function CustomSelect({ value, onChange, options, className = "" }: Custo
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (onOpenChange) {
+      onOpenChange(isOpen);
+    }
+  }, [isOpen, onOpenChange]);
 
   const selectedOption = options.find((opt) => opt.value === value) || options[0];
 
