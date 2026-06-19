@@ -62,10 +62,11 @@ export default function ContactPage() {
       icon: MapPin,
       label: t.bookPage.contactInfo.visit,
       value: t.bookPage.contactInfo.visitVal,
-      href: "#",
+      href: "https://www.google.com/maps/search/?api=1&query=704+%26+705+Amfotech+IT+Park,+Thane,+Maharashtra",
       copyable: false,
     },
     {
+
       icon: Clock,
       label: t.bookPage.contactInfo.hours,
       value: t.bookPage.contactInfo.hoursVal,
@@ -337,54 +338,62 @@ export default function ContactPage() {
                     {t.bookPage.contactInfo.title}
                   </h3>
 
-                <div className="space-y-6">
-                  {contactInfo.map((item, index) => {
-                    const isCopied = copiedIndex === index;
-                    return (
-                      <div
-                        key={index}
-                        className="flex items-center justify-between group/item w-full"
-                      >
-                        <a
+                  <div className="space-y-6">
+                    {contactInfo.map((item, index) => {
+                      const isCopied = copiedIndex === index;
+                      return (
+                        <div
+                          key={index}
+                          className="flex items-center justify-between group/item w-full"
+                        >
+
+                          <a
+                            href={item.href}
+                            target={item.icon === MapPin ? "_blank" : undefined}
+                            rel={item.icon === MapPin ? "noopener noreferrer" : undefined}
+                            className="flex items-start gap-4 group/link flex-1 min-w-0"
+                          >
+                            {/* <a
                           href={item.href}
                           onClick={(e) => {
                             if (item.href === "#") e.preventDefault();
                           }}
                           className="flex items-start gap-4 group/link flex-1 min-w-0"
-                        >
-                          <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center group-hover/link:bg-red-600 group-hover/link:border-red-600 transition-all duration-300 shadow-sm shrink-0">
-                            <item.icon className="w-5 h-5 text-red-600 group-hover/link:text-white transition-all duration-300" />
-                          </div>
+                        > */}
 
-                          <div className="min-w-0">
-                            <p className="text-gray-400 text-xs uppercase tracking-widest mb-0.5">
-                              {item.label}
-                            </p>
+                            <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center group-hover/link:bg-red-600 group-hover/link:border-red-600 transition-all duration-300 shadow-sm shrink-0">
+                              <item.icon className="w-5 h-5 text-red-600 group-hover/link:text-white transition-all duration-300" />
+                            </div>
 
-                            <p className="text-gray-800 font-semibold leading-relaxed group-hover/link:text-red-600 transition-colors break-words text-sm">
-                              {item.value}
-                            </p>
-                          </div>
-                        </a>
+                            <div className="min-w-0">
+                              <p className="text-gray-400 text-xs uppercase tracking-widest mb-0.5">
+                                {item.label}
+                              </p>
 
-                        {item.copyable && (
-                          <button
-                            onClick={(e) => handleCopy(item.value, index, e)}
-                            className="ml-2 p-2 rounded-lg border border-gray-150 bg-gray-50 text-gray-400 hover:text-red-600 hover:bg-red-50 hover:border-red-100 transition-all duration-200 shrink-0 cursor-pointer"
-                            title="Copy to clipboard"
-                          >
-                            {isCopied ? (
-                              <Check className="w-4 h-4 text-green-600" />
-                            ) : (
-                              <Copy className="w-4 h-4" />
-                            )}
-                          </button>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>  {/* closes p-6 md:p-8 padding wrapper */}
+                              <p className="text-gray-800 font-semibold leading-relaxed group-hover/link:text-red-600 transition-colors break-words text-sm">
+                                {item.value}
+                              </p>
+                            </div>
+                          </a>
+
+                          {item.copyable && (
+                            <button
+                              onClick={(e) => handleCopy(item.value, index, e)}
+                              className="ml-2 p-2 rounded-lg border border-gray-150 bg-gray-50 text-gray-400 hover:text-red-600 hover:bg-red-50 hover:border-red-100 transition-all duration-200 shrink-0 cursor-pointer"
+                              title="Copy to clipboard"
+                            >
+                              {isCopied ? (
+                                <Check className="w-4 h-4 text-green-600" />
+                              ) : (
+                                <Copy className="w-4 h-4" />
+                              )}
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>  {/* closes p-6 md:p-8 padding wrapper */}
               </div>  {/* closes contact card */}
             </motion.div>
           </div>
