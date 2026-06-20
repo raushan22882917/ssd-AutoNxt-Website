@@ -8,6 +8,8 @@ import { LanguageProvider } from "@/contexts/LanguageProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
+import UnderDevelopmentGate from "@/components/UnderDevelopmentGate";
+import { isUnderDevelopment } from "@/lib/siteAccess";
 
 const AiChat = lazy(() => import("@/components/AiChat"));
 
@@ -98,7 +100,7 @@ function ChatFallbackSkeleton() {
   );
 }
 
-function App() {
+function AppShell() {
   const [loadChat, setLoadChat] = useState(false);
 
   useEffect(() => {
@@ -155,6 +157,14 @@ function App() {
       </QueryClientProvider>
     </LanguageProvider>
   );
+}
+
+function App() {
+  if (isUnderDevelopment) {
+    return <UnderDevelopmentGate />;
+  }
+
+  return <AppShell />;
 }
 
 export default App;
