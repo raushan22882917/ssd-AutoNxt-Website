@@ -8,8 +8,6 @@ import { LanguageProvider } from "@/contexts/LanguageProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
-import UnderDevelopmentGate from "@/components/UnderDevelopmentGate";
-import { isUnderDevelopment } from "@/lib/siteAccess";
 
 const AiChat = lazy(() => import("@/components/AiChat"));
 
@@ -160,10 +158,6 @@ function AppShell() {
 }
 
 function App() {
-  if (isUnderDevelopment) {
-    return <UnderDevelopmentGate />;
-  }
-
   return <AppShell />;
 }
 
