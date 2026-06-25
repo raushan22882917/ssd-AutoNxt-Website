@@ -8,7 +8,7 @@ import { BlurDivider } from "@/components/ui/blur-divider";
 import {
   ArrowRight, Zap, BatteryCharging, Activity,
   Factory, Building2, Hammer, Shield, PlaneTakeoff, Leaf,
-  CheckCircle2, Clock, ChevronRight,
+  CheckCircle2, ChevronRight,
 } from "lucide-react";
 
 export default function Industry() {
@@ -274,10 +274,7 @@ export default function Industry() {
                 <div className={`relative ${t.accentBg} border-b ${t.accentBorder} py-3 lg:p-8 px-6 lg:px-8 flex items-center justify-center h-[10.5rem] lg:h-52`}>
                   {/* Status badge */}
                   <div className={`absolute top-3 lg:top-4 left-3 lg:left-4 inline-flex items-center gap-1 lg:gap-1.5 ${t.tagColor} text-white text-[9px] lg:text-[10px] font-bold uppercase tracking-widest px-2.5 lg:px-3 py-0.5 lg:py-1 rounded-full shadow-sm`}>
-                    {t.status === "available"
-                      ? <CheckCircle2 className="w-2.5 lg:w-3 h-2.5 lg:h-3" />
-                      : <Clock className="w-2.5 lg:w-3 h-2.5 lg:h-3" />
-                    }
+                    <CheckCircle2 className="w-2.5 lg:w-3 h-2.5 lg:h-3" />
                     {t.statusLabel}
                   </div>
                   {/* HP badge */}
@@ -318,7 +315,7 @@ export default function Industry() {
 
                   <Button asChild
                     size="sm"
-                    className={`w-full transition-all ${t.status === "available" ? "bg-primary text-white hover:bg-primary/90" : "bg-background border border-border text-muted-foreground hover:border-foreground/20 hover:bg-muted/50"}`}
+                    className="w-full transition-all bg-primary text-white hover:bg-primary/90"
                   >
                     <Link href={`/product/${t.slug}`}>
                       {texts.viewDetails} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />

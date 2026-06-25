@@ -99,16 +99,9 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
             <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
               <div className="flex items-center gap-3 mb-5">
                 <span className={`text-xs font-bold text-white px-3 py-1.5 rounded-full ${tractor.badgeColor}`}>{tractor.badge}</span>
-                {tractor.status === "upcoming" && (
-                  <span className="text-xs font-bold text-amber-400 bg-amber-400/15 border border-amber-400/30 px-3 py-1.5 rounded-full">
-                    {texts.comingSoon}
-                  </span>
-                )}
-                {tractor.status === "available" && (
-                  <span className="text-xs font-bold text-emerald-400 bg-emerald-400/15 border border-emerald-400/30 px-3 py-1.5 rounded-full">
-                    {texts.availableNow}
-                  </span>
-                )}
+                <span className="text-xs font-bold text-emerald-400 bg-emerald-400/15 border border-emerald-400/30 px-3 py-1.5 rounded-full">
+                  {texts.availableNow}
+                </span>
               </div>
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-3 leading-tight">{tractor.name}</h1>
               <p className="text-primary font-semibold text-lg mb-5">{tractor.tagline}</p>
@@ -116,7 +109,7 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
               <div className="flex gap-3">
                 <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 font-semibold h-12 px-7">
                   <Link href="/book">
-                    {tractor.status === "available" ? texts.reserveNow : texts.registerInterest} <ArrowRight className="ml-2 w-4 h-4" />
+                    {texts.reserveNow} <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>
               </div>
@@ -345,15 +338,15 @@ export default function TractorDetail({ params }: { params: { slug: string } }) 
         <div className="container mx-auto px-4 md:px-8 text-center relative z-10 max-w-xl">
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-              {tractor.status === "available" ? texts.getTractor : texts.registerTractor}
+              {texts.getTractor}
             </h2>
             <p className="text-white/70 text-base mb-8">
-              {tractor.status === "available" ? texts.ctaDescAvailable : texts.ctaDescUpcoming}
+              {texts.ctaDescAvailable}
             </p>
             <div className="flex justify-center gap-4">
               <Button asChild size="lg" className="bg-white text-primary hover:bg-white/95 font-semibold h-12 px-8">
                 <Link href="/book">
-                  {tractor.status === "available" ? texts.reserveNow : texts.registerInterest} <ArrowRight className="ml-2 w-4 h-4" />
+                  {texts.reserveNow} <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
             </div>
