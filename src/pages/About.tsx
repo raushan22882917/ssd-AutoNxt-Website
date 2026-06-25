@@ -1,4 +1,4 @@
-import * as React from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { OptimizedImg } from "@/components/ui/optimized-img"
@@ -49,8 +49,93 @@ const fieldImg5 = "/images/events/event-5.jpg"
 const fieldImg6 = "/images/events/event-6.jpg"
 const fieldImg7 = "/images/events/event-7.jpg"
 
+const JOURNEY_PATH_D =
+  "M 100 220 C 200 220, 200 80, 300 80 C 400 80, 400 220, 500 220 C 600 220, 600 80, 700 80 C 800 80, 800 220, 900 220 C 1000 220, 1000 80, 1100 80"
+
+const JOURNEY_NODE_TARGETS = [
+  { x: 120, y: 220 },
+  { x: 300, y: 80 },
+  { x: 500, y: 220 },
+  { x: 700, y: 80 },
+  { x: 900, y: 220 },
+  { x: 1080, y: 80 },
+] as const
+
+const JOURNEY_ARROW_DURATION_MS = 16000
+
+function findClosestLengthFraction(path: SVGPathElement, tx: number, ty: number) {
+  const total = path.getTotalLength()
+  let bestLen = 0
+  let bestDist = Infinity
+  const steps = 250
+  for (let i = 0; i <= steps; i++) {
+    const len = (i / steps) * total
+    const pt = path.getPointAtLength(len)
+    const dist = (pt.x - tx) ** 2 + (pt.y - ty) ** 2
+    if (dist < bestDist) {
+      bestDist = dist
+      bestLen = len
+    }
+  }
+  return bestLen / total
+}
+
+function activeIndexForProgress(progress: number, fractions: number[]) {
+  let active = 0
+  let minDist = Infinity
+  for (let i = 0; i < fractions.length; i++) {
+    const raw = Math.abs(progress - fractions[i])
+    const dist = Math.min(raw, 1 - raw)
+    if (dist < minDist) {
+      minDist = dist
+      active = i
+    }
+  }
+  return active
+}
+
 export default function About() {
   const { t } = useLang()
+  const journeyPathRef = useRef<SVGPathElement>(null)
+  const journeyHoverLockRef = useRef<number | null>(null)
+  const journeyMilestoneFractionsRef = useRef<number[]>([0, 0.17, 0.33, 0.5, 0.67, 0.83])
+  const [journeyArrow, setJourneyArrow] = useState({ x: 100, y: 220, angle: 0 })
+  const [activeJourneyIndex, setActiveJourneyIndex] = useState(0)
+
+  useEffect(() => {
+    const path = journeyPathRef.current
+    if (!path) return
+
+    journeyMilestoneFractionsRef.current = JOURNEY_NODE_TARGETS.map((target) =>
+      findClosestLengthFraction(path, target.x, target.y)
+    )
+
+    const start = performance.now()
+    let raf = 0
+
+    const tick = (now: number) => {
+      const elapsed = (now - start) % JOURNEY_ARROW_DURATION_MS
+      const progress = elapsed / JOURNEY_ARROW_DURATION_MS
+      const total = path.getTotalLength()
+      const len = progress * total
+      const pt = path.getPointAtLength(len)
+      const ptAhead = path.getPointAtLength(Math.min(len + 2, total))
+      const angle = (Math.atan2(ptAhead.y - pt.y, ptAhead.x - pt.x) * 180) / Math.PI
+
+      setJourneyArrow({ x: pt.x, y: pt.y, angle })
+
+      if (journeyHoverLockRef.current === null) {
+        setActiveJourneyIndex(
+          activeIndexForProgress(progress, journeyMilestoneFractionsRef.current)
+        )
+      }
+
+      raf = requestAnimationFrame(tick)
+    }
+
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [])
 
   const teamFromT = t.aboutPage.team
   const TEAM = [
@@ -424,8 +509,9 @@ export default function About() {
                 </defs>
                 {/* Background static curve */}
                 <path
+                  ref={journeyPathRef}
                   id="journey-path-desktop"
-                  d="M 100 220 C 200 220, 200 80, 300 80 C 400 80, 400 220, 500 220 C 600 220, 600 80, 700 80 C 800 80, 800 220, 900 220 C 1000 220, 1000 80, 1100 80"
+                  d={JOURNEY_PATH_D}
                   fill="none"
                   stroke="url(#journey-grad-desktop)"
                   strokeWidth="6"
@@ -433,7 +519,7 @@ export default function About() {
                 />
                 {/* Glowing moving highlight curve */}
                 <path
-                  d="M 100 220 C 200 220, 200 80, 300 80 C 400 80, 400 220, 500 220 C 600 220, 600 80, 700 80 C 800 80, 800 220, 900 220 C 1000 220, 1000 80, 1100 80"
+                  d={JOURNEY_PATH_D}
                   fill="none"
                   stroke="url(#glow-grad-desktop)"
                   strokeWidth="6"
@@ -445,17 +531,15 @@ export default function About() {
                   fill="#dc2626"
                   stroke="#ffffff"
                   strokeWidth="1.5"
-                >
-                  <animateMotion dur="16s" repeatCount="indefinite" rotate="auto">
-                    <mpath href="#journey-path-desktop" />
-                  </animateMotion>
-                </polygon>
+                  transform={`translate(${journeyArrow.x}, ${journeyArrow.y}) rotate(${journeyArrow.angle})`}
+                />
               </svg>
             </div>
 
             {/* Nodes and Labels */}
             {JOURNEY.map((item, i) => {
               const isEven = i % 2 === 0;
+              const isActive = activeJourneyIndex === i;
               const Icon = journeyIcons[i];
               const nodeColor = [
                 "bg-[#dc2626] border-red-500 shadow-red-100",
@@ -484,23 +568,40 @@ export default function About() {
                 "hover:border-neutral-400 hover:shadow-md",
               ][i];
 
+              const activeCardClass = isActive
+                ? "border-primary bg-white/95 shadow-lg shadow-primary/15 scale-[1.03]"
+                : "border-neutral-200/80 bg-transparent";
+              const activeConnectorClass = isActive
+                ? "border-primary border-solid"
+                : "border-neutral-300/80 border-dashed group-hover:border-primary/70";
+              const activeNodeClass = isActive
+                ? "scale-125 ring-4 ring-primary/25"
+                : "hover:scale-115";
+
               const xPos = `${(i * 16.66) + 8.33}%`;
               const nodeY = isEven ? "350px" : "210px";
 
               return (
                 <div
                   key={i}
-                  className="absolute"
+                  className="absolute group"
                   style={{
                     left: `calc(${xPos} - 70px)`,
                     width: "140px",
                     height: "100%",
                     top: 0,
                   }}
+                  onMouseEnter={() => {
+                    journeyHoverLockRef.current = i;
+                    setActiveJourneyIndex(i);
+                  }}
+                  onMouseLeave={() => {
+                    journeyHoverLockRef.current = null;
+                  }}
                 >
                   {/* Circular Node */}
                   <div
-                    className={`absolute w-12 h-12 rounded-full border-2 ${nodeColor} flex items-center justify-center shadow-lg hover:scale-115 transition-transform duration-300 z-20 cursor-pointer`}
+                    className={`absolute w-12 h-12 rounded-full border-2 ${nodeColor} flex items-center justify-center shadow-lg transition-transform duration-300 z-20 cursor-pointer ${activeNodeClass}`}
                     style={{
                       left: "50%",
                       top: nodeY,
@@ -515,16 +616,22 @@ export default function About() {
                     <>
                       {/* Dotted Connector line going UP from node to label */}
                       <div
-                        className="absolute w-0 border-l border-dashed border-neutral-300/80"
+                        className={`absolute w-0 border-l transition-colors duration-300 ${activeConnectorClass}`}
                         style={{
                           left: "50%",
-                          top: "286px",
-                          height: "40px",
+                          top: "274px",
+                          height: "52px",
                         }}
+                      />
+                      <ArrowRight
+                        className={`absolute left-1/2 -translate-x-1/2 transition-all duration-300 w-3.5 h-3.5 -rotate-90 ${
+                          isActive ? "opacity-100 text-primary" : "opacity-0 text-primary/70 group-hover:opacity-100 group-hover:text-primary"
+                        }`}
+                        style={{ top: "268px" }}
                       />
                       {/* Label Block ABOVE */}
                       <motion.div
-                        className={`absolute left-1/2 -translate-x-1/2 w-full bg-transparent border border-neutral-200/80 ${hoverBorder} rounded-2xl p-3 text-center backdrop-blur-[2px] transition-all duration-300 group`}
+                        className={`absolute left-1/2 -translate-x-1/2 w-full border rounded-2xl p-3 text-center backdrop-blur-[2px] transition-all duration-300 group ${activeCardClass} ${hoverBorder}`}
                         style={{
                           bottom: "calc(100% - 286px)",
                         }}
@@ -542,16 +649,22 @@ export default function About() {
                     <>
                       {/* Dotted Connector line going DOWN from node to label */}
                       <div
-                        className="absolute w-0 border-l border-dashed border-neutral-300/80"
+                        className={`absolute w-0 border-l transition-colors duration-300 ${activeConnectorClass}`}
                         style={{
                           left: "50%",
                           top: "234px",
                           height: "40px",
                         }}
                       />
+                      <ArrowRight
+                        className={`absolute left-1/2 -translate-x-1/2 transition-all duration-300 w-3.5 h-3.5 rotate-90 ${
+                          isActive ? "opacity-100 text-primary" : "opacity-0 text-primary/70 group-hover:opacity-100 group-hover:text-primary"
+                        }`}
+                        style={{ top: "268px" }}
+                      />
                       {/* Label Block BELOW */}
                       <motion.div
-                        className={`absolute left-1/2 -translate-x-1/2 w-full bg-transparent border border-neutral-200/80 ${hoverBorder} rounded-2xl p-3 text-center backdrop-blur-[2px] transition-all duration-300 group`}
+                        className={`absolute left-1/2 -translate-x-1/2 w-full border rounded-2xl p-3 text-center backdrop-blur-[2px] transition-all duration-300 group ${activeCardClass} ${hoverBorder}`}
                         style={{
                           top: "274px",
                         }}

@@ -8,6 +8,8 @@ import { LanguageProvider } from "@/contexts/LanguageProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageLoader from "@/components/PageLoader";
+import UnderDevelopmentGate from "@/components/UnderDevelopmentGate";
+import { isUnderDevelopment } from "@/lib/siteAccess";
 
 const AiChat = lazy(() => import("@/components/AiChat"));
 
@@ -24,6 +26,7 @@ const EvBlog = lazy(() => import("@/pages/EvBlog"));
 const Careers = lazy(() => import("@/pages/Careers"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
 const Terms = lazy(() => import("@/pages/Terms"));
+const AccountDeletion = lazy(() => import("@/pages/AccountDeletion"));
 const IndustryDetail = lazy(() => import("@/pages/IndustryDetail"));
 const TractorDetail = lazy(() => import("@/pages/TractorDetail"));
 const AttachmentDetail = lazy(() => import("@/pages/AttachmentDetail"));
@@ -74,6 +77,8 @@ function Router() {
             <Route path="/careers" component={Careers} />
             <Route path="/privacy" component={Privacy} />
             <Route path="/terms" component={Terms} />
+            <Route path="/account-deletion" component={AccountDeletion} />
+            <Route path="/delete-account" component={AccountDeletion} />
             <Route component={NotFound} />
           </Switch>
         </main>
@@ -95,7 +100,7 @@ function ChatFallbackSkeleton() {
   );
 }
 
-function App() {
+function AppShell() {
   const [loadChat, setLoadChat] = useState(false);
 
   useEffect(() => {
@@ -152,6 +157,14 @@ function App() {
       </QueryClientProvider>
     </LanguageProvider>
   );
+}
+
+function App() {
+  if (isUnderDevelopment) {
+    return <UnderDevelopmentGate />;
+  }
+
+  return <AppShell />;
 }
 
 export default App;

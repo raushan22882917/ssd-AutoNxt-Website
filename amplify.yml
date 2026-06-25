@@ -14,3 +14,8 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
+# SPA client-side routes (e.g. /contribution) must rewrite to index.html
+customRedirects:
+  - source: "/<*>"
+    target: "/index.html"
+    status: "200"

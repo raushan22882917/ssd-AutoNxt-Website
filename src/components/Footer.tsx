@@ -142,6 +142,7 @@ export default function Footer() {
           <div className="flex gap-4 flex-wrap justify-center">
             <Link href="/privacy" className="hover:text-white transition-colors">{t.common.privacyPolicy}</Link>
             <Link href="/terms" className="hover:text-white transition-colors">{t.common.termsConditions}</Link>
+            <Link href="/account-deletion" className="hover:text-white transition-colors">{t.common.accountDeletion}</Link>
             <Link href="/careers" className="hover:text-white transition-colors">{t.common.careers}</Link>
           </div>
           <p className="text-center lg:text-right">{t.common.madeIn}</p>
