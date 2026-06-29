@@ -73,7 +73,7 @@ const PRODUCTS_META = [
   },
   {
     img: tractor1,
-    slug: "h55c2",
+    slug: "x30c2",
     tagColor: "bg-accent/10 text-accent border-accent/20",
     accentBar: "bg-accent",
     specs: [
@@ -132,6 +132,12 @@ export default function Home() {
   const baseOverlayContent = t.home.heroAutomation;
   const heroSlides: HeroOverlaySlide[] = [
     {
+      key: "image1",
+      backgroundSrc: "/images/hero/image1.png",
+      variant: "automation",
+      content: baseOverlayContent,
+    },
+    {
       key: "image2",
       backgroundSrc: "/images/hero/image2.png",
       showFloatingCard: true,
@@ -155,12 +161,6 @@ export default function Home() {
         titleHighlight: t.home.heroDescs[2].titleHighlight,
         subtitle: t.home.heroDescs[2].normalText,
       },
-    },
-    {
-      key: "image1",
-      backgroundSrc: "/images/hero/image1.png",
-      variant: "automation",
-      content: baseOverlayContent,
     },
   ];
   const [heroIndex, setHeroIndex] = useState(0);

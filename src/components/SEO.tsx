@@ -9,7 +9,7 @@ interface SEOProps {
 export default function SEO({ title, description, keywords }: SEOProps) {
   useEffect(() => {
     // 1. Update the document title
-    const fullTitle = title.endsWith("AutoNxt Automation") 
+    const fullTitle = (title.endsWith("AutoNxt Automation") || title.endsWith("AutoNXT") || title.endsWith("AutoNxt")) 
       ? title 
       : `${title} | AutoNxt Automation`;
     document.title = fullTitle;

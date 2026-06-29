@@ -25,7 +25,6 @@ const saiImg        = "/images/team/sai.jpg"
 const ajinkyaImg    = "/images/team/ajinkya.jpg"
 const khushpreetImg = "/images/team/khushpreet.jpg"
 const shantanuImg   = "/images/team/shantanu.jpg"
-const manishImg     = "/images/team/manish.png"
 const swapneshImg   = "/images/team/swapnesh.jpg"
 const harendar      = "/images/team/harendar.jpg"
 const rajinder      = "/images/team/rajinder.jpg"
@@ -150,10 +149,9 @@ export default function About() {
     { name: teamFromT[8].name,  role: teamFromT[8].role,  img: saiImg,        bio: teamFromT[8].bio,  objectPosition: "top"                       },
     { name: teamFromT[9].name,  role: teamFromT[9].role,  img: ajinkyaImg,    bio: teamFromT[9].bio,  objectPosition: "top"                       },
     { name: teamFromT[10].name, role: teamFromT[10].role, img: khushpreetImg, bio: teamFromT[10].bio, objectPosition: "top"                       },
-    { name: teamFromT[11].name, role: teamFromT[11].role, img: manishImg,     bio: teamFromT[11].bio, objectPosition: "top"                       },
-    { name: teamFromT[12].name, role: teamFromT[12].role, img: swapneshImg,   bio: teamFromT[12].bio, objectPosition: "100% 20%"                  },
-    { name: teamFromT[13].name, role: teamFromT[13].role, img: harendar,      bio: teamFromT[13].bio, objectPosition: "top"                       },
-    { name: teamFromT[14].name, role: teamFromT[14].role, img: rajinder,      bio: teamFromT[14].bio, objectPosition: "top"                       },
+    { name: teamFromT[11].name, role: teamFromT[11].role, img: swapneshImg,   bio: teamFromT[11].bio, objectPosition: "100% 20%"                  },
+    { name: teamFromT[12].name, role: teamFromT[12].role, img: harendar,      bio: teamFromT[12].bio, objectPosition: "top"                       },
+    { name: teamFromT[13].name, role: teamFromT[13].role, img: rajinder,      bio: teamFromT[13].bio, objectPosition: "top"                       },
   ]
 
   const advisorsFromT = t.aboutPage.advisors

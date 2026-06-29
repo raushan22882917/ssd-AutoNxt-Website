@@ -80,7 +80,7 @@ interface BookingFormData {
   notes: string;
 }
 
-const TRACTOR_MODELS = ["X45 C2", "H55C2", "X27H2"] as const;
+const TRACTOR_MODELS = ["X45 C2", "X30C2", "X27H2"] as const;
 
 const CALL_NOW_DELAY_SECONDS = 10;
 

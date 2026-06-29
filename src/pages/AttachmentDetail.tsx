@@ -156,7 +156,7 @@ export default function AttachmentDetail({
     heroImage: assets.glb ?? "",
     compatibility: [
       "AutoNxt X45H2",
-      "AutoNxt H55C2",
+      "AutoNxt X30C2",
       "AutoNxt X25H2",
     ],
     specs,

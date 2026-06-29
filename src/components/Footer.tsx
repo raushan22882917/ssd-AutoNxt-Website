@@ -102,7 +102,7 @@ export default function Footer() {
               <ul className="space-y-2.5 text-sm">
                 <FooterLink href="/product/x45h2">{t.home.products[0].name}</FooterLink>
                 <FooterLink href="/product/x25h2">{t.home.products[2].name}</FooterLink>
-                <FooterLink href="/product/h55c2">{t.home.products[1].name}</FooterLink>
+                <FooterLink href="/product/x30c2">{t.home.products[1].name}</FooterLink>
                 <FooterLink href="/product/attachment/bucket">{t.productPage.implementsList.bucket.name}</FooterLink>
                 <FooterLink href="/product/attachment/catcher">{t.productPage.implementsList.catcher.name}</FooterLink>
                 <FooterLink href="/product/attachment/loader">{t.productPage.implementsList.loader.name}</FooterLink>
