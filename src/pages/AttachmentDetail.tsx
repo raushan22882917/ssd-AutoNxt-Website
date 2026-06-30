@@ -157,7 +157,7 @@ export default function AttachmentDetail({
     compatibility: [
       "AutoNxt X45H2",
       "AutoNxt X30C2",
-      "AutoNxt X25H2",
+      "AutoNxt X27H2",
     ],
     specs,
     features,

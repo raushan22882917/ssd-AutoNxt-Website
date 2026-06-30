@@ -2,7 +2,7 @@ import { MediaItem } from "./MediaLightbox";
 
 // Organized public image paths matching the current Gallery page
 const tractor1   = "/images/products/x45h2.webp";
-const tractor2   = "/images/products/x25h2.webp";
+const tractor2   = "/images/products/x27h2.webp";
 const trailerImg = "/images/facility/left-wall.webp";
 const fieldImg   = "/images/facility/right-wall.webp";
 const batteryImg = "/images/products/battery.webp";

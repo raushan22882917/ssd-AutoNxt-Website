@@ -41,7 +41,7 @@ type HeroOverlaySlide = {
 const HERO_ROTATE_MS = 5000;
 
 const tractor1 = "/images/products/x45h2.webp";
-const tractor2 = "/images/products/x25h2.webp";
+const tractor2 = "/images/products/x27h2.webp";
 const trailerImg = "/images/facility/left-wall.webp";
 const baifLogo = "/images/partners/baif-sm.webp";
 const dksmLogo = "/images/partners/dksm-sm.webp";

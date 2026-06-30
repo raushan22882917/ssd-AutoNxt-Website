@@ -12,12 +12,11 @@ useGLTF.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/"
 
 /* ── Static placeholder images per model path (first-ever load only) ── */
 const MODEL_PLACEHOLDER: Record<string, string> = {
-  "/3dmodel/hero.glb":    "/images/3dtractorplaceholder.webp",
+  "/3dmodel/x45.glb":     "/images/products/x45h2.webp",
   "/3dmodel/battery.glb": "/images/batteryimage.avif",
   "/3dmodel/motor.glb":   "/images/motorimage.avif",
-  "/3dmodel/x45.glb":     "/images/products/x45h2.webp",
   "/3dmodel/x45h2.glb":   "/images/products/x45h2.webp",
-  "/3dmodel/x25h2.glb":   "/images/products/x25h2.webp",
+  "/3dmodel/x27h2.glb":   "/images/products/x27h2.webp",
   "/3dmodel/bucket.glb":  "/images/implement/bucket-removebg-preview.webp",
   "/3dmodel/loader.glb":  "/images/implement/loader-removebg-preview.webp",
   "/3dmodel/catcher.glb": "/images/implement/catcher.webp",
@@ -159,7 +158,7 @@ function ModelReady({ onReady }: { onReady: () => void }) {
 /* ── Exported component ── */
 export default function TractorViewer3D({
   className = "",
-  src = "/3dmodel/hero.glb",
+  src = "/3dmodel/x45.glb",
   rotate = true,
   showHint = false,
   fallbackSrc,

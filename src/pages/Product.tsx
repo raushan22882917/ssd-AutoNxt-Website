@@ -15,7 +15,7 @@ import { BlurDivider } from "@/components/ui/blur-divider";
 
 // Organized public image paths
 const tractor1 = "/images/products/x45h2.webp";
-const tractor2 = "/images/products/x25h2.webp";
+const tractor2 = "/images/products/x27h2.webp";
 const tractor3 = "/images/3dtractorplaceholder.webp";
 const batteryImg = "/images/products/battery.webp";
 const motorImg = "/images/products/motor.webp";
@@ -109,14 +109,14 @@ export default function Product() {
     },
     {
       slug: "x25h2",
-      name: "X25H2",
-      fullName: "AutoNxt X25H2",
+      name: "X27H2",
+      fullName: "AutoNxt X27H2",
       type: t.productPage.tractorsList.x25h2.type,
       badge: t.productPage.tractorsList.x25h2.badge,
       badgeGrad: "from-accent to-blue-700",
       status: availableNowLabel,
       image: tractor2,
-      glb: "/3dmodel/x25h2.glb",
+      glb: "/3dmodel/x27h2.glb",
       description: t.productPage.tractorsList.x25h2.desc,
       specs: [
         { icon: Zap, label: t.productPage.specs.power, value: t.productPage.tractorsList.x25h2.specs.power },
