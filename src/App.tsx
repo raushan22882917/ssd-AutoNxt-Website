@@ -12,6 +12,7 @@ import PageLoader from "@/components/PageLoader";
 const AiChat = lazy(() => import("@/components/AiChat"));
 
 const Home = lazy(() => import("@/pages/Home"));
+const ElectricTractors = lazy(() => import("@/pages/ElectricTractors"));
 const Product = lazy(() => import("@/pages/Product"));
 const Industry = lazy(() => import("@/pages/Industry"));
 const Gallery = lazy(() => import("@/pages/Gallery"));
@@ -60,6 +61,7 @@ function Router() {
         <main className="flex-1 w-full">
           <Switch>
             <Route path="/" component={Home} />
+            <Route path="/electric-tractors" component={ElectricTractors} />
             <Route path="/product" component={Product} />
             <Route path="/industry" component={Industry} />
             <Route path="/gallery" component={Gallery} />

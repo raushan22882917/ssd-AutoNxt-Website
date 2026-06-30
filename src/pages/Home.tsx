@@ -314,9 +314,9 @@ export default function Home() {
                 {t.home.lineupTitle}
               </motion.h2>
             </div>
-            <Link href="/product">
+            <Link href="/electric-tractors">
               <Button variant="outline" className="mt-4 md:mt-0">
-                {t.home.viewAllModels} <ChevronRight className="w-4 h-4 ml-1" />
+                Electric Tractors <ChevronRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
           </div>
