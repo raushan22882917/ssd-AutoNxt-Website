@@ -181,7 +181,7 @@ export default function HeroAutomationSlide({
               </div>
 
               {content.featureCards[2] && (
-                <div className={isLoader ? "mt-1.5 sm:mt-3 ml-[8%] sm:ml-[12%] w-[72%] sm:w-[68%] rotate-[-1deg]" : "mt-1.5 sm:mt-3 ml-[18%] sm:ml-[22%] w-[62%] sm:w-[56%] rotate-[-2deg]"}>
+                <div className={isLoader ? "mt-1.5 sm:mt-3 ml-[8%] sm:ml-[12%] w-[72%] sm:w-[68%]" : "mt-1.5 sm:mt-3 ml-[18%] sm:ml-[22%] w-[62%] sm:w-[56%]"}>
                   <div className="flex items-start gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl border border-white/80 bg-white/90 backdrop-blur-sm shadow-sm px-2.5 py-2.5 sm:px-3 sm:py-3 md:px-4 md:py-3.5">
                     <ShieldCheck
                       className="w-4 h-4 sm:w-5 sm:h-5 text-black flex-shrink-0 mt-0.5"

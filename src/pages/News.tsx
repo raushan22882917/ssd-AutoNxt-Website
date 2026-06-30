@@ -348,7 +348,7 @@ export default function News() {
             renderCard={(post: any) => (
               <div className="bg-card border border-border rounded-2xl overflow-hidden group flex flex-col md:flex-row shadow-md relative">
                 <div
-                  className="relative md:w-5/12 h-60 md:h-[300px] overflow-hidden cursor-pointer shrink-0"
+                  className="relative md:w-5/12 h-80 md:h-[400px] overflow-hidden cursor-pointer shrink-0"
                   onClick={() => handleReadArticle(post.externalUrl)}
                 >
                   <img

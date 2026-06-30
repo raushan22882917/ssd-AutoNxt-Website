@@ -175,7 +175,7 @@ export default function MediaLightbox({ items, initialIndex = 0, onClose }: Medi
         {/* Viewport Content */}
         <div className="w-full max-w-4xl h-[55vh] md:h-[65vh] flex items-center justify-center">
           {currentItem.type === "video" ? (
-            <div className="w-full h-full bg-black rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative w-full h-full bg-black rounded-2xl overflow-hidden shadow-2xl">
               <iframe
                 src={getEmbedUrl(currentItem.src)}
                 title={currentItem.label}
@@ -183,6 +183,9 @@ export default function MediaLightbox({ items, initialIndex = 0, onClose }: Medi
                 allowFullScreen
                 className="w-full h-full border-none"
               />
+              {currentItem.src.includes("drive.google.com") && (
+                <div className="absolute top-0 right-0 w-24 h-16 bg-transparent z-10 pointer-events-auto" />
+              )}
             </div>
           ) : (
             <img

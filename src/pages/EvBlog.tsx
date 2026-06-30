@@ -206,7 +206,7 @@ export default function EvBlog() {
               </motion.p>
               {/* Fact cards — visible only on desktop */}
               <motion.div
-                className="hidden lg:flex flex-wrap gap-6"
+                className="hidden lg:flex flex-wrap gap-6 mt-8"
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.26 }}
               >
                 {[
@@ -425,7 +425,7 @@ export default function EvBlog() {
               return (
                 <div className="bg-card border border-border rounded-2xl overflow-hidden group flex flex-col md:flex-row shadow-md relative">
                   <div
-                    className="relative md:w-5/12 h-60 md:h-[300px] overflow-hidden cursor-pointer shrink-0"
+                    className="relative md:w-5/12 h-80 md:h-[400px] overflow-hidden cursor-pointer shrink-0"
                     onClick={() => handleReadArticle(post.externalUrl)}
                   >
                     {post.image ? (
