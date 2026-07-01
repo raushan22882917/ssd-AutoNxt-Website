@@ -11,6 +11,12 @@ import {
   Calendar,
   PhoneCall,
   RotateCcw,
+  User,
+  Mail,
+  Phone,
+  Globe,
+  Headphones,
+  Clock,
 } from "lucide-react";
 import { requestPhoneCallback } from "@/api/callCallback";
 import { isValidCallbackPhone, normalizePhoneForCallback } from "@/lib/phone";
@@ -1233,49 +1239,83 @@ export default function StaticChatBot() {
             </div>
 
             {showCallForm && (
-              <div className="border-t border-gray-200 bg-gray-50 px-4 py-3 space-y-2 max-h-[260px] overflow-y-auto">
-                <p className="text-xs font-semibold text-gray-800 uppercase tracking-wide">{t.chat.callSupport}</p>
-                <div className="flex gap-2">
-                  <button type="button" onClick={() => setCallForm((f) => ({ ...f, schedule_mode: "now" }))} className={`flex-1 py-1.5 rounded-lg text-xs font-medium ${callForm.schedule_mode === "now" ? "bg-red-600 text-white" : "border border-gray-200"}`}>{t.bookPage.contactInfo.call}</button>
-                  <button type="button" onClick={() => setCallForm((f) => ({ ...f, schedule_mode: "scheduled" }))} className={`flex-1 py-1.5 rounded-lg text-xs font-medium ${callForm.schedule_mode === "scheduled" ? "bg-red-600 text-white" : "border border-gray-200"}`}>{t.bookPage.cta.tag}</button>
+              <div className="border-t border-gray-200 bg-gradient-to-b from-white to-gray-50 px-4 py-3.5 space-y-3 max-h-[300px] overflow-y-auto">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-red-100 text-red-600">
+                    <PhoneCall className="h-4 w-4" />
+                  </div>
+                  <div className="leading-tight">
+                    <p className="text-sm font-semibold text-gray-900">{t.chat.callSupport}</p>
+                    <p className="text-[10px] text-gray-500">{t.chat.callDescription}</p>
+                  </div>
                 </div>
-                <input type="text" placeholder={`${t.bookPage.form.name} *`} value={callForm.customer_name} onChange={(e) => setCallForm((f) => ({ ...f, customer_name: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
-                <input type="tel" placeholder={`${t.bookPage.form.phone} *`} value={callForm.customer_phone} onChange={(e) => setCallForm((f) => ({ ...f, customer_phone: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
-                <input type="email" placeholder={t.bookPage.form.email} value={callForm.customer_email} onChange={(e) => setCallForm((f) => ({ ...f, customer_email: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs" />
-                <select
-                  value={callForm.language}
-                  onChange={(e) =>
-                    setCallForm((f) => ({
-                      ...f,
-                      language: normalizeIndianLanguageCode(e.target.value),
-                    }))
-                  }
-                  className="w-full px-2.5 py-1.5 rounded-lg border text-xs bg-white"
-                  aria-label="Call language"
-                >
-                  {INDIAN_CALL_LANGUAGES.map((l) => (
-                    <option key={l.code} value={l.code}>
-                      {l.native} — {l.label}
-                    </option>
-                  ))}
-                </select>
-                <p className="text-[10px] text-gray-500 leading-snug">
-                  {t.chat.callDescription}
-                </p>
-                <select value={callForm.request_type} onChange={(e) => setCallForm((f) => ({ ...f, request_type: e.target.value as "sales" | "support" }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs bg-white">
-                  <option value="support">{t.chat.callTypeSupport}</option>
-                  <option value="sales">{t.chat.callTypeSales}</option>
-                </select>
+
+                <div className="space-y-2">
+                  <div className="relative">
+                    <User className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
+                    <input type="text" placeholder={`${t.bookPage.form.name} *`} value={callForm.customer_name} onChange={(e) => setCallForm((f) => ({ ...f, customer_name: e.target.value }))} className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-3 text-xs outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                  </div>
+                  <div className="relative">
+                    <Phone className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
+                    <input type="tel" placeholder={`${t.bookPage.form.phone} *`} value={callForm.customer_phone} onChange={(e) => setCallForm((f) => ({ ...f, customer_phone: e.target.value }))} className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-3 text-xs outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                  </div>
+                  <div className="relative">
+                    <Mail className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
+                    <input type="email" placeholder={t.bookPage.form.email} value={callForm.customer_email} onChange={(e) => setCallForm((f) => ({ ...f, customer_email: e.target.value }))} className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-3 text-xs outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="relative">
+                    <Globe className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
+                    <select
+                      value={callForm.language}
+                      onChange={(e) =>
+                        setCallForm((f) => ({
+                          ...f,
+                          language: normalizeIndianLanguageCode(e.target.value),
+                        }))
+                      }
+                      className="w-full appearance-none rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-3 text-xs outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100"
+                      aria-label="Call language"
+                    >
+                      {INDIAN_CALL_LANGUAGES.map((l) => (
+                        <option key={l.code} value={l.code}>
+                          {l.native} — {l.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="relative">
+                    <Headphones className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
+                    <select value={callForm.request_type} onChange={(e) => setCallForm((f) => ({ ...f, request_type: e.target.value as "sales" | "support" }))} className="w-full appearance-none rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-3 text-xs outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100">
+                      <option value="support">{t.chat.callTypeSupport}</option>
+                      <option value="sales">{t.chat.callTypeSales}</option>
+                    </select>
+                  </div>
+                </div>
+
                 {callForm.schedule_mode === "scheduled" && (
                   <div className="grid grid-cols-2 gap-2">
-                    <input type="date" value={callForm.preferred_date} onChange={(e) => setCallForm((f) => ({ ...f, preferred_date: e.target.value }))} className="px-2.5 py-1.5 rounded-lg border text-xs" />
-                    <input type="time" value={callForm.preferred_time} onChange={(e) => setCallForm((f) => ({ ...f, preferred_time: e.target.value }))} className="px-2.5 py-1.5 rounded-lg border text-xs" />
+                    <div className="relative">
+                      <Calendar className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
+                      <input type="date" value={callForm.preferred_date} onChange={(e) => setCallForm((f) => ({ ...f, preferred_date: e.target.value }))} className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-2 text-xs outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                    </div>
+                    <div className="relative">
+                      <Clock className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gray-400" />
+                      <input type="time" value={callForm.preferred_time} onChange={(e) => setCallForm((f) => ({ ...f, preferred_time: e.target.value }))} className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-2 text-xs outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" />
+                    </div>
                   </div>
                 )}
-                <textarea placeholder={t.bookPage.form.help} value={callForm.message} onChange={(e) => setCallForm((f) => ({ ...f, message: e.target.value }))} className="w-full px-2.5 py-1.5 rounded-lg border text-xs min-h-[48px]" />
-                <div className="flex gap-2">
-                  <button type="button" onClick={submitCallForm} disabled={loading || callCountdown !== null} className="flex-1 py-2 rounded-lg bg-red-600 text-white text-xs font-semibold disabled:opacity-50">{callForm.schedule_mode === "now" ? t.bookPage.form.submitCall : t.bookPage.form.scheduleCall}</button>
-                  <button type="button" onClick={() => setShowCallForm(false)} className="px-3 py-2 rounded-lg border text-xs">{t.common.cancel}</button>
+
+                <textarea placeholder={t.bookPage.form.help} value={callForm.message} onChange={(e) => setCallForm((f) => ({ ...f, message: e.target.value }))} className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100 min-h-[48px]" />
+
+                <div className="flex gap-2 pt-0.5">
+                  <button type="button" onClick={submitCallForm} disabled={loading || callCountdown !== null} className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-red-600 py-2.5 text-xs font-semibold text-white shadow-sm transition hover:bg-red-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50">
+                    <PhoneCall className="h-3.5 w-3.5" />
+                    {callForm.schedule_mode === "now" ? t.bookPage.form.submitCall : t.bookPage.form.scheduleCall}
+                  </button>
+                  <button type="button" onClick={() => setShowCallForm(false)} className="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-xs font-medium text-gray-600 transition hover:bg-gray-50">{t.common.cancel}</button>
                 </div>
               </div>
             )}
