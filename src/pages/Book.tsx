@@ -25,14 +25,23 @@ export default function ContactPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-    preferredDate: "",
-    location: "",
+  const [formData, setFormData] = useState(() => {
+    let initSubject = "";
+    let initMessage = "";
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      initSubject = params.get("subject") || "";
+      initMessage = params.get("message") || "";
+    }
+    return {
+      name: "",
+      email: "",
+      phone: "",
+      subject: initSubject,
+      message: initMessage,
+      preferredDate: "",
+      location: "",
+    };
   });
 
   const handleCopy = (text: string, index: number, e: React.MouseEvent) => {

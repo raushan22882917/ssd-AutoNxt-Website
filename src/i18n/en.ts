@@ -88,45 +88,33 @@ export const en = {
     },
     faqs: [
       {
-        q: "Why AutoNxt electric tractors over diesel tractors?",
-        a: "Electric tractors have several advantages over diesel tractors: lower operating costs, minimal maintenance, zero emissions, and high torque with instant acceleration.",
+        q: "What is an electric tractor?",
+        a: "An electric tractor is a battery-powered agricultural vehicle that performs farming and industrial tasks without relying on a conventional diesel engine. It uses an electric motor to deliver instant torque, quieter operation, and zero tailpipe emissions. Electric tractors are designed for applications such as cultivation, hauling, spraying, and material handling while helping reduce fuel dependency and maintenance requirements. AutoNXT electric tractors combine advanced electric powertrain technology with smart engineering to support modern farming and commercial operations."
       },
       {
-        q: "How many hours does the tractor work?",
-        a: "4-8 hours depending on what activity the tractor is performing.",
+        q: "How is an electric tractor different from a diesel tractor?",
+        a: "The biggest difference is the source of power. Diesel tractors rely on internal combustion engines, while electric tractors are powered by rechargeable batteries and electric motors. Electric tractors typically offer instant torque, quieter operation, fewer moving parts, and lower routine maintenance requirements. They also eliminate direct tailpipe emissions, making them a cleaner alternative for agricultural and industrial applications. The ideal choice depends on the application, operating conditions, and business requirements."
       },
       {
-        q: "How much time does the tractor take to charge from 0-100%?",
-        a: "6 hours on single-phase slow charger and 2 hours 30 minutes on fast charger.",
+        q: "What farming applications are supported by AutoNXT electric tractors?",
+        a: "AutoNXT electric tractors support a wide range of agricultural applications including primary tillage (ploughing, rotavating), secondary tillage (cultivation, weeding), sowing, spraying, and post-harvest transport (sugar cane haulage trolley). They are compatible with standard implements such as reversible ploughs, rotary tillers, seed drills, boom sprayers, and square balers. Additionally, their high instant torque makes them highly effective for heavy material handling, utilizing attachments like loader buckets, grabbers, and catchers."
       },
       {
-        q: "What all implements can be used with AutoNxt Tractors?",
-        a: "Any implement that works with the equivalent HP diesel tractor can be used with the AutoNxt tractors.",
+        q: "How long does it take to charge an AutoNXT electric tractor?",
+        a: "Charging time depends on the charger configuration. Using a standard 6.6 kW AC charger or a 15 Ampere home/farm outlet takes approximately 4 to 6 hours for a full charge from 0 to 100%. With an off-board DC fast charger (supporting 15 kW to 60 kW), the tractor can be charged up to 80% capacity in 45 minutes to 2 hours, allowing quick turnarounds during busy harvesting seasons."
       },
       {
-        q: "Can the tractor be charged at home?",
-        a: "Yes, the tractor can be charged with a 15 Ampere supply which is available at home or any other heavy-duty appliance.",
+        q: "Can AutoNXT electric tractors replace diesel tractors?",
+        a: "Electric tractors are designed to perform many agricultural and industrial tasks traditionally handled by diesel tractors. Whether an electric tractor is the right replacement depends on the required horsepower, operating hours, terrain, and implements used. AutoNXT offers electric tractor solutions designed for modern farming and commercial applications, helping businesses move toward more sustainable and efficient operations."
       },
       {
-        q: "Does the Tractor have enough power to get the heavy-duty work done?",
-        a: "Yes, the tractors can do any task that a traditional equivalent HP diesel tractor can perform.",
+        q: "How much does it cost to operate an electric tractor?",
+        a: "The operating cost of an electric tractor depends on factors such as electricity tariffs, charging frequency, workload, and maintenance requirements. Compared with conventional diesel tractors, electric tractors can significantly reduce expenses related to fuel and routine servicing because they have fewer moving mechanical components. For model-specific operating cost estimates, AutoNXT recommends contacting its team for guidance based on your intended application."
       },
       {
-        q: "After how many years will the battery need to be replaced?",
-        a: "We estimate a life of 8-10 years for the tractor battery after which it can be replaced.",
-      },
-      {
-        q: "How much savings will I have by using Electric Tractors?",
-        a: "By using AutoNxt electric tractors, you will have 5 times less operational expenses.",
-      },
-      {
-        q: "Is the tractor remote controlled?",
-        a: "Yes, we are introducing remote and completely driverless functions in the Electric Tractors in some models to help you get the job done without having to expose yourself to extreme conditions.",
-      },
-      {
-        q: "Are there any financing options for buying the tractor?",
-        a: "Yes, we do have some financing options, for which you may send your contact details to our team at sales@autonxt.in.",
-      },
+        q: "How can I choose the right AutoNXT electric tractor?",
+        a: "Choosing the right tractor depends on several factors, including horsepower requirements, farm size, operating hours, terrain, and the implements you plan to use. AutoNXT offers multiple electric tractor models designed for different agricultural and industrial applications. Consulting with the AutoNXT team can help identify the most suitable model based on your operational needs and future expansion plans."
+      }
     ],
     techTag: "Proprietary Technology",
     techHeading: "Built from the Ground Up.",

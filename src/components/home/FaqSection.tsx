@@ -18,16 +18,13 @@ function FaqSection() {
   ];
 
   const catMapping = [
-    "technical",  // 0
-    "perf",       // 1
-    "charging",   // 2
-    "apps",       // 3
-    "charging",   // 4
-    "perf",       // 5
-    "charging",   // 6
-    "cost",       // 7
-    "technical",  // 8
-    "cost",       // 9
+    "technical",  // 0. What is an electric tractor?
+    "technical",  // 1. How is it different from a diesel tractor?
+    "apps",       // 2. What farming applications are supported?
+    "charging",   // 3. How long does it take to charge?
+    "perf",       // 4. Can they replace diesel tractors?
+    "cost",       // 5. How much does it cost to operate?
+    "technical",  // 6. How can I choose the right AutoNXT electric tractor?
   ];
 
   const FAQS = t.home.faqs.map((faq, index) => ({

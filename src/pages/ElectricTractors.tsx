@@ -5,10 +5,11 @@ import { useLang } from "@/contexts/LanguageContext";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { CustomSelect } from "@/components/ui/custom-select";
 import {
   Zap, BatteryCharging, Shield, Activity, Clock, Weight, Wrench,
   Thermometer, Settings, CheckCircle2, ArrowRight, ChevronDown,
-  Info, Leaf, Sparkles, ShieldAlert, Award
+  Info, Leaf, Sparkles, ShieldAlert, Award, HelpCircle, Calculator, Check
 } from "lucide-react";
 
 // Localized strings dictionary to keep all translation logic clean and local
@@ -48,10 +49,22 @@ const CONTENT: Record<string, any> = {
 
     whyChooseTitle: "Why Choose AutoNxt Electric Tractors?",
     whyChoosePoints: [
-      "iCAT Certified: The world's first certified high-voltage commercial electric tractor.",
-      "Smart Telematics: Real-time GPS, geo-fencing, and battery health tracking on your phone.",
-      "Active Liquid Cooling: Thermal management that preserves battery health in peak Indian summer.",
-      "NXT-Drive PMSM Motors: High-efficiency Permanent Magnet Synchronous Motors reaching 96% peak efficiency."
+      {
+        title: "iCAT Certified",
+        desc: "World's first high-voltage electric tractor certified for commercial deployment."
+      },
+      {
+        title: "45 HP Equivalent",
+        desc: "Instant electric torque with heavy-duty agricultural performance."
+      },
+      {
+        title: "1500+ Charge Cycles",
+        desc: "Long-life LFP battery engineered for Indian operating conditions."
+      },
+      {
+        title: "Up to 80% Lower Running Cost",
+        desc: "Lower fuel and maintenance costs compared to diesel tractors."
+      }
     ],
 
     ourModelsTitle: "Our Electric Tractor Lineup",
@@ -138,26 +151,88 @@ const CONTENT: Record<string, any> = {
     faqTitle: "Frequently Asked Questions",
     faqs: [
       {
-        q: "What is the battery life and warranty on AutoNxt tractors?",
-        a: "We offer a comprehensive 3-year inbuilt + 2-year extended warranty on the motor, and up to 5-6 years on our LFP batteries, which are rated for 1500+ full charging-discharge cycles."
+        q: "What is an electric tractor?",
+        a: "An electric tractor is a battery-powered agricultural and industrial vehicle that functions without a conventional diesel internal combustion engine. Powered by advanced high-torque electric motors (such as Permanent Magnet Synchronous Motors) and high-density rechargeable battery packs, it delivers instant maximum torque at zero RPM. This design ensures highly responsive and precise operation, near-silent performance, and zero direct tailpipe emissions. AutoNXT electric tractors, like the X45H2, are engineered to handle a variety of heavy-duty tasks such as primary and secondary tillage, transport, and spraying while lowering operating costs and minimizing environmental impact. By replacing the complex transmission and engine components of diesel tractors with solid-state electric drivetrains, electric tractors offer a cleaner, more efficient, and structurally simpler solution for modern sustainable farming and commercial logistics operations."
       },
       {
-        q: "How long does it take to charge?",
-        a: "Using a standard 6.6 kW AC charger takes around 4-6 hours. With our off-board DC fast charger, the tractor can be charged to 80% in under 2 hours."
+        q: "How does an electric tractor work?",
+        a: "Unlike diesel tractors that burn fuel to drive pistons and a mechanical transmission, an electric tractor works through a streamlined electric drivetrain. The system is powered by a high-voltage Lithium Ferro Phosphate (LFP) battery pack, which stores electrical energy. When the operator presses the accelerator, an electronic controller regulates the flow of current from the battery to a high-efficiency electric motor, such as a PMSM (Permanent Magnet Synchronous Motor). The motor converts this electrical energy into rotational force, delivering high torque directly to the wheels via a simplified gearbox. Since electric motors produce maximum torque instantly from a standstill, there is no need to build up engine RPM. Auxiliary power systems, such as hydraulics for lifting and the Power Take-Off (PTO) shaft for running implements, are driven either by the main motor or dedicated auxiliary motors, providing precise control and high efficiency without mechanical power loss."
       },
       {
-        q: "What is the runtime on a single charge?",
-        a: "Depending on the model and the payload, the X45H2 offers up to 10 hours of runtime or covers 10 acres of moderate field work per charge."
+        q: "What are the benefits of electric tractors over diesel tractors?",
+        a: "Electric tractors offer several distinct advantages over traditional diesel tractors. First, they eliminate direct tailpipe emissions, helping reduce carbon footprint and allowing safe operation inside greenhouses, warehouses, and closed industrial facilities. Second, they produce near-silent operation with minimal vibration, reducing operator fatigue and noise pollution. Third, they provide significant cost savings. Without diesel fuel costs and with fewer moving mechanical parts (no engine oil, filters, spark plugs, or complex exhaust systems), routine maintenance costs are cut by up to 60-80%. Fourth, they deliver instant torque for immediate pulling power, making them highly responsive under heavy loads. Finally, they incorporate smart digital features like telematics, live GPS tracking, and geofencing to manage operations remotely. Combined, these benefits make electric tractors a cleaner, quieter, more cost-effective, and smarter alternative for modern agriculture and industrial tasks."
       },
       {
-        q: "Are electric tractors eligible for government subsidies?",
-        a: "Yes, AutoNxt electric tractors qualify for FAME-III schemes and state-level EV subsidies, significantly lowering the initial investment cost."
+        q: "How long does it take to charge an AutoNXT electric tractor?",
+        a: "The charging time for an AutoNXT electric tractor depends on the battery capacity of the specific model and the charging infrastructure used. AutoNXT tractors support both AC slow charging and DC fast charging. For example, charging a tractor with a standard 6.6 kW AC charger or a typical 15 Ampere farm/home socket takes approximately 4 to 6 hours for a full charge from 0 to 100% (or up to 8 hours for larger battery capacities). For faster turnarounds, AutoNXT tractors equipped with liquid-cooled batteries support off-board DC fast charging of up to 60 kW. Using a DC fast charger, the battery can reach 80% capacity in 45 minutes to 2 hours. This dual-charging capability provides operators with the flexibility of overnight charging at the farm or quick top-ups during intense working shifts."
+      },
+      {
+        q: "What is the battery life of an AutoNXT electric tractor?",
+        a: "AutoNXT electric tractors utilize high-grade Lithium Ferro Phosphate (LFP) battery technology, which is known for its thermal stability, safety, and long lifecycle under demanding conditions. LFP chemistry is ideally suited for agricultural environments because it can withstand high operating temperatures without risk. The battery packs are rated for 1500+ full charge-discharge cycles. Under normal operating conditions, this cycle life translates to an expected service life of approximately 6 to 8 years before the battery's capacity naturally degrades to 80% of its original rating. To ensure long-term peace of mind, AutoNXT provides robust warranties. For instance, the X45H2 model features a battery warranty of 6 years, 6000 hours, or 1500 charging cycles (whichever occurs earlier), ensuring reliable performance season after season."
+      },
+      {
+        q: "Which farming implements are compatible?",
+        a: "AutoNXT electric tractors are designed to be fully compatible with standard category-1 and category-2 three-point linkage systems and conventional Power Take-Off (PTO) shafts. This ensures that you do not need to purchase specialized tools and can continue using your existing implements. Compatible farming implements include primary and secondary tillage tools like reversible ploughs, rotary tillers (rotavators), and disc harrows, as well as sowing and seeding equipment like seed drills. They also support crop protection and management tools such as boom sprayers, square balers, and trailers for post-harvest crop transport. For industrial and material handling operations, AutoNXT tractors support specialized hydraulic attachments including loader buckets, grabbers, catchers, and catchers for waste management, construction, and biomass transport."
+      },
+      {
+        q: "What is the operating cost of an electric tractor?",
+        a: "The operating cost of an electric tractor is substantially lower than that of a diesel tractor, offering a highly attractive return on investment (ROI). In India, diesel tractors consume between 2.5 to 4.0 litres of fuel per hour, translating to an hourly running cost of ₹250 to ₹400 based on diesel prices. In contrast, an AutoNXT electric tractor consumes between 3.0 to 5.5 units (kWh) of electricity per hour. With agricultural electricity tariffs ranging from ₹4 to ₹8 per unit, the energy cost is only ₹12 to ₹44 per hour. Furthermore, because electric drivetrains have fewer moving parts, routine maintenance expenses (filters, lubricants, engine servicing) are reduced by approximately 70-80%. Over a year of typical operation (e.g., 200 to 250 working days), these savings in energy and maintenance can add up to ₹1.5 lakh to ₹2.5 lakh annually."
+      },
+      {
+        q: "Is financing available for AutoNXT electric tractors?",
+        a: "Yes, financing options are available for purchasing AutoNXT electric tractors. To facilitate the transition to electric farming, AutoNXT works in partnership with leading public and private sector banks, as well as Non-Banking Financial Companies (NBFCs) specializing in agricultural and electric vehicle loans. Customers can access customized loan packages with competitive interest rates, flexible repayment options aligned with harvesting seasons, and loan tenures ranging from 3 to 5 years. Additionally, because AutoNXT tractors qualify for central government incentives such as the FAME-III scheme and various state-specific EV subsidies (including road tax and registration fee exemptions), the overall financed amount is reduced, making monthly EMI payments affordable for farmers and commercial fleet operators."
+      },
+      {
+        q: "What maintenance is required?",
+        a: "Electric tractors require significantly less maintenance than diesel tractors because they eliminate the internal combustion engine and its complex mechanical transmission. There is no need for regular engine oil changes, oil filter replacements, fuel filters, spark plugs, or exhaust system upkeep. The primary maintenance required for an AutoNXT electric tractor is periodic inspection of the liquid cooling system (if equipped), checking hydraulic fluid levels for the 3-point linkage, inspecting brakes, and maintaining tyre pressure. The electric motor and battery pack are sealed units and do not require routine servicing, having a service interval of 1000 hours. AutoNXT recommends keeping the battery clean, avoiding complete discharges below 10%, and performing regular software diagnostics via the onboard telematics system."
+      },
+      {
+        q: "Why choose AutoNXT electric tractors?",
+        a: "Choosing AutoNXT means investing in India's leading indigenous electric tractor technology built specifically for demanding tropical conditions. Unlike retrofitted options, AutoNXT tractors are designed from the ground up to integrate high-efficiency PMSM motors and robust LFP battery chemistry, backed by a 6-year battery warranty on prime models. AutoNXT stands out by offering advanced liquid cooling for battery stability, smart telematics for live GPS tracking, geo-fencing, and battery health monitoring. In addition, AutoNXT tractors deliver instant maximum torque, silent operations, and low running costs that slash bills by up to 80%. Backed by iCAT certification and a growing network of service touchpoints, AutoNXT offers a technically mature, certified, and financially viable path to sustainable agriculture and industrial haulage."
       }
     ],
 
     ctaTitle: "Experience the Power in Person",
     ctaDesc: "Book a live test drive or schedule a demo at your farm to see how much you can save with AutoNxt.",
-    ctaButton: "Book Test Drive Now"
+    ctaButton: "Book Test Drive Now",
+    
+    // Savings Calculator & Pricing Section (CHANGE 3 & 4)
+    calculatorTitle: "Electric Tractor Running Cost Calculator",
+    calculatorSubtitle: "See how much you can save by switching from a traditional diesel tractor to an AutoNXT electric tractor.",
+    modelLabel: "Select Tractor Model / HP Class",
+    dieselCostLabel: "Current Diesel Price (₹/litre)",
+    electricityCostLabel: "Electricity Cost (₹/kWh unit)",
+    usageHoursLabel: "Usage Hours per Day",
+    usageDaysLabel: "Working Days per Year",
+    dieselTractorCost: "Diesel Tractor Cost",
+    autoNxtElectricCost: "AutoNXT Electric Cost",
+    annualSavings: "Estimated Annual Savings",
+    perYear: "/year",
+    savingsDisclaimer: "*Calculations are based on estimated fuel consumption, charging efficiencies, and standard wear-and-tear maintenance rates. Individual results may vary depending on operational load, soil condition, and implement usage.",
+    assumptionsTitle: "Calculation Assumptions",
+    dieselConsumptionRate: "Diesel consumption rate",
+    electricConsumptionRate: "Electricity consumption rate",
+    dieselMaintRate: "Diesel maintenance rate",
+    electricMaintRate: "Electric maintenance rate",
+    hr: "hr",
+    ltr: "L",
+    unit: "unit",
+    bookDemoBtn: "Book Free Consultation",
+
+    priceTitle: "Electric Tractor Price in India",
+    priceDescP1: "The price of an electric tractor depends on several factors including horsepower, battery capacity, operating hours, charging configuration, and the attachments required for your farming or industrial operations.",
+    priceDescP2: "AutoNXT offers multiple electric tractor platforms for commercial agriculture, biomass handling, airports, logistics, and industrial applications. Because every deployment has different operational requirements, pricing is provided based on your use case.",
+    priceDescP3: "Book a free consultation to receive model recommendations, estimated operating costs, financing options, and the latest pricing.",
+    priceDependsTitle: "Price depends on:",
+    priceDependsItems: [
+      "Model & HP Equivalent",
+      "Battery Capacity",
+      "Horsepower & Torque Requirements",
+      "Application (Agri / Industrial)",
+      "Required Attachments"
+    ],
+    requestPriceBtn: "Request Price",
+    bookFreeDemoBtn: "Book Free Demo"
   },
   hi: {
     metaTitle: "आधुनिक खेती के लिए इलेक्ट्रिक ट्रैक्टर — AutoNxt",
@@ -194,10 +269,22 @@ const CONTENT: Record<string, any> = {
 
     whyChooseTitle: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर क्यों चुनें?",
     whyChoosePoints: [
-      "iCAT प्रमाणित: दुनिया का पहला प्रमाणित हाई-वोल्टेज वाणिज्यिक इलेक्ट्रिक ट्रैक्टर।",
-      "स्मार्ट टेलीमैटिक्स: अपने फोन पर रीयल-टाइम जीपीएस, जियो-फेंसिंग और बैटरी स्वास्थ्य ट्रैकिंग।",
-      "एक्टिव लिक्विड कूलिंग: थर्मल प्रबंधन जो भारतीय गर्मियों में बैटरी के स्वास्थ्य को सुरक्षित रखता है।",
-      "NXT-Drive PMSM मोटर्स: उच्च दक्षता वाली मोटरें जो 96% चरम दक्षता प्रदान करती हैं।"
+      {
+        title: "iCAT प्रमाणित",
+        desc: "व्यावसायिक उपयोग के लिए प्रमाणित दुनिया का पहला हाई-वोल्टेज इलेक्ट्रिक ट्रैक्टर।"
+      },
+      {
+        title: "45 HP के समकक्ष",
+        desc: "भारी कृषि कार्यों के लिए तत्काल इलेक्ट्रिक टॉर्क और उच्च प्रदर्शन।"
+      },
+      {
+        title: "1500+ चार्ज साइकिल",
+        desc: "भारतीय कृषि परिस्थितियों के अनुकूल लंबे जीवन वाली LFP बैटरी तकनीक।"
+      },
+      {
+        title: "80% तक कम रनिंग कॉस्ट",
+        desc: "डीजल ट्रैक्टरों की तुलना में ईंधन और रखरखाव लागत में भारी बचत।"
+      }
     ],
 
     ourModelsTitle: "हमारे इलेक्ट्रिक ट्रैक्टर मॉडल",
@@ -284,26 +371,88 @@ const CONTENT: Record<string, any> = {
     faqTitle: "अक्सर पूछे जाने वाले प्रश्न",
     faqs: [
       {
-        q: "बैटरी लाइफ और वारंटी कितनी है?",
-        a: "हम मोटर पर 3 साल की इनबिल्ट + 2 साल की विस्तारित वारंटी और अपनी एलएफपी बैटरी पर 5-6 साल तक की वारंटी प्रदान करते हैं।"
+        q: "इलेक्ट्रिक ट्रैक्टर क्या है?",
+        a: "इलेक्ट्रिक ट्रैक्टर एक बैटरी-चालित कृषि और औद्योगिक वाहन है जो पारंपरिक डीजल दहन इंजन के बिना काम करता है। यह उन्नत इलेक्ट्रिक मोटर (जैसे स्थायी चुंबक सिंक्रोनस मोटर्स) और उच्च-घनत्व वाली रिचार्जेबल बैटरी पैक द्वारा संचालित होता है, जो शून्य आरपीएम पर भी तत्काल अधिकतम टॉर्क प्रदान करता है। यह डिज़ाइन शांत संचालन, न्यूनतम कंपन और शून्य प्रत्यक्ष टेलपाइप उत्सर्जन सुनिश्चित करता है। ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टरों को जुताई, ढुलाई, छिड़काव और अन्य कृषि कार्यों के लिए डिज़ाइन किया गया है, जो ईंधन और रखरखाव की लागत को काफी कम करते हैं। यह आधुनिक टिकाऊ खेती के लिए एक स्मार्ट समाधान है।"
       },
       {
-        q: "चार्ज होने में कितना समय लगता है?",
-        a: "मानक चार्जर से लगभग 4-6 घंटे लगते हैं। हमारे डीसी फास्ट चार्जर से ट्रैक्टर को 2 घंटे से कम समय में 80% तक चार्ज किया जा सकता है।"
+        q: "इलेक्ट्रिक ट्रैक्टर कैसे काम करता है?",
+        a: "डीजल ट्रैक्टरों के विपरीत जो गियरबॉक्स और यांत्रिक ट्रांसमिशन को चलाने के लिए ईंधन जलाते हैं, इलेक्ट्रिक ट्रैक्टर एक सरल इलेक्ट्रिक ड्राइवट्रेन का उपयोग करता है। यह लिथियम फेरो फॉस्फेट (LFP) बैटरी पैक से ऊर्जा प्राप्त करता है। जब ऑपरेटर एक्सीलेटर दबाता है, तो इलेक्ट्रॉनिक कंट्रोलर बैटरी से मोटर (जैसे PMSM) में करंट के प्रवाह को नियंत्रित करता है, जो तुरंत पहियों को टॉर्क प्रदान करती है। इसमें आरपीएम बढ़ाने की आवश्यकता नहीं होती है, जिससे संचालन अधिक सुचारू और ऊर्जा-कुशल हो जाता है।"
       },
       {
-        q: "एक सिंगल चार्ज पर रनटाइम क्या है?",
-        a: "मॉडल के आधार पर, X45H2 प्रति चार्ज 10 घंटे तक का रनटाइम या 10 एकड़ के खेत का काम प्रदान करता है।"
+        q: "डीजल ट्रैक्टरों की तुलना में इलेक्ट्रिक ट्रैक्टरों के क्या लाभ हैं?",
+        a: "इलेक्ट्रिक ट्रैक्टर कई बड़े लाभ प्रदान करते हैं: वे कोई प्रदूषण नहीं फैलाते हैं (शून्य उत्सर्जन), जिससे पर्यावरण सुरक्षित रहता है; वे बहुत शांत चलते हैं और कंपन नहीं करते हैं, जिससे ऑपरेटर को थकान नहीं होती है; उनके चलने का खर्च डीजल की तुलना में 80% तक कम होता है; और उनमें इंजन ऑयल, फिल्टर या जटिल गियरबॉक्स नहीं होने के कारण रखरखाव का खर्च भी 70-80% तक कम हो जाता है। इसके अलावा, इनमें लाइव जीपीएस ट्रैकिंग और स्मार्ट टेलीमैटिक्स जैसी डिजिटल सुविधाएं भी होती हैं।"
       },
       {
-        q: "क्या इलेक्ट्रिक ट्रैक्टर सरकारी सब्सिडी के लिए पात्र हैं?",
-        a: "हाँ, ये FAME-III योजनाओं और राज्य स्तरीय ईवी सब्सिडी के लिए पात्र हैं, जो निवेश लागत को काफी कम कर देते हैं।"
+        q: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर को चार्ज करने में कितना समय लगता है?",
+        a: "चार्जिंग का समय मुख्य रूप से चार्जर के प्रकार और बैटरी की क्षमता पर निर्भर करता है। साधारण 6.6 kW AC चार्जर या 15 एम्पियर के घरेलू सॉकेट का उपयोग करके बैटरी को पूरी तरह (0 से 100%) चार्ज करने में 4 से 6 घंटे का समय लगता है। हालांकि, यदि आप ऑटोनेक्स्ट के लिक्विड-कूल्ड बैटरी सिस्टम के साथ 60 kW डीसी फास्ट चार्जर का उपयोग करते हैं, तो ट्रैक्टर को 80% तक केवल 45 मिनट से 2 घंटे में चार्ज किया जा सकता है, जो व्यस्त सीज़न में बहुत उपयोगी है।"
+      },
+      {
+        q: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर की बैटरी लाइफ क्या है?",
+        a: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर उच्च गुणवत्ता वाली लिथियम फेरो फॉस्फेट (LFP) बैटरी का उपयोग करते हैं, जो भारतीय कृषि परिस्थितियों के लिए सबसे सुरक्षित और टिकाऊ मानी जाती हैं। ये बैटरी पैक 1500 से अधिक पूर्ण चार्ज-डिस्चार्ज चक्रों के लिए रेटेड हैं, जिसका अर्थ है कि सामान्य उपयोग में इनका जीवनकाल लगभग 6 से 8 वर्ष होता है। ऑटोनेक्स्ट अपने प्रमुख मॉडल जैसे X45H2 पर 6 वर्ष, 6000 घंटे या 1500 चार्जिंग चक्र (जो भी पहले हो) की बैटरी वारंटी प्रदान करता है।"
+      },
+      {
+        q: "कौन से कृषि उपकरण (इम्प्लीमेंट्स) इसके साथ काम कर सकते हैं?",
+        a: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर मानक श्रेणी-1 और श्रेणी-2 के थ्री-पॉइंट लिंकेज और पारंपरिक पावर टेक-ऑफ (PTO) शाफ्ट के साथ आते हैं। इसका मतलब है कि आप अपने मौजूदा सभी कृषि उपकरणों का उपयोग कर सकते हैं। यह रोटावेटर, कल्टीवेटर, हल, सीड ड्रिल, बूम स्प्रेयर, और थ्रेशर के साथ पूरी तरह से काम करता है। औद्योगिक कार्यों के लिए, इसे लोडर बकेट, ग्रैबर और कचरा प्रबंधन उपकरणों के साथ भी जोड़ा जा सकता है।"
+      },
+      {
+        q: "इलेक्ट्रिक ट्रैक्टर को चलाने का खर्च कितना है?",
+        a: "डीजल ट्रैक्टर का औसत खर्च ₹250 से ₹400 प्रति घंटा होता है, जबकि ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर केवल ₹12 से ₹44 प्रति घंटे के बिजली खर्च पर चलता है (कृषि बिजली दरों के अनुसार)। इसके इलेक्ट्रिक सिस्टम में कम पुर्जे होने के कारण, मोबिल ऑयल और बार-बार होने वाले सर्विस का खर्च भी 80% तक बचता है। इससे सालाना ₹1.5 लाख से ₹2.5 लाख तक की सीधी बचत होती है।"
+      },
+      {
+        q: "क्या ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर के लिए लोन/फाइनेंस की सुविधा उपलब्ध है?",
+        a: "हाँ, ऑटोनेक्स्ट देश के प्रमुख सार्वजनिक और निजी बैंकों तथा गैर-बैंकिंग वित्तीय कंपनियों (NBFCs) के साथ मिलकर आसान फाइनेंसिंग और लोन विकल्प प्रदान करता है। किसान फसल कटाई के सीजन के अनुसार लचीली ईएमआई (EMI) योजनाएं चुन सकते हैं। इसके अलावा, ट्रैक्टर FAME-III योजना और राज्य स्तरीय ईवी सब्सिडी के तहत रोड टैक्स और रजिस्ट्रेशन छूट के लिए पात्र है, जिससे कुल लोन राशि कम हो जाती है।"
+      },
+      {
+        q: "इलेक्ट्रिक ट्रैक्टर में किस प्रकार के रखरखाव की आवश्यकता होती है?",
+        a: "इलेक्ट्रिक ट्रैक्टर में इंजन नहीं होने के कारण बहुत कम रखरखाव की आवश्यकता होती है। आपको मोबाइल ऑयल, एयर फिल्टर या स्पार्क प्लग बदलने की कोई आवश्यकता नहीं है। केवल हाइड्रोलिक ऑयल स्तर, ब्रेक की स्थिति, टायर प्रेशर और कूलिंग सिस्टम की समय-समय पर जांच करनी होती है। इसका सर्विस इंटरवल 1000 घंटे का है, और टेलीमैटिक्स के जरिए किसी भी खराबी का पता पहले ही लग जाता है।"
+      },
+      {
+        q: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर ही क्यों चुनें?",
+        a: "ऑटोनेक्स्ट भारत का पहला स्वदेशी तकनीक से बना इलेक्ट्रिक ट्रैक्टर है जो भारतीय खेतों के लिए पूरी तरह अनुकूल है। इसमें उच्च-दक्षता वाली PMSM मोटर, सुरक्षित LFP लिक्विड-कूल्ड बैटरी और 6 साल तक की वारंटी मिलती है। इसके स्मार्ट टेलीमैटिक्स सॉफ्टवेयर के जरिए आप घर बैठे मोबाइल ऐप पर लाइव जीपीएस लोकेशन, बैटरी चार्ज और ट्रैक्टर की सेहत देख सकते हैं। यह iCAT प्रमाणित है और कंपनी का सर्विस नेटवर्क पूरे भारत में बढ़ रहा है।"
       }
     ],
 
     ctaTitle: "शक्ति का साक्षात अनुभव करें",
     ctaDesc: "अपने खेत पर लाइव टेस्ट ड्राइव बुक करें और देखें कि आप ऑटोनेक्स्ट से कितनी बचत कर सकते हैं।",
-    ctaButton: "अभी टेस्ट ड्राइव बुक करें"
+    ctaButton: "अभी टेस्ट ड्राइव बुक करें",
+
+    // Savings Calculator & Pricing Section (CHANGE 3 & 4)
+    calculatorTitle: "इलेक्ट्रिक ट्रैक्टर रनिंग कॉस्ट कैलकुलेटर",
+    calculatorSubtitle: "पारंपरिक डीजल ट्रैक्टर से ऑटोनेक्स्ट इलेक्ट्रिक ट्रैक्टर पर स्विच करके होने वाली अपनी बचत की गणना करें।",
+    modelLabel: "ट्रैक्टर मॉडल / एचपी श्रेणी चुनें",
+    dieselCostLabel: "डीजल की कीमत (₹/लीटर)",
+    electricityCostLabel: "बिजली की दर (₹/यूनिट)",
+    usageHoursLabel: "दैनिक उपयोग (घंटे/दिन)",
+    usageDaysLabel: "वार्षिक कार्य दिवस (दिन/वर्ष)",
+    dieselTractorCost: "डीजल ट्रैक्टर लागत",
+    autoNxtElectricCost: "ऑटोनेक्स्ट इलेक्ट्रिक लागत",
+    annualSavings: "अनुमानित वार्षिक बचत",
+    perYear: "/वर्ष",
+    savingsDisclaimer: "*यह गणना अनुमानित ईंधन खपत, चार्जिंग दक्षता और सामान्य रखरखाव दरों पर आधारित है। वास्तविक परिणाम काम के बोझ, मिट्टी की स्थिति और उपकरणों के आधार पर भिन्न हो सकते हैं।",
+    assumptionsTitle: "गणना के लिए मानी गई दरें",
+    dieselConsumptionRate: "डीजल खपत दर",
+    electricConsumptionRate: "बिजली खपत दर",
+    dieselMaintRate: "डीजल रखरखाव दर",
+    electricMaintRate: "इलेक्ट्रिक रखरखाव दर",
+    hr: "घंटा",
+    ltr: "लीटर",
+    unit: "यूनिट",
+    bookDemoBtn: "निःशुल्क परामर्श बुक करें",
+
+    priceTitle: "भारत में इलेक्ट्रिक ट्रैक्टर की कीमत",
+    priceDescP1: "एक इलेक्ट्रिक ट्रैक्टर की कीमत अश्वशक्ति (horsepower), बैटरी क्षमता, परिचालन घंटे, चार्जिंग कॉन्फ़िगरेशन और आपकी खेती या औद्योगिक गतिविधियों के लिए आवश्यक उपकरणों जैसे कई कारकों पर निर्भर करती है।",
+    priceDescP2: "ऑटोनेक्स्ट वाणिज्यिक कृषि, बायोमास हैंडलिंग, हवाई अड्डों, रसद और औद्योगिक अनुप्रयोगों के लिए कई इलेक्ट्रिक ट्रैक्टर प्लेटफॉर्म प्रदान करता है। चूंकि प्रत्येक उपयोग के लिए परिचालन आवश्यकताएं अलग होती हैं, इसलिए कीमत आपके उपयोग के मामले के आधार पर प्रदान की जाती है।",
+    priceDescP3: "मॉडल की सिफारिशों, अनुमानित परिचालन लागत, वित्तपोषण (financing) विकल्पों और नवीनतम कीमतों को प्राप्त करने के लिए एक निःशुल्क परामर्श बुक करें।",
+    priceDependsTitle: "कीमत इन कारकों पर निर्भर करती है:",
+    priceDependsItems: [
+      "मॉडल और एचपी श्रेणी",
+      "बैटरी क्षमता",
+      "अश्वशक्ति और टॉर्क आवश्यकताएं",
+      "अनुप्रयोग (कृषि / औद्योगिक)",
+      "आवश्यक उपकरण और अटैचमेंट्स"
+    ],
+    requestPriceBtn: "कीमत का अनुरोध करें",
+    bookFreeDemoBtn: "निःशुल्क डेमो बुक करें"
   },
   mr: {
     metaTitle: "आधुनिक शेतीसाठी इलेक्ट्रिक ट्रॅक्टर — AutoNxt",
@@ -340,10 +489,22 @@ const CONTENT: Record<string, any> = {
 
     whyChooseTitle: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रॅक्टर का निवडावा?",
     whyChoosePoints: [
-      "iCAT प्रमाणित: जगातील पहिला प्रमाणित हाय-व्होल्टेज व्यावसायिक इलेक्ट्रिक ट्रॅक्टर.",
-      "स्मार्ट टेलिमॅटिक्स: तुमच्या फोनवर रिअल-टाइम जीपीएस, जिओ-फेन्सिंग आणि बॅटरी आरोग्य ट्रॅकिंग.",
-      "सक्रिय लिक्विड कूलिंग: थर्मल व्यवस्थापन जे उन्हाळ्यात बॅटरीचे तापमान नियंत्रित ठेवते.",
-      "NXT-Drive PMSM मोटर्स: उच्च कार्यक्षमतेच्या मोटर ज्या ९६% कमाल कार्यक्षमता देतात."
+      {
+        title: "iCAT प्रमाणित",
+        desc: "व्यावसायिक वापरासाठी प्रमाणित जगातील पहिला हाय-व्होल्टेज इलेक्ट्रिक ट्रॅक्टर."
+      },
+      {
+        title: "45 HP च्या समतुल्य",
+        desc: "मोठ्या शेतीकामांसाठी झटपट इलेक्ट्रिक टॉर्क आणि उत्कृष्ट कार्यक्षमता."
+      },
+      {
+        title: "1500+ चार्ज सायकल्स",
+        desc: "भारतीय शेतीच्या वातावरणासाठी डिझाइन केलेली दीर्घायुष्य देणारी LFP बॅटरी."
+      },
+      {
+        title: "रनिंग कॉस्टमध्ये 80% पर्यंत बचत",
+        desc: "डिझेल ट्रॅक्टरच्या तुलनेत इंधन आणि देखभालीचा खर्च अत्यंत कमी."
+      }
     ],
 
     ourModelsTitle: "आमचे इलेक्ट्रिक ट्रॅक्टर मॉडेल",
@@ -430,26 +591,88 @@ const CONTENT: Record<string, any> = {
     faqTitle: "सतत विचारले जाणारे प्रश्न",
     faqs: [
       {
-        q: "बॅटरीचे आयुष्य आणि वॉरंटी किती आहे?",
-        a: "आम्ही मोटरवर ३ वर्षे अंगभूत + २ वर्षे विस्तारित वॉरंटी आणि बॅटरीवर ५-६ वर्षांपर्यंतची वॉरंटी देतो."
+        q: "इलेक्ट्रिक ट्रॅक्टर म्हणजे काय?",
+        a: "इलेक्ट्रिक ट्रॅक्टर हे बॅटरीवर चालणारे कृषी आणि औद्योगिक वाहन आहे जे पारंपारिक डिझेल इंजिनशिवाय चालते. हे प्रगत इलेक्ट्रिक मोटर्स (जसे की परमनंट मॅग्नेट सिंक्रोनस मोटर्स) आणि रिचार्ज करण्यायोग्य बॅटरी पॅकद्वारे समर्थित आहे, जे शून्य आरपीएमवर त्वरित कमाल टॉर्क देते. हे शांत काम, कमी कंपन आणि शून्य थेट उत्सर्जन सुनिश्चित करते. ऑटोनेक्स्ट इलेक्ट्रिक ट्रॅक्टर शेती आणि जड कामांसाठी डिझाइन केलेले आहेत, जे इंधनावरील अवलंबित्व आणि देखभाल खर्च कमी करतात. हे आधुनिक शाश्वत शेतीसाठी एक स्मार्ट पाऊल आहे."
       },
       {
-        q: "चार्ज होण्यासाठी किती वेळ लागतो?",
-        a: "नॉर्मल चार्जरने सुमारे ४-६ तास लागतात. फास्ट चार्जरने ट्रॅक्टर २ तासांपेक्षा कमी वेळात ८०% चार्ज होतो."
+        q: "इलेक्ट्रिक ट्रॅक्टर कसे काम करतो?",
+        a: "डिझेल ट्रॅक्टरच्या तुलनेत, इलेक्ट्रिक ट्रॅक्टरमध्ये अत्यंत सोपी रचना असते. यामध्ये लिथियम फेरो फॉस्फेट (LFP) बॅटरी पॅकमध्ये साठवलेली ऊर्जा थेट इलेक्ट्रिक मोटरला (PMSM) दिली जाते. जेव्हा ऑपरेटर प्रवेगक (accelerator) दाबतो, तेव्हा कंट्रोलर ऊर्जेचा प्रवाह नियंत्रित करतो आणि मोटर चाकांना त्वरित फिरवण्यास सुरवात करते. त्यामुळे गिअर बदलण्याची आणि इंजिन आरपीएम वाढवण्याची गरज नसते. हे डिझाइन अत्यंत ऊर्जा-कार्यक्षम ठरते."
       },
       {
-        q: "एकदा चार्ज केल्यावर किती वेळ चालतो?",
-        a: "मॉडेलनुसार, X45H2 एका चार्जवर १० तासांपर्यंत किंवा १० एकर क्षेत्रावर नांगरणीचे काम करू शकतो."
+        q: "डिझेल ट्रॅक्टरपेक्षा इलेक्ट्रिक ट्रॅक्टरचे काय फायदे आहेत?",
+        a: "इलेक्ट्रिक ट्रॅक्टरचे अनेक फायदे आहेत: ते कोणत्याही प्रकारचे प्रदूषण करत नाहीत (शून्य उत्सर्जन); त्यांचा आवाज आणि कंपन अत्यंत कमी असते ज्यामुळे ड्रायव्हरला थकवा जाणवत नाही; डिझेलच्या तुलनेत विजेचा खर्च कमी असल्याने चालवण्याचा खर्च सुमारे ८०% कमी होतो; आणि इंजिन ऑईल, फिल्टर किंवा क्लिष्ट गिअरबॉक्स नसल्यामुळे देखभालीचा खर्च ७०-८०% वाचतो. यात जीपीएस ट्रॅकिंग सारखे स्मार्ट फीचर्स देखील मिळतात."
       },
       {
-        q: "इलेक्ट्रिक ट्रॅक्टर सरकारी सबसिडीसाठी पात्र आहेत का?",
-        a: "होय, आमचे ट्रॅक्टर FAME-III योजना आणि राज्यस्तरीय ईव्ही सबसिडीसाठी पात्र आहेत."
+        q: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रॅक्टर charge करण्यासाठी किती वेळ लागतो?",
+        a: "चार्जिंगचा वेळ हा चार्जर आणि बॅटरीच्या क्षमतेवर अवलंबून असतो. ६.६ kW AC चार्जर किंवा घरगुती १५A सॉकेट वापरल्यास साधारणपणे ४ ते ६ तास लागतात. ऑटोनेक्स्टच्या लिक्विड-कूल्ड बॅटरी मॉडेलमध्ये ६० kW डीसी फास्ट चार्जरचा पर्याय मिळतो, ज्यामुळे ट्रॅक्टर केवळ ४५ मिनिटे ते २ तासांच्या आत ८०% पर्यंत चार्ज केला जाऊ शकतो."
+      },
+      {
+        q: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रॅक्टरच्या बॅटरीचे आयुष्य किती आहे?",
+        a: "ऑटोनेक्स्ट ट्रॅक्टरमध्ये अत्यंत सुरक्षित मानली जाणारी लिथियम फेरो फॉस्फेट (LFP) बॅटरी वापरली जाते. या बॅटऱ्या १५००+ charge-discharge सायकलसाठी डिझाइन केलेल्या आहेत, ज्या सामान्यतः ६ ते ८ वर्षांपर्यंत उत्तम सेवा देतात. ऑटोनेक्स्ट X45H2 मॉडेलवर ६ वर्षे, ६००० तास किंवा १५०० चार्जिंग सायकल (जे आधी घडेल ते) ची भक्कम वॉरंटी देते."
+      },
+      {
+        q: "कोणते शेतीचे अवजार या ट्रॅक्टरला जोडता येतात?",
+        a: "ऑटोनेक्स्ट ट्रॅक्टर हे पानांनुसार श्रेणी-१ आणि श्रेणी-२ च्या थ्री-पॉइंट लिंकेज आणि पारंपारिक पीटीओ (PTO) शाफ्टसह येतात. त्यामुळे तुम्ही तुमचे सध्याचे रोटाव्हेटर, कल्टीव्हेटर, नांगर, पेरणी यंत्र, आणि स्प्रेयर सहज वापरू शकता. व्यावसायिक वापरासाठी, लोडर बकेट आणि ग्रॅबर सारखे हायड्रॉलिक अटॅचमेंट देखील सुसंगत आहेत."
+      },
+      {
+        q: "इलेक्ट्रिक ट्रॅक्टर चालवण्याचा खर्च किती येतो?",
+        a: "डिझेल ट्रॅक्टरचा प्रति तास खर्च ₹२५० ते ₹४०० दरम्यान येतो. याउलट, विजेच्या दरांनुसार ऑटोनेक्स्ट इलेक्ट्रिक ट्रॅक्टरचा प्रति तास वीज खर्च केवळ ₹१२ ते ₹४४ पर्यंत येतो. तसेच इंजिन ऑईल आणि इतर मेंटेनन्सचा खर्च कमी असल्याने, वर्षाला साधारणपणे ₹१.५ लाख ते ₹२.५ लाखांपर्यंत बचत होते."
+      },
+      {
+        q: "लोन किंवा फायनान्सची सुविधा उपलब्ध आहे का?",
+        a: "होय, ऑटोनेक्स्टने अग्रगण्य बँका आणि कृषी कर्ज पुरवणाऱ्या NBFCs सोबत भागीदारी केली आहे. ग्राहक ३ ते ५ वर्षांच्या मुदतीवर कमी व्याजदरात कर्ज मिळवू शकतात. तसेच, FAME-III आणि राज्यस्तरीय सबसिडीमुळे नोंदणी शुल्क आणि रोड टॅक्समध्ये सूट मिळते, ज्यामुळे सुरुवातीचा खर्च अजून कमी होतो."
+      },
+      {
+        q: "यासाठी कोणत्या प्रकारच्या देखभालीची (maintenance) गरज असते?",
+        a: "डिझेल इंजिन नसल्यामुळे मेंटेनन्स अतिशय मर्यादित असतो. ऑइल बदलणे, पिस्टन किंवा इंजिन बेल्ट दुरुस्तीची गरज नसते. केवळ टायर्स, ब्रेक ऑइल, हायड्रॉलिक ऑइल आणि बॅटरीच्या कूलिंग सिस्टमची अधूनमधून तपासणी करावी लागते. १००० तासांच्या मोठ्या सर्व्हिस इंटरव्हलमुळे देखभालीचा त्रास संपतो."
+      },
+      {
+        q: "ऑटोनेक्स्ट इलेक्ट्रिक ट्रॅक्टरच का निवडावा?",
+        a: "ऑटोनेक्स्ट हा भारतातील पहिला स्वदेशी तंत्रज्ञानाने बनवलेला इलेक्ट्रिक ट्रॅक्टर आहे. यात उत्तम कार्यक्षमतेची PMSM मोटर, लिक्विड-कूल्ड LFP बॅटरी आणि ६ वर्षांपर्यंतची दीर्घ वॉरंटी मिळते. जीपीएस ट्रॅकिंग, जिओ-फेन्सिंग आणि मोबाईल ॲप कनेक्टिव्हिटीमुळे हा एक स्मार्ट ट्रॅक्टर ठरतो. तसेच याला अधिकृत iCAT प्रमाणपत्र देखील मिळाले आहे."
       }
     ],
 
     ctaTitle: "शांत शक्तीचा अनुभव घ्या",
     ctaDesc: "तुमच्या शेतात लाईव्ह टेस्ट ड्राइव्ह बुक करा आणि बघा तुम्ही ऑटोनेक्स्टच्या साहाय्याने किती बचत करू शकता.",
-    ctaButton: "आता टेस्ट ड्राइव्ह बुक करा"
+    ctaButton: "आता टेस्ट ड्राइव्ह बुक करा",
+
+    // Savings Calculator & Pricing Section (CHANGE 3 & 4)
+    calculatorTitle: "इलेक्ट्रिक ट्रॅक्टर रनिंग कॉस्ट कॅल्क्युलेटर",
+    calculatorSubtitle: "पारंपारिक डिझेल ट्रॅक्टरऐवजी ऑटोनेक्स्ट इलेक्ट्रिक ट्रॅक्टर वापरून होणाऱ्या तुमच्या बचतीची गणना करा.",
+    modelLabel: "ट्रॅक्टर मॉडेल / एचपी श्रेणी निवडा",
+    dieselCostLabel: "डिझेलचा दर (₹/लिटर)",
+    electricityCostLabel: "विजेचा दर (₹/युनिट)",
+    usageHoursLabel: "दैनिक वापर (तास/दिवस)",
+    usageDaysLabel: "वर्षातील कामाचे दिवस (दिवस/वर्ष)",
+    dieselTractorCost: "डिझेल ट्रॅक्टरचा खर्च",
+    autoNxtElectricCost: "ऑटोनेक्स्ट इलेक्ट्रिकचा खर्च",
+    annualSavings: "अंदाजे वार्षिक बचत",
+    perYear: "/वर्ष",
+    savingsDisclaimer: "*गणना अंदाजे इंधन वापर, चार्जिंग कार्यक्षमता आणि सामान्य देखभाल दरांवर आधारित आहे. जमिनीचा प्रकार आणि वापरलेल्या उपकरणांनुसार प्रत्यक्ष बचतीमध्ये बदल होऊ शकतो.",
+    assumptionsTitle: "गणनेची गृहीतके",
+    dieselConsumptionRate: "डिझेल वापर दर",
+    electricConsumptionRate: "वीज वापर दर",
+    dieselMaintRate: "डिझेल देखभाल दर",
+    electricMaintRate: "इलेक्ट्रिक देखभाल दर",
+    hr: "तास",
+    ltr: "लिटर",
+    unit: "युनिट",
+    bookDemoBtn: "मोफत सल्लामसलत बुक करा",
+
+    priceTitle: "भारतात इलेक्ट्रिक ट्रॅक्टरची किंमत",
+    priceDescP1: "इलेक्ट्रिक ट्रॅक्टरची किंमत हॉर्सपॉवर, बॅटरी क्षमता, कामाचे तास, चार्जिंग कॉन्फिगरेशन आणि तुमच्या शेती किंवा औद्योगिक कामांसाठी लागणाऱ्या उपकरणांसह अनेक घटकांवर अवलंबून असते.",
+    priceDescP2: "ऑटोनेक्स्ट व्यावसायिक शेती, बायोमास प्रक्रिया, विमानतळ, लॉजिस्टिक्स आणि औद्योगिक वापरासाठी विविध इलेक्ट्रिक ट्रॅक्टर प्लॅटफॉर्म ऑफर करते. प्रत्येक कामाची गरज वेगळी असल्याने, किंमत तुमच्या गरजेनुसार ठरवली जाते.",
+    priceDescP3: "मॉडेल शिफारसी, अंदाजे ऑपरेटिंग खर्च, फायनान्सचे पर्याय आणि नवीनतम किंमती मिळवण्यासाठी मोफत सल्लामसलत बुक करा.",
+    priceDependsTitle: "किंमत या घटकांवर अवलंबून असते:",
+    priceDependsItems: [
+      "मॉडेल आणि एचपी श्रेणी",
+      "बॅटरी क्षमता",
+      "हॉर्सपॉवर आणि टॉर्क आवश्यकता",
+      "उपयोग (शेती / औद्योगिक)",
+      "आवश्यक उपकरणे (अटॅचमेंट्स)"
+    ],
+    requestPriceBtn: "किंमत विचारा",
+    bookFreeDemoBtn: "मोफत डेमो बुक करा"
   },
   te: {
     metaTitle: "ఆధునిక వ్యవసాయం కోసం ఎలక్ట్రిక్ ట్రాక్టర్లు — AutoNxt",
@@ -486,10 +709,22 @@ const CONTENT: Record<string, any> = {
 
     whyChooseTitle: "ఆటోనెక్స్ట్ ఎలక్ట్రిక్ ట్రాక్టర్లను ఎందుకు ఎంచుకోవాలి?",
     whyChoosePoints: [
-      "iCAT సర్టిఫైడ్: ప్రపంచంలోనే మొట్టమొదటి ధృవీకరించబడిన హై-వోల్టేజ్ వాణిజ్య ఎలక్ట్రిక్ ట్రాక్టర్.",
-      "స్మార్ట్ టెలిమాటిక్స్: మీ ఫోన్లో నిజ-సమయ GPS, జియో-ఫెన్సింగ్ మరియు బ్యాటరీ ఆరోగ్య ట్రాకింగ్.",
-      "యాక్టివ్ లిక్విడ్ కూలింగ్: భారతీయ వేసవిలో కూడా బ్యాటరీ జీవితకాలాన్ని రక్షించే థర్మల్ మేనేజ్‌మెంట్.",
-      "NXT-Drive PMSM మోటార్లు: 96% గరిష్ట సామర్థ్యాన్ని చేరుకునే అత్యంత సమర్థమైన మోటార్లు."
+      {
+        title: "iCAT సర్టిఫైడ్",
+        desc: "కమర్షియల్ వినియోగం కోసం ధృవీకరించబడిన ప్రపంచంలోనే మొట్టమొదటి హై-వోల్టేజ్ ఎలక్ట్రిక్ ట్రాక్టర్."
+      },
+      {
+        title: "45 HP తో సమానం",
+        desc: "భారీ వ్యవసాయ పనుల కోసం తక్షణ ఎలక్ట్రిక్ టార్క్ మరియు అధిక పనితీరు."
+      },
+      {
+        title: "1500+ ఛార్జ్ సైకిల్స్",
+        desc: "భారతీయ వాతావరణ పరిస్థితులకు అనుగుణంగా రూపొందించబడిన లాంగ్-లైఫ్ LFP బ్యాటరీ."
+      },
+      {
+        title: "రన్నింగ్ ఖర్చుల్లో 80% వరకు పొదుపు",
+        desc: "డీజిల్ ట్రాక్టర్లతో పోలిస్తే చాలా తక్కువ ఇంధనం మరియు మెయింటెనెన్స్ ఖర్చులు."
+      }
     ],
 
     ourModelsTitle: "మా ఎలక్ట్రిక్ ట్రాక్టర్ మోడల్స్",
@@ -576,26 +811,88 @@ const CONTENT: Record<string, any> = {
     faqTitle: "తరచుగా అడిగే ప్రశ్నలు",
     faqs: [
       {
-        q: "బ్యాటరీ జీవితకాలం మరియు వారంటీ ఎంత?",
-        a: "మేము మోటార్‌పై 3 సంవత్సరాల ఇన్‌బిల్ట్ + 2 సంవత్సరాల పొడిగించిన వారంటీని మరియు బ్యాటరీపై 5-6 సంవత్సరాల వారంటీని అందిస్తాము."
+        q: "ఎలక్ట్రిక్ ట్రాక్టర్ అంటే ఏమిటి?",
+        a: "ఎలక్ట్రిక్ ట్రాక్టర్ అనేది సాంప్రదాయ డీజిల్ ఇంజన్‌తో కాకుండా బ్యాటరీతో నడిచే వ్యవసాయ మరియు పారిశ్రామిక వాహనం. ఇది అధునాతన ఎలక్ట్రిక్ మోటార్స్ (PMSM వంటివి) మరియు రీఛార్జ్ చేయగల బ్యాటరీ ప్యాక్‌ల ద్వారా శక్తిని పొందుతుంది. ఇది తక్షణ టార్క్, నిశ్శబ్ద ఆపరేషన్ మరియు శూన్య ఉద్గారాలను అందిస్తుంది. ఆటోనెక్స్ట్ ఎలక్ట్రిక్ ట్రాక్టర్లు వ్యవసాయ అవసరాలకు మరియు పారిశ్రామిక రవాణాకు అనుకూలంగా రూపొందించబడ్డాయి. ఇది పర్యావరణ రక్షణతో పాటు ఖర్చులను కూడా తగ్గిస్తుంది."
       },
       {
-        q: "ఛార్జింగ్ కావడానికి ఎంత సమయం పడుతుంది?",
-        a: "సాధారణ ఛార్జర్‌తో సుమారు 4-6 గంటలు పడుతుంది. మా ఫాస్ట్ ఛార్జర్‌తో ట్రాక్టర్‌ను 2 గంటల కంటే तక్కువ సమయంలో 80% ఛార్జ్ చేయవచ్చు."
+        q: "ఎలక్ట్రిక్ ట్రాక్టర్ ఎలా పనిచేస్తుంది?",
+        a: "డీజిల్ ట్రాక్టర్లలా కాకుండా, ఎలక్ట్రిక్ ట్రాక్టర్ చాలా సరళమైన డ్రైవ్‌ట్రెయిన్‌ను కలిగి ఉంటుంది. ఇది లిథియం ఫెర్రో ఫాస్ఫేట్ (LFP) బ్యాటరీ ప్యాక్‌లో నిల్వ చేయబడిన విద్యుత్తుతో పనిచేస్తుంది. ఆపరేటర్ యాక్సిలరేటర్‌ను నొక్కినప్పుడు, కంట్రోలర్ బ్యాటరీ నుండి ఎలక్ట్రిక్ మోటార్‌కు విద్యుత్తును పంపిస్తుంది. మోటార్ చక్రాలకు తక్షణమే టార్క్ అందించి ట్రాక్టర్‌ను ముందుకు నడిపిస్తుంది."
       },
       {
-        q: "ఒక్క ఛార్జ్‌తో ఎంత సమయం నడుస్తుంది?",
-        a: "మోడల్‌ను బట్టి, X45H2 ఒక ఛార్జ్‌తో 10 గంటల వరకు లేదా 10 ఎకరాల పొలం పనిని పూర్తి చేయగలదు."
+        q: "డీజిల్ ట్రాక్టర్ల కంటే ఎలక్ట్రిక్ ట్రాక్టర్ల వల్ల కలిగే ప్రయోజనాలు ఏమిటి?",
+        a: "ఎలక్ట్రిక్ ట్రాక్టర్లు అనేక ప్రయోజనాలను అందిస్తాయి: ఇవి శూన్య ఉద్గారాలతో పర్యావరణ అనుకూలమైనవి; నిశ్శబ్దంగా మరియు కంపనాలు లేకుండా నడుస్తాయి కాబట్టి డ్రైవర్‌కు అలసట ఉండదు; రన్నింగ్ ఖర్చు డీజిల్ కంటే 80% తక్కువగా ఉంటుంది; మరియు మోటార్ ఆయిల్, ఫిల్టర్లు లేకపోవడం వల్ల మెయింటెనెన్స్ ఖర్చు చాలా తక్కువ. ఇందులో లైవ్ జీపీఎస్ మరియు టెలిమాటిక్స్ ఫీచర్లు కూడా ఉన్నాయి."
       },
       {
-        q: "ఎలక్ట్రిక్ ట్రాక్టర్లకు ప్రభుత్వ సబ్సిడీలు లభిస్తాయా?",
-        a: "అవును, మా ట్రాక్టర్లకు FAME-III పథకాలు మరియు రాష్ట్ర స్థాయి ఈవీ సబ్సిడీలు లభిస్తాయి, ఇవి పెట్టుబడి ఖర్చును తగ్గిస్తాయి."
+        q: "ఆటోనెక్స్ట్ ఎలక్ట్రిక్ ట్రాక్టర్ ఛార్జ్ కావడానికి ఎంత సమయం పడుతుంది?",
+        a: "ఛార్జింగ్ సమయం అనేది ఉపయోగించే ఛార్జర్ మరియు బ్యాటరీ సామర్థ్యంపై ఆధారపడి ఉంటుంది. సాధారణ 6.6 kW AC ఛార్జర్ లేదా 15A సాకెట్ ద్వారా పూర్తిగా ఛార్జ్ చేయడానికి 4 నుండి 6 గంటల సమయం పడుతుంది. అదే 60 kW DC ఫాస్ట్ ఛార్జర్ ద్వారా కేవలం 45 నిమిషాల నుండి 2 గంటల్లోనే బ్యాటరీని 80% వరకు ఛార్జ్ చేయవచ్చు."
+      },
+      {
+        q: "ఆటోనెక్స్ట్ ఎలక్ట్రిక్ ట్రాక్టర్ బ్యాటరీ జీవితకాలం ఎంత?",
+        a: "ఆటోనెక్స్ట్ ట్రాక్టర్లు అత్యంత సురక్షితమైన లిథియం ఫెర్రో ఫాస్ఫేట్ (LFP) బ్యాటరీ టెక్నాలజీని ఉపయోగిస్తాయి. ఇవి 1500+ పూర్తి ఛార్జింగ్ సైకిళ్లకు రేట్ చేయబడ్డాయి, అంటే ఇవి సుమారుగా 6 నుండి 8 సంవత్సరాల వరకు మన్నుతాయి. మోడల్ X45H2 పై ఆటోనెక్స్ట్ 6 సంవత్సరాలు లేదా 6000 గంటల బ్యాటరీ వారంటీని అందిస్తుంది."
+      },
+      {
+        q: "ఏ వ్యవసాయ పరికరాలు దీనికి సరిపోతాయి?",
+        a: "ఆటోనెక్స్ట్ ఎలక్ట్రిక్ ట్రాక్టర్లు ప్రామాణిక త్రీ-పాయింట్ లింకేజ్ మరియు సాంప్రదాయ PTO షాఫ్ట్‌తో వస్తాయి. దీనివల్ల రొటవేటర్, నాగలి, సీడ్ డ్రిల్, బూమ్ స్ప్రేయర్ మరియు బేలర్ వంటి సాధారణ వ్యవసాయ పరికరాలను సులభంగా వాడుకోవచ్చు. ఇండస్ట్రియల్ అటాచ్‌మెంట్‌లయిన లోడర్ బకెట్, గ్రాబర్ వంటి వాటికి కూడా ఇది అనుకూలంగా ఉంటుంది."
+      },
+      {
+        q: "ఎలక్ట్రిక్ ట్రాక్టర్ రన్నింగ్ ఖర్చు ఎంత ఉంటుంది?",
+        a: "సాధారణ డీజిల్ ట్రాక్టర్ల రన్నింగ్ ఖర్చు గంటకు ₹250 నుండి ₹400 వరకు ఉంటే, ఆటోనెక్స్ట్ ఎలక్ట్రిక్ ట్రాక్టర్ కేవలం ₹12 నుండి ₹44 విద్యుత్ ఖర్చుతో నడుస్తుంది. అలాగే ఇందులో మోటార్ ఆయిల్, ఫిల్టర్లు మార్చాల్సిన అవసరం లేదు కాబట్టి మెయింటెనెన్స్ ఖర్చు కూడా కలిసివచ్చి, సంవత్సరానికి ₹1.5 లక్షల నుండి ₹2.5 లక్షల వరకు ఆదా అవుతుంది."
+      },
+      {
+        q: "ఫైనాన్స్ సదుపాయం ఉందా?",
+        a: "అవును, ప్రముఖ ప్రభుత్వ మరియు ప్రైవేట్ బ్యాంకులు, అలాగే NBFCల భాగస్వామ్యంతో ఆటోనెక్స్ట్ ఫైనాన్స్ సదుపాయాలను అందిస్తోంది. పంట కోత సమయాలకు అనుగుణంగా సులభమైన ఈఎంఐ (EMI) ఆప్షన్లను ఎంచుకోవచ్చు. FAME-III మరియు రాష్ట్ర ప్రభుత్వ ఈవీ సబ్సిడీల ద్వారా పన్ను మినహాయింపులు కూడా లభిస్తాయి."
+      },
+      {
+        q: "దీనికి ఎలాంటి మెయింటెనెన్స్ అవసరం?",
+        a: "ఎలక్ట్రిక్ ట్రాక్టర్‌కు చాలా తక్కువ మెయింటెనెన్స్ అవసరం. ఇంజన్ ఆయిల్ మార్చడం, స్పార్క్ ప్లగ్స్ వంటివి ఇందులో ఉండవు. కేవలం బ్రేకులు, టైర్ల ప్రెజర్ మరియు హైడ్రాలిక్ ద్రవాల స్థాయిలను క్రమం తప్పకుండా తనిఖీ చేసుకుంటే సరిపోతుంది. దీని సర్వీస్ ఇంటర్వెల్ 1000 గంటలు."
+      },
+      {
+        q: "ఆటోనెక్స్ట్‌నే ఎందుకు ఎంచుకోవాలి?",
+        a: "ఆటోనెక్స్ట్ భారతదేశంలోనే పూర్తిగా అభివృద్ధి చేయబడిన సరికొత్త సాంకేతికతతో కూడిన ఎలక్ట్రిక్ ట్రాక్టర్. అధిక సామర్థ్యంగల PMSM మోటార్, లిక్విడ్ కూల్డ్ LFP బ్యాటరీ, మరియు 6 సంవత్సరాల బ్యాటరీ వారంటీ దీని ప్రత్యేకత. లైవ్ జీపీఎస్, మొబైల్ యాప్ కనెక్టివిటీ, మరియు iCAT సర్టిఫికేషన్ దీనిని నమ్మకమైన మరియు స్మార్ట్ ట్రాక్టర్‌గా మార్చాయి."
       }
     ],
 
     ctaTitle: "నిజమైన శక్తిని అనుభవించండి",
     ctaDesc: "మీ పొలంలో ఉచిత టెస్ట్ డ్రైవ్ బుక్ చేసుకోండి మరియు ఆటోనెక్స్ట్‌తో ఎంత ఆదా అవుతుందో మీరే చూడండి.",
-    ctaButton: "ఇప్పుడే టెస్ట్ డ్రైవ్ బుక్ చేయండి"
+    ctaButton: "ఇప్పుడే టెస్ట్ డ్రైవ్ బుక్ చేయండి",
+
+    // Savings Calculator & Pricing Section (CHANGE 3 & 4)
+    calculatorTitle: "ఎలక్ట్రిక్ ట్రాక్టర్ రన్నింగ్ కాస్ట్ కాలిక్యులేటర్",
+    calculatorSubtitle: "సాధారణ డీజిల్ ట్రాక్టర్ నుండి ఆటోనెక్స్ట్ ఎలక్ట్రిక్ ట్రాక్టర్‌కు మారడం ద్వారా మీరు ఎంత పొదుపు చేయవచ్చో లెక్కించండి.",
+    modelLabel: "ట్రాక్టర్ మోడల్ / హెచ్‌పి క్లాస్ ఎంచుకోండి",
+    dieselCostLabel: "ప్రస్తుత డీజిల్ ధర (₹/లీటర్)",
+    electricityCostLabel: "విద్యుత్ ఖర్చు (₹/kWh యూనిట్)",
+    usageHoursLabel: "రోజువారీ వినియోగ గంటలు",
+    usageDaysLabel: "సంవత్సరానికి పని దినాలు",
+    dieselTractorCost: "డీజిల్ ట్రాక్టర్ ఖర్చు",
+    autoNxtElectricCost: "ఆటోనెక్స్ట్ ఎలక్ట్రిక్ ఖర్చు",
+    annualSavings: "అంచనా వేసిన వార్షిక పొదుపు",
+    perYear: "/సంవత్సరానికి",
+    savingsDisclaimer: "*గణనలు అంచనా వేసిన ఇంధన వినియోగం, ఛార్జింగ్ సామర్థ్యాలు మరియు ప్రామాణిక మెయింటెనెన్స్ రేట్లపై ఆధారపడి ఉంటాయి. పని భారం మరియు మట్టి స్వభావాన్ని బట్టి ఫలితాలు మారవచ్చు.",
+    assumptionsTitle: "గణన అంచనాలు",
+    dieselConsumptionRate: "డీజిల్ వినియోగ రేటు",
+    electricConsumptionRate: "విద్యుత్ వినియోగ రేటు",
+    dieselMaintRate: "డీజిల్ మెయింటెనెన్స్ రేటు",
+    electricMaintRate: "ఎలక్ట్రిక్ మెయింటెనెన్స్ రేటు",
+    hr: "గంట",
+    ltr: "లీటరు",
+    unit: "యూనిట్",
+    bookDemoBtn: "ఉచిత సంప్రదింపు బుక్ చేయండి",
+
+    priceTitle: "భారతదేశంలో ఎలక్ట్రిక్ ట్రాక్టర్ ధర",
+    priceDescP1: "ఎలక్ట్రిక్ ట్రాక్టర్ ధర హార్స్‌పవర్, బ్యాటరీ సామర్థ్యం, ఆపరేటింగ్ గంటలు, ఛార్జింగ్ కాన్ఫిగరేషన్ మరియు మీ వ్యవసాయ లేదా పారిశ్రామిక పనులకు అవసరమైన పరికరాలపై ఆధారపడి ఉంటుంది.",
+    priceDescP2: "ఆటోనెక్స్ట్ వాణిజ్య వ్యవసాయం, బయోమాస్ హ్యాండ్లింగ్, విమానాశ్రయాలు, లాజిస్టిక్స్ మరియు పారిశ్రామిక అనువర్తనాల కోసం బహుళ ఎలక్ట్రిక్ ట్రాక్టర్ ప్లాట్‌ఫారమ్‌లను అందిస్తుంది. ప్రతి పనికీ వేర్వేరు అవసరాలు ఉన్నందున, ధర మీ వినియోగం ఆధారంగా అందించబడుతుంది.",
+    priceDescP3: "మోడల్ సిఫార్సులు, అంచనా వేసిన రన్నింగ్ ఖర్చులు, ఫైనాన్సింగ్ ఎంపికలు మరియు తాజా ధరలను పొందడానికి ఉచిత సంప్రదింపులను బుక్ చేసుకోండి.",
+    priceDependsTitle: "ధర వీటిపై ఆధారపడి ఉంటుంది:",
+    priceDependsItems: [
+      "మోడల్ & హెచ్‌పి కేటగిరీ",
+      "బ్యాటరీ సామర్థ్యం",
+      "హార్స్‌పవర్ & టార్క్ అవసరాలు",
+      "అప్లికేషన్ (వ్యవసాయ / పారిశ్రామిక)",
+      "అవసరమైన పరికరాలు & అటాచ్‌మెంట్‌లు"
+    ],
+    requestPriceBtn: "ధర అభ్యర్థించండి",
+    bookFreeDemoBtn: "ఉచిత డెమో బుక్ చేయండి"
   }
 };
 
@@ -606,6 +903,52 @@ export default function ElectricTractors() {
   // Fallback to English if language content is missing
   const content = CONTENT[lang] || CONTENT["en"];
   const texts = t.tractorDetailPage.texts;
+
+  // Calculator state variables
+  const [selectedModel, setSelectedModel] = useState<string>("x45h2");
+  const [dieselPrice, setDieselPrice] = useState<number>(100);
+  const [electricityPrice, setElectricityPrice] = useState<number>(8);
+  const [usageHours, setUsageHours] = useState<number>(8);
+  const [usageDays, setUsageDays] = useState<number>(250);
+  const [showAssumptions, setShowAssumptions] = useState<boolean>(false);
+
+  // Calculator presets based on real business numbers
+  const modelPresets: Record<string, {
+    name: string;
+    dieselConsumption: number; // Litres/hour
+    electricConsumption: number; // kWh/hour
+    dieselMaint: number; // ₹/hour
+    electricMaint: number; // ₹/hour
+  }> = {
+    x45h2: {
+      name: "AutoNxt X45H2 (45 HP Equivalent)",
+      dieselConsumption: 3.5,
+      electricConsumption: 5.5,
+      dieselMaint: 50,
+      electricMaint: 10,
+    },
+    x30c2: {
+      name: "AutoNxt X30C2 (30 HP Equivalent)",
+      dieselConsumption: 2.5,
+      electricConsumption: 4.0,
+      dieselMaint: 40,
+      electricMaint: 8,
+    },
+    x25h2: {
+      name: "AutoNxt X27H2 (25 HP Equivalent)",
+      dieselConsumption: 2.0,
+      electricConsumption: 3.0,
+      dieselMaint: 35,
+      electricMaint: 7,
+    },
+  };
+
+  const preset = modelPresets[selectedModel] || modelPresets.x45h2;
+  const totalHoursYear = usageHours * usageDays;
+
+  const dieselYearlyCost = totalHoursYear * (preset.dieselConsumption * dieselPrice + preset.dieselMaint);
+  const electricYearlyCost = totalHoursYear * (preset.electricConsumption * electricityPrice + preset.electricMaint);
+  const yearlySavings = Math.max(0, dieselYearlyCost - electricYearlyCost);
 
   // Static definition of tractor models for this landing page (no implements/attachments)
   // All parameters matched strictly to user spreadsheet documents
@@ -834,10 +1177,13 @@ export default function ElectricTractors() {
                 {content.whyChooseTitle}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                {content.whyChoosePoints.map((pt: string, i: number) => (
-                  <div key={i} className="flex gap-3 items-start">
-                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-muted-foreground text-sm font-medium leading-relaxed">{pt}</span>
+                {content.whyChoosePoints.map((pt: any, i: number) => (
+                  <div key={i} className="flex gap-4 items-start bg-muted/10 border border-border/40 p-5 rounded-2xl">
+                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-1" />
+                    <div className="text-left">
+                      <h3 className="font-bold text-foreground text-base mb-1">{pt.title}</h3>
+                      <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">{pt.desc}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -1084,6 +1430,285 @@ export default function ElectricTractors() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── RUNNING COST CALCULATOR ── */}
+      <section className="py-20 border-t border-border bg-muted/20">
+        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-8 bg-primary rounded-full" />
+              <p className="text-primary font-bold text-xs uppercase tracking-widest">Savings Calculator</p>
+              <div className="h-px w-8 bg-primary rounded-full" />
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+              {content.calculatorTitle}
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {content.calculatorSubtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            {/* INPUT PANEL */}
+            <div className="lg:col-span-7 bg-card border border-border rounded-3xl p-6 md:p-8 space-y-6 flex flex-col justify-between shadow-lg">
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+                    {content.modelLabel}
+                  </label>
+                  <CustomSelect
+                    value={selectedModel}
+                    onChange={(val) => setSelectedModel(val)}
+                    options={[
+                      { value: "x45h2", label: modelPresets.x45h2.name },
+                      { value: "x30c2", label: modelPresets.x30c2.name },
+                      { value: "x25h2", label: modelPresets.x25h2.name },
+                    ]}
+                    className="w-full"
+                  />
+                </div>
+
+                {/* DIESEL PRICE SLIDER */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center text-sm font-semibold">
+                    <span className="text-muted-foreground">{content.dieselCostLabel}</span>
+                    <span className="text-primary font-bold">₹{dieselPrice}/{content.ltr}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="80"
+                    max="150"
+                    value={dieselPrice}
+                    onChange={(e) => setDieselPrice(Number(e.target.value))}
+                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                  />
+                  <div className="flex justify-between text-[10px] text-muted-foreground font-semibold">
+                    <span>₹80</span>
+                    <span>₹115</span>
+                    <span>₹150</span>
+                  </div>
+                </div>
+
+                {/* ELECTRICITY PRICE SLIDER */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center text-sm font-semibold">
+                    <span className="text-muted-foreground">{content.electricityCostLabel}</span>
+                    <span className="text-primary font-bold">₹{electricityPrice}/{content.unit}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5"
+                    max="15"
+                    value={electricityPrice}
+                    onChange={(e) => setElectricityPrice(Number(e.target.value))}
+                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                  />
+                  <div className="flex justify-between text-[10px] text-muted-foreground font-semibold">
+                    <span>₹5</span>
+                    <span>₹10</span>
+                    <span>₹15</span>
+                  </div>
+                </div>
+
+                {/* RUNNING HOURS SLIDER */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center text-sm font-semibold">
+                    <span className="text-muted-foreground">{content.usageHoursLabel}</span>
+                    <span className="text-primary font-bold">{usageHours} {content.hr}s/day</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="2"
+                    max="12"
+                    value={usageHours}
+                    onChange={(e) => setUsageHours(Number(e.target.value))}
+                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                  />
+                  <div className="flex justify-between text-[10px] text-muted-foreground font-semibold">
+                    <span>2 {content.hr}s</span>
+                    <span>7 {content.hr}s</span>
+                    <span>12 {content.hr}s</span>
+                  </div>
+                </div>
+
+                {/* RUNNING DAYS SLIDER */}
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center text-sm font-semibold">
+                    <span className="text-muted-foreground">{content.usageDaysLabel}</span>
+                    <span className="text-primary font-bold">{usageDays} days/year</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="50"
+                    max="365"
+                    value={usageDays}
+                    onChange={(e) => setUsageDays(Number(e.target.value))}
+                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                  />
+                  <div className="flex justify-between text-[10px] text-muted-foreground font-semibold">
+                    <span>50 days</span>
+                    <span>200 days</span>
+                    <span>365 days</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Collapsible Assumptions */}
+              <div className="mt-8 border-t border-border pt-4">
+                <button
+                  onClick={() => setShowAssumptions(!showAssumptions)}
+                  className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary hover:text-primary/80 transition-colors cursor-pointer select-none"
+                >
+                  <Info className="w-4 h-4" />
+                  <span>{content.assumptionsTitle}</span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showAssumptions ? "rotate-180" : ""}`} />
+                </button>
+
+                <AnimatePresence>
+                  {showAssumptions && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden mt-4 text-xs text-muted-foreground space-y-3"
+                    >
+                      <div className="grid grid-cols-2 gap-4 bg-muted/30 p-4 rounded-2xl border border-border/50">
+                        <div>
+                          <p className="font-bold text-foreground mb-1">Diesel Tractor Specs:</p>
+                          <ul className="space-y-1 font-medium">
+                            <li>• {content.dieselConsumptionRate}: <span className="text-foreground font-bold">{preset.dieselConsumption} L/{content.hr}</span></li>
+                            <li>• {content.dieselMaintRate}: <span className="text-foreground font-bold">₹{preset.dieselMaint}/{content.hr}</span></li>
+                          </ul>
+                        </div>
+                        <div>
+                          <p className="font-bold text-foreground mb-1">AutoNXT Electric Specs:</p>
+                          <ul className="space-y-1 font-medium">
+                            <li>• {content.electricConsumptionRate}: <span className="text-foreground font-bold">{preset.electricConsumption} {content.unit}s/{content.hr}</span></li>
+                            <li>• {content.electricMaintRate}: <span className="text-foreground font-bold">₹{preset.electricMaint}/{content.hr}</span></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <p className="italic leading-normal text-[11px]">
+                        {content.savingsDisclaimer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* RESULTS PANEL */}
+            <div className="lg:col-span-5 flex flex-col gap-6">
+              <div className="bg-card border border-border rounded-3xl p-6 md:p-8 flex flex-col justify-between flex-1 relative overflow-hidden shadow-xl">
+                {/* Radial glow background */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+
+                <div className="space-y-6">
+                  {/* Diesel Cost Summary */}
+                  <div className="flex justify-between items-center border-b border-border/60 pb-4">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{content.dieselTractorCost}</p>
+                      <p className="text-sm font-semibold text-foreground/80 mt-1">{preset.name}</p>
+                    </div>
+                    <p className="text-lg font-bold text-foreground/90 shrink-0">
+                      ₹{Math.round(dieselYearlyCost).toLocaleString("en-IN")}
+                      <span className="text-xs text-muted-foreground font-normal">{content.perYear}</span>
+                    </p>
+                  </div>
+
+                  {/* Electric Cost Summary */}
+                  <div className="flex justify-between items-center border-b border-border/60 pb-4">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">AutoNXT Electric Cost</p>
+                      <p className="text-sm font-semibold text-foreground/80 mt-1">{preset.name}</p>
+                    </div>
+                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400 shrink-0">
+                      ₹{Math.round(electricYearlyCost).toLocaleString("en-IN")}
+                      <span className="text-xs text-muted-foreground font-normal">{content.perYear}</span>
+                    </p>
+                  </div>
+
+                  {/* Savings Calculation Output */}
+                  <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/20 rounded-2xl p-6 text-center shadow-inner relative overflow-hidden group">
+                    {/* Pulsing light */}
+                    <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    
+                    <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-2">
+                      {content.annualSavings}
+                    </p>
+                    <p className="text-3xl md:text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight">
+                      ₹{Math.round(yearlySavings).toLocaleString("en-IN")}
+                      <span className="text-sm text-muted-foreground font-bold tracking-normal">{content.perYear}</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-8">
+                  <Button asChild size="lg" className="w-full bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-700 dark:hover:bg-emerald-600 text-white font-bold h-13 rounded-xl shadow-xl shadow-emerald-600/10">
+                    <Link href={`/book?subject=Demo%20Inquiry%20from%20Savings%20Calculator&message=I%20used%20the%20savings%20calculator%20for%20the%20${preset.name}%20and%20calculated%20annual%20savings%20of%20about%20%E2%82%B9%20${Math.round(yearlySavings).toLocaleString("en-IN")}%2Fyear.%20I%20would%20like%20to%20schedule%20a%20free%20consultation%20and%20demo.`}>
+                      {content.bookDemoBtn} <ArrowRight className="ml-2 w-4.5 h-4.5" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ELECTRIC TRACTOR PRICE SECTION ── */}
+      <section className="py-20 border-t border-border bg-background">
+        <div className="container mx-auto px-4 md:px-8 max-w-5xl">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            {/* CONTENT COLUMN */}
+            <div className="md:col-span-7 space-y-6 text-left">
+              <div className="flex items-center gap-3">
+                <div className="h-px w-8 bg-primary rounded-full" />
+                <p className="text-primary font-bold text-xs uppercase tracking-widest">Pricing</p>
+              </div>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+                {content.priceTitle}
+              </h2>
+              <div className="space-y-4 text-muted-foreground text-sm sm:text-base leading-relaxed font-medium">
+                <p>{content.priceDescP1}</p>
+                <p>{content.priceDescP2}</p>
+                <p>{content.priceDescP3}</p>
+              </div>
+
+              <div className="flex flex-wrap gap-4 pt-4">
+                <Button asChild size="lg" className="bg-primary text-white hover:bg-primary/90 font-bold px-8 h-13 rounded-xl shadow-lg shadow-primary/25">
+                  <Link href={`/book?subject=Price%20Quote%20Request%3A%20${preset.name}&message=I%20would%20like%20to%20request%20pricing%20details%20for%20the%20${preset.name}%20electric%20tractor%20based%20on%20my%20use%20case.`}>
+                    {content.requestPriceBtn}
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline" className="border-border hover:bg-muted text-foreground font-semibold px-8 h-13 rounded-xl">
+                  <Link href={`/book?subject=Demo%20Request%3A%20${preset.name}&message=I%20would%20like%20to%20schedule%20a%20free%20live%20demo%20of%20the%20${preset.name}%20electric%20tractor%20at%20my%20site.`}>
+                    {content.bookFreeDemoBtn}
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* CHECKLIST PANEL */}
+            <div className="md:col-span-5 bg-card border border-border rounded-3xl p-8 relative overflow-hidden shadow-xl">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+              <h3 className="font-bold text-foreground text-lg mb-6 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-primary animate-pulse" />
+                <span>{content.priceDependsTitle}</span>
+              </h3>
+              
+              <ul className="space-y-4">
+                {content.priceDependsItems?.map((item: string, i: number) => (
+                  <li key={i} className="flex gap-3 items-center">
+                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                    <span className="text-muted-foreground text-sm font-semibold">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
